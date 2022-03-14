@@ -1,5 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
+import Main from './register/Main';
+//import LoginBox from './register/LoginBox';
+//import RegisterBox from './register/RegisterBox';
+
+
 
 function App() {
   return (
@@ -18,6 +23,12 @@ function App() {
           Learn React
         </a>
       </header>
+
+      <body>
+      <Main/>
+      </body>
+
+
     </div>
   );
 }
