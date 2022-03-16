@@ -10,23 +10,23 @@ import { BrowserRouter } from "react-router-dom";
 
 import CsvReader from "./csvHandler/CsvReader.jsx";
 
-ReactDOM.render(
+/*ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
             <CsvReader />
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
-);
+);*/
 
-/*ReactDOM.render(
+ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
         <Main />
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
-);*/
+);
 /*ReactDOM.render(
   <React.StrictMode>
     <App />
