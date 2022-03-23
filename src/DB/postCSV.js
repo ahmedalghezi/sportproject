@@ -1,21 +1,29 @@
-import http from "./httpCommon";
-
 
 
 
 import http from "./httpCommon";
-class PostCSVData {
+import axios from "axios";
+export default class PostCSVData {
 
-    setPerformanceDump(data){
+    static setPerformanceDump(data){
+        return http.post("tutorials/csv/dump_performance", data);
+    }
+
+    static componentDidMount() {
+        // Simple POST request with a JSON body using axios
+        const article = { title: 'React POST Request Example' };
+        axios.post('http://localhost:8080/api/tutorials/csv/dump_performance', article)
+            .then(response => this.setState({ articleId: response.data.id }));
+    }
+
+
+    static setPerformanceAthlete(data){
+        return http.post("/csv/set_performance_athlete", data);
+
+    }
+
+
+    static checkTests(data) {
         return http.post("/csv/dump_performance", data);
     }
-
-
-    setPerformanceAthlete(data){
-        return http.post("/csv/set_performance_athlete", data);
-    }
-
-
-
 }
-export default new PostCSVData();

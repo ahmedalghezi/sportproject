@@ -2,7 +2,7 @@
 
 
 import md5 from 'md5-hash'
-
+import PostCSVData from '../DB/postCSV';
 
 
 
@@ -21,10 +21,37 @@ function readTextFile(file) {
 }
 
 
+export function toJson(headers, values) {
+    /*if(header.length !== values.length)
+        return null;
+
+    for (var i = 0; i < header.length; i++) {
+        json[header[i]] = values[i];
+    }
+    return json;*/
+
+    const jsonObj = headers.reduce((obj, header, i) => {
+        obj[header] = values[i];
+        return obj;
+    }, {})
+
+    return jsonObj;
+}
+
+
+export function submitAll(headers, csvMatrixVal){
+    for (var i = 0; i < csvMatrixVal.length; i++) {
+       const jsonObj = toJson(headers,csvMatrixVal[i]);
+       const res = PostCSVData.setPerformanceAthlete(jsonObj);
+       //TODO complete the function
+    }
+}
+
+
 // This will parse a delimited string into an array of
 // arrays. The default delimiter is the comma, but this
 // can be overriden in the second argument.
-function CSVToArray(strData) {
+export function CSVToArray(strData) {
     var  strDelimiter;
     /*var delmArr = [",",";"];
     if(guessDelimiters(strData , delmArr))
@@ -203,7 +230,7 @@ export function processArr(headerArr, csvArr) {
     }
     if(birthDateIndex < 0 || birthDateIndex < 0)
         return false;
-    csvArr[0][nameIndex] = "ID";
+    headerArr[nameIndex] = "ID";
     for(var i = 0; i < csvArr.length; i++){
         csvArr[i] = replaceID(csvArr[i], nameIndex,birthDateIndex);
     }
