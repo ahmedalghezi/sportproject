@@ -72,7 +72,7 @@ export default function CsvReader(){
                 console.log(e);
             });
 
-
+/*
         for (var i = 0; i < valuesMatrix.length; i++) {
             const jsonObj = toJson(headerArray,valuesMatrix[i]);
             const res = PostCSVData.setPerformanceAthlete(jsonObj);
@@ -87,6 +87,7 @@ export default function CsvReader(){
                     console.log(e);
                 });
         }
+*/
     }
 
     const checkIDs = () =>{
@@ -107,7 +108,7 @@ export default function CsvReader(){
             return;
         }
 
-        sendTests();
+       // sendTests();
 
 
 
