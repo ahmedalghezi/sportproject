@@ -4,9 +4,9 @@ import {CSVToArray} from "./processCSV";
 import {toJson} from "./processCSV";
 import PostCSVData from "../DB/postCSV";
 import Sheet from "./xlsSheet/XlsSheet";
-import '../register/style.css';
+//import '../register/style.css';
 
-export default function CsvReader(){
+export default function  CsvReader(){
     const [csvFile, setCsvFile] = useState();
     const [csvArray, setCsvArray] = useState([]);
     const [headerArray, setHeaderArray] = useState([]);
@@ -166,7 +166,7 @@ export default function CsvReader(){
     return(
         <div>
         <form id='csv-form'>
-            <input
+             {/*<input
                 type='file'
                 accept='.csv'
                 id='csvFile'
@@ -175,7 +175,7 @@ export default function CsvReader(){
                     readFile(e.target.files[0])
                 }}
             >
-            </input>
+            </input>*/}
             <br/>
 
             <button

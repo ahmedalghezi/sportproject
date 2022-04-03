@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import {Navigation} from 'react-router';
 import './style.css';
-export default class SignUp extends Component {
+import PostSignup from '../DB/postSignup';
+import {afterReg} from './AfterReg';
+import { withRouter } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+class SignUpC extends Component {
 
 
     constructor(props) {
@@ -23,6 +28,22 @@ export default class SignUp extends Component {
 
     handleSubmit(event) {
        // alert('A name was submitted: ' + this.state.firstName);
+        //this.props.history.push('/');
+        this.props.navigate('/reg/regSuc');
+        PostSignup.setSignUP(this.state).then(response => {
+            console.log(response.data);
+            //navigate("./AfterReg");
+            //this.transitionTo('/');
+            if(response.data.res === "error")
+                alert("some error has happened");
+            if(response.data.res === "duplicate key")
+                alert("This email is already registered");
+            //reg successful navigate to other page?
+            this.props.history.push('./AfterReg')
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+            });
         event.preventDefault();
     }
 
@@ -66,9 +87,12 @@ export default class SignUp extends Component {
 
 }
 
+function SignUp(props) {
+    let navigate = useNavigate();
+    return <SignUpC {...props} navigate={navigate} />
+}
 
-
-
+export default SignUp;
 
 
 

@@ -9,6 +9,13 @@ export default class PostCSVData {
         return http.post("/csv/dump_performance", data);
     }
 
+    static componentDidMount() {
+        // Simple POST request with a JSON body using axios
+        const article = { title: 'React POST Request Example' };
+        axios.post('http://localhost:8080/api/tutorials/csv/dump_performance', article)
+            .then(response => this.setState({ articleId: response.data.id }));
+    }
+
 
     static setPerformanceAthlete(data){
         return http.post("/csv/set_performance_athlete", data);
