@@ -7,8 +7,9 @@ class CoachInputDataService {
         return http.post("/register_coach", data);
     }
 
+
     getAll() {
-        return http.get("/tutorials");
+        return http.get("/trainer");
     }
     get(id) {
         return http.get(`/tutorials/${id}`);

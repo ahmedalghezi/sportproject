@@ -1,3 +1,7 @@
+/*
+By Ahmed Al-Gehzi
+ */
+
 import React, {Component} from "react";
 import PostSignup from "../DB/postSignup";
 

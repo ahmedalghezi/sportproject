@@ -1,3 +1,4 @@
+/*source: https://www.positronx.io/build-react-login-sign-up-ui-template-with-bootstrap-4/*/
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 * {
     box-sizing: border-box;
@@ -28,7 +29,7 @@ body, html, .App, #root, .auth-wrapper {
     text-align: left;
 }
 .auth-inner {
-    width: 450px;
+    width: 650px;
     margin: auto;
     background: #ffffff;
     box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
@@ -129,11 +130,6 @@ table td, table td * {
 
 .vertical-menu {
     width: 200px;
-}
-
-.midH{
-    width: 180px;
-    font-size: 12px;
 }
 
 .mid {
