@@ -12,8 +12,6 @@ class AddAthleteC extends Component {
 
     constructor(props) {
         super(props);
-        const arr1 = ["test1","test2","test3"];
-        const arr2 = ["test1","test2","test3","test11","test21","test31"];
         this.state = {changed:false, selectedAthlete:'', athletesArr:[],discipline:"basketball",code:'',saving:false };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

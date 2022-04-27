@@ -21,7 +21,6 @@ export class MyProfile extends Component {
 
     updateProfile() {
         this.props.navigate('/reg/updateProfile');
-        return;
     }
 
     render() {

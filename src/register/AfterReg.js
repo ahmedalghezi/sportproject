@@ -3,7 +3,6 @@ By Ahmed Al-Gehzi
  */
 
 import React, {Component} from "react";
-import PostSignup from "../DB/postSignup";
 
 export default class AfterReg extends Component {
 

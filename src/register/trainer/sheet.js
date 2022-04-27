@@ -220,8 +220,12 @@ export default class Sheet extends Component {
             this.state.preEvArr['athList'].target.classList.remove("active");
         }
         event.target.classList.add("active");
-        this.state.preEvArr['athList'] = event;
+        const arr = this.state.preEvArr;
+        arr['athList'] = event;
+        this.setState({preEvArr:arr});
+        //this.state.preEvArr['athList'] = event;
         this.setState({athletes:event.target.name});
+
     }
 
 
@@ -232,7 +236,12 @@ export default class Sheet extends Component {
             this.state.preEvArr['testList'].target.classList.remove("active");
         }
         event.target.classList.add("active");
-        this.state.preEvArr['testList'] = event;
+       // this.state.preEvArr['testList'] = event;
+
+        const arr = this.state.preEvArr;
+        arr['testList'] = event;
+        this.setState({preEvArr:arr});
+
        // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({tests:event.target.name});
     }

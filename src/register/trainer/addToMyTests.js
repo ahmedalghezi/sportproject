@@ -149,7 +149,11 @@ class AddToMyTestsC extends Component {
             this.state.preEvArr['alltestList'].target.classList.remove("active");
         }
         event.target.classList.add("active");
-        this.state.preEvArr['alltestList'] = event;
+        const arr = this.state.preEvArr;
+        arr['alltestList'] = event;
+        this.setState({preEvArr:arr});
+        //this.state.preEvArr['alltestList'] = event;
+
         // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({selectedAllTest:event.target.name});
     }
@@ -161,7 +165,12 @@ class AddToMyTestsC extends Component {
             this.state.preEvArr['mytestList'].target.classList.remove("active");
         }
         event.target.classList.add("active");
-        this.state.preEvArr['mytestList'] = event;
+        //this.state.preEvArr['mytestList'] = event;
+
+        const arr = this.state.preEvArr;
+        arr['mytestList'] = event;
+        this.setState({preEvArr:arr});
+
         // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({selectedMyTest:event.target.name});
     }

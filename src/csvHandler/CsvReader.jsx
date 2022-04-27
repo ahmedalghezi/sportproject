@@ -107,8 +107,7 @@ export default function  CsvReader(){
 
         if(!checkIDsFlag) {
             checkIDs();
-            //show in progress ...
-            return;
+            //TODO show in progress ...
         }
 
        // sendTests();

@@ -5,35 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DB/handelTrainer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DB/limeControl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/UpdateProfile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/control.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/regMain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/sign-out.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/trainer/createTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/trainer/trainerStyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utli/alertDialog.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/rw.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/rw.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/processCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/processCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lime/control.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/trainerStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/trainerStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,6 +123,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="28" />
     <option name="y" value="23" />
@@ -212,7 +197,8 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="copyright" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -302,7 +288,9 @@
       <workItem from="1648397816395" duration="58546000" />
       <workItem from="1649242596911" duration="43877000" />
       <workItem from="1649364482502" duration="45118000" />
-      <workItem from="1649669318138" duration="24741000" />
+      <workItem from="1649669318138" duration="29016000" />
+      <workItem from="1649963301541" duration="247000" />
+      <workItem from="1650015416646" duration="2369000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -402,7 +390,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648975232377</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Registration version 1 (update profile is still disabled)">
+      <created>1649767040969</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1649767040969</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -442,14 +437,15 @@
     <MESSAGE value="minor change" />
     <MESSAGE value="minor changes" />
     <MESSAGE value="Changes to regi. components set." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes to regi. components set." />
+    <MESSAGE value="Registration version 1 (update profile is still disabled)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Registration version 1 (update profile is still disabled)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>137</line>
+          <line>136</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -464,6 +460,10 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/package-lock.json">
