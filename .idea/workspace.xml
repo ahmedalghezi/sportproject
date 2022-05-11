@@ -5,17 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/utli/encriptUsers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/processCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/processCSV.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/createTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/createTest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/trainerStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/trainerStyle.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +291,8 @@
       <workItem from="1649364482502" duration="45118000" />
       <workItem from="1649669318138" duration="29016000" />
       <workItem from="1649963301541" duration="247000" />
-      <workItem from="1650015416646" duration="2369000" />
+      <workItem from="1650015416646" duration="21090000" />
+      <workItem from="1652175312928" duration="2481000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -397,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649767040969</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Registration version 1.1 (update profile is still disabled)">
+      <created>1651044196053</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1651044196053</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -429,6 +438,16 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First version login component" />
     <MESSAGE value="First version login component_2" />
@@ -438,7 +457,8 @@
     <MESSAGE value="minor changes" />
     <MESSAGE value="Changes to regi. components set." />
     <MESSAGE value="Registration version 1 (update profile is still disabled)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Registration version 1 (update profile is still disabled)" />
+    <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Registration version 1.1 (update profile is still disabled)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -450,12 +470,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>29</line>
+          <line>53</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>118</line>
+          <line>127</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

@@ -10,14 +10,38 @@ import PostSignup from '../DB/postSignup';
 import {afterReg} from './AfterReg';
 import { withRouter } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
+import HandelTrainer from "../DB/handelTrainer";
 class SignUpC extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {firstName: '', lastName: '', email:'', password:'', discipline:'basketball',gender:'M',birthdate:'',readTerms:false};
+        this.state = {firstName: '', lastName: '', email:'', password:'', discipline:'basketball',gender:'M',
+            birthdate:'',readTerms:false, disciplinesList: []};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+
+    componentDidMount() {
+        this.getDisciplines();
+    }
+
+    getDisciplines(){
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({disciplinesList: arr});
+                return;
+            }
+            else {
+                this.setState({disciplinesList: response.data.res});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
     }
 
 
@@ -33,21 +57,6 @@ class SignUpC extends Component {
     }
 
 
-    getDisplines(){
-        PostSignup.getAllDisciplines().then(response => {
-            //console.log(response.data);
-            //navigate("./AfterReg");
-            //this.transitionTo('/');
-            if(response.data.res === "error")
-                alert("some error has happened");
-            if(response.data.res === "duplicate key")
-                alert("This email is already registered");
-            const displines = response.data.res;
-        }).catch(e => {
-            console.log(e);
-            alert("some error has happened");
-        });
-    }
 
      checkInput(stateData){
         if(stateData.firstName === ""){
@@ -148,14 +157,19 @@ class SignUpC extends Component {
 
 
 
+
+
                 <div className="form-group">
                     <label>Discipline</label>
                     <br></br>
                     <select onChange={this.handleChange}  name="discipline">
-                        <option value="basketball" >Basketball</option>
-                        <option value="iceHokey">Ice hokey</option>
+                    {this.state.disciplinesList.map((item) => (
+                        <option key={item}>{item}</option>
+                    ))}
                     </select>
                 </div>
+
+
 
                 <div className="form-group">
                     <label>Gender</label>

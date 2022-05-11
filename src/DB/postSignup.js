@@ -14,7 +14,7 @@ export default class PostSignup {
     }
 
     static getAllDisciplines(){
-        return http.get("/reg/signup/getAllDisciplines");
+        return http.get("/reg/getAllDisciplines");
     }
 
     static login(data) {
@@ -39,7 +39,13 @@ export default class PostSignup {
         return role === "trainer";
     }
 
+    static isAdminTrainer(role) {
+        return role === "trainerAdmin";
+    }
+
     static signOut() {
         return http.get("/reg/signOut");
     }
+
+
 }

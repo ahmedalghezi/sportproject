@@ -8,13 +8,14 @@ import React, {Component} from "react";
 import '../style.css';
 import HandelTrainer from "../../DB/handelTrainer";
 import {useNavigate} from 'react-router-dom';
+import PostSignup from "../../DB/postSignup";
 
 class AddToMyTestsC extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {preEvArr:[],changed:false,selectedAllTest:'',selectedMyTest:'', myTestsArr:[], allTestsArr:[],discipline:"basketball",saving:false };
+        this.state = {preEvArr:[],changed:false,selectedAllTest:'',selectedMyTest:'', myTestsArr:[], allTestsArr:[],discipline:"Basketball",saving:false,disciplinesList:[] };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getMyTests = this.getMyTests.bind(this);
@@ -25,6 +26,25 @@ class AddToMyTestsC extends Component {
     componentDidMount() {
         this.getMyTests();
         this.getAllTests();
+        this.getDisciplines();
+    }
+
+
+    getDisciplines(){
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({disciplinesList: arr});
+                return;
+            }
+            else {
+                this.setState({disciplinesList: response.data.res});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
     }
 
     handleChange(event) {
@@ -180,9 +200,11 @@ class AddToMyTestsC extends Component {
         //some are adapted from <!-- Adapted from https://stackoverflow.com/a/16243163 -->
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Add to my tests list</h3>
+                <h3>Add to my trainings list</h3>
 
                 <br></br>
+
+
 
 
 
@@ -190,10 +212,12 @@ class AddToMyTestsC extends Component {
                     <label>Discipline</label>
                     <br></br>
                     <select onChange={this.handleChange}  name="discipline">
-                        <option value="basketball">Basketball</option>
-                        <option value="iceHokey">Ice hokey</option>
+                        {this.state.disciplinesList.map((item) => (
+                            <option key={item} value={item}>{item}</option>
+                        ))}
                     </select>
                 </div>
+
 
 
 
@@ -212,7 +236,7 @@ class AddToMyTestsC extends Component {
                         <tr>
                             <td>
                                 <div className="vertical-menu midH">
-                                    <a href="#" className="active">All Tests</a>
+                                    <a href="#" className="active">All Training Types</a>
                                     {this.state.allTestsArr.map((option) => (
                                         <a name={option.title} key={option.id}
                                            onClick={this.handleAllTestListClick}>{option.title}</a>
@@ -228,13 +252,16 @@ class AddToMyTestsC extends Component {
                                 <button onClick={this.handleRemove}> {"<<"} </button></td>
                             <td>
                                 <div className="vertical-menu midH">
-                                    <a href="#" className="active">My Tests</a>
+                                    <a href="#" className="active">My Trainings</a>
                                     {this.state.myTestsArr.map((option) => (
                                         <a name={option.title} key={option.id}
                                            onClick={this.handleMyTestListClick}>{option.title}</a>
                                     ))}
                                 </div>
                             </td>
+
+
+
 
 
 

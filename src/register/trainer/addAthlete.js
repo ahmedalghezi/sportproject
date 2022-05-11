@@ -6,13 +6,14 @@ import React, {Component} from "react";
 import '../style.css';
 import HandelTrainer from "../../DB/handelTrainer";
 import {useNavigate} from 'react-router-dom';
+import PostSignup from "../../DB/postSignup";
 
 class AddAthleteC extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {changed:false, selectedAthlete:'', athletesArr:[],discipline:"basketball",code:'',saving:false };
+        this.state = {changed:false, selectedAthlete:'', athletesArr:[],discipline:"basketball",code:'',saving:false, disciplinesList:[] };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getMyAthletes= this.getMyAthletes.bind(this);
@@ -23,7 +24,24 @@ class AddAthleteC extends Component {
 
     componentDidMount() {
         this.getMyAthletes();
-        //this.getAllTests();
+        this.getDisciplines();
+    }
+
+    getDisciplines(){
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({disciplinesList: arr});
+                return;
+            }
+            else {
+                this.setState({disciplinesList: response.data.res});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
     }
 
     handleChange(event) {
@@ -136,7 +154,7 @@ class AddAthleteC extends Component {
         //some are adapted from <!-- Adapted from https://stackoverflow.com/a/16243163 -->
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Add Athletes to my list</h3>
+                <h3>Add athletes to my list</h3>
 
                 <br></br>
 
@@ -144,8 +162,9 @@ class AddAthleteC extends Component {
                     <label>Discipline</label>
                     <br></br>
                     <select onChange={this.handleChange}  name="discipline">
-                        <option value="basketball">Basketball</option>
-                        <option value="iceHokey">Ice hokey</option>
+                        {this.state.disciplinesList.map((item) => (
+                            <option key={item} value={item}>{item}</option>
+                        ))}
                     </select>
                 </div>
 

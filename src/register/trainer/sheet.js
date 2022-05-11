@@ -13,10 +13,8 @@ export default class Sheet extends Component {
 
     constructor(props) {
         super(props);
-        const arr1 = ["test1","test2","test3","test11","test21","test311"];
-        const arr2 = ["ath1","ath2","ath3","ath11","ath21","ath31"];
-        this.state = {added_succ:"",preEvArr:[], prevEventAs:null, prevEventP:null, prevEventA:null, prevEventQ: null, quality: -1, planned:-1,
-            as_planned:'',achieved:-1, athletes: '', tests: '', testsArr:arr1, athletesArr:[]};
+        this.state = {comments:"", added_succ:"",preEvArr:[], prevEventAs:null, prevEventP:null, prevEventA:null, prevEventQ: null, quality: -1, planned:-1,
+            as_planned:'',achieved:-1, athletes: '', tests: '', testsArr:[], athletesArr:[],duration:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.nextTest = this.nextTest.bind(this);
@@ -132,7 +130,9 @@ export default class Sheet extends Component {
             this.setState({added_succ:""});
         }.bind(this),2000);
         this.clearPrevEvents();
-        this.setState({athletes:'',tests:''})
+        this.setState({athletes:'',tests:'',duration:'',comments:''})
+
+
     }
 
     clearPrevEvents(){
@@ -151,6 +151,14 @@ export default class Sheet extends Component {
         if (this.state.prevEventP) {
             this.state.prevEventP.target.classList.remove("btn-info");
             this.state.prevEventP.target.classList.add("btn-outline-info");
+        }
+
+        if (this.state.preEvArr['testList']) {
+            this.state.preEvArr['testList'].target.classList.remove("active");
+        }
+
+        if (this.state.preEvArr['athList']) {
+            this.state.preEvArr['athList'].target.classList.remove("active");
         }
     }
 
@@ -305,7 +313,7 @@ export default class Sheet extends Component {
                             <td></td>
                             <td>
                                 <div className="vertical-menu">
-                                    <a href="#" className="active">Tests</a>
+                                    <a href="#" className="active">Trainings</a>
                                     {this.state.testsArr.map((option) => (
                                         <a name={option.id} key={option.id}
                                            onClick={this.handleTestListClick}>{option.title}</a>
@@ -326,7 +334,6 @@ export default class Sheet extends Component {
                     <button name="5" className="btn btn-outline-info" onClick={this.handleQualityClick}>5</button>
                     <button name="6" className="btn btn-outline-info" onClick={this.handleQualityClick}>6</button>
                 </div>
-                <p></p>
 
                 <div className="form-group">
                     <label>Planned Intensity</label><br></br>
@@ -349,7 +356,8 @@ export default class Sheet extends Component {
                     <button name="6" className="btn btn-outline-info" onClick={this.handleAchievedClick}>6</button>
                 </div>
                 <p></p>
-
+                <label>Duration Minutes</label><br></br>
+                <div><input className="col-xs-4" type="number" id="quantity" name="duration" min="1" max="200" onChange={this.handleChange} value={this.state.duration}/></div>
 
                 <div className="form-group">
                     <label>Duration and Contents as Planned?</label><br></br>
@@ -360,13 +368,21 @@ export default class Sheet extends Component {
                 <p></p>
 
 
-                <div></div>
 
-                <button type="submit" className="btn btn-primary btn-block">Continue</button>
+                <div className="form-group">
+                    <label>Comments</label>
+                    <input type="text" className="form-control" name="comments" placeholder="comments" value={this.state.comments} onChange={this.handleChange} />
+                </div>
+                <p></p>
+                <div></div>
 
                 <div>
                     <p className="blue">{this.state.added_succ}</p>
                 </div>
+
+                <button type="submit" className="btn btn-primary btn-block">Continue</button>
+
+
             </form>
         );
     }

@@ -4,15 +4,38 @@ By Ahmed Al-Gehzi
 
 import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
+import PostSignup from "../../DB/postSignup";
 
 export default class CreateTest extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {title: '', discipline: 'basketball'};
+        this.state = {title: '', discipline: 'Basketball',disciplinesList:[]};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+
+    componentDidMount() {
+        this.getDisciplines();
+    }
+
+    getDisciplines(){
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({disciplinesList: arr});
+                return;
+            }
+            else {
+                this.setState({disciplinesList: response.data.res});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
     }
 
     handleSubmit(event) {
@@ -52,7 +75,7 @@ export default class CreateTest extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Create Test</h3>
+                <h3>Create New Training Type</h3>
                 <div className="form-group">
                     <label>Test title</label>
                     <input type="text" className="form-control" name="title" placeholder="Test title" onChange={this.handleChange} />
@@ -62,8 +85,9 @@ export default class CreateTest extends Component {
                     <label>Discipline</label>
                     <br></br>
                     <select onChange={this.handleChange}  name="discipline">
-                        <option value="basketball" >Basketball</option>
-                        <option value="iceHokey">Ice hokey</option>
+                        {this.state.disciplinesList.map((item) => (
+                            <option key={item} value={item}>{item}</option>
+                        ))}
                     </select>
                 </div>
 

@@ -15,6 +15,7 @@ export default class NavBar extends Component {
             showSignIn:true,
             showSignUp:true,
             showTrainer:false,
+            showAdmin:false,
             flag:false
             };
         this.checkLogin = this.checkLogin.bind(this);
@@ -39,6 +40,10 @@ export default class NavBar extends Component {
                     this.setState({showTrainer:true});
                 else
                     this.setState({showTrainer:false});
+                if(PostSignup.isAdminTrainer(response.data.role))
+                    this.setState({showAdmin:true});
+                else
+                    this.setState({showAdmin:false});
             }else{
                 this.setState({showSingIn:true});
                 this.setState({showSingUp:true});
@@ -67,13 +72,16 @@ export default class NavBar extends Component {
                                 <Link className="nav-link" to={"/reg/sign-up"} >Sign up</Link>
                             </li>
                             <li className="nav-item" hidden={!this.state.showTrainer}>
-                                <Link className="nav-link" to={"/trainer/addMyTests"} >Tests list</Link>
+                                <Link className="nav-link" to={"/trainer/addMyTests"} >Trainings list</Link>
                             </li>
                             <li className="nav-item" hidden={!this.state.showTrainer}>
                                 <Link className="nav-link" to={"/trainer/addAthletes"} >Athletes list</Link>
                             </li>
                             <li className="nav-item" hidden={!this.state.showTrainer}>
                                 <Link className="nav-link" to={"/trainer/sheet"} >Evaluation</Link>
+                            </li>
+                            <li className="nav-item" hidden={!this.state.showAdmin}>
+                                <Link className="nav-link" to={"/trainer/createTest"} >Create New Training</Link>
                             </li>
                         </ul>
                     </div>

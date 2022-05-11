@@ -40,10 +40,13 @@ class LoginC extends Component {
                 alert("some error has happened");
             else if(response.data.res === "wrong")
                 alert("user name or password are not correct");
-            else{
-                ///this.props.onLogin();
-                ///this.props.navigate('/reg/profile');
-                window.location.href = "https://inprove-sport.info:3000/reg/profile";
+            else {
+                if(response.data.role && PostSignup.isTrainer(response.data.role))
+                    window.location.href = "https://inprove-sport.info:3000/trainer/sheet";
+                else if(response.data.role && PostSignup.isAdminTrainer(response.data.role))
+                    window.location.href = "https://inprove-sport.info:3000/trainer/createTest";
+                else
+                    window.location.href = "https://inprove-sport.info:3000/reg/profile";
             }
                 //this.props.history.push('./AfterReg');
 
