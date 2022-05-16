@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/utli/encriptUsers.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/createTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/createTest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -292,7 +282,8 @@
       <workItem from="1649669318138" duration="29016000" />
       <workItem from="1649963301541" duration="247000" />
       <workItem from="1650015416646" duration="21090000" />
-      <workItem from="1652175312928" duration="2481000" />
+      <workItem from="1652175312928" duration="4384000" />
+      <workItem from="1652458945504" duration="15929000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -406,7 +397,21 @@
       <option name="project" value="LOCAL" />
       <updated>1651044196053</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Coach interface v1.01">
+      <created>1652263167887</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1652263167887</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Minor changes by adding trainer history function">
+      <created>1652691955018</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1652691955018</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -458,7 +463,9 @@
     <MESSAGE value="Changes to regi. components set." />
     <MESSAGE value="Registration version 1 (update profile is still disabled)" />
     <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Registration version 1.1 (update profile is still disabled)" />
+    <MESSAGE value="Coach interface v1.01" />
+    <MESSAGE value="Minor changes by adding trainer history function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor changes by adding trainer history function" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

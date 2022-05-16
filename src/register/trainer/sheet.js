@@ -7,6 +7,7 @@ import React, {Component} from "react";
 
 import '../style.css';
 import HandelTrainer from "../../DB/handelTrainer";
+import collapse from "bootstrap/js/src/collapse";
 
 export default class Sheet extends Component {
 
@@ -14,9 +15,11 @@ export default class Sheet extends Component {
     constructor(props) {
         super(props);
         this.state = {comments:"", added_succ:"",preEvArr:[], prevEventAs:null, prevEventP:null, prevEventA:null, prevEventQ: null, quality: -1, planned:-1,
-            as_planned:'',achieved:-1, athletes: '', tests: '', testsArr:[], athletesArr:[],duration:''};
+            as_planned:'',achieved:-1, athletes: '', tests: '',tempTestsArr:[], tempAthletesArr:[], testsArr:[], athletesArr:[],
+            collapseIcon:">>",expanded:true,evaluatedArr:[],start_time:'',end_time:'',date:new Date().toJSON().slice(0,10).replace(/-/g,'-')};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleCollapseEvent = this.handleCollapseEvent.bind(this);
         this.nextTest = this.nextTest.bind(this);
 
     }
@@ -51,7 +54,19 @@ export default class Sheet extends Component {
             return false;
         }
 
+        if(data.start_time === "" || data.end_time === ""){
+            alert("Error: time is not set!")
+            return false;
+        }
+
         return true;
+    }
+
+    recordEvaluation(){
+        const evId = this.state.athletes+""+this.state.tests;
+        const mEvaluatedArr = this.state.evaluatedArr;
+        mEvaluatedArr[evId] = true;
+        this.setState({evaluatedArr:mEvaluatedArr})
     }
 
     handleSubmit(event) {
@@ -60,14 +75,25 @@ export default class Sheet extends Component {
             return;
 
         const data = {quality:this.state.quality , planned:this.state.planned, achieved:this.state.achieved,
-            athlete_id:this.state.athletes, test_id:this.state.tests }
+            athlete_id:this.state.athletes, test_id:this.state.tests, comments:this.state.comments,
+            start_time:this.state.start_time, end_time:this.state.end_time , as_planned:this.state.as_planned,
+        date:this.state.date};
         HandelTrainer.postTestResults(data).then(response => {
             if (response.data.res === "error")
                 alert("some error has happened");
-            else if (response.data.res === "wrong")
+            if (response.data.res === "wrong")
                 alert("user name or password are not correct");
-            if (response.data.res === "ok")
+            if (response.data.res === "no") {
+                alert("You are not logged in, please login");
+                return
+            }
+            if (response.data.res === "ok") {
+                this.recordEvaluation();
                 this.nextTest();
+            }
+
+
+
         }).catch(e => {
             console.log(e);
             alert("some error has happened");
@@ -104,6 +130,10 @@ export default class Sheet extends Component {
 
 
     getMyAthletes() {
+
+        HandelTrainer.readHistory();
+
+
         HandelTrainer.getMyAthletes().then(response => {
             if (response.data.res === "error")
                 alert("some error has happened");
@@ -131,8 +161,7 @@ export default class Sheet extends Component {
         }.bind(this),2000);
         this.clearPrevEvents();
         this.setState({athletes:'',tests:'',duration:'',comments:''})
-
-
+        this.expandMenus();
     }
 
     clearPrevEvents(){
@@ -234,6 +263,9 @@ export default class Sheet extends Component {
         //this.state.preEvArr['athList'] = event;
         this.setState({athletes:event.target.name});
 
+        if(this.state.tests)
+            this.collapseMenus(event.target.name,this.state.tests);
+
     }
 
 
@@ -252,29 +284,56 @@ export default class Sheet extends Component {
 
        // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({tests:event.target.name});
+
+        if(this.state.athletes)
+            this.collapseMenus(this.state.athletes,event.target.name);
     }
 
 
 
 
 
-    //remove
 
-    getTestsAthletes() {
-        HandelTrainer.getTestsAthletes().then(response => {
-            if (response.data.res === "error")
-                alert("some error has happened");
-            else if (response.data.res === "wrong")
-                alert("Please login please");
-            if (response.data.res === "ok") {
-                this.setState({testsArr: response.data.tests, athletesArr: response.data.athletes});
+    collapseMenus(selectedAthleteID,selectedTestID){
+        if(this.state.athletesArr === '' || this.state.testsArr === '' )
+            return;
+        this.setState({tempTestsArr:this.state.testsArr});
+        this.setState({tempAthletesArr:this.state.athletesArr});
+
+        for(let i = 0 ; i < this.state.testsArr.length ; i++){
+            if(this.state.testsArr[i].id === selectedTestID){
+                this.setState({testsArr:[this.state.testsArr[i]]});
+                break;
             }
-        }).catch(e => {
-            console.log(e);
-            alert("Error getting athletes list form server.");
-        });
+        }
+        for(let i = 0 ; i < this.state.athletesArr.length ; i++){
+            if(this.state.athletesArr[i].ID+"" === selectedAthleteID+""){
+                this.setState({athletesArr:[this.state.athletesArr[i]]});
+                break;
+            }
+        }
+        this.setState({expanded:false});
     }
 
+    expandMenus(){
+        if(this.state.tempTestsArr === '')
+            return;
+        this.setState({testsArr:this.state.tempTestsArr});
+        this.setState({athletesArr:this.state.tempAthletesArr});
+
+        this.setState({tempTestsArr:''});
+        this.setState({tempAthletesArr:''});
+        this.setState({expanded:true});
+    }
+
+    handleCollapseEvent(event){
+        event.preventDefault();
+        if(this.state.expanded)
+            this.collapseMenus();
+        else
+            this.expandMenus();
+        this.setState({expanded:!this.state.expanded})
+    }
 
 
     render() {
@@ -283,7 +342,30 @@ export default class Sheet extends Component {
             <form onSubmit={this.handleSubmit}>
                 <h3>Coach Sheet</h3>
 
-                <br></br>
+
+                <table>
+                    <tr>
+                        <td>
+                <label>Start time</label>
+                <div><input className="col-xs-4" type="time" id="start_time" name="start_time" min="1" max="200" onChange={this.handleChange} value={this.state.start_time}/></div>
+                        </td>
+                        <td width="20px">
+                        </td>
+                        <td>
+                <label>End time</label><br></br>
+                <div><input className="col-xs-4" type="time" id="end_time" name="end_time" min="1" max="200" onChange={this.handleChange} value={this.state.end_time}/></div>
+                            </td>
+
+                        <td width="40px">
+                        </td>
+                        <td>
+                            <label>Date</label><br></br>
+                            <div><input className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={this.handleChange} value={this.state.date}/></div>
+                        </td>
+
+                        </tr>
+                </table>
+
 
                 <div className="form-group">
 
@@ -298,15 +380,21 @@ export default class Sheet extends Component {
                         </tr>
 
                         <tr>
+                            <td><button hidden={this.state.expanded}  onClick={this.handleCollapseEvent}>{this.state.collapseIcon}</button></td>
                             <td>
                                 <div className="vertical-menu mid">
                                     <div><a href="#" className="active">Athletes</a></div>
                                     {this.state.athletesArr.map((option) => (
-                                        <a name={option.ID} key={option.ID}
-                                           onClick={this.handleAthListClick}>{option.firstname}</a>
+                                        !this.state.evaluatedArr[option.ID+""+this.state.tests]
+                                            ? (<a name={option.ID} key={option.ID}
+                                                  onClick={this.handleAthListClick}>{option.firstname}</a>)
+                                            : (<s><a name={option.ID} key={option.ID}
+                                                  onClick={this.handleAthListClick}>{option.firstname}</a></s>)
                                     ))}
                                 </div>
                             </td>
+
+
 
 
 
@@ -324,6 +412,28 @@ export default class Sheet extends Component {
                         </tbody>
                     </table>
                 </div>
+
+
+                <div className="form-group">
+                    <label>Duration and Contents as Planned?</label><br></br>
+                    <button name="yes" className="btn btn-outline-info paddingBtn" onClick={this.handleAsPlanned}>Yes</button>
+                    <button name="no" className="btn btn-outline-info paddingBtn" onClick={this.handleAsPlanned}>No
+                    </button>
+                </div>
+                <p></p>
+
+
+
+                <div className="form-group">
+                    <input type="text" className="form-control" name="comments" placeholder="comments" value={this.state.comments} onChange={this.handleChange} />
+                </div>
+                <p></p>
+                <div></div>
+
+
+
+
+
 
                 <div className="form-group">
                     <label>Quality scale</label><br></br>
@@ -344,7 +454,6 @@ export default class Sheet extends Component {
                     <button name="5" className="btn btn-outline-info" onClick={this.handlePlannedClick}>5</button>
                     <button name="6" className="btn btn-outline-info" onClick={this.handlePlannedClick}>6</button>
                 </div>
-                <p></p>
 
                 <div className="form-group">
                     <label>Achieved Intensity</label><br></br>
@@ -356,25 +465,7 @@ export default class Sheet extends Component {
                     <button name="6" className="btn btn-outline-info" onClick={this.handleAchievedClick}>6</button>
                 </div>
                 <p></p>
-                <label>Duration Minutes</label><br></br>
-                <div><input className="col-xs-4" type="number" id="quantity" name="duration" min="1" max="200" onChange={this.handleChange} value={this.state.duration}/></div>
 
-                <div className="form-group">
-                    <label>Duration and Contents as Planned?</label><br></br>
-                    <button name="yes" className="btn btn-outline-info paddingBtn" onClick={this.handleAsPlanned}>Yes</button>
-                    <button name="no" className="btn btn-outline-info paddingBtn" onClick={this.handleAsPlanned}>No
-                    </button>
-                </div>
-                <p></p>
-
-
-
-                <div className="form-group">
-                    <label>Comments</label>
-                    <input type="text" className="form-control" name="comments" placeholder="comments" value={this.state.comments} onChange={this.handleChange} />
-                </div>
-                <p></p>
-                <div></div>
 
                 <div>
                     <p className="blue">{this.state.added_succ}</p>
