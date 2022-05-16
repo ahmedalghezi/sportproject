@@ -42,4 +42,8 @@ export default class HandelTrainer{
     static postTestResults(data) {
         return http.post("/trainer/postTestResults",data);
     }
+
+    static readHistory(){
+        return http.get("/trainer/getHistory");
+    }
 }
