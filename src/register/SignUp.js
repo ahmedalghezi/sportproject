@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 
@@ -7,10 +7,7 @@ import React, { Component } from "react";
 //import {Navigation} from 'react-router';
 import './style.css';
 import PostSignup from '../DB/postSignup';
-import {afterReg} from './AfterReg';
-import { withRouter } from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
-import HandelTrainer from "../DB/handelTrainer";
 class SignUpC extends Component {
 
 

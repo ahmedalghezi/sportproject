@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 import axios from "axios";
 export default axios.create({

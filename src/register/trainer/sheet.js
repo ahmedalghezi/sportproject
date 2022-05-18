@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, {Component} from "react";
@@ -7,7 +7,6 @@ import React, {Component} from "react";
 
 import '../style.css';
 import HandelTrainer from "../../DB/handelTrainer";
-import collapse from "bootstrap/js/src/collapse";
 
 export default class Sheet extends Component {
 
@@ -113,10 +112,6 @@ export default class Sheet extends Component {
                 this.setState({testsArr: []});
             }
             if (response.data.res === "ok") {
-                const arr = [];
-                /*for (let elem of response.data.tests){
-                    arr.push(elem.title);
-                }*/
                 this.setState({testsArr: response.data.tests});
                 console.log(response.data.tests);
             }

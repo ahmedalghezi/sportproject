@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi based on the given source
+By Ahmed Al-Ghezi based on the given source
  */
 //Source : https://mui.com/components/dialogs/
 
@@ -12,13 +12,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 export default function AlertDialog({open,message,onOk,onCancel}) {
-    const [openInner, setOpen] = React.useState(open);
-    //const [messageInner, setMsg] = React.useState("");
-
-    const handleClickOpen = () => {
-
-    };
-
 
     return (
         <div>

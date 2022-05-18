@@ -1,11 +1,11 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, {useState} from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import AfterReg from "./AfterReg";
@@ -18,6 +18,7 @@ import AddToMyTests from "./trainer/addToMyTests";
 import AddAthlete from "./trainer/addAthlete";
 import NavBar from "./navBar";
 import SignOut from "./sign-out";
+import EditCoach from "./trainer/editCoach";
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
     const onLoginF = () => {
@@ -45,6 +46,8 @@ function Main() {
                             <Route path='/trainer/createTest' element={<CreateTest/>} />
                             <Route path='/trainer/addMyTests' element={<AddToMyTests/>} />
                             <Route path='/trainer/addAthletes' element={<AddAthlete/>} />
+                            <Route path='/trainer/editCoach' element={<EditCoach/>} />
+
                         </Routes>
                     </div>
                 </div>

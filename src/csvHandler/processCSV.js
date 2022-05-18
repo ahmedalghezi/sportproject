@@ -1,6 +1,6 @@
 
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import md5 from 'md5-hash'

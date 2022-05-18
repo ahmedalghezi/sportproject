@@ -1,9 +1,8 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import http from "./httpCommon";
-import axios from "axios";
 export default class PostSignup {
 
     static setSignUP(data){
@@ -47,5 +46,8 @@ export default class PostSignup {
         return http.get("/reg/signOut");
     }
 
+    static disguisedTrainerLogin(selectedTrainer) {
+        return http.post("/reg/trainerDisguisedLogin",{email:selectedTrainer});
+    }
 
 }

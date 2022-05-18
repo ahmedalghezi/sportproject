@@ -1,9 +1,8 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import http from "./httpCommon";
-import axios from "axios";
 export default class LimeControl {
 
     static addParticipants(data){

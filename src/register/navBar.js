@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, {Component} from "react";
@@ -82,6 +82,10 @@ export default class NavBar extends Component {
                             </li>
                             <li className="nav-item" hidden={!this.state.showAdmin}>
                                 <Link className="nav-link" to={"/trainer/createTest"} >Create New Training</Link>
+                            </li>
+
+                            <li className="nav-item" hidden={!this.state.showAdmin}>
+                                <Link className="nav-link" to={"/trainer/editCoach"} >Edit Coaches</Link>
                             </li>
                         </ul>
                     </div>

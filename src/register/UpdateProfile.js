@@ -1,13 +1,11 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, {Component} from "react";
 
 import './style.css';
 import PostSignup from '../DB/postSignup';
-import {afterReg} from './AfterReg';
-import {withRouter} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import AlertDialog from "../utli/alertDialog";
 import SignUp from "./SignUp";

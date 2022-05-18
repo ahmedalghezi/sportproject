@@ -5,8 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/register/trainer/editCoach.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/handelTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/handelTrainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/limeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/processCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/processCSV.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/UpdateProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UpdateProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/control.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/control.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/sign-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/sign-out.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/createTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/createTest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utli/alertDialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/alertDialog.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +306,8 @@
       <workItem from="1649963301541" duration="247000" />
       <workItem from="1650015416646" duration="21090000" />
       <workItem from="1652175312928" duration="4384000" />
-      <workItem from="1652458945504" duration="15929000" />
+      <workItem from="1652458945504" duration="17615000" />
+      <workItem from="1652793048990" duration="14609000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -411,7 +435,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652691955018</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Minor changes">
+      <created>1652723052014</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1652723052015</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -465,24 +496,25 @@
     <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
     <MESSAGE value="Coach interface v1.01" />
     <MESSAGE value="Minor changes by adding trainer history function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor changes by adding trainer history function" />
+    <MESSAGE value="Minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>136</line>
+          <line>135</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>53</line>
+          <line>50</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>127</line>
+          <line>124</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

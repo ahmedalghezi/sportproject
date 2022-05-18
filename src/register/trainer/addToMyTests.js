@@ -1,6 +1,6 @@
 
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 import React, {Component} from "react";
 //import './trainerStyle.css';
@@ -77,7 +77,7 @@ class AddToMyTestsC extends Component {
                 this.setState({saving:false});
             }
             if (response.data.res === "ok")
-                alert("Your tests list is updated successfully");
+                alert("Your trainings list is updated successfully");
         }).catch(e => {
             console.log(e);
             alert("some error has happened");
@@ -127,7 +127,7 @@ class AddToMyTestsC extends Component {
             else if (response.data.res === "wrong")
                 alert("Please login first");
             else if(response.data.res === "empty"){
-                alert("There are currently no tests for this discipline");
+                alert("There are currently no trainings for this discipline");
                 this.setState({allTestsArr: []});
             }
             else if (response.data.res === "ok") {
@@ -135,7 +135,7 @@ class AddToMyTestsC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting tests list form server.");
+            alert("Error getting trainings list form server.");
         });
     }
 
@@ -154,7 +154,7 @@ class AddToMyTestsC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting tests list form server.");
+            alert("Error getting trainings list form server.");
         });
     }
 
@@ -174,7 +174,6 @@ class AddToMyTestsC extends Component {
         this.setState({preEvArr:arr});
         //this.state.preEvArr['alltestList'] = event;
 
-        // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({selectedAllTest:event.target.name});
     }
 
@@ -184,14 +183,12 @@ class AddToMyTestsC extends Component {
         if (this.state.preEvArr['mytestList']) {
             this.state.preEvArr['mytestList'].target.classList.remove("active");
         }
-        event.target.classList.add("active");
-        //this.state.preEvArr['mytestList'] = event;
+        event.target.classList.add("active")
 
         const arr = this.state.preEvArr;
         arr['mytestList'] = event;
         this.setState({preEvArr:arr});
 
-        // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({selectedMyTest:event.target.name});
     }
 

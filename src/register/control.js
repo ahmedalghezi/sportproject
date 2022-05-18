@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, { Component } from "react";

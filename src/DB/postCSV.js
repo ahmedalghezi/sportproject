@@ -1,6 +1,6 @@
 
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import http from "./httpCommon";

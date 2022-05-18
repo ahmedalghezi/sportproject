@@ -1,10 +1,9 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 import { useState } from 'react';
 import {processArr} from "./processCSV";
 import {CSVToArray} from "./processCSV";
-import {toJson} from "./processCSV";
 import PostCSVData from "../DB/postCSV";
 import Sheet from "./xlsSheet/XlsSheet";
 //import '../register/style.css';

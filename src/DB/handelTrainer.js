@@ -1,8 +1,7 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 import http from "./httpCommon";
-import axios from "axios";
 export default class HandelTrainer{
 
     static createTest(data){
@@ -46,4 +45,13 @@ export default class HandelTrainer{
     static readHistory(){
         return http.get("/trainer/getHistory");
     }
+
+    static getAllTrainers() {
+        return http.get("/trainer/getTrainers");
+    }
+
+    static makeCoach(data) {
+        return http.post("/trainer/makeTrainer",data);
+    }
+
 }

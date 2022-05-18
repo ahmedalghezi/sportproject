@@ -6,14 +6,14 @@ import React, {Component} from "react";
 import '../style.css';
 import HandelTrainer from "../../DB/handelTrainer";
 import {useNavigate} from 'react-router-dom';
-import PostSignup from "../../DB/postSignup";
+import SignOut from "../sign-out";
 
 class AddAthleteC extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {changed:false, selectedAthlete:'', athletesArr:[],discipline:"basketball",code:'',saving:false, disciplinesList:[] };
+        this.state = {changed:false, selectedAthlete:'', athletesArr:[],code:'',saving:false,added_succ:'' };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getMyAthletes= this.getMyAthletes.bind(this);
@@ -24,25 +24,9 @@ class AddAthleteC extends Component {
 
     componentDidMount() {
         this.getMyAthletes();
-        this.getDisciplines();
     }
 
-    getDisciplines(){
-        PostSignup.getAllDisciplines().then(response => {
-            if(response.data.res === "error") {
-                const arr = ["connection error"];
-                this.setState({disciplinesList: arr});
-                return;
-            }
-            else {
-                this.setState({disciplinesList: response.data.res});
-            }
 
-        }).catch(e => {
-            console.log(e);
-            alert("some error has happened");
-        });
-    }
 
     handleChange(event) {
         const target = event.target;
@@ -66,6 +50,11 @@ class AddAthleteC extends Component {
             else if (response.data.res === "wrong") {
                 alert("user name or password are not correct");
                 this.setState({saving:false});
+            }
+            if(response.data.res === "no"){
+                alert("Please sign in first");
+                SignOut.forwardSignIn();
+                return;
             }
             if (response.data.res === "ok")
                 alert("Your athlete list is updated successfully");
@@ -100,10 +89,14 @@ class AddAthleteC extends Component {
                 }
                 arr.unshift(response.data.athlete);
                 this.setState({athletesArr: arr});
+                this.setState({added_succ:"evaluation sent successfully"});
+                setTimeout(function(){
+                    this.setState({added_succ:""});
+                }.bind(this),2000);
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting tests list form server.");
+            alert("Error getting trainings list form server.");
         });
     }
 
@@ -140,7 +133,7 @@ class AddAthleteC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting tests list form server.");
+            alert("Error getting trainings list form server.");
         });
     }
 
@@ -155,21 +148,6 @@ class AddAthleteC extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3>Add athletes to my list</h3>
-
-                <br></br>
-
-                <div className="form-group">
-                    <label>Discipline</label>
-                    <br></br>
-                    <select onChange={this.handleChange}  name="discipline">
-                        {this.state.disciplinesList.map((item) => (
-                            <option key={item} value={item}>{item}</option>
-                        ))}
-                    </select>
-                </div>
-
-
-
                 <div className="form-group">
                     <label>My Athlete List</label>
                     <br></br>
@@ -196,7 +174,9 @@ class AddAthleteC extends Component {
 
                 <p></p><p></p>
 
-
+                <div>
+                    <p className="blue">{this.state.added_succ}</p>
+                </div>
                 <button type="submit" className="btn btn-primary btn-block" disabled={this.state.saving}>save</button>
                 <button onClick={this.goBack} className="btn btn-primary btn-block paddingBtn">continue</button>
 

@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, {Component} from "react";
@@ -8,7 +8,7 @@ import PostSignup from "../DB/postSignup";
 export default class SignOut extends Component {
 
     handleSubmit(event) {
-        window.location.href = "https://inprove-sport.info:3000/reg/";
+        SignOut.forwardSignInDisg();
         event.preventDefault();
     }
 
@@ -16,13 +16,23 @@ export default class SignOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message:"Connecting ..."
+            message:"Connecting ...", disguised:false
         };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
 
     componentDidMount() {
         PostSignup.signOut().then(response => {
+            if(response.data.disguised) {
+                this.setState({disguised: true});
+                if (response.data.res === "ok") {
+                    this.setState({message: "You have been sign out from that coach!"});
+                }
+                return;
+            }
+
             if (response.data.res === "ok") {
                 this.setState({message: "You have been sign out!"});
             }
@@ -41,5 +51,17 @@ export default class SignOut extends Component {
                 <button type="submit" className="btn btn-primary btn-block">Continue</button>
             </form>
         );
+    }
+
+    static forwardSignInDisg() {
+        if(!this.state.disguised)
+            window.location.href = "https://inprove-sport.info:3000/reg/";
+        else
+            window.location.href = "https://inprove-sport.info:3000/trainer/editCoach";
+    }
+
+
+    static forwardSignIn() {
+        window.location.href = "https://inprove-sport.info:3000/reg/";
     }
 }

@@ -1,5 +1,5 @@
 /*
-By Ahmed Al-Gehzi
+By Ahmed Al-Ghezi
  */
 
 import React, { Component } from "react";
@@ -28,14 +28,8 @@ class LoginC extends Component {
     }
 
     handleSubmit(event) {
-        // alert('A name was submitted: ' + this.state.firstName);
-        //this.props.history.push('/');
         event.preventDefault();
-        // this.props.navigate('/reg/regSuc');
         PostSignup.login(this.state).then(response => {
-            //console.log(response.data);
-            //navigate("./AfterReg");
-            //this.transitionTo('/');
             if(response.data.res === "error")
                 alert("some error has happened");
             else if(response.data.res === "wrong")
@@ -48,13 +42,11 @@ class LoginC extends Component {
                 else
                     window.location.href = "https://inprove-sport.info:3000/reg/profile";
             }
-                //this.props.history.push('./AfterReg');
 
         }).catch(e => {
             console.log(e);
             alert("some error has happened");
         });
-        //event.preventDefault();
     }
 
 
