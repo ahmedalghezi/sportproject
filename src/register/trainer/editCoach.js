@@ -115,7 +115,7 @@ export default class EditCoach extends Component {
     render() {
         return (
             <form onSubmit={this.handleDisguisedLogin}>
-                <h3>Promote account to a coach</h3>
+                <h3>Make & Edit Coaches</h3>
 
                 <div className="form-group">
                     <input type="email" className="form-control" placeholder="Enter email " name="email" onChange={this.handleChange} />

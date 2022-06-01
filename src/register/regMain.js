@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import AfterReg from "./AfterReg";
-import Control from "./control"
+import LimeControl from "./limeControl"
 import UpdateProfile from "./UpdateProfile";
 import MyProfile from "./profile";
 import TrainerSheet from  "./trainer/sheet";
@@ -38,7 +38,7 @@ function Main() {
                             <Route path='/reg/sign-up' element={<SignUp/>} />
                             <Route path='/reg/regSuc' element={<AfterReg/>} />
                             <Route path='/reg/profile' element={<MyProfile/>} />
-                            <Route path='/reg/control' element={<Control/>} />
+                            <Route path='/reg/control' element={<LimeControl/>} />
                             <Route path='/reg/updateProfile' element={<UpdateProfile/>} />
                         </Routes>
                     </div>

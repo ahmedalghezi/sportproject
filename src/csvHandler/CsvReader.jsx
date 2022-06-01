@@ -1,12 +1,19 @@
 /*
 By Ahmed Al-Ghezi
  */
-import { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {processArr} from "./processCSV";
 import {CSVToArray} from "./processCSV";
 import PostCSVData from "../DB/postCSV";
 import Sheet from "./xlsSheet/XlsSheet";
+import PostSignup from "../DB/postSignup";
+import alert from "bootstrap/js/src/alert";
+import MuiAlert from "@material-ui/lab/Alert";
+import {Alert} from "@mui/material";
+
 //import '../register/style.css';
+
+
 
 export default function  CsvReader(){
     const [csvFile, setCsvFile] = useState();
@@ -20,6 +27,19 @@ export default function  CsvReader(){
     const [checkTestFlag, setCheckTest] = useState(false);
 
     const [checkIDsFlag, setCheckIDs] = useState(false);
+    const [disciplinesList, setDisciplinesList] = useState([]);
+    const [discipline, setDiscipline] = useState("");
+    const [date, setDate] = useState(new Date().toJSON().slice(0,10).replace(/-/g,'-'));
+
+    const [space, setSpace] = useState("");
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
+
+
+
 
 
 
@@ -44,6 +64,31 @@ export default function  CsvReader(){
         setCsvArray(newArray);
         updateDataMatrix(valuesMatrixA,headers);
     }
+
+
+    useEffect(() => {
+        //TODO find better way
+        if(disciplinesList.length == 0)
+            getDisplines();
+    });
+
+    const getDisplines = () => {
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                showError("Error getting disciplines from server");
+                return;
+            }
+            else if(response.data.res && response.data.res.length > 0){
+                setDisciplinesList(response.data.res);
+                setDiscipline(response.data.res[0]);
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
+    }
+
 
     const checkTests = () => {
         const obj = {"tests":headerArray};
@@ -96,7 +141,28 @@ export default function  CsvReader(){
 
     }
 
+    const checkInput = () =>{
+        if(discipline == ""){
+            showError("please select discipline");
+            return false;
+        }
+        if(space === ""){
+            showError("please select space");
+            return false;
+        }
+        if(!objDataList){
+            showError("please select the data file");
+            return false;
+        }
+        return true;
+    }
+
     const submitAll = () => {
+        setError(false);
+        if(!checkInput())
+            return;
+        sendTestsInitial();
+        return;
 
         if(!checkTestFlag){
             checkTests();
@@ -115,11 +181,54 @@ export default function  CsvReader(){
 
     }
 
+    const showError = (msg) =>{
+        setError(true);
+        setErrorMsg(msg);
+    }
+
+
+    const showSuccess = (msg) =>{
+        setSuccess(true);
+        setSuccessMsg(msg);
+    }
+
+    const sendTestsInitial= () =>{
+        const obj = {dataArr:objDataList, date:date , discipline:discipline,space:space};
+        PostCSVData.sendTestsInitial(obj).then(response => {
+            console.log(response.data);
+            if(response.data.res === "no"){
+                showError("Not logged in!");
+                window.location.href = "https://inprove-sport.info:3000/reg/sign-in?org=$csv$reader";
+                return;
+            }
+            if(response.data.errArr){
+                showError("The following record can not be identified within the given discipline," +
+                    " make sure that all records belong to registered athletes:");
+                setObjDataList(response.data.errArr);
+            }
+
+            if(response.data.res === "ok"){
+                if(response.data.insertCount > 0)
+                    showSuccess(response.data.insertCount+" records were added successfully");
+                if(response.data.errCount > 0)
+                    showError(response.data.insertCount+" records failed to be added");
+            }
+
+
+
+        })
+            .catch(e => {
+                console.log(e);
+            });
+    }
+
     const updateSendingRes = (rowIndex,res) => {
         //update the GUI
     }
 
     const readFile = (fileI) => {
+        setSuccess(false);
+        setError(false);
         const file = fileI;
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -133,6 +242,8 @@ export default function  CsvReader(){
 
 
     const updateDataMatrix = (valMatrix,headers) => {
+        setSuccess(false);
+        setError(false);
         if(valMatrix.length===0 || valMatrix[0].length !== headers.length)
             return;
         const list = [];
@@ -163,6 +274,28 @@ export default function  CsvReader(){
         updateDataMatrix(rMatrix,headers);
     }
 
+    const  handleDispSele = (event) =>{
+        event.preventDefault();
+        setDiscipline(event.target.value);
+        setSuccess(false);
+        setError(false);
+    }
+
+
+    const handleSpace =  (event) =>{
+        event.preventDefault();
+        setSpace(event.target.value);
+        setSuccess(false);
+        setError(false);
+    }
+
+
+
+    function Alert(props) {
+        return <MuiAlert elevation={6}
+                         variant="filled" {...props} />;
+    }
+
 
     return(
         <div>
@@ -187,25 +320,86 @@ export default function  CsvReader(){
                     if(res)
                         setValuesMatrix(valuesMatrix);
                     updateDataMatrix(valuesMatrix,headerArray);
-                }}
-            >
+                }} hidden={true}>
                 Anonymize(name,birthdate)
             </button>
 
-            <button
-                className="btn btn-primary btn-block paddingBtn"
-                onClick={(e) => {
-                    e.preventDefault()
-                    submitAll()
-                }}
-            >
-                Submit
-            </button>
+
+
+
+
+            <table>
+                <tr>
+                    <td>
+                        <label>Data date</label><br></br>
+                        <div><input className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={(e)=>{
+                            e.preventDefault();
+                            setDate(e.target.value);
+                        }} value={date}/></div>
+
+                    </td>
+                    <td width="20px">
+                    </td>
+                    <td>
+                        <div className="form-group">
+                            <label>Data Space</label>
+                            <br></br>
+                            <select onChange={handleSpace}  name="space">
+                                <option value="">Please select</option>
+                                <option value="performance">Performance data</option>
+                                <option value="blood">Blood samples</option>
+                                <option value="dna">DNA</option>
+                                <option value="bacterial">Bacterial</option>
+                                <option value="bacterial">Other</option>
+                            </select>
+                        </div>
+
+                    </td>
+                    <td>     </td>
+                    <td>
+                        <div className="form-group">
+                            <label>Discipline</label>
+                            <br></br>
+                            <select onChange={handleDispSele}  name="discipline">
+                                {disciplinesList.map((item) => (
+                                    <option key={item}>{item}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </td>
+
+                    <td width={20}></td>
+                    <td>
+                        <br></br>
+                        <button
+                            className="btn btn-primary btn-block paddingBtn"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSuccess(false);
+                                setError(false);
+                                submitAll();
+                            }}
+                        >
+                            Submit
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
 
             <br/>
             <br/>
+
+
+
+
+            <Alert severity="success" hidden={!success}>{successMsg}</Alert>
+            <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
+
+
+
         </form>
-            <Sheet headers={xlsColumns} matrix={objDataList} onRead = {handleReadData} />
+            <Sheet headers={xlsColumns} matrix={objDataList} onRead = {handleReadData}/>
         </div>
     );
 

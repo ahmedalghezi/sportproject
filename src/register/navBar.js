@@ -87,6 +87,7 @@ export default class NavBar extends Component {
                             <li className="nav-item" hidden={!this.state.showAdmin}>
                                 <Link className="nav-link" to={"/trainer/editCoach"} >Edit Coaches</Link>
                             </li>
+
                         </ul>
                     </div>
                 </div>

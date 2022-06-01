@@ -27,4 +27,8 @@ export default class PostCSVData {
     static checkTests(data) {
         return http.post("/csv/check_tests", data);
     }
+
+    static sendTestsInitial(data){
+        return http.post("/csv/send_tests_1", data);
+    }
 }

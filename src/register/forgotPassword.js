@@ -5,9 +5,9 @@ By Ahmed Al-Ghezi
 import React, { Component } from "react";
 import './style.css';
 import PostSignup from '../DB/postSignup';
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-class LoginC extends Component {
+class ForgotPasswordC extends Component {
 
 
     constructor(props) {
@@ -15,11 +15,6 @@ class LoginC extends Component {
         this.state = {email: '', password: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-
-    componentDidMount() {
-        //alert("System is under maintenance until today 6:00 pm");
     }
 
 
@@ -40,9 +35,7 @@ class LoginC extends Component {
             else if(response.data.res === "wrong")
                 alert("user name or password are not correct");
             else {
-                if(this.props.searchParams.get("org") != null)
-                    this.props.navigate(this.props.searchParams.get("org").replaceAll('$', '/'));
-                else if(response.data.role && PostSignup.isTrainer(response.data.role))
+                if(response.data.role && PostSignup.isTrainer(response.data.role))
                     window.location.href = "https://inprove-sport.info:3000/trainer/sheet";
                 else if(response.data.role && PostSignup.isAdminTrainer(response.data.role))
                     window.location.href = "https://inprove-sport.info:3000/trainer/createTest";
@@ -60,20 +53,14 @@ class LoginC extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Sign In</h3>
+                <h3>Change Password </h3>
                 <div className="form-group">
                     <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={this.handleChange} />
+                    <input type="email" className="form-control" placeholder="Enter email" name="email" disabled={true} />
                 </div>
                 <div className="form-group">
-                    <label>Password</label>
+                    <label>New Password</label>
                     <input type="password" className="form-control" placeholder="Enter password" name="password" onChange={this.handleChange}/>
-                </div>
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
                 </div>
                 <button type="submit" className="btn btn-primary btn-block">Submit</button>
                 <p className="forgot-password text-right">
@@ -84,10 +71,9 @@ class LoginC extends Component {
     }
 }
 
-function Login(props) {
+function ForgotPassword(props) {
     let navigate = useNavigate();
-    const [searchParams, setSearchParams] = useSearchParams();
-    return <LoginC {...props} navigate={navigate} searchParams={searchParams}/>
+    return <ForgotPasswordC {...props} navigate={navigate} />
 }
 
-export default Login;
+export default ForgotPassword;

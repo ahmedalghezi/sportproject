@@ -35,6 +35,8 @@ class AddAthleteC extends Component {
         this.setState({
             [name]: value
         });
+        if(name === "email")
+            this.setState({saving:false});
     }
 
 
@@ -89,7 +91,7 @@ class AddAthleteC extends Component {
                 }
                 arr.unshift(response.data.athlete);
                 this.setState({athletesArr: arr});
-                this.setState({added_succ:"evaluation sent successfully"});
+                this.setState({added_succ:"Athlete added successfully"});
                 setTimeout(function(){
                     this.setState({added_succ:""});
                 }.bind(this),2000);
@@ -131,6 +133,8 @@ class AddAthleteC extends Component {
             if (response.data.res === "ok") {
                 this.setState({athletesArr: response.data.athletes});
             }
+            if(response.data.res === "no")
+                alert("Not signed in!");
         }).catch(e => {
             console.log(e);
             alert("Error getting trainings list form server.");

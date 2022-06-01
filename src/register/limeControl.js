@@ -4,12 +4,12 @@ By Ahmed Al-Ghezi
 
 import React, { Component } from "react";
 import './style.css';
-import '../DB/limeControl';
-import LimeControl from "../DB/limeControl";
+import '../DB/postLimeControl';
+import PostLimeControl from "../DB/postLimeControl";
 
 
 
-export default class Control extends Component {
+export default class LimeControl extends Component {
 
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ export default class Control extends Component {
 
     handleAdd(){
         //this.setState({ participants_added:"working ..."});
-        LimeControl.addParticipants(this.state).then(response => {
+        PostLimeControl.addParticipants(this.state).then(response => {
             console.log(response);
             if(response.data.res === "error")
                 alert("some error has happened");

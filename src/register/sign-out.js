@@ -8,7 +8,7 @@ import PostSignup from "../DB/postSignup";
 export default class SignOut extends Component {
 
     handleSubmit(event) {
-        SignOut.forwardSignInDisg();
+        this.forwardSignInDisg();
         event.preventDefault();
     }
 
@@ -16,10 +16,13 @@ export default class SignOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            message:"Connecting ...", disguised:false
+            message:"Connecting ...",
+            disguised:false
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.forwardSignInDisg = this.forwardSignInDisg.bind(this);
+
     }
 
 
@@ -53,7 +56,7 @@ export default class SignOut extends Component {
         );
     }
 
-    static forwardSignInDisg() {
+    forwardSignInDisg() {
         if(!this.state.disguised)
             window.location.href = "https://inprove-sport.info:3000/reg/";
         else

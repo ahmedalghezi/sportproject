@@ -14,7 +14,7 @@ class SignUpC extends Component {
     constructor(props) {
         super(props);
         this.state = {firstName: '', lastName: '', email:'', password:'', discipline:'basketball',gender:'M',
-            birthdate:'',readTerms:false, disciplinesList: []};
+            birthdate:'',readTerms:false, disciplinesList: [],showParentAccept:false,parentAccept:false};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -51,7 +51,23 @@ class SignUpC extends Component {
         this.setState({
             [name]: value
         });
+
     }
+
+    setBirthDate(event){
+        event.preventDefault();
+        this.setState({birthdate:event.target.value});
+        const date = new Date(event.target.value);
+        date.getDate();
+        const date18 = new Date();
+        date18.setFullYear(date18.getFullYear() - 18);
+        // check if the date of birth is before that date
+        if(date > date18){
+            this.setState({showParentAccept:true});
+        }
+
+    }
+
 
 
 
@@ -74,10 +90,10 @@ class SignUpC extends Component {
         const date = new Date(stateData.birthdate);
         date.getDate();
         const date16 = new Date();
-        date16.setFullYear(date16.getFullYear() - 16);
+        date16.setFullYear(date16.getFullYear() - 13);
         // check if the date of birth is before that date
         if(date > date16){
-            alert("You must be over 16 years old to register");
+            alert("You must be over 13 years old to register");
             return false;
         }
 
@@ -95,6 +111,10 @@ class SignUpC extends Component {
 
         if(!stateData.readTerms){
             alert("please read and accept the terms and conditions");
+            return false;
+        }
+        if(!stateData.parentAccept && stateData.showParentAccept){
+            alert("Please confirm the parent acceptance");
             return false;
         }
         return this.checkPassword(stateData.password);
@@ -193,7 +213,11 @@ class SignUpC extends Component {
                 </label>
                 </div>
 
-
+                <div className="form-group" hidden={!this.state.showParentAccept}>
+                    <label htmlFor="checkid">
+                        <input name="parentAccept" type="checkbox" onChange={this.handleChange} /> I confirm to have parental consent to register in this web page
+                    </label>
+                </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
                 <p className="forgot-password text-right">

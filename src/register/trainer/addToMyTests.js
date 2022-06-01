@@ -188,7 +188,6 @@ class AddToMyTestsC extends Component {
         const arr = this.state.preEvArr;
         arr['mytestList'] = event;
         this.setState({preEvArr:arr});
-
         this.setState({selectedMyTest:event.target.name});
     }
 
@@ -283,25 +282,6 @@ function AddToMyTestsِِ(props) {
     return <AddToMyTestsC {...props} navigate={navigate} />
 
 
-    /*
-    temp:
-     <select onChange={this.handleChange} name="selectedMyTest" multiple>
-                                    {this.state.myTestsArr.map((option) => (
-                                        <option key={option.id} value={option.title}>{option.title}</option>
-                                    ))}
-
-                                </select>
-     */
-
-
-
-    /*
-    <select  onChange={this.handleChange} name="selectedAllTest" multiple={true}>
-                                    {this.state.allTestsArr.map((option) => (
-                                        <option key={option.id}  value={option.title}>{option.title}</option>
-                                    ))}
-                                </select>
-     */
 }
 
 export default AddToMyTestsِِ;
