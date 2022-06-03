@@ -4,28 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/register/forgotPassword.js" afterDir="false" />
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="Version2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postLimeControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/control.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postLimeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postLimeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/regMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/regMain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/sign-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/sign-out.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/editCoach.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -313,7 +300,8 @@
       <workItem from="1653640740464" duration="7909000" />
       <workItem from="1653722139392" duration="3201000" />
       <workItem from="1653813698598" duration="34000" />
-      <workItem from="1653979199433" duration="17613000" />
+      <workItem from="1653979199433" duration="18871000" />
+      <workItem from="1654106548131" duration="13012000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -455,7 +443,21 @@
       <option name="project" value="LOCAL" />
       <updated>1652873979194</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Version2">
+      <created>1654104685629</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1654104685629</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Version2, change to connection url">
+      <created>1654157309555</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1654157309556</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -511,7 +513,9 @@
     <MESSAGE value="Minor changes by adding trainer history function" />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="More functions added to the trainer admin panels. Dealing with warnings." />
-    <option name="LAST_COMMIT_MESSAGE" value="More functions added to the trainer admin panels. Dealing with warnings." />
+    <MESSAGE value="Version2" />
+    <MESSAGE value="Version2, change to connection url" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version2, change to connection url" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

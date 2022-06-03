@@ -6,19 +6,23 @@ import React, { Component } from "react";
 import './style.css';
 import '../DB/postLimeControl';
 import PostLimeControl from "../DB/postLimeControl";
+import PostSignup from "../DB/postSignup";
+import alert from "bootstrap/js/src/alert";
 
 
 
-export default class LimeControl extends Component {
+
+class LimeControl extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             displs: [],
             participants_added : "",
-            discipline:'Basketball',
+            discipline:'',
             password:'',
-            surveyNumber:''
+            surveyNumber:'',
+            disciplinesList:[]
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
@@ -33,51 +37,113 @@ export default class LimeControl extends Component {
         });
     }
 
-    handleAdd(){
-        //this.setState({ participants_added:"working ..."});
-        PostLimeControl.addParticipants(this.state).then(response => {
-            console.log(response);
-            if(response.data.res === "error")
-                alert("some error has happened");
-            else {
-                this.setState({ participants_added: response.data.res });
-                alert("Participants added!");
-                //this.state.participants_added = response.data.res;
+
+    componentDidMount() {
+        if(this.state.disciplinesList.length == 0)
+            this.getDisplines();
+    }
+
+
+
+
+    getDisplines = () => {
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({disciplinesList: arr});
+                return;
             }
+            else {
+                this.setState({disciplinesList: response.data.res});
+                this.setState({discipline:response.data.res[0]});
+            }
+
         }).catch(e => {
             console.log(e);
             alert("some error has happened");
         });
     }
 
-    /*addParticipants = () =>  {
-        //this.setState({ participants_added:"working ..."});
-        LimeControl.addParticipants(this.state).then(response => {
+    handleRemove = (event) =>{
+        event.preventDefault();
+        PostLimeControl.removeParticipants(this.state).then(response => {
             console.log(response);
             if(response.data.res === "error")
-                alert("some error has happened");
-            else {
-                this.setState({ participants_added: response.data.res });
-                //this.state.participants_added = response.data.res;
+                return;
+            //alert("some error has happened");
+            if(response.data.res === "no"){
+                //alert("Please sign in to continue");
+                window.location.href = "https://inprove-sport.info:3000/reg/sign-in?org=$lime$control";
+                return;
+            }
+            else if(response.data.res === "ok") {
+                let msg =  " participants removed";
+                this.setState({participants_added:msg});
+                setTimeout(function(){
+                    this.setState({participants_added:""});
+                }.bind(this),2000);
+
             }
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            //alert("some error has happened");
         });
-    }*/
+    }
+
+    handleAdd(event){
+        event.preventDefault();
+        //this.setState({ participants_added:"working ..."});
+        PostLimeControl.addParticipants(this.state).then(response => {
+            console.log(response);
+            if(response.data.res === "error")
+                return;
+                //alert("some error has happened");
+            if(response.data.res === "no"){
+                //alert("Please sign in to continue");
+                window.location.href = "https://inprove-sport.info:3000/reg/sign-in?org=$lime$control";
+                return;
+            }
+            else {
+                let msg = response.data.insert+ " participants added";
+                if(response.data.exist > 0)
+                    msg = msg + ", "+response.data.exist+ " skipped (already exist) ";
+                this.setState({participants_added:msg});
+                setTimeout(function(){
+                    this.setState({participants_added:""});
+                }.bind(this),4000);
+
+            }
+        }).catch(e => {
+            console.log(e);
+            //alert("some error has happened");
+        });
+    }
+
+
+    handleDispSele = (event) =>{
+        event.preventDefault();
+        this.setState({discipline:event.target.value})
+    }
 
     render() {
-        let displs = this.state.displs;
-        let optionItems = displs.map((disp) =>
-            <option key={disp.name}>{disp.name}</option>
-        );
         return (
             <form>
                 <h3>LimeSurvey: Participant Control Panel</h3>
 
-                <div className="form-group">
+                <div className="form-group" hidden={true}>
                     <label>Key</label>
                     <input onChange={this.handleChange} type="password" className="form-control" placeholder="Enter key" />
+                </div>
+
+
+                <div className="form-group">
+                    <label>Discipline</label>
+                    <br></br>
+                    <select onChange={this.handleDispSele}  name="discipline">
+                        {this.state.disciplinesList.map((item) => (
+                            <option key={item}>{item}</option>
+                        ))}
+                    </select>
                 </div>
 
 
@@ -87,19 +153,16 @@ export default class LimeControl extends Component {
                            name="surveyNumber"/>
                 </div>
                 <p></p>
-                <div className="form-group">
-                    <label>Discipline</label>
-                    <select onChange={this.handleChange}  name="discipline">
-                        <option value="basketball" >Basketball</option>
-                        <option value="iceHokey">Ice hokey</option>
-                    </select>
+
+
+                <div>
+                    <p className="blue">{this.state.participants_added}</p>
                 </div>
-                <p>
-                    {this.state.participants_added}
-                </p>
+
+
                 <div>
                     <button className="btn btn-primary btn-block" onClick={this.handleAdd}>Add participants</button>
-                    <button className="btn btn-primary btn-block paddingBtn" >Remove participants</button>
+                    <button className="btn btn-primary btn-block paddingBtn" onClick={this.handleRemove}>Remove participants</button>
                 </div>
                 <div className="form-group">
 
@@ -108,3 +171,5 @@ export default class LimeControl extends Component {
         );
     }
 }
+
+export default LimeControl;

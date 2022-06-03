@@ -15,6 +15,7 @@ export default class NavBar extends Component {
             showSignIn:true,
             showSignUp:true,
             showTrainer:false,
+            showAdminTrainer:false,
             showAdmin:false,
             flag:false
             };
@@ -36,14 +37,9 @@ export default class NavBar extends Component {
             if (response.data.res === "ok"){
                 this.setState({showSignIn:false});
                 this.setState({showSignUp:false});
-                if(PostSignup.isTrainer(response.data.role))
-                    this.setState({showTrainer:true});
-                else
-                    this.setState({showTrainer:false});
-                if(PostSignup.isAdminTrainer(response.data.role))
-                    this.setState({showAdmin:true});
-                else
-                    this.setState({showAdmin:false});
+                this.setState({showTrainer:PostSignup.isTrainer(response.data.role)});
+                this.setState({showAdminTrainer:PostSignup.isAdminTrainer(response.data.role)});
+                this.setState({admin:PostSignup.isAdmin(response.data.role)});
             }else{
                 this.setState({showSingIn:true});
                 this.setState({showSingUp:true});
@@ -71,22 +67,36 @@ export default class NavBar extends Component {
                             <li className="nav-item"  hidden={!this.state.showSignUp}>
                                 <Link className="nav-link" to={"/reg/sign-up"} >Sign up</Link>
                             </li>
+
+                            <li className="nav-item" hidden={!this.state.showAdminTrainer && !this.state.showAdmin}>
+                                <Link className="nav-link" to={"/csv/reader"} >Upload Files</Link>
+                            </li>
+
+
+                            <li className="nav-item" hidden={!this.state.showAdminTrainer && !this.state.showAdmin}>
+                                <Link className="nav-link" to={"/lime/control"} >Control Limesurvey</Link>
+                            </li>
+
                             <li className="nav-item" hidden={!this.state.showTrainer}>
-                                <Link className="nav-link" to={"/trainer/addMyTests"} >Trainings list</Link>
+                                <Link className="nav-link" to={"/trainer/addMyTests"} >Trainings List</Link>
                             </li>
                             <li className="nav-item" hidden={!this.state.showTrainer}>
-                                <Link className="nav-link" to={"/trainer/addAthletes"} >Athletes list</Link>
+                                <Link className="nav-link" to={"/trainer/addAthletes"} >Athletes List</Link>
                             </li>
                             <li className="nav-item" hidden={!this.state.showTrainer}>
                                 <Link className="nav-link" to={"/trainer/sheet"} >Evaluation</Link>
                             </li>
-                            <li className="nav-item" hidden={!this.state.showAdmin}>
+                            <li className="nav-item" hidden={!this.state.showAdminTrainer}>
                                 <Link className="nav-link" to={"/trainer/createTest"} >Create New Training</Link>
                             </li>
 
-                            <li className="nav-item" hidden={!this.state.showAdmin}>
+                            <li className="nav-item" hidden={!this.state.showAdminTrainer}>
                                 <Link className="nav-link" to={"/trainer/editCoach"} >Edit Coaches</Link>
                             </li>
+
+
+
+
 
                         </ul>
                     </div>

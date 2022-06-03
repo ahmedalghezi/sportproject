@@ -5,12 +5,13 @@ By Ahmed Al-Ghezi
 import React, {Component} from "react";
 import {useNavigate} from 'react-router-dom';
 import PostSignup from "../DB/postSignup";
+
 export class MyProfile extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {isCoachAdmin:false,  isAdmin:false};
+        this.state = {isCoachAdmin: false, isAdmin: false};
         this.updateProfile = this.updateProfile.bind(this);
     }
 
@@ -22,11 +23,11 @@ export class MyProfile extends Component {
                 alert("You are not logged in, please login");
                 return
             }
-            if(response.data.res === "ok"){
-                if(response.data.role.toUpperCase().includes("ADMIN"))
-                    this.setState({isAdmin:true});
-                if(response.data.role === "trainerAdmin")
-                    this.setState({isCoachAdmin:true});
+            if (response.data.res === "ok") {
+                if (response.data.role.toUpperCase().includes("ADMIN"))
+                    this.setState({isAdmin: true});
+                if (response.data.role === "trainerAdmin")
+                    this.setState({isCoachAdmin: true});
             }
 
         }).catch(e => {
@@ -45,17 +46,17 @@ export class MyProfile extends Component {
         this.props.navigate('/reg/updateProfile');
     }
 
-    goToCoaches = (event) =>{
+    goToCoaches = (event) => {
         event.preventDefault();
         this.props.navigate('/trainer/adminMain');
     }
 
-    goToCSV = (event) =>{
+    goToCSV = (event) => {
         event.preventDefault();
         this.props.navigate('/csv/reader');
     }
 
-    goToLime = (event) =>{
+    goToLime = (event) => {
         event.preventDefault();
         this.props.navigate('/lime/control');
     }
@@ -64,22 +65,42 @@ export class MyProfile extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3>Welcome to your page!</h3>
-                <button type="submit" className="btn btn-primary btn-block">Continue to Surveys</button>
-                <button onClick={this.updateProfile}> update profile</button>
-                <button onClick={this.goToCoaches} hidden={!this.state.isCoachAdmin}> Coaches interface</button>
-                <button onClick={this.goToCSV} hidden={!this.state.isAdmin}> CSV interface</button>
-                <button onClick={this.goToLime} hidden={!this.state.isAdmin}> LimeSurvery control</button>
+                <table>
+                    <tr>
+                        <td>
+                            <button type="submit" className="btn btn-primary btn-block">Continue to Surveys</button>
+                        </td>
+                        <td>
+                            <button onClick={this.updateProfile} className="btn btn-primary btn-block"> update profile
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button onClick={this.goToCoaches} hidden={!this.state.isCoachAdmin}
+                                    className="btn btn-primary btn-block"> Coaches interface
+                            </button>
+                        </td>
+                        <button onClick={this.goToCSV} hidden={!this.state.isAdmin}
+                                className="btn btn-primary btn-block"> CSV interface
+                        </button>
+                        <td>
+                            <button onClick={this.goToLime} hidden={!this.state.isAdmin}
+                                    className="btn btn-primary btn-block"> LimeSurvery control
+                            </button>
+                        </td>
+                    </tr>
+                </table>
             </form>
         );
     }
-
 
 
 }
 
 function Profile(props) {
     let navigate = useNavigate();
-    return <MyProfile {...props} navigate={navigate} />
+    return <MyProfile {...props} navigate={navigate}/>
 }
 
 export default Profile;

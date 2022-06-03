@@ -42,6 +42,10 @@ export default class PostSignup {
         return role === "trainerAdmin";
     }
 
+    static isAdmin(role){
+        return role === "admin";
+    }
+
     static signOut() {
         return http.get("/reg/signOut");
     }
