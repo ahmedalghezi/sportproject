@@ -92,7 +92,7 @@ function Sheet(props) {
     return (
 
         <div>
-            <input
+            <input hidden={props.hideInputFile}
                 type="file"
                 accept=".csv,.xlsx,.xls"
                 onChange={handleFileUpload}

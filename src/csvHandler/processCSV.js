@@ -3,7 +3,7 @@
 By Ahmed Al-Ghezi
  */
 
-import md5 from 'md5-hash'
+//import md5 from 'md5-hash'
 import PostCSVData from '../DB/postCSV';
 
 
@@ -202,12 +202,15 @@ function getNameBirthdateIndex(headerArr) {
     return index;
 }
 
+
+//TODO consider remove or install good package
 function generateID(name,birthdate) {
     name = name.trim().replace(" ","");
     birthdate = birthdate.trim().replace(" ","");
     //var namehash = CryptoJS.MD5(name+birthdate).toString();
-    var namehash = md5(name+birthdate);
-    return namehash;
+   // var namehash = md5(name+birthdate);
+    //return namehash;
+    return "";
 }
 
 

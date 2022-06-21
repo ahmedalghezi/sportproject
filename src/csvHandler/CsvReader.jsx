@@ -16,6 +16,9 @@ import {Alert} from "@mui/material";
 
 
 export default function  CsvReader(){
+
+
+
     const [csvFile, setCsvFile] = useState();
     const [csvArray, setCsvArray] = useState([]);
     const [headerArray, setHeaderArray] = useState([]);
@@ -37,6 +40,7 @@ export default function  CsvReader(){
 
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
+
 
 
 
@@ -260,10 +264,12 @@ export default function  CsvReader(){
         }
 
         setObjDataList(list);
+        console.log(list);
         const columns = headers.map(c => ({
             name: c,
             selector: c,
         }));
+        console.log(columns);
         setXlsColumns(columns);
     }
 
@@ -382,6 +388,7 @@ export default function  CsvReader(){
                         >
                             Submit
                         </button>
+
                     </td>
                 </tr>
             </table>

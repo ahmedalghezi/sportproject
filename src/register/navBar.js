@@ -39,7 +39,7 @@ export default class NavBar extends Component {
                 this.setState({showSignUp:false});
                 this.setState({showTrainer:PostSignup.isTrainer(response.data.role)});
                 this.setState({showAdminTrainer:PostSignup.isAdminTrainer(response.data.role)});
-                this.setState({admin:PostSignup.isAdmin(response.data.role)});
+                this.setState({showAdmin:PostSignup.isAdmin(response.data.role)});
             }else{
                 this.setState({showSingIn:true});
                 this.setState({showSingUp:true});
@@ -77,6 +77,10 @@ export default class NavBar extends Component {
                                 <Link className="nav-link" to={"/lime/control"} >Control Limesurvey</Link>
                             </li>
 
+                            <li className="nav-item" hidden={!this.state.showAdminTrainer && !this.state.showAdmin}>
+                                <Link className="nav-link" to={"/csv/athleteInfo"} >Athletes Info</Link>
+                            </li>
+
                             <li className="nav-item" hidden={!this.state.showTrainer}>
                                 <Link className="nav-link" to={"/trainer/addMyTests"} >Trainings List</Link>
                             </li>
@@ -93,6 +97,9 @@ export default class NavBar extends Component {
                             <li className="nav-item" hidden={!this.state.showAdminTrainer}>
                                 <Link className="nav-link" to={"/trainer/editCoach"} >Edit Coaches</Link>
                             </li>
+
+
+
 
 
 

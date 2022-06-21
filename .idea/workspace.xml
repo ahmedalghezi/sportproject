@@ -4,15 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="Version2">
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postLimeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postLimeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/processCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/processCSV.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,6 +80,18 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/register/limeControl.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DB/postLimeControl.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DB/postSignup.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/Login.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/navBar.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/trainer/sheet.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -195,7 +211,7 @@
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -260,8 +276,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
-        <item itemvalue="npm.test" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.test" />
         <item itemvalue="npm.start (1)" />
       </list>
     </recent_temporary>
@@ -301,7 +317,8 @@
       <workItem from="1653722139392" duration="3201000" />
       <workItem from="1653813698598" duration="34000" />
       <workItem from="1653979199433" duration="18871000" />
-      <workItem from="1654106548131" duration="13012000" />
+      <workItem from="1654106548131" duration="23039000" />
+      <workItem from="1655142842178" duration="13107000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -457,7 +474,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654157309556</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Version2, navBar changes">
+      <created>1654252246624</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654252246624</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -515,14 +539,15 @@
     <MESSAGE value="More functions added to the trainer admin panels. Dealing with warnings." />
     <MESSAGE value="Version2" />
     <MESSAGE value="Version2, change to connection url" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version2, change to connection url" />
+    <MESSAGE value="Version2, navBar changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version2, navBar changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>246</line>
+          <line>250</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -534,6 +559,12 @@
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
           <line>144</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/register/Login.js</url>
+          <line>25</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

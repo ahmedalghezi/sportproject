@@ -20,6 +20,7 @@ import NavBar from "./navBar";
 import SignOut from "./sign-out";
 import EditCoach from "./trainer/editCoach";
 import CsvReader from "../csvHandler/CsvReader";
+import GetIDS from "../csvHandler/getIDs";
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
     const onLoginF = () => {
@@ -51,6 +52,7 @@ function Main() {
                             <Route path='/trainer/editCoach' element={<div className="auth-inner"><EditCoach/></div>} />
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
+                            <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
                         </Routes>
                 </div>
 

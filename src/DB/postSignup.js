@@ -26,6 +26,10 @@ export default class PostSignup {
         return http.get("/reg/getProfile");
     }
 
+    static getAthletesID(data) {
+        return http.post("/reg/getAthleteIDs", data);
+    }
+
     static deleteMyProfile() {
         return http.get("/reg/dellProfile");
     }
@@ -53,5 +57,6 @@ export default class PostSignup {
     static disguisedTrainerLogin(selectedTrainer) {
         return http.post("/reg/trainerDisguisedLogin",{email:selectedTrainer});
     }
+
 
 }
