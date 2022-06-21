@@ -58,5 +58,9 @@ export default class PostSignup {
         return http.post("/reg/trainerDisguisedLogin",{email:selectedTrainer});
     }
 
+    static getStudies(){
+        http.get("/reg/getStudies")
+    }
+
 
 }

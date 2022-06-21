@@ -37,19 +37,6 @@ export default function  GetIDS(){
         },
     ];
 
-    const dataC = [
-        {
-            ID: '12',
-            discipline: '19ddf',
-            name:"ali"
-        },
-        {
-
-            ID: '1',
-            discipline: '1984dfvd',
-            name:"karim"
-        },
-    ]
 
     const [csvFile, setCsvFile] = useState();
     const [csvArray, setCsvArray] = useState([]);
