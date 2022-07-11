@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 //import {Navigation} from 'react-router';
 import "./style.css";
