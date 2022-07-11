@@ -171,3 +171,8 @@ table td, table td * {
     background-color: #0563af;
     color: white;
 }
+
+.image {
+    height: 50px;
+    width: 200px;
+  }

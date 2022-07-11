@@ -5,7 +5,7 @@ By Ahmed Al-Ghezi
 import React, { Component } from "react";
 import PostSignup from "../DB/postSignup";
 import { Link } from "react-router-dom";
-import image from "../images/inproveLogo.JPG";
+import image from "../images/inprove_logo-400x103.png";
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -61,7 +61,7 @@ export default class NavBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-        <img src={image} width={120} height={40} />
+        <img className="image" src={image}  />
         <div className="container">
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav ml-auto">
