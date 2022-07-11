@@ -40,6 +40,7 @@ function Main() {
                             <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
                             <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
                             <Route path='/reg/sign-up' element={<div className="auth-inner"><SignUp/></div>} />
+                            <Route path='/reg/sign-up-van' element={<div className="auth-inner"><SignUpVan/></div>} />
                             <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
                             <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><MyProfile/></div>} />
