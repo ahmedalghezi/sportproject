@@ -154,8 +154,8 @@ const ApproveTests = ({ prevStep, handleChange, handleSubmit, values }) => {
             defaultValue={values.readTerms}
             onChange={handleChange('readTerms')}
           />{" "}
-          I have read and accept <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>the privacy policy and the terms of data
-            storage and usage</a>
+          Ich habe die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die 
+          Bedingungen für die Datenspeicherung und -nutzung</a> gelesen und akzeptiere sie.
         </label>
       </div>
       <div className="form-group" hidden={!values.showParentAccept}>
@@ -175,14 +175,14 @@ const ApproveTests = ({ prevStep, handleChange, handleSubmit, values }) => {
         className="btn btn-primary btn-block m-2"
         onClick={Previous}
       >
-        Back
+        Zurück
       </button>
       <button
         type="button"
         className="btn btn-primary btn-block m-2"
         onClick={handleSubmit}
       >
-        Sign Up
+        Registrieren
       </button>
     </div>
   );

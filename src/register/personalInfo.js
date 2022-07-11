@@ -9,25 +9,25 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
       }
   return (
     <div>
-      <h3>Sign Up</h3>
+      <h3>Registrieren</h3>
       <div className="form-group">
-        <label>First name</label>
+        <label>Vorname</label>
         <input
           type="text"
           className="form-control"
           name="firstName"
-          placeholder="First name"
+          placeholder="Vorname"
           defaultValue={values.firstName}
           onChange={handleChange("firstName")}
           
         />
       </div>
       <div className="form-group">
-          <label>Last name</label>
+          <label>Nachname</label>
           <input
             type="text"
             className="form-control"
-            placeholder="Last name"
+            placeholder="Nachname"
             name="lastName"
             defaultValue={values.lastName}
             onChange={handleChange('lastName')}
@@ -36,11 +36,11 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
         </div>
         
         <div className="form-group">
-          <label>Email address</label>
+          <label>Email-Adresse</label>
           <input
             type="email"
             className="form-control"
-            placeholder="Enter email"
+            placeholder="Email-Adresse"
             name="email"
             defaultValue={values.email}
             onChange={handleChange('email')}
@@ -49,7 +49,7 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
         </div>
 
         <div className="form-group">
-          <label>Birthdate</label>
+          <label>Geburtsdatum</label>
           <input
             type="date"
             className="form-control"
@@ -60,7 +60,7 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
           />
         </div>
         <div className="form-group">
-          <label>Discipline</label>
+          <label>Disziplin</label>
           <br></br>
           <select 
           defaultValue={values.discipline}
@@ -71,7 +71,7 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
           </select>
         </div>
         <div className="form-group">
-          <label>Gender</label>
+          <label>Geschlecht</label>
           <br></br>
           <select 
           defaultValue={values.gender}
@@ -82,11 +82,11 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
         </div>
 
         <div className="form-group">
-          <label>Password</label>
+          <label>Passwort</label>
           <input
             type="password"
             className="form-control"
-            placeholder="Enter password"
+            placeholder="Passwort eingeben."
             name="password"
             defaultValue={values.password}
             onChange={handleChange('password')}
@@ -95,14 +95,16 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
         </div>
 
         
-       
+        <p className="forgot-password text-right">
+                    Schon registriert? <a href="/reg/sign-in">Login</a>
+                </p>
 
       <button
           type="button"
           className="btn btn-primary btn-block m-2"
           onClick={handleSubmit}
         >
-          Continue
+          Weiter
         </button>
     </div>
   );
