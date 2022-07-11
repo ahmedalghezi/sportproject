@@ -22,7 +22,9 @@ class LimeControl extends Component {
             discipline:'',
             password:'',
             surveyNumber:'',
-            disciplinesList:[]
+            disciplinesList:[],
+            approvedStudies:[],
+            selectedStudyID:''
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
@@ -39,11 +41,31 @@ class LimeControl extends Component {
 
 
     componentDidMount() {
-        if(this.state.disciplinesList.length === 0)
+        if(this.state.disciplinesList.length === 0){
+            this.getApprovedStudies();
             this.getDisplines();
+        }
+
     }
 
 
+
+    getApprovedStudies = () => {
+        PostSignup.getStudies().then(response => {
+            if(response.data.res === "error") {
+                alert("Error getting disciplines from server");
+                return;
+            }
+            else if(response.data.res && response.data.res.length > 0){
+                this.setState({approvedStudies:response.data.res});
+                this.setState({selectedStudyID:response.data.res[0]});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
+    }
 
 
     getDisplines = () => {
@@ -88,6 +110,11 @@ class LimeControl extends Component {
             console.log(e);
             //alert("some error has happened");
         });
+    }
+
+    handleStudySele =  (event) =>{
+        event.preventDefault();
+        //TODO
     }
 
     handleAdd(event){
@@ -135,16 +162,39 @@ class LimeControl extends Component {
                     <input onChange={this.handleChange} type="password" className="form-control" placeholder="Enter key" />
                 </div>
 
+                <table>
+                    <tr>
+                    <td>
+                    <div className="form-group">
+                        <label>Discipline</label>
+                        <br></br>
+                        <select onChange={this.handleDispSele}  name="discipline">
+                            {this.state.disciplinesList.map((item) => (
+                                <option key={item}>{item}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                <div className="form-group">
-                    <label>Discipline</label>
-                    <br></br>
-                    <select onChange={this.handleDispSele}  name="discipline">
-                        {this.state.disciplinesList.map((item) => (
-                            <option key={item}>{item}</option>
-                        ))}
-                    </select>
-                </div>
+                    </td>
+
+                    <td width="20px">     </td>
+                    <td>
+                        <div className="form-group">
+                            <label>Approved data category</label>
+                            <br></br>
+                            <select onChange={this.handleStudySele}  name="approved_studies">
+                                {this.state.approvedStudies.map((item) => (
+                                    <option key={item.ID}>{item.title}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </td>
+
+                    </tr>
+
+
+                </table>
+
 
 
                 <div className="form-group">

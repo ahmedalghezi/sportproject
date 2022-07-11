@@ -59,7 +59,7 @@ export default class PostSignup {
     }
 
     static getStudies(){
-        return http.get("/reg/getStudies")
+        return http.get("/reg/getStudies");
     }
 
 

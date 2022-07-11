@@ -41,13 +41,10 @@ export default function  CsvReader(){
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
 
+    const [approvedStudies, setApprovedStudies] = useState([]);
+    const [selectedStudyID, setSelectedStudyID] = useState();
 
 
-
-
-
-
-    // [{name: "", age: 0, rank: ""},{name: "", age: 0, rank: ""}]
 
     const processCSV = (str, delim=';') => {
         const headers = str.slice(0,str.indexOf('\n')).split(delim);
@@ -72,8 +69,10 @@ export default function  CsvReader(){
 
     useEffect(() => {
         //TODO find better way
-        if(disciplinesList.length == 0)
+        if(disciplinesList.length == 0){
             getDisplines();
+            getApprovedStudies();
+        }
     });
 
     const getDisplines = () => {
@@ -92,6 +91,24 @@ export default function  CsvReader(){
             alert("some error has happened");
         });
     }
+
+    const getApprovedStudies = () => {
+        PostSignup.getStudies().then(response => {
+            if(response.data.res === "error") {
+                showError("Error getting disciplines from server");
+                return;
+            }
+            else if(response.data.res && response.data.res.length > 0){
+                setApprovedStudies(response.data.res);
+                setSelectedStudyID(response.data.res[0]);
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
+    }
+
 
 
     const checkTests = () => {
@@ -295,6 +312,13 @@ export default function  CsvReader(){
         setError(false);
     }
 
+    const handleStudySele =  (event) =>{
+        event.preventDefault();
+        setSelectedStudyID(event.target.value);
+        setSuccess(false);
+        setError(false);
+    }
+
 
 
     function Alert(props) {
@@ -375,6 +399,24 @@ export default function  CsvReader(){
                     </td>
 
                     <td width={20}></td>
+
+
+                    <td>
+                        <div className="form-group">
+                            <label>Approved data category</label>
+                            <br></br>
+                            <select onChange={handleStudySele}  name="approved_studies">
+                                {approvedStudies.map((item) => (
+                                    <option key={item.ID}>{item.title}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </td>
+
+                    <td width={20}></td>
+
+
+
                     <td>
                         <br></br>
                         <button
@@ -390,6 +432,9 @@ export default function  CsvReader(){
                         </button>
 
                     </td>
+
+
+
                 </tr>
             </table>
 

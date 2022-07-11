@@ -8,6 +8,7 @@ import '../App.css';
 import { Routes, Route, } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import SignUpVan from "./SignUpVan";
 import AfterReg from "./AfterReg";
 import LimeControl from "./limeControl"
 import UpdateProfile from "./UpdateProfile";

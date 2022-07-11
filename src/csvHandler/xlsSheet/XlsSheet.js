@@ -33,6 +33,8 @@ function Sheet(props) {
                             d = d.substring(d.length - 2, 1);
                     }
                     if (headers[j]) {
+                        if(headers[j] === '"ID"')
+                            headers[j] = 'ID';
                         obj[headers[j]] = d;
                         iMat[j] = d;
                     }

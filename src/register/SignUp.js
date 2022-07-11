@@ -13,7 +13,7 @@ class SignUpC extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {firstName: '', lastName: '', email:'', password:'', discipline:'basketball',gender:'M',
+        this.state = {firstName: '', lastName: '', email:'', password:'', discipline:'',gender:'M',
             birthdate:'',readTerms:false, disciplinesList: [],showParentAccept:false,parentAccept:false};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,6 +33,7 @@ class SignUpC extends Component {
             }
             else {
                 this.setState({disciplinesList: response.data.res});
+                this.setState({discipline:response.data.res[0]});
             }
 
         }).catch(e => {
@@ -172,10 +173,6 @@ class SignUpC extends Component {
                 </div>
 
 
-
-
-
-
                 <div className="form-group">
                     <label>Discipline</label>
                     <br></br>
@@ -209,13 +206,13 @@ class SignUpC extends Component {
 
                  <div className="form-group">
                     <label htmlFor="checkid">
-                        <input name="readTerms" type="checkbox" onChange={this.handleChange}/> I have read and accept the privacy policy and the terms of data storage and usage
+                        <input name="readTerms" type="checkbox" onChange={this.handleChange} defaultChecked={this.state.readTerms}/> I have read and accept the privacy policy and the terms of data storage and usage
                 </label>
                 </div>
 
                 <div className="form-group" hidden={!this.state.showParentAccept}>
                     <label htmlFor="checkid">
-                        <input name="parentAccept" type="checkbox" onChange={this.handleChange} /> I confirm to have parental consent to register in this web page
+                        <input name="parentAccept" type="checkbox" onChange={this.handleChange}/> I confirm to have parental consent to register in this web page
                     </label>
                 </div>
 

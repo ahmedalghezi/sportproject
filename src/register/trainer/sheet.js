@@ -336,8 +336,6 @@ export default class Sheet extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3>Coach Sheet</h3>
-
-
                 <table>
                     <tr>
                         <td>
