@@ -65,7 +65,7 @@ export default class NavBar extends Component {
                             </li>
 
                             <li className="nav-item"  hidden={!this.state.showSignUp}>
-                                <Link className="nav-link" to={"/reg/sign-up"} >Sign up</Link>
+                                <Link className="nav-link" to={"/reg/sign-up-van"} >Sign up</Link>
                             </li>
 
                             <li className="nav-item" hidden={!this.state.showAdminTrainer && !this.state.showAdmin}>
