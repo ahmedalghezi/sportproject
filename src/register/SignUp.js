@@ -2,237 +2,268 @@
 By Ahmed Al-Ghezi
  */
 
-
 import React, { Component } from "react";
 //import {Navigation} from 'react-router';
-import './style.css';
-import PostSignup from '../DB/postSignup';
-import {useNavigate} from 'react-router-dom';
+import "./style.css";
+import PostSignup from "../DB/postSignup";
+import { useNavigate } from "react-router-dom";
 class SignUpC extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      discipline: "",
+      gender: "M",
+      birthdate: "",
+      readTerms: false,
+      disciplinesList: [],
+      showParentAccept: false,
+      parentAccept: false,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  componentDidMount() {
+    this.getDisciplines();
+  }
 
-    constructor(props) {
-        super(props);
-        this.state = {firstName: '', lastName: '', email:'', password:'', discipline:'',gender:'M',
-            birthdate:'',readTerms:false, disciplinesList: [],showParentAccept:false,parentAccept:false};
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+  getDisciplines() {
+    PostSignup.getAllDisciplines()
+      .then((response) => {
+        if (response.data.res === "error") {
+          const arr = ["connection error"];
+          this.setState({ disciplinesList: arr });
+          return;
+        } else {
+          this.setState({ disciplinesList: response.data.res });
+          this.setState({ discipline: response.data.res[0] });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    let value = target.value;
+    const name = target.name;
+    if (name === "readTerms") value = target.checked;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  setBirthDate(event) {
+    event.preventDefault();
+    this.setState({ birthdate: event.target.value });
+    const date = new Date(event.target.value);
+    date.getDate();
+    const date18 = new Date();
+    date18.setFullYear(date18.getFullYear() - 18);
+    // check if the date of birth is before that date
+    if (date > date18) {
+      this.setState({ showParentAccept: true });
+    }
+  }
+
+  checkInput(stateData) {
+    if (stateData.firstName === "") {
+      alert("Bitte geben Sie Ihren Vornamen ein.");
+      return false;
     }
 
-
-    componentDidMount() {
-        this.getDisciplines();
+    if (stateData.lastName === "") {
+      alert("Bitte geben Sie Ihren Nachnamen ein.");
+      return false;
     }
 
-    getDisciplines(){
-        PostSignup.getAllDisciplines().then(response => {
-            if(response.data.res === "error") {
-                const arr = ["connection error"];
-                this.setState({disciplinesList: arr});
-                return;
-            }
-            else {
-                this.setState({disciplinesList: response.data.res});
-                this.setState({discipline:response.data.res[0]});
-            }
-
-        }).catch(e => {
-            console.log(e);
-            alert("some error has happened");
-        });
+    if (stateData.birthdate === "") {
+      alert("Bitte geben Sie Ihr Geburtsdatum ein.");
+      return false;
     }
 
-
-    handleChange(event) {
-        const target = event.target;
-        let value = target.value;
-        const name = target.name;
-        if(name === "readTerms")
-            value = target.checked;
-        this.setState({
-            [name]: value
-        });
-
+    const date = new Date(stateData.birthdate);
+    date.getDate();
+    const date16 = new Date();
+    date16.setFullYear(date16.getFullYear() - 13);
+    // check if the date of birth is before that date
+    if (date > date16) {
+      alert("Sie müssen älter als 13 Jahre sein, um sich zu registrieren.");
+      return false;
     }
 
-    setBirthDate(event){
-        event.preventDefault();
-        this.setState({birthdate:event.target.value});
-        const date = new Date(event.target.value);
-        date.getDate();
-        const date18 = new Date();
-        date18.setFullYear(date18.getFullYear() - 18);
-        // check if the date of birth is before that date
-        if(date > date18){
-            this.setState({showParentAccept:true});
-        }
-
+    if (stateData.email === "") {
+      alert("Bitte geben Sie Ihre Email-Adresse ein.");
+      return false;
     }
 
-
-
-
-     checkInput(stateData){
-        if(stateData.firstName === ""){
-            alert("please input your First Name");
-            return false;
-        }
-
-        if(stateData.lastName === ""){
-            alert("please input your Last Name");
-            return false;
-        }
-
-        if(stateData.birthdate === ""){
-            alert("please input your date of birth");
-            return false;
-        }
-
-        const date = new Date(stateData.birthdate);
-        date.getDate();
-        const date16 = new Date();
-        date16.setFullYear(date16.getFullYear() - 13);
-        // check if the date of birth is before that date
-        if(date > date16){
-            alert("You must be over 13 years old to register");
-            return false;
-        }
-
-
-
-        if(stateData.email === ""){
-            alert("please input your email");
-            return false;
-        }
-
-        if(stateData.password === ""){
-            alert("password cannot empty!");
-            return false;
-        }
-
-        if(!stateData.readTerms){
-            alert("please read and accept the terms and conditions");
-            return false;
-        }
-        if(!stateData.parentAccept && stateData.showParentAccept){
-            alert("Please confirm the parent acceptance");
-            return false;
-        }
-        return this.checkPassword(stateData.password);
+    if (stateData.password === "") {
+      alert("pWählen Sie ein Passwort.");
+      return false;
     }
 
-    checkPassword(password){
-        const passw= /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-        if(password.match(passw))
-            return true;
-        alert('Password must be between 8 to 15 characters lenght, contains at least one lowercase letter, ' +
-                'one uppercase letter, numeric digit, and one special character');
-            return false;
+    if (!stateData.readTerms) {
+      alert("Bitte lesen und akzeptieren Sie die Bedingungen.");
+      return false;
     }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        if(!this.checkInput(this.state))
-            return;
-        PostSignup.setSignUP(this.state).then(response => {
-            if(response.data.res === "error")
-                alert("some error has happened");
-            else if(response.data.res === "duplicate key")
-                alert("This email is already registered");
-            else
-                //this.props.history.push('./AfterReg');
-                this.props.navigate('/reg/regSuc');
-        }).catch(e => {
-            console.log(e);
-            alert("some error has happened");
-            });
-        //event.preventDefault();
+    if (!stateData.parentAccept && stateData.showParentAccept) {
+      alert("Bitte die Einverständnis der Eltern bestätigen.");
+      return false;
     }
+    return this.checkPassword(stateData.password);
+  }
 
+  checkPassword(password) {
+    const passw =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    if (password.match(passw)) return true;
+    alert(
+      "Das Passwort muss zwischen 8 und 15 Zeichen lang sein und mindestens einen Kleinbuchstaben, " +
+        ", einen Großbuchstaben, eine Ziffer und ein Sonderzeichen enthalten."
+    );
+    return false;
+  }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <h3>Sign Up</h3>
-                <div className="form-group">
-                    <label>First name</label>
-                    <input type="text" className="form-control" name="firstName" placeholder="First name" onChange={this.handleChange} />
-                </div>
-                <div className="form-group">
-                    <label>Last name</label>
-                    <input type="text" className="form-control" placeholder="Last name" name="lastName" onChange={this.handleChange}/>
-                </div>
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={this.handleChange}/>
-                </div>
+  handleSubmit(event) {
+    event.preventDefault();
+    if (!this.checkInput(this.state)) return;
+    PostSignup.setSignUP(this.state)
+      .then((response) => {
+        if (response.data.res === "error")
+          alert("Es ist ein Fehler aufgetreten.");
+        else if (response.data.res === "duplicate key")
+          alert("Diese Email-Adresse ist bereits registriert.");
+        //this.props.history.push('./AfterReg');
+        else this.props.navigate("/reg/regSuc");
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+    //event.preventDefault();
+  }
 
-                <div className="form-group">
-                    <label>Birthdate</label>
-                    <input type="date" className="form-control"  name="birthdate" onChange={this.handleChange}/>
-                </div>
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <h3>Registrieren</h3>
+        <div className="form-group">
+          <label>Vorname</label>
+          <input
+            type="text"
+            className="form-control"
+            name="firstName"
+            placeholder="Vorname"
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Nachname</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Nachname"
+            name="lastName"
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Email-Adresse</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Email-Adresse"
+            name="email"
+            onChange={this.handleChange}
+          />
+        </div>
 
+        <div className="form-group">
+          <label>Geburtsdatum</label>
+          <input
+            type="date"
+            className="form-control"
+            name="birthdate"
+            onChange={this.handleChange}
+          />
+        </div>
 
-                <div className="form-group">
-                    <label>Discipline</label>
-                    <br></br>
-                    <select onChange={this.handleChange}  name="discipline">
-                    {this.state.disciplinesList.map((item) => (
-                        <option key={item}>{item}</option>
-                    ))}
-                    </select>
-                </div>
+        <div className="form-group">
+          <label>Disziplin</label>
+          <br></br>
+          <select onChange={this.handleChange} name="discipline">
+            {this.state.disciplinesList.map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+        </div>
 
+        <div className="form-group">
+          <label>Geschlecht</label>
+          <br></br>
+          <select onChange={this.handleChange} name="gender">
+            <option value="M">M</option>
+            <option value="F">F</option>
+          </select>
+        </div>
 
+        <div className="form-group">
+          <label>Passwort</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Passwort eingeben."
+            name="password"
+            onChange={this.handleChange}
+          />
+        </div>
 
-                <div className="form-group">
-                    <label>Gender</label>
-                    <br></br>
-                    <select onChange={this.handleChange}  name="gender">
-                        <option value="M">M</option>
-                        <option value="F">F</option>
-                    </select>
-                </div>
+        <p></p>
 
+        <div className="form-group">
+          <label htmlFor="checkid">
+            <input
+              name="readTerms"
+              type="checkbox"
+              onChange={this.handleChange}
+              defaultChecked={this.state.readTerms}
+            />{" "}
+           Ich habe die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die 
+          Bedingungen für die Datenspeicherung und -nutzung</a> gelesen und akzeptiere sie.
+          </label>
+        </div>
 
+        <div className="form-group" hidden={!this.state.showParentAccept}>
+          <label htmlFor="checkid">
+            <input
+              name="parentAccept"
+              type="checkbox"
+              onChange={this.handleChange}
+            />{" "}
+            Ich bestätige, dass ich das Einverständnis meiner Eltern habe, mich in diesem Portal zu registrieren.
+          </label>
+        </div>
 
-
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" name="password" onChange={this.handleChange}/>
-                </div>
-
-                <p></p>
-
-                 <div className="form-group">
-                    <label htmlFor="checkid">
-                        <input name="readTerms" type="checkbox" onChange={this.handleChange} defaultChecked={this.state.readTerms}/> I have read and accept the privacy policy and the terms of data storage and usage
-                </label>
-                </div>
-
-                <div className="form-group" hidden={!this.state.showParentAccept}>
-                    <label htmlFor="checkid">
-                        <input name="parentAccept" type="checkbox" onChange={this.handleChange}/> I confirm to have parental consent to register in this web page
-                    </label>
-                </div>
-
-                <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
-                <p className="forgot-password text-right">
-                    Already registered <a href="/reg/sign-in">sign in?</a>
-                </p>
-            </form>
-        );
-    }
-
-
+        <button type="submit" className="btn btn-primary btn-block">
+          Registrieren
+        </button>
+        <p className="forgot-password text-right">
+        Schon registriert? <a href="/reg/sign-in">Login</a>
+        </p>
+      </form>
+    );
+  }
 }
 
 function SignUp(props) {
-    let navigate = useNavigate();
-    return <SignUpC {...props} navigate={navigate} />
+  let navigate = useNavigate();
+  return <SignUpC {...props} navigate={navigate} />;
 }
 
 export default SignUp;
-
-
-

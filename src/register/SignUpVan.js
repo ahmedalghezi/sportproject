@@ -63,7 +63,7 @@ class FormParent extends Component {
       })
       .catch((e) => {
         console.log(e);
-        alert("some error has happened");
+        alert("Es ist ein Fehler aufgetreten.");
       });
   }
 
@@ -82,7 +82,7 @@ class FormParent extends Component {
       })
       .catch((e) => {
         console.log(e);
-        alert("some error has happened");
+        alert("Es ist ein Fehler aufgetreten.");
       });
   }
 
@@ -102,17 +102,17 @@ class FormParent extends Component {
 
   checkInput(stateData) {
     if (stateData.firstName === "") {
-      alert("please input your First Name");
+      alert("Bitte geben Sie Ihren Vornamen ein.");
       return false;
     }
 
     if (stateData.lastName === "") {
-      alert("please input your Last Name");
+      alert("Bitte geben Sie Ihren Nachnamen ein.");
       return false;
     }
 
     if (stateData.birthdate === "") {
-      alert("please input your date of birth");
+      alert("Bitte geben Sie Ihr Geburtsdatum ein.");
       return false;
     }
 
@@ -122,55 +122,55 @@ class FormParent extends Component {
     date16.setFullYear(date16.getFullYear() - 13);
     // check if the date of birth is before that date
     if (date > date16) {
-      alert("You must be over 13 years old to register");
+      alert("Sie müssen älter als 13 Jahre sein, um sich zu registrieren.");
       return false;
     }
 
     if (stateData.email === "") {
-      alert("please input your email");
+      alert("Bitte geben Sie Ihre Email-Adresse ein.");
       return false;
     }
 
     if (stateData.password === "") {
-      alert("password cannot empty!");
+      alert("Wählen Sie ein Passwort.");
       return false;
     }
     
    if (!stateData.readTerms && stateData.step === 2) {
-    alert("please read and accept the terms and conditions");
+    alert("Bitte lesen und akzeptieren Sie die Bedingungen.");
     return false;
   }
   if (!stateData.parentAccept && stateData.showParentAccept && stateData.step === 2) {
-    alert("Please confirm the parent acceptance");
+    alert("Bitte die Einverständnis der Eltern bestätigen.");
     return false;
   }
   if (stateData.weight < 0 && stateData.step === 2) {
-    alert("Negative Number for weight is not valid");
+    alert("Negative Zahl für Gewicht ist nicht zulässig.");
     return false;
   }
   if (stateData.height < 0 && stateData.step === 2) {
-    alert("Negative Number for height is not valid");
+    alert("Negative Zahl für Körpergröße ist nicht zulässig.");
     return false;
   }
   
   if (stateData.armSpan < 0 && stateData.step === 2) {
-    alert("Negative Number is not valid");
+    alert("Negative Zahl ist nicht zulässig.");
     return false;
   }
   if (stateData.heightSpanStand < 0 && stateData.step === 2) {
-    alert("Negative Number is not valid");
+    alert("Negative Zahl ist nicht zulässig.");
     return false;
   }
   if (stateData.heightSpanSit < 0 && stateData.step === 2) {
-    alert("Negative Number is not valid");
+    alert("Negative Zahl ist nicht zulässig.");
     return false;
   }
   if (stateData.heightKnee < 0 && stateData.step === 2) {
-    alert("Negative Number is not valid");
+    alert("Negative Zahl ist nicht zulässig.");
     return false;
   }
   if (stateData.heightSit < 0 && stateData.step === 2) {
-    alert("Negative Number is not valid");
+    alert("Negative Zahl ist nicht zulässig.");
     return false;
   }
   
@@ -182,8 +182,8 @@ class FormParent extends Component {
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     if (password.match(passw)) return true;
     alert(
-      "Password must be between 8 to 15 characters length, contains at least one lowercase letter, " +
-        "one uppercase letter, numeric digit, and one special character"
+      "Das Passwort muss zwischen 8 und 15 Zeichen lang sein und mindestens einen Kleinbuchstaben, " +
+      ", einen Großbuchstaben, eine Ziffer und ein Sonderzeichen enthalten."
     );
     return false;
   }
@@ -204,15 +204,15 @@ class FormParent extends Component {
         
         PostSignup.setSignUP(this.state)
           .then((response) => {
-            if (response.data.res === "error") alert("some error has happened");
+            if (response.data.res === "error") alert("Es ist ein Fehler aufgetreten.");
             else if (response.data.res === "duplicate key")
-              alert("This email is already registered");
+              alert("Diese Email-Adresse ist bereits registriert.");
             //this.props.history.push('./AfterReg');
             else this.props.navigate("/reg/regSuc");
           })
           .catch((e) => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten.");
           });
         //event.preventDefault();
         console.log(this.state);

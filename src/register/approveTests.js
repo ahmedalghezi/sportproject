@@ -166,7 +166,7 @@ const ApproveTests = ({ prevStep, handleChange, handleSubmit, values }) => {
             defaultValue={values.parentAccept}
             onChange={handleChange('parentAccept')}
           />{" "}
-          I confirm to have parental consent to register in this portal
+          Ich bestätige, dass ich das Einverständnis meiner Eltern habe, mich in diesem Portal zu registrieren.
         </label>
       </div>
      
