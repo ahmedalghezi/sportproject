@@ -225,7 +225,7 @@ table td * {
   margin-top: 1px;
 }
 
-
+/*### display div side by side ###*/
 #beside {
   display: -webkit-flex;
   display: flex;
@@ -243,3 +243,4 @@ table td * {
 #small-text {
     font-size: small;
 }
+
