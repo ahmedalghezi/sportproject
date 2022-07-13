@@ -74,7 +74,7 @@ class LoginC extends Component {
           <input
             type="email"
             className="form-control"
-            placeholder="Enter email"
+            placeholder="Email-Adresse"
             name="email"
             onChange={this.handleChange}
           />
@@ -84,7 +84,7 @@ class LoginC extends Component {
           <input
             type="password"
             className="form-control"
-            placeholder="Enter password"
+            placeholder="Passwort"
             name="password"
             onChange={this.handleChange}
           />

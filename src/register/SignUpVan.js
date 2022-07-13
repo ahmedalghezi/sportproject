@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import PersonalInfo from "./personalInfo";
 import ApproveTests from "./approveTests";
 
+
 class FormParent extends Component {
   constructor(props) {
     super(props);
@@ -339,6 +340,7 @@ class FormParent extends Component {
       default:
       // do nothing
     }
+    
   }
 }
 

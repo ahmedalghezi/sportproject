@@ -218,7 +218,7 @@ class SignUpC extends Component {
           <input
             type="password"
             className="form-control"
-            placeholder="Passwort eingeben."
+            placeholder="Passwort"
             name="password"
             onChange={this.handleChange}
           />
