@@ -297,7 +297,7 @@ export default function  GetIDS(){
 
                         <td width="20px">     </td>
                         <td>
-                            <div className="form-group">
+                            <div className="form-group" hidden={true}>
                                 <label>Approved data category</label>
                                 <br></br>
                                 <select onChange={handleStudySele}  name="approved_studies">

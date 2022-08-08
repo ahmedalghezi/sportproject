@@ -20,8 +20,6 @@ export default class PostSignup {
         return http.post("/reg/login/",data);
     }
 
-
-
     static getSignUpData() {
         return http.get("/reg/getProfile");
     }
@@ -62,5 +60,16 @@ export default class PostSignup {
         return http.get("/reg/getStudies");
     }
 
+    static requestChangePassword(data){
+        return http.post("/reg/requestChangePassword",data);
+    }
 
+    static changePassword(data){
+        return http.post("/reg/changePassword" , data);
+    }
+
+
+    static passwordChangeLinkClicked(param) {
+        return http.post("/reg/passwordLinkClicked" , param);
+    }
 }

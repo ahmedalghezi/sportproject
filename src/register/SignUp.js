@@ -6,7 +6,7 @@ import React, { Component } from "react";
 //import {Navigation} from 'react-router';
 import "./style.css";
 import PostSignup from "../DB/postSignup";
-import { useNavigate } from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 class SignUpC extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +22,7 @@ class SignUpC extends Component {
       disciplinesList: [],
       showParentAccept: false,
       parentAccept: false,
+      adminReg:''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +30,7 @@ class SignUpC extends Component {
 
   componentDidMount() {
     this.getDisciplines();
+    this.setState({adminReg:this.props.adminReg});
   }
 
   getDisciplines() {
@@ -262,8 +264,15 @@ class SignUpC extends Component {
 }
 
 function SignUp(props) {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const st = searchParams.get("admiregxn");
+  console.log(st);
   let navigate = useNavigate();
-  return <SignUpC {...props} navigate={navigate} />;
+  if(st === "")
+    return <SignUpC {...props} navigate={navigate} />;
+  else
+    return <SignUpC {...props} navigate={navigate} adminReg={st} />;
 }
 
 export default SignUp;

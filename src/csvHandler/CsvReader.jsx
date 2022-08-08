@@ -380,7 +380,7 @@ export default function  CsvReader(){
                                 <option value="blood">Blood samples</option>
                                 <option value="dna">DNA</option>
                                 <option value="bacterial">Bacterial</option>
-                                <option value="bacterial">Other</option>
+                                <option value="other">Other</option>
                             </select>
                         </div>
 
@@ -402,7 +402,7 @@ export default function  CsvReader(){
 
 
                     <td>
-                        <div className="form-group">
+                        <div className="form-group" hidden={true}>
                             <label>Approved data category</label>
                             <br></br>
                             <select onChange={handleStudySele}  name="approved_studies">

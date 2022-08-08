@@ -42,8 +42,9 @@ export class MyProfile extends Component {
         event.preventDefault();
     }
 
-    updateProfile() {
-        this.props.navigate('/reg/updateProfile');
+    updateProfile(event) {
+        event.preventDefault();
+        //this.props.navigate('/reg/updateProfile');
     }
 
     goToCoaches = (event) => {

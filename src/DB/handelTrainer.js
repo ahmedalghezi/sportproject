@@ -54,4 +54,7 @@ export default class HandelTrainer{
         return http.post("/trainer/makeTrainer",data);
     }
 
+    static deleteTest(data) {
+        return http.post("/trainer/deleteTest",data);
+    }
 }

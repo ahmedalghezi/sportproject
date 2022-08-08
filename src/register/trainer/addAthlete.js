@@ -77,7 +77,7 @@ class AddAthleteC extends Component {
             if (response.data.res === "error")
                 alert("some error has happened");
             else if (response.data.res === "wrong")
-                alert("Please login please");
+                alert("Please login first");
             else if (response.data.res === "empty"){
                 this.setState({athletesArr: []});
             }
@@ -126,7 +126,7 @@ class AddAthleteC extends Component {
             if (response.data.res === "error")
                 alert("some error has happened");
             else if (response.data.res === "wrong")
-                alert("Please login please");
+                alert("Please login first");
             else if (response.data.res === "empty"){
                 this.setState({athletesArr: []});
             }

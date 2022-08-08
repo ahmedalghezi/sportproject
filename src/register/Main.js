@@ -22,6 +22,9 @@ import SignOut from "./sign-out";
 import EditCoach from "./trainer/editCoach";
 import CsvReader from "../csvHandler/CsvReader";
 import GetIDS from "../csvHandler/getIDs";
+import ForgetPassword from "./forgetPassword";
+import Footer from "./footer";
+import ChangePassword from "./changePassword";
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
     const onLoginF = () => {
@@ -44,6 +47,9 @@ function Main() {
                             <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
                             <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><MyProfile/></div>} />
+                            <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
+                            <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
+
                             <Route path='/lime/control' element={<div className="auth-inner"><LimeControl/></div>} />
                             <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />
                             <Route path='/trainer/sheet' element={<div className="auth-inner"><TrainerSheet/></div>} />
@@ -55,8 +61,13 @@ function Main() {
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
+
+
+
                         </Routes>
                 </div>
+                <div><p></p></div>
+                <Footer />
 
             </div>
     );

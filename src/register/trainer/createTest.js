@@ -72,6 +72,28 @@ export default class CreateTest extends Component {
         });
     }
 
+    deleteTest = (event) => {
+        event.preventDefault();
+
+        HandelTrainer.deleteTest(this.state).then(response => {
+            //console.log(response.data);
+            //navigate("./AfterReg");
+            //this.transitionTo('/');
+            if(response.data.res === "no")
+                this.props.navigate('/reg/sign-in');
+            if(response.data.res === "ok")
+                alert("Test deleted successfully");
+            if(response.data.res === "error")
+                alert("some error has happened");
+            if(response.data.res === "already_used")
+                alert("Can't delete this test. It is already used by at least one coach. Please contact DB admin");
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
+
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
@@ -91,8 +113,12 @@ export default class CreateTest extends Component {
                     </select>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" className="btn btn-primary btn-block">create</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="submit" className="btn btn-primary btn-block" onClick={this.deleteTest}>delete</button>
             </form>
         );
     }
+
+
 }

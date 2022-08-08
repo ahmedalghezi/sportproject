@@ -54,8 +54,10 @@ class LoginC extends Component {
             window.location.href =
               "https://inprove-sport.info:3000/trainer/createTest";
           else
+            //window.location.href =
+             // "https://inprove-sport.info:3000/reg/profile";
             window.location.href =
-              "https://inprove-sport.info:3000/reg/profile";
+                "https://inprove-sport.info:3000/csv/athleteInfo";
         }
       })
       .catch((e) => {
@@ -63,6 +65,12 @@ class LoginC extends Component {
         alert("Es ist ein Fehler aufgetreten.");
       });
   }
+
+
+    handlePasswordForget = (event) =>{
+        event.preventDefault();
+        this.props.navigate("/reg/forgetPassword");
+    }
 
   render() {
     return (
@@ -105,7 +113,7 @@ class LoginC extends Component {
           Einloggen
         </button>
         <p className="forgot-password text-right">
-          <a href="#">Passwort vergessen?</a>
+          <a href="#" onClick={this.handlePasswordForget}>Passwort vergessen?</a>
         </p>
       </form>
     );

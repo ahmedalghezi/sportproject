@@ -87,7 +87,7 @@ export default class NavBar extends Component {
                 </li>
 
                 <li className="nav-item" hidden={!this.state.showSignUp}>
-                  <Link className="nav-link" to={"/reg/sign-up-van"}>
+                  <Link className="nav-link" to={"/reg/sign-up"}>
                     Registrieren
                   </Link>
                 </li>
@@ -145,12 +145,20 @@ export default class NavBar extends Component {
                     Edit Coaches
                   </Link>
                 </li>
+
+                <li className="nav-item" hidden={this.state.showSignIn}>
+                  <Link className="nav-link" to={"/reg/changemypassword"}>
+                    Change Password
+                  </Link>
+                </li>
+
+
               </ul>
             </div>
           </div>
         </nav>
 
-        <Footer />
+
       </div>
     );
   }
