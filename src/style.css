@@ -1,15 +1,20 @@
 @import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
-* {
+/* * {
   box-sizing: border-box;
-}
-body {
-  background: #1c8ef9 !important;
+} */
+
+/* color codes inprove: #e2e2e2 (weiß), #3b3e41 (grau), #00404f (dunkelgrün), #fdb913 (gelb), #212934 (dunkelblau), #ed1c24(rot), #9ea0a4 (grau), #217c91(highlighting)
+highlighting colors: #b6d7a8 (mint), #a2c4c9 (greenblue), #9fc5e8 (light blue)
+
+*/
+ body {
+  background: #00404f !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
   font-family: "Fira Sans", sans-serif;
-}
-h1,
+} 
+ h1,
 h2,
 h3,
 h4,
@@ -19,25 +24,25 @@ label,
 span {
   font-weight: 500;
   font-family: "Fira Sans", sans-serif;
-}
-body,
+} 
+ body,
 html,
 .App,
 #root,
 .auth-wrapper {
   width: 100%;
   height: 100%;
-}
+} 
 .navbar-light {
   background-color: #ffffff;
   box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
 }
-.auth-wrapper {
+ .auth-wrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-align: left;
-}
+} 
 .auth-inner {
   width: 450px;
   margin: auto;
@@ -63,8 +68,8 @@ html,
   overflow-y: scroll;
   max-height: 800px;
 }
-.auth-wrapper .form-control:focus {
-  border-color: #167bff;
+ .auth-wrapper .form-control:focus {
+  border-color: #b6d7a8;
   box-shadow: none;
 }
 .auth-wrapper h3 {
@@ -72,8 +77,8 @@ html,
   margin: 0;
   line-height: 1;
   padding-bottom: 20px;
-}
-.custom-control-label {
+} 
+ .custom-control-label {
   font-weight: 400;
 }
 .forgot-password,
@@ -85,11 +90,11 @@ html,
   margin: 0;
 }
 .forgot-password a {
-  color: #167bff;
+  color: #b6d7a8;
 }
 
 .blue {
-  color: #167bff;
+  color: #b6d7a8;
   text-align: right;
 }
 
@@ -100,7 +105,7 @@ html,
 }
 
 .box select {
-  background-color: #0563af;
+  background-color: #b6d7a8;
   color: white;
   padding: 0px;
   width: 180px;
@@ -173,9 +178,9 @@ table td * {
 }
 
 .vertical-menu a.active {
-  background-color: #0563af;
+  background-color: #b6d7a8;
   color: white;
-}
+} */
 
 /*### Image Logo ###*/
 .image {

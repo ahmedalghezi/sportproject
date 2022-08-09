@@ -5,10 +5,10 @@ By Ahmed Al-Ghezi
 import React, {Component} from "react";
 //import './trainerStyle.css';
 
-import '../style.css';
-import HandelTrainer from "../../DB/handelTrainer";
+import '../../../style.css';
+import HandelTrainer from "../../../DB/handelTrainer";
 import {useNavigate} from 'react-router-dom';
-import PostSignup from "../../DB/postSignup";
+import PostSignup from "../../../DB/postSignup";
 
 class AddToMyTestsC extends Component {
 

@@ -2,6 +2,7 @@
 By Ahmed Al-Ghezi
  */
 import React, {useEffect, useState} from 'react';
+import { Outlet } from "react-router-dom";
 import {processArr} from "./processCSV";
 import {CSVToArray} from "./processCSV";
 import PostCSVData from "../DB/postCSV";
@@ -329,6 +330,7 @@ export default function  CsvReader(){
 
     return(
         <div>
+            <Outlet />
         <form id='csv-form'>
              {/*<input
                 type='file'

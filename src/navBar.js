@@ -3,10 +3,10 @@ By Ahmed Al-Ghezi
  */
 
 import React, { Component } from "react";
-import PostSignup from "../DB/postSignup";
+import PostSignup from "./DB/postSignup";
 import { Link } from "react-router-dom";
-import image from "../images/inprove_logo-400x103.png";
-import Footer from "./footer";
+import image from "./images/inprove_logo-400x103.png";
+
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -14,10 +14,11 @@ export default class NavBar extends Component {
     this.state = {
       showSignIn: true,
       showSignUp: true,
-      showTrainer: false,
-      showAdminTrainer: false,
-      showAdmin: false,
-      flag: false,
+      showSignOut: false,
+      // showTrainer: false,
+      // showAdminTrainer: false,
+      // showAdmin: false,
+      // flag: false,
     };
     this.checkLogin = this.checkLogin.bind(this);
   }
@@ -41,16 +42,18 @@ export default class NavBar extends Component {
         if (response.data.res === "ok") {
           this.setState({ showSignIn: false });
           this.setState({ showSignUp: false });
-          this.setState({
-            showTrainer: PostSignup.isTrainer(response.data.role),
-          });
-          this.setState({
-            showAdminTrainer: PostSignup.isAdminTrainer(response.data.role),
-          });
-          this.setState({ showAdmin: PostSignup.isAdmin(response.data.role) });
+          this.setState({ showSignOut: true });
+          // this.setState({
+          //   showTrainer: PostSignup.isTrainer(response.data.role),
+          // });
+          // this.setState({
+          //   showAdminTrainer: PostSignup.isAdminTrainer(response.data.role),
+          // });
+          // this.setState({ showAdmin: PostSignup.isAdmin(response.data.role) });
         } else {
-          this.setState({ showSingIn: true });
-          this.setState({ showSingUp: true });
+          this.setState({ showSignIn: true });
+          this.setState({ showSignUp: true });
+          this.setState({ showSignOut: false });
         }
         this.props.navBarUpdated();
       })
@@ -71,11 +74,17 @@ export default class NavBar extends Component {
           <div className="container">
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
+              <li className="nav-item" hidden={this.state.showSignIn}>
+                  <Link className="nav-link" to={"/home"}>
+                    Home
+                  </Link>
+                </li>
+                
                 <li
                   className="nav-item"
                   hidden={!this.state.showSignIn /*|| this.props.loggedin*/}
                 >
-                  <Link className="nav-link" to={"/reg/sign-in"}>
+                  <Link className="nav-link" to={"/login"}>
                     Login
                   </Link>
                 </li>
@@ -87,12 +96,12 @@ export default class NavBar extends Component {
                 </li>
 
                 <li className="nav-item" hidden={!this.state.showSignUp}>
-                  <Link className="nav-link" to={"/reg/sign-up-van"}>
+                  <Link className="nav-link" to={"/reg"}>
                     Registrieren
                   </Link>
                 </li>
 
-                <li
+                {/* <li
                   className="nav-item"
                   hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
@@ -144,13 +153,13 @@ export default class NavBar extends Component {
                   <Link className="nav-link" to={"/trainer/editCoach"}>
                     Edit Coaches
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
         </nav>
 
-        <Footer />
+       
       </div>
     );
   }

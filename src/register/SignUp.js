@@ -4,7 +4,7 @@ By Ahmed Al-Ghezi
 
 import React, { Component } from "react";
 //import {Navigation} from 'react-router';
-import "./style.css";
+import "../style.css";
 import PostSignup from "../DB/postSignup";
 import { useNavigate } from "react-router-dom";
 class SignUpC extends Component {

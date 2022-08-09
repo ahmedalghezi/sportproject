@@ -1,13 +1,13 @@
 import React from 'react';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
+//import '../App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import AfterReg from "./AfterReg";
-import LimeControl from "./limeControl"
-import UpdateProfile from "./UpdateProfile";
-import MyProfile from "./profile";
+import Login from "../Login/Login";
+import SignUp from "../register/SignUp";
+import AfterReg from "../register/AfterReg";
+import LimeControl from "../register/limeControl"
+import UpdateProfile from "../register/UpdateProfile";
+import MyProfile from "../register/profile";
 import TrainerSheet from  "./trainer/sheet";
 import CreateTest from "./trainer/createTest";
 import AddToMyTests from "./trainer/addToMyTests";

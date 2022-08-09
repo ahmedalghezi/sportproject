@@ -1,0 +1,39 @@
+h1 {
+    background-color:white;
+}
+
+h5 {
+    color:black !important; 
+    text-decoration: none !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.tile {
+    background-color: white;
+}
+
+.green1 {
+    color: #b6d7a8;
+}
+.green2 {
+    color: #a2c4c9;
+}
+.green3 {
+    color: #9fc5e8;
+}
+
+.col.p-4:hover {
+    background-color: white;
+}
+
+.col.p-4.hide {
+    opacity: 0.0;
+}
+
+svg:hover {
+    transform: scale(1.2)
+}
+

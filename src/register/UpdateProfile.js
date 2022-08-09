@@ -4,11 +4,11 @@ By Ahmed Al-Ghezi
 
 import React, {Component} from "react";
 
-import './style.css';
+import '../style.css';
 import PostSignup from '../DB/postSignup';
 import {useNavigate} from 'react-router-dom';
 import AlertDialog from "../utli/alertDialog";
-import SignUp from "./SignUp";
+//import SignUp from "./Login/SignUp";
 
 class UpdateProfileC extends Component {
 

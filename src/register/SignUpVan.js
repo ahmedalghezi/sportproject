@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 //import {Navigation} from 'react-router';
-import "./style.css";
+import "../style.css";
 import PostSignup from "../DB/postSignup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 
 import PersonalInfo from "./personalInfo";
 import ApproveTests from "./approveTests";
@@ -320,21 +320,25 @@ class FormParent extends Component {
     switch (step) {
       case 1:
         return (
+          <div><Outlet/>
           <PersonalInfo
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             values={values}
           />
+          </div>
         );
       case 2:
         return (
+        <div><Outlet/>
           <ApproveTests
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}
             values={values}
           />
+          </div>
         );
 
       default:

@@ -3,10 +3,11 @@ By Ahmed Al-Ghezi
  */
 
 import React, {Component} from "react";
+import { Outlet } from "react-router-dom";
 //import './trainerStyle.css';
 
-import '../style.css';
-import HandelTrainer from "../../DB/handelTrainer";
+import '../../../style.css';
+import HandelTrainer from "../../../DB/handelTrainer";
 
 export default class Sheet extends Component {
 
@@ -334,6 +335,7 @@ export default class Sheet extends Component {
     render() {
         //some are adapted from <!-- Adapted from https://stackoverflow.com/a/16243163 -->
         return (
+            <div><Outlet />
             <form onSubmit={this.handleSubmit}>
                 <h3>Coach Sheet</h3>
                 <table>
@@ -468,6 +470,7 @@ export default class Sheet extends Component {
 
 
             </form>
+            </div>
         );
     }
 
