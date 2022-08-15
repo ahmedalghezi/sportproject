@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import "./style.css";
 import PostSignup from "../DB/postSignup";
 import {useNavigate, useSearchParams} from "react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 class SignUpC extends Component {
   constructor(props) {
     super(props);
@@ -250,6 +251,12 @@ class SignUpC extends Component {
             />{" "}
             Ich bestätige, dass ich das Einverständnis meiner Eltern habe, mich in diesem Portal zu registrieren.
           </label>
+        </div>
+        <div className="form-group">
+        <ReCAPTCHA
+        sitekey="6LfeLXkhAAAAABG8GqbCGh75KtY41d8pHUwLKmLG"
+        
+      />
         </div>
 
         <button type="submit" className="btn btn-primary btn-block">
