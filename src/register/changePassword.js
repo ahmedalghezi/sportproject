@@ -8,6 +8,7 @@ import PostSignup from '../DB/postSignup';
 import {useNavigate, useSearchParams} from "react-router-dom";
 import AlertDialog from "../utli/alertDialog";
 import {Alert} from "@mui/material";
+import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
 
 class ChangePasswordC extends Component {
 
@@ -37,8 +38,10 @@ class ChangePasswordC extends Component {
         this.setState({temp: tempPass});
         this.setState({isTemp: isTemp});
         this.setState({email: emailP});
+        this.iniReCapcha();
 
     }
+
 
     handleChange(event) {
         const target = event.target;
@@ -95,6 +98,8 @@ class ChangePasswordC extends Component {
     }
 
 
+
+
     render() {
         return (
             <div>
@@ -118,6 +123,14 @@ class ChangePasswordC extends Component {
                                      onOk={this.forwardLogin} onCancel={this.cancelDelete}/>
                     </div>
                 </form>
+                <div className="form-group">
+                    <GoogleReCaptchaProvider
+                        sitekey="6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz"
+
+                    />
+
+
+                </div>
             </div>
 
         );

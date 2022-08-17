@@ -4,25 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="Finalizing the signup form">
-      <change afterPath="$PROJECT_DIR$/src/register/changePassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/forgetPassword.js" afterDir="false" />
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/handelTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/handelTrainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/forgotPassword.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/createTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/createTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/forgetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/forgetPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -330,7 +321,8 @@
       <workItem from="1657088761491" duration="14179000" />
       <workItem from="1657198369192" duration="22616000" />
       <workItem from="1659350596034" duration="294000" />
-      <workItem from="1659359246945" duration="20404000" />
+      <workItem from="1659359246945" duration="24392000" />
+      <workItem from="1660562377635" duration="6682000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -521,7 +513,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657530094520</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Adding change and forget password. Changes to the coach interface: admin delete training tests.">
+      <created>1659959780169</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1659959780169</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -563,6 +562,42 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="7eec15fd-36dd-4701-b775-3ba4be5382dc">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="7eec15fd-36dd-4701-b775-3ba4be5382dc" value="TOOL_WINDOW" />
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First version login component" />
     <MESSAGE value="First version login component_2" />
@@ -582,7 +617,8 @@
     <MESSAGE value="Version2, navBar changes" />
     <MESSAGE value="Version2, adding getIDs" />
     <MESSAGE value="Finalizing the signup form" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finalizing the signup form" />
+    <MESSAGE value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -594,17 +630,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>81</line>
+          <line>102</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>119</line>
+          <line>140</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/Login.js</url>
-          <line>21</line>
+          <line>40</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

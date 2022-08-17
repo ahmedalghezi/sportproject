@@ -179,7 +179,7 @@ class LimeControl extends Component {
 
                     <td width="20px">     </td>
                     <td>
-                        <div className="form-group">
+                        <div className="form-group" hidden={true}>
                             <label>Approved data category</label>
                             <br></br>
                             <select onChange={this.handleStudySele}  name="approved_studies">

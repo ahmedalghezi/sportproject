@@ -10,14 +10,33 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 class LoginC extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "" };
+    this.state = { email: "", password: "",captchaToken:"" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    //alert("System is under maintenance until today 6:00 pm");
-  }
+
+    componentDidMount() {
+        //alert("System is under maintenance until today 6:00 pm");
+        this.iniReCapcha();
+    }
+
+    iniReCapcha = () =>{
+        const key = "6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz";
+        const handleLoaded = _ => {
+            window.grecaptcha.ready(_ => {
+                window.grecaptcha
+                    .execute(key, { action: "homepage" })
+                    .then(token => {
+                        this.setState({captchaToken:token})
+                    })
+            })
+        }
+        const script = document.createElement("script")
+        script.src = "https://www.google.com/recaptcha/api.js?render="+key
+        script.addEventListener("load", handleLoaded)
+        document.body.appendChild(script)
+    }
 
   handleChange(event) {
     const target = event.target;
@@ -59,10 +78,12 @@ class LoginC extends Component {
             window.location.href =
                 "https://inprove-sport.info:3000/csv/athleteInfo";
         }
+        this.iniReCapcha();
       })
       .catch((e) => {
         console.log(e);
         alert("Es ist ein Fehler aufgetreten.");
+        this.iniReCapcha();
       });
   }
 

@@ -89,10 +89,11 @@ export default function  GetIDS(){
 
 
     useEffect(() => {
-        //TODO find better way
+        //TODO find a better way
         if(disciplinesList.length == 0){
             getDisplines();
             getApprovedStudies();
+            //showError("This page is under update ...");
         }
 
     });

@@ -12,7 +12,7 @@ class ForgetPasswordC extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {email:''};
+        this.state = {email:'',captchaToken:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -26,6 +26,26 @@ class ForgetPasswordC extends Component {
             [name]: value
         });
     }
+    componentDidMount() {
+        this.iniReCapcha();
+    }
+
+    iniReCapcha = () =>{
+        const key = "6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz";
+        const handleLoaded = _ => {
+            window.grecaptcha.ready(_ => {
+                window.grecaptcha
+                    .execute(key, { action: "homepage" })
+                    .then(token => {
+                        this.setState({captchaToken:token})
+                    })
+            })
+        }
+        const script = document.createElement("script")
+        script.src = "https://www.google.com/recaptcha/api.js?render="+key
+        script.addEventListener("load", handleLoaded)
+        document.body.appendChild(script)
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -35,6 +55,7 @@ class ForgetPasswordC extends Component {
             else if(response.data.res === "ok"){
                 alert("Check your email for further instructions");
             }
+            this.iniReCapcha();
         }).catch(e => {
             console.log(e);
             alert("some error has happened");

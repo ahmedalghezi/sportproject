@@ -23,7 +23,8 @@ class SignUpC extends Component {
       disciplinesList: [],
       showParentAccept: false,
       parentAccept: false,
-      adminReg:''
+      adminReg:'',
+      captchaToken:''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +33,25 @@ class SignUpC extends Component {
   componentDidMount() {
     this.getDisciplines();
     this.setState({adminReg:this.props.adminReg});
+    this.iniReCapcha();
+  }
+
+  iniReCapcha = () =>{
+    const key = "6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz";
+    const handleLoaded = _ => {
+      window.grecaptcha.ready(_ => {
+        window.grecaptcha
+            .execute(key, { action: "homepage" })
+            .then(token => {
+              console.log(token);
+              this.setState({captchaToken:token})
+            })
+      })
+    }
+    const script = document.createElement("script")
+    script.src = "https://www.google.com/recaptcha/api.js?render="+key
+    script.addEventListener("load", handleLoaded)
+    document.body.appendChild(script)
   }
 
   getDisciplines() {
@@ -229,6 +249,13 @@ class SignUpC extends Component {
 
         <p></p>
 
+        <div
+            className="g-recaptcha"
+            data-sitekey="_reCAPTCHA_site_key_"
+            data-size="invisible"
+        ></div>
+
+
         <div className="form-group">
           <label htmlFor="checkid">
             <input
@@ -251,12 +278,6 @@ class SignUpC extends Component {
             />{" "}
             Ich bestätige, dass ich das Einverständnis meiner Eltern habe, mich in diesem Portal zu registrieren.
           </label>
-        </div>
-        <div className="form-group">
-        <ReCAPTCHA
-        sitekey="6LfeLXkhAAAAABG8GqbCGh75KtY41d8pHUwLKmLG"
-        
-      />
         </div>
 
         <button type="submit" className="btn btn-primary btn-block">
