@@ -58,13 +58,13 @@ export default class SignOut extends Component {
 
     forwardSignInDisg() {
         if(!this.state.disguised)
-            window.location.href = "https://inprove-sport.info:3000/reg/";
+            window.location.href = window.location.origin+"/reg/";
         else
-            window.location.href = "https://inprove-sport.info:3000/trainer/editCoach";
+            window.location.href = window.location.origin+"/trainer/editCoach";
     }
 
 
     static forwardSignIn() {
-        window.location.href = "https://inprove-sport.info:3000/reg/";
+        window.location.href = window.location.origin+"/reg/";
     }
 }

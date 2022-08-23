@@ -4,16 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="adding bot check">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/changePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/forgetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/forgetPassword.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/sign-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/sign-out.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/editCoach.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,6 +325,7 @@
       <workItem from="1659350596034" duration="294000" />
       <workItem from="1659359246945" duration="24392000" />
       <workItem from="1660562377635" duration="6682000" />
+      <workItem from="1660764157621" duration="6931000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -520,7 +523,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659959780169</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="adding bot check">
+      <created>1660764254758</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1660764254758</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -618,7 +628,8 @@
     <MESSAGE value="Version2, adding getIDs" />
     <MESSAGE value="Finalizing the signup form" />
     <MESSAGE value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
+    <MESSAGE value="adding bot check" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding bot check" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -630,12 +641,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>102</line>
+          <line>104</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>140</line>
+          <line>142</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

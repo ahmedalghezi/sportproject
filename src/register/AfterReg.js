@@ -7,7 +7,7 @@ import React, {Component} from "react";
 export default class AfterReg extends Component {
 
     handleSubmit(event) {
-        window.location.href = "https://inprove-sport.info/limesurvey";
+        window.location.href = "https://inprove-sport.info/limesurvey/";
         event.preventDefault();
     }
 

@@ -77,12 +77,14 @@ class SignUpC extends Component {
     let value = target.value;
     const name = target.name;
     if (name === "readTerms") value = target.checked;
+    if (name === "parentAccept") value = target.checked;
     this.setState({
       [name]: value,
     });
   }
 
-  setBirthDate(event) {
+
+  setBirthDate = (event) => {
     event.preventDefault();
     this.setState({ birthdate: event.target.value });
     const date = new Date(event.target.value);
@@ -113,10 +115,10 @@ class SignUpC extends Component {
 
     const date = new Date(stateData.birthdate);
     date.getDate();
-    const date16 = new Date();
-    date16.setFullYear(date16.getFullYear() - 13);
+    const date13 = new Date();
+    date13.setFullYear(date13.getFullYear() - 13);
     // check if the date of birth is before that date
-    if (date > date16) {
+    if (date > date13) {
       alert("Sie müssen älter als 13 Jahre sein, um sich zu registrieren.");
       return false;
     }
@@ -213,7 +215,7 @@ class SignUpC extends Component {
             type="date"
             className="form-control"
             name="birthdate"
-            onChange={this.handleChange}
+            onChange={this.setBirthDate}
           />
         </div>
 

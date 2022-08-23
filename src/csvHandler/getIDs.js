@@ -170,7 +170,7 @@ export default function  GetIDS(){
           console.log(response.data);
           if(response.data.res === "no"){
               showError("Not logged in!");
-              window.location.href = "https://inprove-sport.info:3000/reg/sign-in?org=$csv$athleteInfo";
+              window.location.href = window.location.origin+"/reg/sign-in?org=$csv$athleteInfo";
               return;
           }
           if(response.data.res === "error"){

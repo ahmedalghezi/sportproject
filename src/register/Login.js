@@ -65,18 +65,18 @@ class LoginC extends Component {
             PostSignup.isTrainer(response.data.role)
           )
             window.location.href =
-              "https://inprove-sport.info:3000/trainer/sheet";
+                window.location.origin+"/trainer/sheet";
           else if (
             response.data.role &&
             PostSignup.isAdminTrainer(response.data.role)
           )
             window.location.href =
-              "https://inprove-sport.info:3000/trainer/createTest";
+                window.location.origin+"/trainer/createTest";
           else
             //window.location.href =
              // "https://inprove-sport.info:3000/reg/profile";
             window.location.href =
-                "https://inprove-sport.info:3000/csv/athleteInfo";
+                window.location.origin+"/csv/athleteInfo";
         }
         this.iniReCapcha();
       })

@@ -95,7 +95,7 @@ class LimeControl extends Component {
             //alert("some error has happened");
             if(response.data.res === "no"){
                 //alert("Please sign in to continue");
-                window.location.href = "https://inprove-sport.info:3000/reg/sign-in?org=$lime$control";
+                window.location.href = window.location.origin+"/reg/sign-in?org=$lime$control";
                 return;
             }
             else if(response.data.res === "ok") {
@@ -127,7 +127,7 @@ class LimeControl extends Component {
                 //alert("some error has happened");
             if(response.data.res === "no"){
                 //alert("Please sign in to continue");
-                window.location.href = "https://inprove-sport.info:3000/reg/sign-in?org=$lime$control";
+                window.location.href = window.location.origin+"/reg/sign-in?org=$lime$control";
                 return;
             }
             else {

@@ -91,7 +91,7 @@ export default class EditCoach extends Component {
         PostSignup.disguisedTrainerLogin(this.state.selectedTrainer).then(response => {
             if(response.data.res === "ok"){
                 //this.props.navigate('/trainer/addAthletes');
-                window.location.href = "https://inprove-sport.info:3000/trainer/addAthletes";
+                window.location.href = window.location.origin+"/trainer/addAthletes";
             }else{
                 alert("some error has happened");
             }

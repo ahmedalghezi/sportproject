@@ -60,7 +60,7 @@ class ChangePasswordC extends Component {
             if (response.data.res === "error")
                 alert("some error has happened");
             if (response.data.res === "wrong" && !this.state.isTemp)
-                  window.location.href = "https://inprove-sport.info:3000/reg/sign-in";
+                  window.location.href = window.location.origin+"/reg/sign-in";
             if (response.data.res === "wrong" && this.state.isTemp)
                 alert("The link is either wrong or expired");
             if(response.data.res === "wrong_password")
@@ -70,7 +70,7 @@ class ChangePasswordC extends Component {
                 //TODO: does not work unless wrpped to the func. comp.
                 setTimeout(function(){
                     this.setState({success:false});
-                    window.location.href = "https://inprove-sport.info:3000/reg/sign-in";
+                    window.location.href = window.location.origin+"/reg/sign-in";
                 }.bind(this),4500);
             }
             if (response.data.res === "wrong_password") {
