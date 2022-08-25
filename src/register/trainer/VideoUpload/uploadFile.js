@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./uploadFile.css";
 
+   /* ### TODOs ###
+   backend
+   onFileUpload
+  */
 class UploadFileC extends Component {
   state = {
     selectedFile: null,
@@ -68,6 +72,7 @@ class UploadFileC extends Component {
       );
     }
   };
+ 
   render() {
     return (
       <div>

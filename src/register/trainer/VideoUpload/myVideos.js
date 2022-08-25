@@ -1,9 +1,25 @@
 import React, { Component } from "react";
 import ReactPlayer from "react-player";
-import "./uploadFile.css"
+import "./uploadFile.css";
+import video1 from "./videos/testvideo.mp4";
+import video2 from "./videos/testvideo2.mp4";
+import video3 from "./videos/testvideo3.mp4";
+import video4 from "./videos/testvideo4.mp4";
+
+  /* ### TODOs ###
+   backend instead of example videofiles (here, just as illustration of gallery)
+  */
 
 class MyVideosC extends Component {
-  state = {};
+  state = {
+    data: [
+      { id: 1, videourl: video1, title: "video1" },
+      { id: 2, videourl: video2, title: "video2" },
+      { id: 3, videourl: video3, title: "video3" },
+      { id: 4, videourl: video4, title: "video4" },
+    ],
+  };
+
   render() {
     return (
       <div>
@@ -15,20 +31,28 @@ class MyVideosC extends Component {
             <option>Datum</option>
           </select>
         </div>
-        <div>
-            <table>
-                <tr>
-                    <td className="table-header">Titel</td>
-                    <td className="table-header">Datum</td>
-                </tr>
-                <tr>
-                    <td className="table-data">Beispiel eines Titels 1</td>
-                    <td className="table-data">Datum des Hochladens von Titel 1</td>
-                </tr>
-            </table>
-        </div>
-        <div>
-          <ReactPlayer url="https://www.youtube.com/watch?v=ysz5S6PUM-U" />
+        
+        <div className="gallery">
+          {this.state.data.map((item, index) => {
+            return (
+              <div>
+                {" "}
+                <div className="video" key={index}>
+                  <div className="video-container">
+                    <ReactPlayer
+                      controls
+                      url={item.videourl}
+                      width={300}
+                      height={200}
+                    />
+                  </div>
+                </div>
+                <div className="content-section">
+                  <h1 id="video-title">{item.title}</h1>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         <div className="form-group">
@@ -47,3 +71,4 @@ class MyVideosC extends Component {
 }
 
 export default MyVideosC;
+
