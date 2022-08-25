@@ -25,6 +25,10 @@ import GetIDS from "../csvHandler/getIDs";
 import ForgetPassword from "./forgetPassword";
 import Footer from "./footer";
 import ChangePassword from "./changePassword";
+import UploadFileC from "./trainer/VideoUpload/uploadFile";
+import VideoNavC from "./trainer/VideoUpload/uploadVideoNav";
+import MyVideosC from "./trainer/VideoUpload/myVideos"; 
+
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
     const onLoginF = () => {
@@ -58,6 +62,10 @@ function Main() {
                             <Route path='/trainer/adminMain' element={<div className="auth-inner"><CreateTest/></div>} />
                             <Route path='/trainer/addAthletes' element={<div className="auth-inner"><AddAthlete/></div>} />
                             <Route path='/trainer/editCoach' element={<div className="auth-inner"><EditCoach/></div>} />
+                            <Route path='/trainer/VideoUpload/uploadFile' element={<div className="auth-inner"><UploadFileC/></div>} />
+                            <Route path='/trainer/VideoUpload/videonav' element={<div className="auth-inner"><VideoNavC/></div>} />
+                            <Route path='/trainer/VideoUpload/myvideos' element={<div className="csv-inner"><MyVideosC/></div>} />
+
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
