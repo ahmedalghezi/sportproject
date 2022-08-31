@@ -16,7 +16,6 @@ function Sheet(props) {
     const processData = dataString => {
         const dataStringLines = dataString.split(/\r\n|\n/);
         const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-
         const list = [];
         const rMatrix = [];
         for (let i = 1; i < dataStringLines.length; i++) {
@@ -94,17 +93,21 @@ function Sheet(props) {
     return (
 
         <div>
-            <input hidden={props.hideInputFile}
+            <div>
+            <input hidden={false}
                 type="file"
                 accept=".csv,.xlsx,.xls"
                 onChange={handleFileUpload}
             />
+            </div>
+            <div>
             <DataTable
                 pagination
                 highlightOnHover
                 columns={columns}
                 data={data}
             />
+            </div>
         </div>
     );
 }

@@ -14,6 +14,9 @@ import {Alert} from "@mui/material";
 //import '../register/style.css';
 
 
+function handleFileUpload() {
+
+}
 
 export default function  CsvReader(){
 
@@ -44,6 +47,11 @@ export default function  CsvReader(){
     const [approvedStudies, setApprovedStudies] = useState([]);
     const [selectedStudyID, setSelectedStudyID] = useState();
 
+    const [initialPage, setInitialPage] = useState(true);
+
+    const[tempHead,setTempHead] = useState([]);
+    const[tempMatrix,setTempMtrix] = useState([]);
+    const[tempIndex,setTempIndex] = useState(0);
 
 
     const processCSV = (str, delim=';') => {
@@ -68,11 +76,21 @@ export default function  CsvReader(){
 
 
     useEffect(() => {
-        //TODO find better way
+        if(!initialPage)
+            return;
+        setInitialPage(false);
         if(disciplinesList.length == 0){
             getDisplines();
             getApprovedStudies();
         }
+        /*
+        const  head = [];
+        head.push("tt");
+        setHeaderArray(head);
+        const arrVl = [];
+        arrVl.push(head);
+        setValuesMatrix(head);
+        updateDataMatrix(arrVl,head);*/
     });
 
     const getDisplines = () => {
@@ -88,7 +106,7 @@ export default function  CsvReader(){
 
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            showError("some error has happened");
         });
     }
 
@@ -105,7 +123,7 @@ export default function  CsvReader(){
 
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            showError("some error has happened");
         });
     }
 
@@ -118,7 +136,7 @@ export default function  CsvReader(){
                 console.log(response);
                 const sendingRes = response.data;
                 if(Object.keys(sendingRes).length !== 0 && sendingRes.length > 0){
-                    alert("Error:some tests do not exist in the database. Did you misspell one or more tests?");
+                    showError("Error:some tests do not exist in the database. Did you misspell one or more tests?");
                     setCheckTest(false);
                 }
 
@@ -185,7 +203,7 @@ export default function  CsvReader(){
         sendTestsInitial();
         return;
 
-        if(!checkTestFlag){
+       /* if(!checkTestFlag){
             checkTests();
             //show in progress ...
             return;
@@ -194,7 +212,7 @@ export default function  CsvReader(){
         if(!checkIDsFlag) {
             checkIDs();
             //TODO show in progress ...
-        }
+        }*/
 
        // sendTests();
 
@@ -226,6 +244,11 @@ export default function  CsvReader(){
                 showError("The following record can not be identified within the given discipline," +
                     " make sure that all records belong to registered athletes:");
                 setObjDataList(response.data.errArr);
+            }
+
+            if(response.data.res === "duplicate"){
+                if(response.data.errCount > 0)
+                    showError( "Duplicate detected");
             }
 
             if(response.data.res === "ok"){
@@ -265,8 +288,25 @@ export default function  CsvReader(){
     const updateDataMatrix = (valMatrix,headers) => {
         setSuccess(false);
         setError(false);
-        if(valMatrix.length===0 || valMatrix[0].length !== headers.length)
+        if(valMatrix.length===0)
             return;
+        if(valMatrix[0].length !== headers.length){
+            /*
+            const prosHeader = [];
+            for(let i = 0 ; i < headers.length ; i++){
+                if(headers[i] != "")
+                    prosHeader[i] = headers[i];
+                else
+                    break;
+            }
+            if(prosHeader.length !== valMatrix[0].length){
+                showError("first row header does not equal rows length");
+                return;
+            }
+            headers = prosHeader;
+            setHeaderArray(headers);*/
+            return;
+        }
         const list = [];
         for (let i = 0; i < valMatrix.length; i++) {
             const obj = {};
@@ -291,10 +331,16 @@ export default function  CsvReader(){
     }
 
     const handleReadData = (headers,rMatrix,objList) => {
-        setHeaderArray(headers);
-        setValuesMatrix(rMatrix);
+        //setHeaderArray(headers);
+        //setValuesMatrix(rMatrix);
+        setTempHead(headers);
+        setTempMtrix(rMatrix);
         setObjDataList(objList);
-        updateDataMatrix(rMatrix,headers);
+        try {
+          ///  updateDataMatrix(rMatrix, headers);
+        }catch (e){
+            console.log(e);
+        }
     }
 
     const  handleDispSele = (event) =>{
@@ -330,7 +376,7 @@ export default function  CsvReader(){
     return(
         <div>
         <form id='csv-form'>
-             {/*<input
+             {<input
                 type='file'
                 accept='.csv'
                 id='csvFile'
@@ -339,7 +385,7 @@ export default function  CsvReader(){
                     readFile(e.target.files[0])
                 }}
             >
-            </input>*/}
+            </input>}
             <br/>
 
             <button
@@ -356,9 +402,35 @@ export default function  CsvReader(){
 
 
 
+            <button
+                className="btn btn-primary btn-block"
+                onClick={(e) => {
+                    e.preventDefault();
+                    let index  = tempIndex +1;
+                    setTempIndex(index);
+                    for(let i = 0 ; i < tempHead.length && i < index; i++){
+                        headerArray.push(tempHead[i]);
+                    }
+                    valuesMatrix.push(headerArray);
+                    setHeaderArray(headerArray);
+                    setValuesMatrix(valuesMatrix);
+                    //updateDataMatrix(valuesMatrix,headerArray);
+                    /*headerArray.push("tt");
+                    const arr = [];
+                    arr.push(headerArray);
+                    setValuesMatrix(arr);
+                    setHeaderArray(headerArray);
+                    updateDataMatrix(valuesMatrix,headerArray);*/
+                }} hidden={false}>
+               test
+            </button>
+
+
+
 
 
             <table>
+
                 <tr>
                     <td>
                         <label>Data date</label><br></br>
@@ -380,6 +452,7 @@ export default function  CsvReader(){
                                 <option value="blood">Blood samples</option>
                                 <option value="dna">DNA</option>
                                 <option value="bacterial">Bacterial</option>
+                                <option value="bacterial">Cognition</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -436,6 +509,7 @@ export default function  CsvReader(){
 
 
                 </tr>
+
             </table>
 
 
@@ -451,6 +525,11 @@ export default function  CsvReader(){
 
 
         </form>
+            <input hidden={false}
+                   type="file"
+                   accept=".csv,.xlsx,.xls"
+                   onChange={handleFileUpload}
+            />
             <Sheet headers={xlsColumns} matrix={objDataList} onRead = {handleReadData}/>
         </div>
     );
