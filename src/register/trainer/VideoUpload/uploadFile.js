@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { ProgressBar } from "react-bootstrap";
 import "./uploadFile.css";
 
-   /* ### TODOs ###
-   backend
+/* ### TODOs ###
+   backend url
    onFileUpload
   */
 class UploadFileC extends Component {
   state = {
     selectedFile: null,
     title: "",
+    uploadPercentage: 0,
   };
 
   setTitle = (event) => {
@@ -40,10 +42,36 @@ class UploadFileC extends Component {
     // Details of the uploaded file
     console.log(this.state.selectedFile);
 
+    //progress bar
+    const options = {
+      onUploadProgress: (progressEvent) => {
+        const { loaded, total } = progressEvent;
+        let percent = Math.floor((loaded * 100) / total);
+        console.log(loaded + "bytes of " + total + " bytes | " + percent + "%");
+        if (percent < 100) {
+          this.setState({ uploadPercentage: percent });
+        }
+      },
+    };
+
     // Request made to the backend api
     // Send formData object
-    /*TODO
-    axios.post("api/uploadfile", formData);*/
+
+    //TODO: url
+    axios
+      .post(
+        "url",
+        formData,
+        options
+      )
+      .then((res) => {
+        console.log(res);
+        this.setState({ uploadPercentage: 100 }, () => {
+          setTimeout(() => {
+            this.setState({ uploadPercentage: 0 });
+          }, 1000);
+        });
+      });
   };
 
   // File content to be displayed after
@@ -72,8 +100,9 @@ class UploadFileC extends Component {
       );
     }
   };
- 
+
   render() {
+    const { uploadPercentage } = this.state;
     return (
       <div>
         <h3>Video hochladen</h3>
@@ -82,7 +111,7 @@ class UploadFileC extends Component {
             <label className="select-file">
               <input
                 type="file"
-                accept="video/*"
+               
                 onChange={this.onFileChange}
               />
               Wähle eine Videodatei
@@ -94,6 +123,13 @@ class UploadFileC extends Component {
           </div>
 
           {this.fileData()}
+          {uploadPercentage > 0 && (
+            <ProgressBar
+              now={uploadPercentage}
+              active="true"
+              label={`${uploadPercentage}%`}
+            />
+          )}
           <div className="form-group">
             <button
               className="btn btn-primary btn-block m-2"
