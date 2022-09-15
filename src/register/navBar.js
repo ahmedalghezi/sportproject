@@ -92,14 +92,16 @@ export default class NavBar extends Component {
                   </Link>
                 </li>
 
+
                 <li
-                  className="nav-item"
-                  hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
-                  <Link className="nav-link" to={"/csv/reader"}>
-                    Upload Files
+                  <Link className="nav-link" to={"/csv/athleteInfo"}>
+                    Athletes Info
                   </Link>
                 </li>
+
 
                 <li
                   className="nav-item"
@@ -110,14 +112,26 @@ export default class NavBar extends Component {
                   </Link>
                 </li>
 
+
                 <li
-                  className="nav-item"
-                  hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
-                  <Link className="nav-link" to={"/csv/athleteInfo"}>
-                    Athletes Info
+                  <Link className="nav-link" to={"/csv/reader"}>
+                    Upload Data
                   </Link>
                 </li>
+
+                <li
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <Link className="nav-link" to={"/csv/history"}>
+                    Download Data
+                  </Link>
+                </li>
+
+
 
                 <li className="nav-item" hidden={!this.state.showTrainer}>
                   <Link className="nav-link" to={"/trainer/addMyTests"}>
@@ -134,6 +148,26 @@ export default class NavBar extends Component {
                     Evaluation
                   </Link>
                 </li>
+
+                <li className="nav-item" hidden={!this.state.showTrainer}>
+                  <Link className="nav-link" to={"/trainer/myhistory"}>
+                    My Data
+                  </Link>
+                </li>
+
+                <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
+                  <Link className="nav-link" to={"/trainer/VideoUpload/uploadFile"}>
+                    Upload videos
+                  </Link>
+                </li>
+
+                <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
+                  <Link className="nav-link" to={"/trainer/VideoUpload/videonav"}>
+                    Manage videos
+                  </Link>
+                </li>
+
+
                 <li className="nav-item" hidden={!this.state.showAdminTrainer}>
                   <Link className="nav-link" to={"/trainer/createTest"}>
                     Create New Training

@@ -27,7 +27,11 @@ import Footer from "./footer";
 import ChangePassword from "./changePassword";
 import UploadFileC from "./trainer/VideoUpload/uploadFile";
 import VideoNavC from "./trainer/VideoUpload/uploadVideoNav";
-import MyVideosC from "./trainer/VideoUpload/myVideos"; 
+import MyVideosC from "./trainer/VideoUpload/myVideos";
+import TestsView from "./trainer/aymen/TestsView";
+import StatsView from "./trainer/aymen/StatsView";
+import EvaluationsView from "./trainer/aymen/EvaluationsView";
+import UploadConsent from "./UploadConsent";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -39,9 +43,9 @@ function Main() {
     }
     return (
             <div className="App">
+
                 <NavBar loggedin={nvLogin} navBarUpdated={onNavBar}/>
                 <div className="auth-wrapper">
-
                         <Routes>
                             <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
                             <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
@@ -53,6 +57,7 @@ function Main() {
                             <Route path='/reg/profile' element={<div className="auth-inner"><MyProfile/></div>} />
                             <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
                             <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
+                            <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
 
                             <Route path='/lime/control' element={<div className="auth-inner"><LimeControl/></div>} />
                             <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />
@@ -69,6 +74,10 @@ function Main() {
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
+                            <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
+                            <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
+                            <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
+
 
 
 

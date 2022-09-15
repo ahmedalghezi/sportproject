@@ -24,7 +24,8 @@ class SignUpC extends Component {
       showParentAccept: false,
       parentAccept: false,
       adminReg:'',
-      captchaToken:''
+      captchaToken:'',
+      tempReg:false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,8 +34,23 @@ class SignUpC extends Component {
   componentDidMount() {
     this.getDisciplines();
     this.setState({adminReg:this.props.adminReg});
+    this.setState({tempReg:this.props.tempReg});
+    if(this.props.tempReg){
+      this.setRandomPassword();
+    }
     this.iniReCapcha();
   }
+
+
+  setRandomPassword = () =>{
+    const pwdChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@#$%^&*()+=!";
+    const pwdLen = Math.floor(Math.random() * (Math.floor(21) - Math.ceil(10)) + Math.ceil(10));
+    const randPassword = Array(pwdLen).fill(pwdChars).map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('');
+    console.log(randPassword);
+    this.setState({password:randPassword});
+    }
+
+
 
   iniReCapcha = () =>{
     const key = "6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz";
@@ -297,12 +313,16 @@ function SignUp(props) {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const st = searchParams.get("admiregxn");
-  console.log(st);
+  let isTemp = searchParams.get("tempreg");
+  if(!isTemp)
+    isTemp = false;
+  else
+    isTemp = true;
   let navigate = useNavigate();
   if(st === "")
-    return <SignUpC {...props} navigate={navigate} />;
+    return <SignUpC {...props} navigate={navigate} tempReg={isTemp}/>;
   else
-    return <SignUpC {...props} navigate={navigate} adminReg={st} />;
+    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp}/>;
 }
 
 export default SignUp;

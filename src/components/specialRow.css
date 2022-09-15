@@ -1,0 +1,57 @@
+.srow-wrapper {
+    padding: 0px 25px;
+    display:block;
+    width: 100%;
+    position:relative;
+}
+
+.srow-header {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
+
+.srow-content {
+    width:100%;
+    display:flex;
+    flex-wrap: nowrap;
+}
+
+.srow-grid-view {
+    width: 100%;
+}
+
+.srow-grid-view tr {
+    width:50%;
+}
+
+.srow-grid-view tr td {
+    width: 50%;
+}
+
+.grid-view-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.grid-view-column {
+    width: 50%;
+    padding: 12px;
+}
+
+.grid-view-row {
+    height: auto;
+}
+
+
+.number-input-container {
+    display: inline-block;
+    width: 100px;
+    padding: 0 !important;
+    padding: 0;
+}
+
+.number-input-container input {
+    padding: inherit 0 !important;
+}

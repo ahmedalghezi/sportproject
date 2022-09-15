@@ -10,13 +10,11 @@ import PostSignup from "../DB/postSignup";
 import alert from "bootstrap/js/src/alert";
 import MuiAlert from "@material-ui/lab/Alert";
 import {Alert} from "@mui/material";
+import {useNavigate} from 'react-router-dom';
 
 //import '../register/style.css';
 
 
-function handleFileUpload() {
-
-}
 
 export default function  CsvReader(){
 
@@ -47,11 +45,6 @@ export default function  CsvReader(){
     const [approvedStudies, setApprovedStudies] = useState([]);
     const [selectedStudyID, setSelectedStudyID] = useState();
 
-    const [initialPage, setInitialPage] = useState(true);
-
-    const[tempHead,setTempHead] = useState([]);
-    const[tempMatrix,setTempMtrix] = useState([]);
-    const[tempIndex,setTempIndex] = useState(0);
 
 
     const processCSV = (str, delim=';') => {
@@ -76,21 +69,11 @@ export default function  CsvReader(){
 
 
     useEffect(() => {
-        if(!initialPage)
-            return;
-        setInitialPage(false);
+        //TODO find better way
         if(disciplinesList.length == 0){
             getDisplines();
             getApprovedStudies();
         }
-        /*
-        const  head = [];
-        head.push("tt");
-        setHeaderArray(head);
-        const arrVl = [];
-        arrVl.push(head);
-        setValuesMatrix(head);
-        updateDataMatrix(arrVl,head);*/
     });
 
     const getDisplines = () => {
@@ -158,22 +141,22 @@ export default function  CsvReader(){
                 console.log(e);
             });
 
-/*
-        for (var i = 0; i < valuesMatrix.length; i++) {
-            const jsonObj = toJson(headerArray,valuesMatrix[i]);
-            const res = PostCSVData.setPerformanceAthlete(jsonObj);
+        /*
+                for (var i = 0; i < valuesMatrix.length; i++) {
+                    const jsonObj = toJson(headerArray,valuesMatrix[i]);
+                    const res = PostCSVData.setPerformanceAthlete(jsonObj);
 
-            PostCSVData.setPerformanceAthlete(jsonObj)
-                .then(response => {
-                    console.log(response.data);
-                    sendingRes[i] = res.data;
-                    updateSendingRes(i,res.data);
-                })
-                .catch(e => {
-                    console.log(e);
-                });
-        }
-*/
+                    PostCSVData.setPerformanceAthlete(jsonObj)
+                        .then(response => {
+                            console.log(response.data);
+                            sendingRes[i] = res.data;
+                            updateSendingRes(i,res.data);
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        });
+                }
+        */
     }
 
     const checkIDs = () =>{
@@ -203,7 +186,7 @@ export default function  CsvReader(){
         sendTestsInitial();
         return;
 
-       /* if(!checkTestFlag){
+        /*if(!checkTestFlag){
             checkTests();
             //show in progress ...
             return;
@@ -214,7 +197,7 @@ export default function  CsvReader(){
             //TODO show in progress ...
         }*/
 
-       // sendTests();
+        // sendTests();
 
 
 
@@ -288,25 +271,8 @@ export default function  CsvReader(){
     const updateDataMatrix = (valMatrix,headers) => {
         setSuccess(false);
         setError(false);
-        if(valMatrix.length===0)
+        if(valMatrix.length===0 || valMatrix[0].length !== headers.length)
             return;
-        if(valMatrix[0].length !== headers.length){
-            /*
-            const prosHeader = [];
-            for(let i = 0 ; i < headers.length ; i++){
-                if(headers[i] != "")
-                    prosHeader[i] = headers[i];
-                else
-                    break;
-            }
-            if(prosHeader.length !== valMatrix[0].length){
-                showError("first row header does not equal rows length");
-                return;
-            }
-            headers = prosHeader;
-            setHeaderArray(headers);*/
-            return;
-        }
         const list = [];
         for (let i = 0; i < valMatrix.length; i++) {
             const obj = {};
@@ -315,7 +281,7 @@ export default function  CsvReader(){
             }
             // remove the blank rows
             //if (obj.values(obj).filter(x => x).length > 0) {
-              //  list.push(obj);
+            //  list.push(obj);
             //}
             list.push(obj);
         }
@@ -331,16 +297,10 @@ export default function  CsvReader(){
     }
 
     const handleReadData = (headers,rMatrix,objList) => {
-        //setHeaderArray(headers);
-        //setValuesMatrix(rMatrix);
-        setTempHead(headers);
-        setTempMtrix(rMatrix);
+        setHeaderArray(headers);
+        setValuesMatrix(rMatrix);
         setObjDataList(objList);
-        try {
-          ///  updateDataMatrix(rMatrix, headers);
-        }catch (e){
-            console.log(e);
-        }
+        updateDataMatrix(rMatrix,headers);
     }
 
     const  handleDispSele = (event) =>{
@@ -375,161 +335,141 @@ export default function  CsvReader(){
 
     return(
         <div>
-        <form id='csv-form'>
-             {<input
-                type='file'
-                accept='.csv'
-                id='csvFile'
-                onChange={(e) => {
-                    setCsvFile(e.target.files[0])
-                    readFile(e.target.files[0])
-                }}
-            >
-            </input>}
-            <br/>
+            <form id='csv-form'>
+                <br/>
 
-            <button
-                className="btn btn-primary btn-block"
-                onClick={(e) => {
-                    e.preventDefault()
-                    const res = processArr(headerArray,valuesMatrix);
-                    if(res)
-                        setValuesMatrix(valuesMatrix);
-                    updateDataMatrix(valuesMatrix,headerArray);
-                }} hidden={true}>
-                Anonymize(name,birthdate)
-            </button>
-
-
-
-            <button
-                className="btn btn-primary btn-block"
-                onClick={(e) => {
-                    e.preventDefault();
-                    let index  = tempIndex +1;
-                    setTempIndex(index);
-                    for(let i = 0 ; i < tempHead.length && i < index; i++){
-                        headerArray.push(tempHead[i]);
-                    }
-                    valuesMatrix.push(headerArray);
-                    setHeaderArray(headerArray);
-                    setValuesMatrix(valuesMatrix);
-                    //updateDataMatrix(valuesMatrix,headerArray);
-                    /*headerArray.push("tt");
-                    const arr = [];
-                    arr.push(headerArray);
-                    setValuesMatrix(arr);
-                    setHeaderArray(headerArray);
-                    updateDataMatrix(valuesMatrix,headerArray);*/
-                }} hidden={false}>
-               test
-            </button>
+                <button
+                    className="btn btn-primary btn-block"
+                    onClick={(e) => {
+                        e.preventDefault()
+                        const res = processArr(headerArray,valuesMatrix);
+                        if(res)
+                            setValuesMatrix(valuesMatrix);
+                        updateDataMatrix(valuesMatrix,headerArray);
+                    }} hidden={true}>
+                    Anonymize(name,birthdate)
+                </button>
 
 
 
 
-
-            <table>
-
-                <tr>
-                    <td>
-                        <label>Data date</label><br></br>
-                        <div><input className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={(e)=>{
-                            e.preventDefault();
-                            setDate(e.target.value);
-                        }} value={date}/></div>
-
-                    </td>
-                    <td width="20px">
-                    </td>
-                    <td>
-                        <div className="form-group">
-                            <label>Data Space</label>
-                            <br></br>
-                            <select onChange={handleSpace}  name="space">
-                                <option value="">Please select</option>
-                                <option value="performance">Performance data</option>
-                                <option value="blood">Blood samples</option>
-                                <option value="dna">DNA</option>
-                                <option value="bacterial">Bacterial</option>
-                                <option value="bacterial">Cognition</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-
-                    </td>
-                    <td>     </td>
-                    <td>
-                        <div className="form-group">
-                            <label>Discipline</label>
-                            <br></br>
-                            <select onChange={handleDispSele}  name="discipline">
-                                {disciplinesList.map((item) => (
-                                    <option key={item}>{item}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </td>
-
-                    <td width={20}></td>
-
-
-                    <td>
-                        <div className="form-group" hidden={true}>
-                            <label>Approved data category</label>
-                            <br></br>
-                            <select onChange={handleStudySele}  name="approved_studies">
-                                {approvedStudies.map((item) => (
-                                    <option key={item.ID}>{item.title}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </td>
-
-                    <td width={20}></td>
-
-
-
-                    <td>
-                        <br></br>
-                        <button
-                            className="btn btn-primary btn-block paddingBtn"
-                            onClick={(e) => {
+                <table>
+                    <tr>
+                        <td>
+                            <label>Data date</label><br></br>
+                            <div><input className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={(e)=>{
                                 e.preventDefault();
-                                setSuccess(false);
-                                setError(false);
-                                submitAll();
-                            }}
-                        >
-                            Submit
-                        </button>
+                                setDate(e.target.value);
+                            }} value={date}/></div>
 
-                    </td>
+                        </td>
+                        <td width="20px">
+                        </td>
+                        <td>
+                            <div className="form-group">
+                                <label>Data Space</label>
+                                <br></br>
+                                <select onChange={handleSpace}  name="space">
+                                    <option value="">Please select</option>
+                                    <option value="performance">Performance data</option>
+                                    <option value="blood">Blood samples</option>
+                                    <option value="dna">DNA</option>
+                                    <option value="bacterial">Bacterial</option>
+                                    <option value="cognition">Cognition</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                        </td>
+                        <td>     </td>
+                        <td>
+                            <div className="form-group">
+                                <label>Discipline</label>
+                                <br></br>
+                                <select onChange={handleDispSele}  name="discipline">
+                                    {disciplinesList.map((item) => (
+                                        <option key={item}>{item}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </td>
+
+                        <td width={20}></td>
+
+
+                        <td>
+                            <div className="form-group" hidden={true}>
+                                <label>Approved data category</label>
+                                <br></br>
+                                <select onChange={handleStudySele}  name="approved_studies">
+                                    {approvedStudies.map((item) => (
+                                        <option key={item.ID}>{item.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </td>
+
+                        <td width={20}></td>
 
 
 
-                </tr>
+                        <td>
+                            <br></br>
+                            <button
+                                className="btn btn-primary btn-block paddingBtn"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setSuccess(false);
+                                    setError(false);
+                                    submitAll();
+                                }}
+                            >
+                                Submit
+                            </button>
 
-            </table>
+                        </td>
 
-
-            <br/>
-            <br/>
-
+                        <td width={20}></td>
 
 
 
-            <Alert severity="success" hidden={!success}>{successMsg}</Alert>
-            <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
+                        <td>
+                            <br></br>
+                            <button
+                                className="btn btn-primary btn-block paddingBtn"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setSuccess(false);
+                                    setError(false);
+                                    //const navigate = useNavigate();
+                                    //this.props.navigate('/csv/stats');
+                                    window.location.href = "https://inprove-sport.info/csv/stats";
+                                }}
+                            >
+                                Upload stat
+                            </button>
+
+                        </td>
 
 
 
-        </form>
-            <input hidden={false}
-                   type="file"
-                   accept=".csv,.xlsx,.xls"
-                   onChange={handleFileUpload}
-            />
+
+                    </tr>
+                </table>
+
+
+                <br/>
+                <br/>
+
+
+
+
+                <Alert severity="success" hidden={!success}>{successMsg}</Alert>
+                <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
+
+
+
+            </form>
             <Sheet headers={xlsColumns} matrix={objDataList} onRead = {handleReadData}/>
         </div>
     );

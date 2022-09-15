@@ -4,18 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="adding bot check">
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/CustomChart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CustomTable.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/FilterFunction.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/SpecialRow.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/customChart.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/customTable.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/specialRow.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/acceptTerms.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/trainer/aymen/EvaluationsView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/trainer/aymen/StatsView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/trainer/aymen/TestsView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utli/dataConversion.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/changePassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/sign-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/sign-out.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/editCoach.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/myVideos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/VideoUpload/myVideos.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadFile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadFile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadFile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +88,7 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -81,16 +99,22 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/index.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/limeControl.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/DB/postLimeControl.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/trainer/VideoUpload/myVideos.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/DB/postSignup.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/App.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/Login.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/register/navBar.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/Main.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/trainer/sheet.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csvHandler/getIDs.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/navBar.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -221,9 +245,11 @@
       <recent name="$PROJECT_DIR$/src/csvHandler" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/utli/" />
+      <recent name="$PROJECT_DIR$/src/register/trainer/aymen/" />
+      <recent name="$PROJECT_DIR$/src/" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/register" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -325,7 +351,16 @@
       <workItem from="1659350596034" duration="294000" />
       <workItem from="1659359246945" duration="24392000" />
       <workItem from="1660562377635" duration="6682000" />
-      <workItem from="1660764157621" duration="6931000" />
+      <workItem from="1660764157621" duration="13592000" />
+      <workItem from="1661436493000" duration="9463000" />
+      <workItem from="1661786699584" duration="11648000" />
+      <workItem from="1661959976181" duration="13858000" />
+      <workItem from="1662020489481" duration="665000" />
+      <workItem from="1662031674659" duration="3229000" />
+      <workItem from="1662047439200" duration="336000" />
+      <workItem from="1662101505980" duration="1831000" />
+      <workItem from="1662969980357" duration="10566000" />
+      <workItem from="1663158036841" duration="6326000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -530,7 +565,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660764254758</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="adding support for proxy. fixing some signup bugs">
+      <created>1661263694047</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1661263694047</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Committing testing version of csv upload">
+      <created>1661935600395</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1661935600396</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -600,11 +649,37 @@
             </State>
           </value>
         </entry>
+        <entry key="8b9737a7-ae55-47ff-9a90-f747ca248e05">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:/Users/apple/WebstormProjects/coach_input_fi/src/csvHandler" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
       </map>
     </option>
     <option name="OPEN_GENERIC_TABS">
       <map>
         <entry key="7eec15fd-36dd-4701-b775-3ba4be5382dc" value="TOOL_WINDOW" />
+        <entry key="8b9737a7-ae55-47ff-9a90-f747ca248e05" value="TOOL_WINDOW" />
       </map>
     </option>
   </component>
@@ -629,24 +704,26 @@
     <MESSAGE value="Finalizing the signup form" />
     <MESSAGE value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
     <MESSAGE value="adding bot check" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding bot check" />
+    <MESSAGE value="adding support for proxy. fixing some signup bugs" />
+    <MESSAGE value="Committing testing version of csv upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="Committing testing version of csv upload" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>267</line>
+          <line>274</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>104</line>
+          <line>120</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>142</line>
+          <line>158</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

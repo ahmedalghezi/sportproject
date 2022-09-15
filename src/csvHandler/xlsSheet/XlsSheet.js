@@ -16,6 +16,7 @@ function Sheet(props) {
     const processData = dataString => {
         const dataStringLines = dataString.split(/\r\n|\n/);
         const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+
         const list = [];
         const rMatrix = [];
         for (let i = 1; i < dataStringLines.length; i++) {
@@ -61,7 +62,7 @@ function Sheet(props) {
     }
 
     const updateData = (objListVal,headers) => {
-       // setData(objListVal);
+        // setData(objListVal);
         const columns = headers.map(c => ({
             name: c,
             selector: c,
@@ -93,21 +94,13 @@ function Sheet(props) {
     return (
 
         <div>
-            <div>
-            <input hidden={false}
-                type="file"
-                accept=".csv,.xlsx,.xls"
-                onChange={handleFileUpload}
-            />
-            </div>
-            <div>
+            <input type="file"  accept=".csv,.xlsx,.xls" onChange={handleFileUpload}/>
             <DataTable
                 pagination
                 highlightOnHover
                 columns={columns}
                 data={data}
             />
-            </div>
         </div>
     );
 }

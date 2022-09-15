@@ -3,6 +3,7 @@ By Ahmed Al-Ghezi
  */
 
 import http from "./httpCommon";
+import axios from "axios";
 export default class PostSignup {
 
     static setSignUP(data){
@@ -30,6 +31,10 @@ export default class PostSignup {
 
     static deleteMyProfile() {
         return http.get("/reg/dellProfile");
+    }
+
+    static requestDell(data){
+        return http.post("/reg/request_dell",data);
     }
 
     static isLogin() {
@@ -68,8 +73,23 @@ export default class PostSignup {
         return http.post("/reg/changePassword" , data);
     }
 
+    static acceptTerms(param) {
+        return http.post("/reg/accept_terms" , param);
+    }
+
 
     static passwordChangeLinkClicked(param) {
         return http.post("/reg/passwordLinkClicked" , param);
     }
+
+    static uploadConsent(data){
+        return axios.post(window.location.origin+"/files/sendConsent", data)/*, {
+            // receive two parameter endpoint url ,form data
+        })
+            .then(res => { // then print response status
+                console.log(res.statusText)
+            });*/
+    }
+
+
 }

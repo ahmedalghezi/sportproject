@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import ReactPlayer from "react-player";
-import "./uploadFile.css";
+//import ReactPlayer from "react-player";
+//import "./uploadFile.css";
 import video1 from "./videos/testvideo.mp4";
 import video2 from "./videos/testvideo2.mp4";
 import video3 from "./videos/testvideo3.mp4";
@@ -21,6 +21,7 @@ class MyVideosC extends Component {
   };
 
   render() {
+      require("./uploadFile.css")
     return (
       <div>
         <h3>Meine Videos</h3>
@@ -39,12 +40,12 @@ class MyVideosC extends Component {
                 {" "}
                 <div className="video" key={index}>
                   <div className="video-container">
-                    <ReactPlayer
+                      {/*<ReactPlayer
                       controls
                       url={item.videourl}
                       width={300}
                       height={200}
-                    />
+                    />*/}
                   </div>
                 </div>
                 <div className="content-section">

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./uploadFile.css";
+//import "./uploadFile.css";
 
    /* ### TODOs ###
    backend
@@ -74,6 +74,7 @@ class UploadFileC extends Component {
   };
  
   render() {
+    require("./uploadFile.css")
     return (
       <div>
         <h3>Video hochladen</h3>

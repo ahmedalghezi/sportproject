@@ -38,7 +38,7 @@ class ChangePasswordC extends Component {
         this.setState({temp: tempPass});
         this.setState({isTemp: isTemp});
         this.setState({email: emailP});
-        this.iniReCapcha();
+        //this.iniReCapcha();
 
     }
 
@@ -126,7 +126,6 @@ class ChangePasswordC extends Component {
                 <div className="form-group">
                     <GoogleReCaptchaProvider
                         sitekey="6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz"
-
                     />
 
 
