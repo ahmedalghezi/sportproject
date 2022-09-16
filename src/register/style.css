@@ -244,3 +244,30 @@ table td * {
     font-size: small;
 }
 
+/* Table Fileviewer*/
+.table-fileviewer{
+  margin-left: 30%;
+}
+.table-fileviewer thead{
+  background-color: whitesmoke;
+  border: 1px solid black;
+}
+.table-fileviewer thead td{
+  padding-right: 10px;
+}
+.table-fileviewer tbody{
+  border: 1px solid black;
+}
+
+/*studies & toggle switches*/
+#toggle-switch{
+  
+  margin-left: 90px;
+}
+
+#studies{
+  width: 300px;
+}
+#studies tr{
+  border: 1px solid rgb(228, 225, 225);
+}

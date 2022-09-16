@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import PersonalInfo from "./personalInfo";
 import ApproveTests from "./approveTests";
 
-
 class FormParent extends Component {
   constructor(props) {
     super(props);
@@ -21,34 +20,28 @@ class FormParent extends Component {
       gender: "M",
       birthdate: "",
       readTerms: false,
-      disciplinesList: [],
+      //disciplinesList: [],
+      disciplinesList: ["Basketball","Volleyball","Gerätturnen","Sportgymnastik","Trampolin","Moderner Fünfkampf","Tischtennis","Eishockey","Bob","Rodeln","Skeleton"],
       showParentAccept: false,
+      showFileUpload: false,
+      selectedFile: null,
       parentAccept: false,
       switchId: "",
       isToggleOn: true,
       disallowedStudies: [],
-      weight:0,
-      height:0,
-      armSpan:0,
-      heightSpanStand:0,
-      heightSpanSit:0,
-      heightKnee:0,
-      heightSit:0,
-      studiesList: [
-        { ID: 1, title: "Motorik" },
-        { ID: 2, title: "Leistungsphysiologie" },
-        { ID: 3, title: "Sportsoziologie" },
-        { ID: 4, title: "Leistungspsychologie" },
-      ],
+      
+      
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-   
   }
   //#########################################################################################
 
+  
+/*
   componentDidMount() {
     this.getDisciplines();
     this.getStudies();
+    //this.getSportAssociations();
   }
 
   getDisciplines() {
@@ -68,8 +61,6 @@ class FormParent extends Component {
       });
   }
 
-
-
   getStudies() {
     PostSignup.getStudies()
       .then((response) => {
@@ -86,7 +77,24 @@ class FormParent extends Component {
         alert("Es ist ein Fehler aufgetreten.");
       });
   }
-
+  /*
+  getSportsAssociations(){
+    PostSignup.getAllSportsAssociations()
+      .then((response) => {
+        if (response.data.res === "error") {
+          const arr = ["connection error"];
+          this.setState({ sportsAssociationList: arr });
+          return;
+        } else {
+          this.setState({ sportsAssociationList: response.data.res });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+  }
+*/
   // ##############################################################################
   setBirthDate(event) {
     event.preventDefault();
@@ -97,7 +105,8 @@ class FormParent extends Component {
     date18.setFullYear(date18.getFullYear() - 18);
     // check if the date of birth is before that date
     if (date > date18) {
-      this.setState({ showParentAccept: true });
+      //this.setState({ showParentAccept: true });
+      this.setState({ showFileUpload: true });
     }
   }
 
@@ -136,45 +145,28 @@ class FormParent extends Component {
       alert("Wählen Sie ein Passwort.");
       return false;
     }
-    
-   if (!stateData.readTerms && stateData.step === 2) {
-    alert("Bitte lesen und akzeptieren Sie die Bedingungen.");
-    return false;
-  }
-  if (!stateData.parentAccept && stateData.showParentAccept && stateData.step === 2) {
-    alert("Bitte die Einverständnis der Eltern bestätigen.");
-    return false;
-  }
-  if (stateData.weight < 0 && stateData.step === 2) {
-    alert("Negative Zahl für Gewicht ist nicht zulässig.");
-    return false;
-  }
-  if (stateData.height < 0 && stateData.step === 2) {
-    alert("Negative Zahl für Körpergröße ist nicht zulässig.");
-    return false;
-  }
-  
-  if (stateData.armSpan < 0 && stateData.step === 2) {
-    alert("Negative Zahl ist nicht zulässig.");
-    return false;
-  }
-  if (stateData.heightSpanStand < 0 && stateData.step === 2) {
-    alert("Negative Zahl ist nicht zulässig.");
-    return false;
-  }
-  if (stateData.heightSpanSit < 0 && stateData.step === 2) {
-    alert("Negative Zahl ist nicht zulässig.");
-    return false;
-  }
-  if (stateData.heightKnee < 0 && stateData.step === 2) {
-    alert("Negative Zahl ist nicht zulässig.");
-    return false;
-  }
-  if (stateData.heightSit < 0 && stateData.step === 2) {
-    alert("Negative Zahl ist nicht zulässig.");
-    return false;
-  }
-  
+
+    if (!stateData.readTerms && stateData.step === 2) {
+      alert("Bitte lesen und akzeptieren Sie die Bedingungen.");
+      return false;
+    }
+    if (
+      !stateData.parentAccept &&
+      stateData.showParentAccept &&
+      stateData.step === 2
+    ) {
+      alert("Bitte die Einverständnis der Eltern bestätigen.");
+      return false;
+    }
+    const date2 = new Date(stateData.birthdate);
+    date.getDate();
+    const date18 = new Date();
+    date18.setFullYear(date18.getFullYear() - 18);
+    if (date > date18 && stateData.selectedFile === null) {
+      alert("Eine Einverständniserklärung der Eltern wird benötigt!");
+      return false;
+    }
+
     return this.checkPassword(stateData.password);
   }
 
@@ -184,45 +176,40 @@ class FormParent extends Component {
     if (password.match(passw)) return true;
     alert(
       "Das Passwort muss zwischen 8 und 15 Zeichen lang sein und mindestens einen Kleinbuchstaben, " +
-      ", einen Großbuchstaben, eine Ziffer und ein Sonderzeichen enthalten."
+        ", einen Großbuchstaben, eine Ziffer und ein Sonderzeichen enthalten."
     );
     return false;
   }
 
+  handleSubmit(event) {
+    if (this.state.step === 1) {
+      event.preventDefault();
+      if (!this.checkInput(this.state)) return;
+      this.nextStep();
+    } else {
+      event.preventDefault();
+      if (!this.checkInput(this.state)) return;
 
- 
-  
-    
-      handleSubmit(event) {
-
-        if (this.state.step === 1){
-          event.preventDefault();
-    if (!this.checkInput(this.state)) return;
-    this.nextStep();
-        } else {
-        event.preventDefault();
-        if (!this.checkInput(this.state)) return;
-        
-        PostSignup.setSignUP(this.state)
-          .then((response) => {
-            if (response.data.res === "error") alert("Es ist ein Fehler aufgetreten.");
-            else if (response.data.res === "duplicate key")
-              alert("Diese Email-Adresse ist bereits registriert.");
-            //this.props.history.push('./AfterReg');
-            else this.props.navigate("/reg/regSuc");
-          })
-          .catch((e) => {
-            console.log(e);
+      PostSignup.setSignUP(this.state)
+        .then((response) => {
+          if (response.data.res === "error")
             alert("Es ist ein Fehler aufgetreten.");
-          });
-        //event.preventDefault();
-        console.log(this.state);
-        }
-      }
-
+          else if (response.data.res === "duplicate key")
+            alert("Diese Email-Adresse ist bereits registriert.");
+          //this.props.history.push('./AfterReg');
+          else this.props.navigate("/reg/regSuc");
+        })
+        .catch((e) => {
+          console.log(e);
+          alert("Es ist ein Fehler aufgetreten.");
+        });
+      //event.preventDefault();
+      console.log(this.state);
+    }
+  }
 
   //#########################################################################################
-  
+
   // go back to previous step
   prevStep = () => {
     const { step } = this.state;
@@ -244,13 +231,13 @@ class FormParent extends Component {
 
     if (name === "readTerms") {
       value = target.checked;
-
-      console.log("readTerms clicked " + value);
+      //print to console for testing
+      // console.log("readTerms clicked " + value);
     }
     if (name === "parentAccept") {
       value = target.checked;
-
-      console.log("parentAccept clicked " + value);
+      //print to console for testing
+      //console.log("parentAccept clicked " + value);
     }
 
     if (name === "switchId") {
@@ -260,12 +247,30 @@ class FormParent extends Component {
       arr[id] = value;
 
       this.setState({
-        disallowedStudies: arr
+        disallowedStudies: arr,
       });
-
-      console.log("switch " + id + " clicked " + value);
-
+      //print to console for testing
+       console.log("switch " + id + " clicked " + value);
     }
+    if (name === "birthdate") {
+      this.setState({ birthdate: value });
+      const date = new Date(value);
+      date.getDate();
+      const date18 = new Date();
+      date18.setFullYear(date18.getFullYear() - 18);
+      // check if the date of birth is before that date
+      if (date > date18) {
+        //show file upload button, if age is under 18
+        this.setState({ showFileUpload: true });
+      }
+      //print to console for testing
+      //console.log(this.state.showFileUpload + this.state.birthdate);
+    }
+    if (name === "file") {
+      this.setState({ selectedFile: e.target.files[0] });
+    }
+    
+
     this.setState({ [input]: e.target.value });
   };
 
@@ -282,17 +287,12 @@ class FormParent extends Component {
       readTerms,
       disciplinesList,
       showParentAccept,
+      showFileUpload,
       parentAccept,
       switchId,
       isToggleOn,
-      studiesList,
-      weight,
-      height,
-      armSpan,
-      heightSpanStand,
-      heightSpanSit,
-      heightKnee,
-      heightSit,
+      
+     
     } = this.state;
     const values = {
       firstName,
@@ -305,17 +305,12 @@ class FormParent extends Component {
       readTerms,
       disciplinesList,
       showParentAccept,
+      showFileUpload,
       parentAccept,
       switchId,
       isToggleOn,
-      studiesList,
-      weight,
-      height,
-      armSpan,
-      heightSpanStand,
-      heightSpanSit,
-      heightKnee,
-      heightSit,
+      
+    
     };
     switch (step) {
       case 1:
@@ -340,7 +335,6 @@ class FormParent extends Component {
       default:
       // do nothing
     }
-    
   }
 }
 

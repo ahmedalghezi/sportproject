@@ -1,4 +1,5 @@
 import React from "react";
+import studiesData from "./studiesData";
 
 const ApproveTests = ({ prevStep, handleChange, handleSubmit, values }) => {
   const Previous = (e) => {
@@ -6,151 +7,346 @@ const ApproveTests = ({ prevStep, handleChange, handleSubmit, values }) => {
     prevStep();
   };
 
-  let studiesList = values.studiesList;
   //########################################################
-  /*  */
-
+  /* TODOs 
+    - add studiesData to state, backend 
+  */
   //############################################################
   return (
     <div>
       <p>
-        Ich nehme an folgenden Testungen teil (Zutreffendes bitte ankreuzen):
+        Ich nehme an folgenden Testungen teil:
       </p>
-      <table>
-        <tbody>
-          <tr>
-            <td>
-              <label>Kategorie</label>
-            </td>
-            <td></td>
-            <td></td>
-            <td>
-              <label>Nein/Ja</label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div>
-                {studiesList.map((option) => (
-                  <a name={option.ID} key={option.ID}>
-                    {option.title} <br></br>
-                  </a>
+
+      {(values.discipline === "Volleyball" || values.discipline === "Basketball") && (
+        <div>
+          <table>
+            <tbody>
+
+              <tr>
+                {studiesData[0].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
                 ))}
-              </div>
-            </td>
-            <td></td>
-            <td></td>
-            <td>
-              <div>
-                {studiesList.map((option) => (
-                  <a name={option.ID} key={option.ID}>
-                    <div className="form-check form-switch">
-                      <input
-                        name="switchId"
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
-                        id={option.ID}
-                        defaultValue={values.switchId}
-                        defaultChecked={values.isToggleOn}
-                        onChange={handleChange("switchId")}
-                      />
-                      <label className="form-check-label"> </label>
-                    </div>
-                  </a>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      {values.discipline === "Eishockey"  && (
+        <div>
+          <table>
+            <tbody>
+
+              <tr>
+                {studiesData[1].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
                 ))}
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      {values.discipline === "Tischtennis"  && (
+        <div>
+          <table>
+            <tbody>
+
+              <tr>
+                {studiesData[2].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      {values.discipline === "Moderner Fünfkampf"  && (
+        <div>
+          <table>
+            <tbody>
+           
+
+              <tr>
+                {studiesData[3].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      {values.discipline === "Gerätturnen"  && (
+        <div>
+          <table>
+            <tbody>
+             
+
+              <tr>
+                {studiesData[4].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      {values.discipline === "Sportgymnastik"  && (
+        <div>
+          <table>
+            <tbody>
+             
+
+              <tr>
+                {studiesData[5].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+      {values.discipline === "Trampolin"  && (
+        <div>
+          <table>
+            <tbody>
+              
+
+              <tr>
+                {studiesData[6].studiesList.map((item) => (
+                  <div id="studies">
+                    <tr>
+                      <td>
+                        <h6>{item.area}</h6>
+                      </td>
+                      <td></td>
+                    </tr>
+                    {item.studies.map((testitem) => (
+                      <tr>
+                        <td>
+                          <a name={testitem.ID} key={testitem.ID}>
+                            {testitem.test}
+                          </a>
+                        </td>
+
+                        <td>
+                          <div className="form-check form-switch" id="toggle-switch">
+                            <input
+                              name="switchId"
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              id={testitem.ID}
+                              defaultValue={values.switchId}
+                              defaultChecked={values.isToggleOn}
+                              onChange={handleChange("switchId")}
+                            />
+                            <label className="form-check-label"> </label>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </div>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
       <p></p>
-      <div>
-        <p>Weitere Daten (bitte angeben): </p>
 
-        <div id="beside2">
-          <div className="form-group">
-            <label>Gewicht</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="kg"
-              name="weight"
-              onChange={handleChange("weight")}
-            />
-          </div>
-          <div className="form-group">
-            <label>Körpergröße</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="cm"
-              name="height"
-              onChange={handleChange("height")}
-            />
-          </div>
-          <div className="form-group">
-            <label>Armspannweite</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="cm"
-              name="armSpan"
-              onChange={handleChange("armSpan")}
-            />
-          </div>
-        </div>
-
-        <div id="beside2">
-          <div className="form-group">
-            <label>Reichhöhe(Stehen)</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="cm"
-              name="heightSpanStand"
-              onChange={handleChange("heightSpanStand")}
-            />
-          </div>
-          <div className="form-group">
-            <label>Reichhöhe(Sitzen)</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="cm"
-              name="heightSpanSit"
-              onChange={handleChange("heightSpanSit")}
-            />
-          </div>
-          
-        </div>
-
-        <div id="beside2">
-          
-          <div className="form-group">
-            <label>Kniehöhe</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="cm"
-              name="heightKnee"
-              onChange={handleChange("heightKnee")}
-            />
-          </div>
-          <div className="form-group">
-            <label>Sitzhöhe</label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="cm"
-              name="heightSit"
-              onChange={handleChange("heightSit")}
-            />
-          </div>
-        </div>
-      </div>
-
-      <p></p>
       <div className="form-group">
         <label htmlFor="checkid" id="small-text">
           <input

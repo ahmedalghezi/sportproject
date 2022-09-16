@@ -1,11 +1,37 @@
-import React from "react";
+/*
+Installations: 
+  npm i react-doc-viewer
+  npm i @cyntler/react-doc-viewer
+References:
+  https://www.npmjs.com/package/react-doc-viewer
+  https://www.npmjs.com/package/@cyntler/react-doc-viewer
 
-const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
+TODOs:
+  Document Files Backend
+  Button - Click to open document viewer
+*/
+
+import React from "react";
+import DocViewer from "react-doc-viewer";
+
+const PersonalInfo = ({
+  nextStep,
+  handleChange,
+  handleSubmit,
+  values,
+}) => {
   const Continue = (e) => {
     e.preventDefault();
     nextStep();
     //handleSubmit();
   };
+
+  //Documents for Document Viewer
+  /*const docs = [
+    { uri: require("../images/avatar.png") }, // Local File
+  ];
+   <DocViewer documents={docs} />
+  */
   return (
     <div>
       <h3>Registrieren</h3>
@@ -54,6 +80,14 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
           onChange={handleChange("birthdate")}
         />
       </div>
+
+      <div className="form-group" hidden={!values.showFileUpload}>
+        <label className="select-file">
+          Einverständniserklärung der Eltern
+          <input type="file" name="file" onChange={handleChange("file")} />
+        </label>
+      </div>
+
       <div className="form-group">
         <label>Disziplin</label>
         <br></br>
@@ -103,7 +137,6 @@ const PersonalInfo = ({ nextStep, handleChange, handleSubmit, values }) => {
       >
         Weiter
       </button>
-      
     </div>
   );
 };
