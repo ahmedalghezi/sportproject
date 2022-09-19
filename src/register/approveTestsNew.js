@@ -42,7 +42,15 @@ class ApproveTestsCNew extends Component {
 
   //TODO handleSubmit, email,disp,studies_staus, studies_ids
   handleSubmit = (event) => {
-    PostSignup.setStudies(this.state)
+    let studsEmail = this.state.email;
+    let studsDisp = this.state.discipline;
+    let disallowedStuds = this.state.disallowedStudies;
+    const studiesStatus = {
+      email: studsEmail,
+      discipline: studsDisp,
+      disallowedStudies: disallowedStuds,
+    };
+    PostSignup.setStudies(studiesStatus)
       .then((response) => {
         if (response.data.res === "error")
           alert("Es ist ein Fehler aufgetreten.");
@@ -66,14 +74,24 @@ class ApproveTestsCNew extends Component {
     let arrSocial = []; //this.state.area_social;
     //TODO filter on the discipline here... remove any record not equal to the discipline ..
     for (let i = 0; i < arrOrigin.length; i++) {
-      if (arrOrigin[i].area === "Trainingswissenschaft Frankfurt") {
+      if (
+        arrOrigin[i].area === "Trainingswissenschaft Frankfurt" &&
+        arrOrigin[i].disp === this.state.discipline
+      ) {
         arrFrank.push(arrOrigin[i]);
-      } else if (arrOrigin[i].area === "Leistungsphysiologie Gießen") {
+      } else if (
+        arrOrigin[i].area === "Leistungsphysiologie Gießen" &&
+        arrOrigin[i].disp === this.state.discipline
+      ) {
         arrPhysio.push(arrOrigin[i]);
-      } else if (arrOrigin[i].area === "Leistungspsychologie Köln") {
+      } else if (
+        arrOrigin[i].area === "Leistungspsychologie Köln" &&
+        arrOrigin[i].disp === this.state.discipline
+      ) {
         arrPsycho.push(arrOrigin[i]);
       } else if (
-        arrOrigin[i].area === "Sozialwissenschaften des Sports Gießen"
+        arrOrigin[i].area === "Sozialwissenschaften des Sports Gießen" &&
+        arrOrigin[i].disp === this.state.discipline
       ) {
         arrSocial.push(arrOrigin[i]);
       }
@@ -125,7 +143,6 @@ class ApproveTestsCNew extends Component {
   //       area_social:[]
 
   render() {
-
     //TODO in the map functions you should not check for discipline again, as you  have already done so when you processed the array ..
     return (
       <div>
@@ -135,8 +152,8 @@ class ApproveTestsCNew extends Component {
           <h6>Trainingswissenschaft Frankfurt</h6>
           {this.state.area_frank.map(
             (item) =>
-              item.disp === this.state.discipline && (
-                <div key={item.study_id}>
+              
+                (<div key={item.study_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -160,16 +177,16 @@ class ApproveTestsCNew extends Component {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              )
+                </div>)
+              
           )}
         </div>
         <div>
           <h6>Leistungsphysiologie Gießen</h6>
           {this.state.area_physiologie.map(
             (item) =>
-              item.disp === this.state.discipline && (
-                <div key={item.study_id}>
+              
+                (<div key={item.study_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -193,16 +210,16 @@ class ApproveTestsCNew extends Component {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              )
+                </div>)
+              
           )}
         </div>
         <div>
           <h6>Leistungspsychologie Köln</h6>
           {this.state.area_psychologie.map(
             (item) =>
-              item.disp === this.state.discipline && (
-                <div key={item.study_id}>
+              
+                (<div key={item.study_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -226,16 +243,16 @@ class ApproveTestsCNew extends Component {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              )
+                </div>)
+              
           )}
         </div>
         <div>
           <h6>Sozialwissenschaften des Sports Gießen</h6>
           {this.state.area_social.map(
             (item) =>
-              item.disp === this.state.discipline && (
-                <div key={item.study_id}>
+              
+                (<div key={item.study_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -259,8 +276,8 @@ class ApproveTestsCNew extends Component {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-              )
+                </div>)
+              
           )}
         </div>
 
