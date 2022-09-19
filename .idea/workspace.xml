@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/temp-data/evaluations.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/temp-data/tests.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/approveTestsNew.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTestsNew.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -336,7 +337,7 @@
       <workItem from="1662101505980" duration="1831000" />
       <workItem from="1662969980357" duration="10566000" />
       <workItem from="1663158036841" duration="6326000" />
-      <workItem from="1663577273202" duration="1148000" />
+      <workItem from="1663577273202" duration="3268000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -555,7 +556,21 @@
       <option name="project" value="LOCAL" />
       <updated>1661935600396</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Updating todos for the studies approves">
+      <created>1663580473108</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1663580473108</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Updating todos for the studies approves">
+      <created>1663581240653</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1663581240653</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -682,7 +697,8 @@
     <MESSAGE value="adding bot check" />
     <MESSAGE value="adding support for proxy. fixing some signup bugs" />
     <MESSAGE value="Committing testing version of csv upload" />
-    <option name="LAST_COMMIT_MESSAGE" value="Committing testing version of csv upload" />
+    <MESSAGE value="Updating todos for the studies approves" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updating todos for the studies approves" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
