@@ -54,6 +54,7 @@ class ApproveTestsCNew extends Component {
           area: "Trainingswissenschaft Frankfurt",
         },
       ],
+      email:'',
       area_frank:[],
       area_physiologie:[],
       area_psychologie:[],
@@ -83,7 +84,7 @@ class ApproveTestsCNew extends Component {
     
   };
 
-  //TODO handleSubmit
+  //TODO handleSubmit, email,disp,studies_staus, studies_ids
   handleSubmit = () => {
     console.log("Submitted", this.state);
   };
@@ -91,7 +92,8 @@ class ApproveTestsCNew extends Component {
 
   componentDidMount() {
     this.getAllStudies();
-    this.setState({discipline:this.props.discipline})
+    this.setState({discipline:this.props.discipline});
+    this.setState({email:this.props.email})
   }
 
   getAllStudies() {
