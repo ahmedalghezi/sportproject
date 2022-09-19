@@ -7,58 +7,12 @@ class ApproveTestsCNew extends Component {
     this.state = {
       isToggleOn: true,
       disallowedStudies: [],
-      discipline: "Tischtennis", //TODO discipline from signup or select box
-      //TODO get data backend
-      //Example data for testing:
-      data: [
-        {
-          disp_id: "1",
-          disp: "Tischtennis",
-          study_id: "1",
-          study: "study1",
-          area: "Trainingswissenschaft Frankfurt",
-        },
-        {
-          disp_id: "1",
-          disp: "Tischtennis",
-          study_id: "12",
-          study: "study12",
-          area: "Trainingswissenschaft Frankfurt",
-        },
-        {
-          disp_id: "1",
-          disp: "Tischtennis",
-          study_id: "2",
-          study: "study2",
-          area: "Leistungsphysiologie Gießen",
-        },
-        {
-          disp_id: "1",
-          disp: "Tischtennis",
-          study_id: "3",
-          study: "study3",
-          area: "Leistungspsychologie Köln",
-        },
-        {
-          disp_id: "1",
-          disp: "Tischtennis",
-          study_id: "123",
-          study: "study123",
-          area: "Trainingswissenschaft Frankfurt",
-        },
-        {
-          disp_id: "2",
-          disp: "Basketball",
-          study_id: "22",
-          study: "study22",
-          area: "Trainingswissenschaft Frankfurt",
-        },
-      ],
-      email:'',
-      area_frank:[],
-      area_physiologie:[],
-      area_psychologie:[],
-      area_social:[]
+      discipline: "Tischtennis",
+      email: "",
+      area_frank: [],
+      area_physiologie: [],
+      area_psychologie: [],
+      area_social: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,178 +33,228 @@ class ApproveTestsCNew extends Component {
       this.setState({
         disallowedStudies: arr,
       });
-     
     }
-    
   };
 
   //TODO handleSubmit, email,disp,studies_staus, studies_ids
-  handleSubmit = () => {
-    console.log("Submitted", this.state);
+  handleSubmit = (event) => {
+    PostSignup.setStudies(this.state)
+      .then((response) => {
+        if (response.data.res === "error")
+          alert("Es ist ein Fehler aufgetreten.");
+        else if (response.data.res === "duplicate key")
+          alert("Diese Email-Adresse ist bereits registriert.");
+        //this.props.history.push('./AfterReg');
+        else this.props.navigate("/reg/regSuc");
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
   };
 
+  //splits data array into 4 new arrays
+  splitResArray = (data) => {
+    let arrOrigin = data;
+    let arrFrank = this.state.area_frank;
+    let arrPhysio = this.state.area_physiologie;
+    let arrPsycho = this.state.area_psychologie;
+    let arrSocial = this.state.area_social;
+    for (let i = 0; i < arrOrigin.length; i++) {
+      if (arrOrigin[i].area === "Trainingswissenschaft Frankfurt") {
+        arrFrank.push(arrOrigin[i]);
+      } else if (arrOrigin[i].area === "Leistungsphysiologie Gießen") {
+        arrPhysio.push(arrOrigin[i]);
+      } else if (arrOrigin[i].area === "Leistungspsychologie Köln") {
+        arrPsycho.push(arrOrigin[i]);
+      } else if (
+        arrOrigin[i].area === "Sozialwissenschaften des Sports Gießen"
+      ) {
+        arrSocial.push(arrOrigin[i]);
+      }
+    }
+    this.setState({
+      area_frank: arrFrank,
+      area_physiologie: arrPhysio,
+      area_psychologie: arrPsycho,
+      area_social: arrSocial,
+    });
+    // print to console for testing
+    console.log(
+      this.state.area_frank,
+      this.state.area_physiologie,
+      this.state.area_psychologie,
+      this.state.area_social
+    );
+  };
 
   componentDidMount() {
     this.getAllStudies();
-    this.setState({discipline:this.props.discipline});
-    this.setState({email:this.props.email})
+    this.setState({ discipline: this.props.discipline });
+    this.setState({ email: this.props.email });
   }
 
   getAllStudies() {
-    PostSignup.getStudies().then((response) => {
-      if (response.data.res && response.data.res === "error") {
-        alert("Es ist ein Fehler aufgetreten");
-        return;
-      } else {
-        //TODO: split the result array into the four arrays of the state:
-        // area_frank:[],
-        //  area_physiologie:[],
-        //  area_psychologie:[],
-        // area_social:[]
-      }
-    }).catch((e) => {
-      console.log(e);
-      alert("Es ist ein Fehler aufgetreten.");
-    });
+    PostSignup.getStudies()
+      .then((response) => {
+        if (response.data.res && response.data.res === "error") {
+          alert("Es ist ein Fehler aufgetreten");
+
+          return;
+        } else {
+          console.log(response.data.res);
+
+          //split the result array into the four arrays of the state:
+          this.splitResArray(response.data.res);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
   }
 
-//TODO: fill the switches from the four state arrays  area_frank:[],
-//       area_physiologie:[],
-//       area_psychologie:[],
-//       area_social:[]
+  //switches from the four state arrays  area_frank:[],
+  //       area_physiologie:[],
+  //       area_psychologie:[],
+  //       area_social:[]
+
   render() {
     return (
       <div>
-
         <p>Ich nehme an folgenden Testungen teil:</p>
 
         <div>
           <h6>Trainingswissenschaft Frankfurt</h6>
-          {this.state.data.map(
+          {this.state.area_frank.map(
             (item) =>
-              item.disp === this.state.discipline && item.area === "Trainingswissenschaft Frankfurt" && (
+              item.disp === this.state.discipline && (
                 <div key={item.study_id}>
                   <table>
                     <tbody>
-                  
-                    <tr>
-                      <td width={300}>{item.study}</td>
-                      <td className="form-check form-switch" id="toggle-switch">
-                        <input
-                          name="switchId"
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          id={item.study_id}
-                          defaultValue="switchId"
-                          defaultChecked={this.state.isToggleOn}
-                          onChange={this.handleChange}
-                        />
-                        <label className="form-check-label"> </label>
-                      </td>
-                    </tr></tbody>
-                    
+                      <tr>
+                        <td width={300}>{item.study}</td>
+                        <td
+                          className="form-check form-switch"
+                          id="toggle-switch"
+                        >
+                          <input
+                            name="switchId"
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id={item.study_id}
+                            defaultValue="switchId"
+                            defaultChecked={this.state.isToggleOn}
+                            onChange={this.handleChange}
+                          />
+                          <label className="form-check-label"> </label>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               )
           )}
-          
         </div>
         <div>
           <h6>Leistungsphysiologie Gießen</h6>
-          {this.state.data.map(
+          {this.state.area_physiologie.map(
             (item) =>
-              item.disp === this.state.discipline && item.area === "Leistungsphysiologie Gießen" && (
+              item.disp === this.state.discipline && (
                 <div key={item.study_id}>
                   <table>
                     <tbody>
-                  
-                    <tr>
-                      <td width={300}>{item.study}</td>
-                      <td className="form-check form-switch" id="toggle-switch">
-                        <input
-                          name="switchId"
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          id={item.study_id}
-                          defaultValue="switchId"
-                          defaultChecked={this.state.isToggleOn}
-                          onChange={this.handleChange}
-                        />
-                        <label className="form-check-label"> </label>
-                      </td>
-                    </tr></tbody>
-                    
+                      <tr>
+                        <td width={300}>{item.study}</td>
+                        <td
+                          className="form-check form-switch"
+                          id="toggle-switch"
+                        >
+                          <input
+                            name="switchId"
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id={item.study_id}
+                            defaultValue="switchId"
+                            defaultChecked={this.state.isToggleOn}
+                            onChange={this.handleChange}
+                          />
+                          <label className="form-check-label"> </label>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               )
           )}
-          
         </div>
         <div>
           <h6>Leistungspsychologie Köln</h6>
-          {this.state.data.map(
+          {this.state.area_psychologie.map(
             (item) =>
-              item.disp === this.state.discipline && item.area === "Leistungspsychologie Köln" && (
+              item.disp === this.state.discipline && (
                 <div key={item.study_id}>
                   <table>
                     <tbody>
-                  
-                    <tr>
-                      <td width={300}>{item.study}</td>
-                      <td className="form-check form-switch" id="toggle-switch">
-                        <input
-                          name="switchId"
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          id={item.study_id}
-                          defaultValue="switchId"
-                          defaultChecked={this.state.isToggleOn}
-                          onChange={this.handleChange}
-                        />
-                        <label className="form-check-label"> </label>
-                      </td>
-                    </tr></tbody>
-                    
+                      <tr>
+                        <td width={300}>{item.study}</td>
+                        <td
+                          className="form-check form-switch"
+                          id="toggle-switch"
+                        >
+                          <input
+                            name="switchId"
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id={item.study_id}
+                            defaultValue="switchId"
+                            defaultChecked={this.state.isToggleOn}
+                            onChange={this.handleChange}
+                          />
+                          <label className="form-check-label"> </label>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               )
           )}
-          
         </div>
         <div>
           <h6>Sozialwissenschaften des Sports Gießen</h6>
-          {this.state.data.map(
+          {this.state.area_social.map(
             (item) =>
-              item.disp === this.state.discipline && item.area === "Sozialwissenschaften des Sports Gießen" && (
+              item.disp === this.state.discipline && (
                 <div key={item.study_id}>
                   <table>
                     <tbody>
-                  
-                    <tr>
-                      <td width={300}>{item.study}</td>
-                      <td className="form-check form-switch" id="toggle-switch">
-                        <input
-                          name="switchId"
-                          className="form-check-input"
-                          type="checkbox"
-                          role="switch"
-                          id={item.study_id}
-                          defaultValue="switchId"
-                          defaultChecked={this.state.isToggleOn}
-                          onChange={this.handleChange}
-                        />
-                        <label className="form-check-label"> </label>
-                      </td>
-                    </tr></tbody>
-                    
+                      <tr>
+                        <td width={300}>{item.study}</td>
+                        <td
+                          className="form-check form-switch"
+                          id="toggle-switch"
+                        >
+                          <input
+                            name="switchId"
+                            className="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id={item.study_id}
+                            defaultValue="switchId"
+                            defaultChecked={this.state.isToggleOn}
+                            onChange={this.handleChange}
+                          />
+                          <label className="form-check-label"> </label>
+                        </td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               )
           )}
-          
         </div>
 
         <button
@@ -262,11 +266,7 @@ class ApproveTestsCNew extends Component {
         </button>
       </div>
     );
-    
   }
-
-
 }
-
 
 export default ApproveTestsCNew;
