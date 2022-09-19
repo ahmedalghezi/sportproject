@@ -41,11 +41,10 @@ class LimeControl extends Component {
 
 
     componentDidMount() {
-        if(this.state.disciplinesList.length === 0){
+        if(this.state.disciplinesList.length === 0) {
             this.getApprovedStudies();
             this.getDisplines();
         }
-
     }
 
 

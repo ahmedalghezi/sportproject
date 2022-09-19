@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PostSignup from "../DB/postSignup";
 
 class ApproveTestsCNew extends Component {
   constructor(props) {
@@ -53,6 +54,10 @@ class ApproveTestsCNew extends Component {
           area: "Trainingswissenschaft Frankfurt",
         },
       ],
+      area_frank:[],
+      area_physiologie:[],
+      area_psychologie:[],
+      area_social:[]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -83,10 +88,38 @@ class ApproveTestsCNew extends Component {
     console.log("Submitted", this.state);
   };
 
+
+  componentDidMount() {
+    this.getAllStudies();
+    this.setState({discipline:this.props.discipline})
+  }
+
+  getAllStudies() {
+    PostSignup.getStudies().then((response) => {
+      if (response.data.res && response.data.res === "error") {
+        alert("Es ist ein Fehler aufgetreten");
+        return;
+      } else {
+        //TODO: split the result array into the four arrays of the state:
+        // area_frank:[],
+        //  area_physiologie:[],
+        //  area_psychologie:[],
+        // area_social:[]
+      }
+    }).catch((e) => {
+      console.log(e);
+      alert("Es ist ein Fehler aufgetreten.");
+    });
+  }
+
+//TODO: fill the switches from the four state arrays  area_frank:[],
+//       area_physiologie:[],
+//       area_psychologie:[],
+//       area_social:[]
   render() {
     return (
       <div>
-       
+
         <p>Ich nehme an folgenden Testungen teil:</p>
 
         <div>
@@ -229,7 +262,8 @@ class ApproveTestsCNew extends Component {
     );
     
   }
-  
+
+
 }
 
 
