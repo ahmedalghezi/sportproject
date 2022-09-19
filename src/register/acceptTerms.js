@@ -71,6 +71,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
     render() {
         return (
             <div>
+                <div hidden={!this.state.shwoConfirmedEmail}></div>
                 <div className="form-group">
                     <label htmlFor="checkid">
                         <input
@@ -94,7 +95,6 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                         Ich bestätige, dass ich das Einverständnis meiner Eltern habe, mich in diesem Portal zu registrieren.
                     </label>
                 </div>
-
                 <button type="submit" className="btn btn-primary btn-block">
                     Submit
                 </button>

@@ -1,3 +1,7 @@
+/*
+  By Vanessa Meyer
+*/
+
 import React, { Component } from "react";
 import PostSignup from "../DB/postSignup";
 
@@ -56,10 +60,11 @@ class ApproveTestsCNew extends Component {
   //splits data array into 4 new arrays
   splitResArray = (data) => {
     let arrOrigin = data;
-    let arrFrank = this.state.area_frank;
-    let arrPhysio = this.state.area_physiologie;
-    let arrPsycho = this.state.area_psychologie;
-    let arrSocial = this.state.area_social;
+    let arrFrank = []; //this.state.area_frank;
+    let arrPhysio = []; //this.state.area_physiologie;
+    let arrPsycho = []; //this.state.area_psychologie;
+    let arrSocial = []; //this.state.area_social;
+    //TODO filter on the discipline here... remove any record not equal to the discipline ..
     for (let i = 0; i < arrOrigin.length; i++) {
       if (arrOrigin[i].area === "Trainingswissenschaft Frankfurt") {
         arrFrank.push(arrOrigin[i]);
@@ -105,7 +110,7 @@ class ApproveTestsCNew extends Component {
           console.log(response.data.res);
 
           //split the result array into the four arrays of the state:
-          this.splitResArray(response.data.res);
+          this.splitResArray(response.data.data);
         }
       })
       .catch((e) => {
@@ -120,6 +125,8 @@ class ApproveTestsCNew extends Component {
   //       area_social:[]
 
   render() {
+
+    //TODO in the map functions you should not check for discipline again, as you  have already done so when you processed the array ..
     return (
       <div>
         <p>Ich nehme an folgenden Testungen teil:</p>

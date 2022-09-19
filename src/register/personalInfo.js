@@ -12,7 +12,7 @@ TODOs:
 */
 
 import React from "react";
-import DocViewer from "react-doc-viewer";
+//import DocViewer from "react-doc-viewer";
 
 const PersonalInfo = ({
   nextStep,

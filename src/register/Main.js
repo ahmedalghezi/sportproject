@@ -32,6 +32,8 @@ import TestsView from "./trainer/aymen/TestsView";
 import StatsView from "./trainer/aymen/StatsView";
 import EvaluationsView from "./trainer/aymen/EvaluationsView";
 import UploadConsent from "./UploadConsent";
+import AcceptTerms from "./acceptTerms";
+import ApproveTestsCNew from "./approveTestsNew";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -58,6 +60,9 @@ function Main() {
                             <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
                             <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
                             <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
+                            <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
+
+                            <Route path='/reg/tempR' element={<div className="auth-inner"><ApproveTestsCNew/></div>} />
 
                             <Route path='/lime/control' element={<div className="auth-inner"><LimeControl/></div>} />
                             <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />

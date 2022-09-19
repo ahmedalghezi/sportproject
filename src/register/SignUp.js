@@ -2,12 +2,13 @@
 By Ahmed Al-Ghezi
  */
 
-import React, { Component } from "react";
+import React, {Component, useState} from "react";
 //import {Navigation} from 'react-router';
 import "./style.css";
 import PostSignup from "../DB/postSignup";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import ApproveTestsCNew from "./approveTestsNew";
 class SignUpC extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +26,8 @@ class SignUpC extends Component {
       parentAccept: false,
       adminReg:'',
       captchaToken:'',
-      tempReg:false
+      tempReg:false,
+      askAgain:false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -94,6 +96,7 @@ class SignUpC extends Component {
     const name = target.name;
     if (name === "readTerms") value = target.checked;
     if (name === "parentAccept") value = target.checked;
+    if(name === "askAgain") value = target.checked;
     this.setState({
       [name]: value,
     });
@@ -181,7 +184,11 @@ class SignUpC extends Component {
         else if (response.data.res === "duplicate key")
           alert("Diese Email-Adresse ist bereits registriert.");
         //this.props.history.push('./AfterReg');
-        else this.props.navigate("/reg/regSuc");
+        else {
+          //this.props.showStudies(true);
+          this.props.navigate("/reg/regSuc");
+        }
+
       })
       .catch((e) => {
         console.log(e);
@@ -298,6 +305,18 @@ class SignUpC extends Component {
           </label>
         </div>
 
+
+        <div className="form-group" hidden={!this.props.tempReg}>
+          <label htmlFor="checkid">
+            <input
+                name="askAgain"
+                type="checkbox"
+                onChange={this.handleChange}
+            />{" "}
+            Ask me to confirm again
+          </label>
+        </div>
+
         <button type="submit" className="btn btn-primary btn-block">
           Registrieren
         </button>
@@ -312,15 +331,23 @@ class SignUpC extends Component {
 function SignUp(props) {
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [showStudies, setShowStudies] = useState(false);
   const st = searchParams.get("admiregxn");
-  let isTemp = searchParams.get("tempreg");
-  if(!isTemp)
-    isTemp = false;
-  else
+  let tempParam = searchParams.get("temreg");
+  let isTemp = false;
+  if(tempParam)
     isTemp = true;
   let navigate = useNavigate();
-  if(st === "")
-    return <SignUpC {...props} navigate={navigate} tempReg={isTemp}/>;
+  if(st === "" || st == null) {
+    return <div>
+      <div hidden={showStudies}>
+        <SignUpC {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies}/>
+      </div>
+      <div hidden={!showStudies}>
+        <ApproveTestsCNew {...props} navigate={navigate} showStudies={setShowStudies}/>
+      </div>
+    </div>;
+  }
   else
     return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp}/>;
 }
