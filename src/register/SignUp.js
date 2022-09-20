@@ -82,6 +82,7 @@ class SignUpC extends Component {
         } else {
           this.setState({ disciplinesList: response.data.res });
           this.setState({ discipline: response.data.res[0] });
+          this.props.setDiscipline(response.data.res[0]);
         }
       })
       .catch((e) => {
@@ -97,9 +98,12 @@ class SignUpC extends Component {
     if (name === "readTerms") value = target.checked;
     if (name === "parentAccept") value = target.checked;
     if(name === "askAgain") value = target.checked;
+    if(name == "email") this.props.setEmail(value);
+    if(name == "discipline") this.props.setDiscipline(value);
     this.setState({
       [name]: value,
     });
+
   }
 
 
@@ -185,8 +189,8 @@ class SignUpC extends Component {
           alert("Diese Email-Adresse ist bereits registriert.");
         //this.props.history.push('./AfterReg');
         else {
-          //this.props.showStudies(true);
-          this.props.navigate("/reg/regSuc");
+          this.props.showStudies(true);
+          //this.props.navigate("/reg/regSuc");
         }
 
       })
@@ -332,19 +336,26 @@ function SignUp(props) {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [showStudies, setShowStudies] = useState(false);
+  const [email, setEmail] = useState("");
+  const [discipline, setDiscipline] = useState("");
   const st = searchParams.get("admiregxn");
   let tempParam = searchParams.get("temreg");
   let isTemp = false;
   if(tempParam)
     isTemp = true;
   let navigate = useNavigate();
+
+  function onSentF(){
+    navigate("/reg/regSuc");
+  }
+
   if(st === "" || st == null) {
     return <div>
       <div hidden={showStudies}>
-        <SignUpC {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies}/>
+        <SignUpC {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies} setEmail={setEmail} setDiscipline={setDiscipline} />
       </div>
       <div hidden={!showStudies}>
-        <ApproveTestsCNew {...props} navigate={navigate} showStudies={setShowStudies}/>
+        <ApproveTestsCNew {...props} navigate={navigate} showStudies={setShowStudies} onSent={onSentF} email={email} discipline={discipline}/>
       </div>
     </div>;
   }

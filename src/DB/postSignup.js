@@ -66,7 +66,7 @@ export default class PostSignup {
     }
 
     static postStudies(data){
-        return http.get("/reg/setStudies",data);
+        return http.post("/reg/setStudies",data);
     }
 
     static requestChangePassword(data){

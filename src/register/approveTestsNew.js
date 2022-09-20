@@ -2,7 +2,7 @@
   By Vanessa Meyer
 */
 
-import React, { Component } from "react";
+import React, {Component, useState} from "react";
 import PostSignup from "../DB/postSignup";
 
 class ApproveTestsCNew extends Component {
@@ -10,13 +10,14 @@ class ApproveTestsCNew extends Component {
     super(props);
     this.state = {
       isToggleOn: true,
-      disallowedStudies: [],
-      discipline: "Tischtennis",
+      //disallowedStudies: [],
+      discipline: "",
       email: "",
       area_frank: [],
       area_physiologie: [],
       area_psychologie: [],
       area_social: [],
+      statusArr:[]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,11 +32,17 @@ class ApproveTestsCNew extends Component {
     if (name === "switchId") {
       value = target.checked;
 
-      const arr = this.state.disallowedStudies;
-      arr[id] = value;
+      const arr = this.state.statusArr;
+
+      for( let i = 0 ; i < arr.length ; i++) {
+        if(arr[i].study_id === id) {
+          arr[i].status = value;
+          break;
+        }
+      }
 
       this.setState({
-        disallowedStudies: arr,
+        statusArr: arr,
       });
     }
   };
@@ -44,20 +51,18 @@ class ApproveTestsCNew extends Component {
   handleSubmit = (event) => {
     let studsEmail = this.state.email;
     let studsDisp = this.state.discipline;
-    let disallowedStuds = this.state.disallowedStudies;
+    let statusArr = this.state.statusArr;
     const studiesStatus = {
       email: studsEmail,
       discipline: studsDisp,
-      disallowedStudies: disallowedStuds,
+      statusArr: statusArr,
     };
-    PostSignup.setStudies(studiesStatus)
+    PostSignup.postStudies(studiesStatus)
       .then((response) => {
         if (response.data.res === "error")
           alert("Es ist ein Fehler aufgetreten.");
-        else if (response.data.res === "duplicate key")
-          alert("Diese Email-Adresse ist bereits registriert.");
         //this.props.history.push('./AfterReg');
-        else this.props.navigate("/reg/regSuc");
+        else this.props.onSent();
       })
       .catch((e) => {
         console.log(e);
@@ -72,27 +77,20 @@ class ApproveTestsCNew extends Component {
     let arrPhysio = []; //this.state.area_physiologie;
     let arrPsycho = []; //this.state.area_psychologie;
     let arrSocial = []; //this.state.area_social;
+    let all = [];
+    let index = 0;
     //TODO filter on the discipline here... remove any record not equal to the discipline ..
     for (let i = 0; i < arrOrigin.length; i++) {
-      if (
-        arrOrigin[i].area === "Trainingswissenschaft Frankfurt" &&
-        arrOrigin[i].disp === this.state.discipline
-      ) {
+      if(arrOrigin[i].disp != this.props.discipline)
+        continue;
+      all[index++] = {status:true,study_id:arrOrigin[i].study_id};
+      if (arrOrigin[i].area === "Trainingswissenschaft Frankfurt") {
         arrFrank.push(arrOrigin[i]);
-      } else if (
-        arrOrigin[i].area === "Leistungsphysiologie Gießen" &&
-        arrOrigin[i].disp === this.state.discipline
-      ) {
+      } else if (arrOrigin[i].area === "Leistungsphysiologie Gießen") {
         arrPhysio.push(arrOrigin[i]);
-      } else if (
-        arrOrigin[i].area === "Leistungspsychologie Köln" &&
-        arrOrigin[i].disp === this.state.discipline
-      ) {
+      } else if (arrOrigin[i].area === "Leistungspsychologie Köln") {
         arrPsycho.push(arrOrigin[i]);
-      } else if (
-        arrOrigin[i].area === "Sozialwissenschaften des Sports Gießen" &&
-        arrOrigin[i].disp === this.state.discipline
-      ) {
+      } else if (arrOrigin[i].area === "Sozialwissenschaften des Sports Gießen") {
         arrSocial.push(arrOrigin[i]);
       }
     }
@@ -101,14 +99,8 @@ class ApproveTestsCNew extends Component {
       area_physiologie: arrPhysio,
       area_psychologie: arrPsycho,
       area_social: arrSocial,
+      statusArr:all,
     });
-    // print to console for testing
-    console.log(
-      this.state.area_frank,
-      this.state.area_physiologie,
-      this.state.area_psychologie,
-      this.state.area_social
-    );
   };
 
   componentDidMount() {
@@ -122,7 +114,6 @@ class ApproveTestsCNew extends Component {
       .then((response) => {
         if (response.data.res && response.data.res === "error") {
           alert("Es ist ein Fehler aufgetreten");
-
           return;
         } else {
           console.log(response.data.res);
@@ -137,14 +128,10 @@ class ApproveTestsCNew extends Component {
       });
   }
 
-  //switches from the four state arrays  area_frank:[],
-  //       area_physiologie:[],
-  //       area_psychologie:[],
-  //       area_social:[]
+
 
   render() {
-    //TODO in the map functions you should not check for discipline again, as you  have already done so when you processed the array ..
-    return (
+     return (
       <div>
         <p>Ich nehme an folgenden Testungen teil:</p>
 
@@ -181,6 +168,7 @@ class ApproveTestsCNew extends Component {
               
           )}
         </div>
+        <br/>
         <div>
           <h6>Leistungsphysiologie Gießen</h6>
           {this.state.area_physiologie.map(
@@ -214,6 +202,7 @@ class ApproveTestsCNew extends Component {
               
           )}
         </div>
+        <br/>
         <div>
           <h6>Leistungspsychologie Köln</h6>
           {this.state.area_psychologie.map(
@@ -247,6 +236,7 @@ class ApproveTestsCNew extends Component {
               
           )}
         </div>
+        <br/>
         <div>
           <h6>Sozialwissenschaften des Sports Gießen</h6>
           {this.state.area_social.map(
@@ -292,5 +282,29 @@ class ApproveTestsCNew extends Component {
     );
   }
 }
+
+
+/*function ApproveTestsCNew(props) {
+ let navigate = useNavigate();
+const [searchParams, setSearchParams] = useSearchParams();
+ const [showStudies, setShowStudies] = useState(false);
+ const st = searchParams.get("admiregxn");
+ let tempParam = searchParams.get("temreg");
+ let isTemp = false;
+ if(tempParam)
+   isTemp = true;
+ if(st === "" || st == null) {
+   return <div>
+     <div hidden={showStudies}>
+       <ApproveTestsNew {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies}/>
+     </div>
+     <div hidden={!showStudies}>
+       <ApproveTestsCNew {...props} navigate={navigate} showStudies={setShowStudies}/>
+     </div>
+   </div>;
+ }
+ else
+   return <ApproveTestsNew {...props} navigate={navigate}/>;
+}*/
 
 export default ApproveTestsCNew;
