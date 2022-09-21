@@ -33,9 +33,8 @@ class ApproveTestsCNew extends Component {
       value = target.checked;
 
       const arr = this.state.statusArr;
-
       for( let i = 0 ; i < arr.length ; i++) {
-        if(arr[i].study_id === id) {
+        if(arr[i].study_area_id === id) {
           arr[i].status = value;
           break;
         }
@@ -49,8 +48,8 @@ class ApproveTestsCNew extends Component {
 
   //TODO handleSubmit, email,disp,studies_staus, studies_ids
   handleSubmit = (event) => {
-    let studsEmail = this.state.email;
-    let studsDisp = this.state.discipline;
+    let studsEmail = this.props.email;
+    let studsDisp = this.props.discipline;
     let statusArr = this.state.statusArr;
     const studiesStatus = {
       email: studsEmail,
@@ -61,7 +60,6 @@ class ApproveTestsCNew extends Component {
       .then((response) => {
         if (response.data.res === "error")
           alert("Es ist ein Fehler aufgetreten.");
-        //this.props.history.push('./AfterReg');
         else this.props.onSent();
       })
       .catch((e) => {
@@ -70,20 +68,20 @@ class ApproveTestsCNew extends Component {
       });
   };
 
-  //splits data array into 4 new arrays
+
   splitResArray = (data) => {
     let arrOrigin = data;
-    let arrFrank = []; //this.state.area_frank;
-    let arrPhysio = []; //this.state.area_physiologie;
-    let arrPsycho = []; //this.state.area_psychologie;
-    let arrSocial = []; //this.state.area_social;
+    let arrFrank = [];
+    let arrPhysio = [];
+    let arrPsycho = [];
+    let arrSocial = [];
     let all = [];
     let index = 0;
-    //TODO filter on the discipline here... remove any record not equal to the discipline ..
     for (let i = 0; i < arrOrigin.length; i++) {
       if(arrOrigin[i].disp != this.props.discipline)
         continue;
-      all[index++] = {status:true,study_id:arrOrigin[i].study_id};
+      arrOrigin[i].study_area_id = arrOrigin[i].study_id+"-"+arrOrigin[i].area_id;
+      all[index++] = {status:true, study_id:arrOrigin[i].study_id, area_id:arrOrigin[i].area_id, study_area_id:arrOrigin[i].study_area_id};
       if (arrOrigin[i].area === "Trainingswissenschaft Frankfurt") {
         arrFrank.push(arrOrigin[i]);
       } else if (arrOrigin[i].area === "Leistungsphysiologie Gießen") {
@@ -102,6 +100,7 @@ class ApproveTestsCNew extends Component {
       statusArr:all,
     });
   };
+
 
   componentDidMount() {
     this.getAllStudies();
@@ -140,7 +139,7 @@ class ApproveTestsCNew extends Component {
           {this.state.area_frank.map(
             (item) =>
               
-                (<div key={item.study_id}>
+                (<div key={item.study_area_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -154,7 +153,7 @@ class ApproveTestsCNew extends Component {
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
-                            id={item.study_id}
+                            id={item.study_area_id}
                             defaultValue="switchId"
                             defaultChecked={this.state.isToggleOn}
                             onChange={this.handleChange}
@@ -174,7 +173,7 @@ class ApproveTestsCNew extends Component {
           {this.state.area_physiologie.map(
             (item) =>
               
-                (<div key={item.study_id}>
+                (<div key={item.study_area_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -188,7 +187,7 @@ class ApproveTestsCNew extends Component {
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
-                            id={item.study_id}
+                            id={item.study_area_id}
                             defaultValue="switchId"
                             defaultChecked={this.state.isToggleOn}
                             onChange={this.handleChange}
@@ -208,7 +207,7 @@ class ApproveTestsCNew extends Component {
           {this.state.area_psychologie.map(
             (item) =>
               
-                (<div key={item.study_id}>
+                (<div key={item.study_area_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -222,7 +221,7 @@ class ApproveTestsCNew extends Component {
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
-                            id={item.study_id}
+                            id={item.study_area_id}
                             defaultValue="switchId"
                             defaultChecked={this.state.isToggleOn}
                             onChange={this.handleChange}
@@ -242,7 +241,7 @@ class ApproveTestsCNew extends Component {
           {this.state.area_social.map(
             (item) =>
               
-                (<div key={item.study_id}>
+                (<div key={item.study_area_id}>
                   <table>
                     <tbody>
                       <tr>
@@ -256,7 +255,7 @@ class ApproveTestsCNew extends Component {
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
-                            id={item.study_id}
+                            id={item.study_area_id}
                             defaultValue="switchId"
                             defaultChecked={this.state.isToggleOn}
                             onChange={this.handleChange}

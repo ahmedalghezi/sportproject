@@ -117,7 +117,8 @@ class SignUpC extends Component {
     // check if the date of birth is before that date
     if (date > date18) {
       this.setState({ showParentAccept: true });
-    }
+    }else
+      this.setState({ showParentAccept: false });
   }
 
   checkInput(stateData) {

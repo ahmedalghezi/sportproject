@@ -89,10 +89,10 @@ export default function  GetIDS(){
 
 
     useEffect(() => {
+        console.log("starting");
         //TODO find a better way
         if(disciplinesList.length == 0){
             getDisplines();
-            getApprovedStudies();
             //showError("This page is under update ...");
         }
 
@@ -115,23 +115,6 @@ export default function  GetIDS(){
         });
     }
 
-
-    const getApprovedStudies = () => {
-        PostSignup.getStudies().then(response => {
-            if(response.data.res === "error") {
-                showError("Error getting disciplines from server");
-                return;
-            }
-            else if(response.data.res && response.data.res.length > 0){
-                setApprovedStudies(response.data.res);
-                setSelectedStudyID(response.data.res[0]);
-            }
-
-        }).catch(e => {
-            console.log(e);
-            alert("some error has happened");
-        });
-    }
 
 
     const checkInput = () =>{
