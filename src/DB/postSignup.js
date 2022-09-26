@@ -65,8 +65,16 @@ export default class PostSignup {
         return http.get("/reg/getStudies");
     }
 
+    static getStudiesParam(data){
+        return http.post("/reg/getStudiesParam", data);
+    }
+
     static postStudies(data){
         return http.post("/reg/setStudies",data);
+    }
+
+    static getStudyResult(data) {
+        return http.post("/reg/displayStudiesResultB",data);
     }
 
     static requestChangePassword(data){
@@ -79,6 +87,9 @@ export default class PostSignup {
 
     static acceptTerms(param) {
         return http.post("/reg/accept_terms" , param);
+    }
+    static hasAcceptTerms(param) {
+        return http.post("/reg/hasAcceptTerms" , param);
     }
 
 
@@ -94,6 +105,5 @@ export default class PostSignup {
                 console.log(res.statusText)
             });*/
     }
-
 
 }

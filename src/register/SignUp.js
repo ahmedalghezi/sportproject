@@ -8,7 +8,7 @@ import "./style.css";
 import PostSignup from "../DB/postSignup";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import ApproveTestsCNew from "./approveTestsNew";
+import ApproveTestsCNew from "./approveTests";
 class SignUpC extends Component {
   constructor(props) {
     super(props);

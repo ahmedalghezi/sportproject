@@ -33,7 +33,9 @@ import StatsView from "./trainer/aymen/StatsView";
 import EvaluationsView from "./trainer/aymen/EvaluationsView";
 import UploadConsent from "./UploadConsent";
 import AcceptTerms from "./acceptTerms";
-import ApproveTestsCNew from "./approveTestsNew";
+import ApproveTestsCNew from "./approveTests";
+import EmailConfirmed from "./emailConfirmed";
+import DisplayStudyAccept from "../csvHandler/displayStudyAccept";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -61,6 +63,8 @@ function Main() {
                             <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
                             <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
                             <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
+                            <Route path='/reg/emailConfirmed' element={<div className="auth-inner"><EmailConfirmed/></div>} />
+
 
                             <Route path='/reg/tempR' element={<div className="auth-inner"><ApproveTestsCNew/></div>} />
 
@@ -81,7 +85,11 @@ function Main() {
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
                             <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
                             <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
+                            <Route path='/csv/displayAccept' element={<div className="csv-inner data-view"><DisplayStudyAccept/></div>} />
+
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
+
+
 
 
 

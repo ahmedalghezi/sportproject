@@ -92,7 +92,7 @@ class UploadConsentC extends Component {
         return(
 
             <div>
-                <h3>Please upload your signed declaration of consent</h3>
+                <h3>Bitte lade deine unterschriebene Einverständniserklärung hoch</h3>
                 <form id='uploadConsent' onSubmit={this.handleSubmit}>
                     <br/>
                     <input type="file"  accept=".pdf,.png,.jpg,.jpeg,.gif" onChange={this.handleFileUpload}/>

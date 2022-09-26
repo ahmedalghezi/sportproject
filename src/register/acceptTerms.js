@@ -14,13 +14,16 @@ import {useNavigate, useSearchParams} from "react-router-dom";
         this.state = {
             readTerms: false,
             showParentAccept:false,
-            emailConfirmationCode:''
+            emailConfirmationCode:'',
+            showConfirmedEmail:false,
+            showThank:false
         };
     }
-
-    componentDidMount() {
-        this.setState({emailConfirmationCode:this.props.emailConfirmCode})
-    }
+     componentDidMount() {
+         this.setState({emailConfirmationCode:this.props.emailConfirmCode});
+         if(this.props.showThank)
+             this.setState({showThank:true});
+     }
 
 
     requestDelete = (event) => {
@@ -39,7 +42,8 @@ import {useNavigate, useSearchParams} from "react-router-dom";
     }
 
 
-    handleSubmit(event) {
+
+    handleSubmit = (event)  => {
         event.preventDefault();
         if(!this.state.readTerms)
             return;
@@ -56,7 +60,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
             });
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
         const target = event.target;
         let value = target.value;
         const name = target.name;
@@ -71,7 +75,13 @@ import {useNavigate, useSearchParams} from "react-router-dom";
     render() {
         return (
             <div>
-                <div hidden={!this.state.shwoConfirmedEmail}></div>
+                <div hidden={!this.state.showThank}>
+                    <h3> Vielen Dank für die Bestätigung dein E-Mail
+                    </h3>
+
+                </div>
+
+
                 <div className="form-group">
                     <label htmlFor="checkid">
                         <input
@@ -95,27 +105,25 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                         Ich bestätige, dass ich das Einverständnis meiner Eltern habe, mich in diesem Portal zu registrieren.
                     </label>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">
+                <button type="submit" onClick={this.handleSubmit} className="btn btn-primary btn-block">
                     Submit
                 </button>
 
-                <button onClick={this.requestDelete} >
+                <button onClick={this.requestDelete} hidden={!this.state.showThank} >
                     Delete your account
                 </button>
             </div>
         );
     }
 
-
-
-
-
 }
 
 function AcceptTerms(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const emailConfirmCode = searchParams.get("emailConfirmCode");
-    return <AcceptTermsC {...props}   emailConfirmCode={emailConfirmCode}/>;
+    if(!props.emailConfirmCode || props.emailConfirmCode == "")
+        return <AcceptTermsC {...props}   emailConfirmCode={emailConfirmCode}/>;
+    return <AcceptTermsC {...props} />;
 }
 
 export default AcceptTerms;

@@ -20,7 +20,8 @@ export class MyProfile extends Component {
             if (response.data.res === "error")
                 alert("some error has happened");
             if (response.data.res === "no") {
-                alert("You are not logged in, please login");
+                //alert("You are not logged in, please login");
+                window.location.href = window.location.origin+"/reg/sign-in?org=$reg$profile";
                 return
             }
             if (response.data.res === "ok") {

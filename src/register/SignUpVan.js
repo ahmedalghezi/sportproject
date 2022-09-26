@@ -5,7 +5,7 @@ import PostSignup from "../DB/postSignup";
 import { useNavigate } from "react-router-dom";
 
 import PersonalInfo from "./personalInfo";
-import ApproveTests from "./approveTests";
+import ApproveTests_todelete from "./approveTests_todelete";
 
 class FormParent extends Component {
   constructor(props) {
@@ -324,7 +324,7 @@ class FormParent extends Component {
         );
       case 2:
         return (
-          <ApproveTests
+          <ApproveTests_todelete
             prevStep={this.prevStep}
             handleChange={this.handleChange}
             handleSubmit={this.handleSubmit}

@@ -5,10 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/approveTests_todelete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/emailConfirmed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/approveTestsNew.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTestsNew.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUpVan.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUpVan.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/UploadConsent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/acceptTerms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/acceptTerms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/approveTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/approveTestsNew.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +210,7 @@
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/register" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/csvHandler" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -216,9 +226,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/csvHandler" />
       <recent name="$PROJECT_DIR$/src/register" />
       <recent name="$PROJECT_DIR$/src/register/trainer" />
-      <recent name="$PROJECT_DIR$/src/csvHandler" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/utli/" />
@@ -339,7 +349,8 @@
       <workItem from="1663158036841" duration="6326000" />
       <workItem from="1663577273202" duration="5713000" />
       <workItem from="1663586394018" duration="17975000" />
-      <workItem from="1663650949420" duration="8629000" />
+      <workItem from="1663650949420" duration="38617000" />
+      <workItem from="1664177898399" duration="378000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -593,7 +604,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663654986902</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="finalize studies approves">
+      <created>1663745294838</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1663745294838</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -721,7 +739,8 @@
     <MESSAGE value="adding support for proxy. fixing some signup bugs" />
     <MESSAGE value="Committing testing version of csv upload" />
     <MESSAGE value="Updating todos for the studies approves" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating todos for the studies approves" />
+    <MESSAGE value="finalize studies approves" />
+    <option name="LAST_COMMIT_MESSAGE" value="finalize studies approves" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
