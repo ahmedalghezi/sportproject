@@ -1,0 +1,28 @@
+.profile-name{
+    background-color:#1c8ef9;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    width: 200px;
+    margin-left: 0;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+.list-one{
+
+margin-right: 30px;
+padding-left: 0;
+
+}
+.list-two{
+
+}
+
+.information-content{
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
