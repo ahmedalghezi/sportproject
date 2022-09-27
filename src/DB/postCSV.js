@@ -36,7 +36,7 @@ export default class PostCSVData {
     static getMyFiles(){
         return http.get("/files/getMyFilesLinks");
     }
-    static getMyFiles(){
+    static getMySurveys(){
         return http.get("/files/getMySurveyLinks");
     }
 
