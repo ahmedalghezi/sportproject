@@ -5,13 +5,17 @@
     font-family: sans-serif;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+
 }
 
 .styled-table thead tr.area_head {
-    background-color: #283840;
+    background-color: #01457c;
     color: #ffffff;
-    text-align: left;
+    text-align: center;
+    border: 4px solid;
 }
+
 
 .styled-table thead tr {
     background-color: #0563af;
@@ -23,6 +27,7 @@
 .styled-table th,
 .styled-table td {
     padding: 12px 15px;
+    border: 2px solid;
 }
 
 

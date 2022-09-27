@@ -120,9 +120,9 @@ export default function DisplayStudyAccept() {
                 obj.name = arr[i].name;
 
             }
-            let str = "no";
+            let str = "X";
             if (arr[i].accept)
-                str = "yes";
+                str = "-";
             //obj[arr[i].title] = str;
             if(!obj["test"])
                 obj["test"] = [];
@@ -281,8 +281,10 @@ export default function DisplayStudyAccept() {
 
             if (response.data.res === "ok") {
                 const arr = response.data.data;
-                processStudyArr(arr);
-
+                if(!arr || arr.length === 0)
+                    setStudyArray([]);
+                else
+                    processStudyArr(arr);
             }
 
         }).catch(e => {
@@ -290,38 +292,6 @@ export default function DisplayStudyAccept() {
         });
     }
 
-    const getIdsFromServer = () => {
-        PostSignup.getAthletesID({"discipline": discipline, "key": key}).then(response => {
-            console.log(response.data);
-            if (response.data.res === "no") {
-                showError("Not logged in!");
-                window.location.href = window.location.origin + "/reg/sign-in?org=$csv$athleteInfo";
-                return;
-            }
-            if (response.data.res === "error") {
-                showError("some error has happened");
-                return;
-            }
-
-            if (response.data.res === "ok") {
-                const header = ["name", "discipline", "ID"];
-                const columns = header.map(c => ({
-                    name: c,
-                    selector: c,
-                }));
-                setHeaderArray(columns);
-                console.log(response.data.arr);
-                console.log(columns);
-                setObjDataList(response.data.arr);
-                return;
-            }
-
-
-        })
-            .catch(e => {
-                console.log(e);
-            });
-    }
 
 
     const handleDispSele = (event) => {
@@ -351,7 +321,15 @@ export default function DisplayStudyAccept() {
 
 
 
-
+                <div className="form-group">
+                    <label>Discipline</label>
+                    <br></br>
+                    <select onChange={handleDispSele}  name="discipline">
+                        {disciplinesList.map((item) => (
+                            <option key={item}>{item}</option>
+                        ))}
+                    </select>
+                </div>
 
                 <div className="form-group">
                     <input type="text" className="form-control" name="key" placeholder="key" onChange={handleKey}/>

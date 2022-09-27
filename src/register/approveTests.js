@@ -27,7 +27,7 @@ class ApproveTests extends Component {
 
 
   componentDidMount() {
-    if(!this.props.emailConfirmationCode)
+    if(!this.props.emailConfirmationCode && this.props.discipline)
       this.getAllStudies();
     else
       this.getAllStudiesParam();
@@ -75,7 +75,10 @@ class ApproveTests extends Component {
       .then((response) => {
         if (response.data.res === "error")
           alert("Es ist ein Fehler aufgetreten.");
-        else this.props.onSent();
+        else if(this.props.onSent)
+          this.props.onSent();
+        else
+          alert("Changes saved successfully");
       })
       .catch((e) => {
         console.log(e);
@@ -93,7 +96,7 @@ class ApproveTests extends Component {
     let all = [];
     let index = 0;
     for (let i = 0; i < arrOrigin.length; i++) {
-      if(this.props.discipline != "" && arrOrigin[i].disp != this.props.discipline)
+      if(this.props.discipline && this.props.discipline != "" && arrOrigin[i].disp != this.props.discipline)
         continue;
       arrOrigin[i].study_area_id = arrOrigin[i].study_id+"-"+arrOrigin[i].area_id;
       all[index++] = {status:true, study_id:arrOrigin[i].study_id, area_id:arrOrigin[i].area_id, study_area_id:arrOrigin[i].study_area_id};
