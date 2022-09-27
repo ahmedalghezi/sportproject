@@ -5,20 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/approveTests_todelete.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/emailConfirmed.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/csvHandler/tableStyle.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUpVan.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUpVan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/UploadConsent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/acceptTerms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/acceptTerms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/approveTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/approveTestsNew.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/approveTests_todelete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests_todelete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/studiesData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/studiesData_todelete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vanessa/profile/profileCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/profile/profileCopy.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -287,8 +281,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.build" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.start (1)" />
       </list>
@@ -350,7 +344,7 @@
       <workItem from="1663577273202" duration="5713000" />
       <workItem from="1663586394018" duration="17975000" />
       <workItem from="1663650949420" duration="38617000" />
-      <workItem from="1664177898399" duration="378000" />
+      <workItem from="1664177898399" duration="28110000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -611,7 +605,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663745294838</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="finalize studies approves">
+      <created>1664178471547</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1664178471547</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">

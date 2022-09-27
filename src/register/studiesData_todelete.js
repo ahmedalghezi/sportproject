@@ -1,4 +1,4 @@
-let studiesData = [
+let studiesData_todelete = [
   {
     ID: 1,
     disciplines: ["Volleyball-DVV", "Basketball-DBB"],
@@ -490,4 +490,4 @@ let studiesData = [
   },
 ];
 
-export default studiesData;
+export default studiesData_todelete;

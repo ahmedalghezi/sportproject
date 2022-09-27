@@ -1,5 +1,5 @@
 import React from "react";
-import studiesData from "./studiesData";
+import studiesData_todelete from "./studiesData_todelete";
 
 const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values }) => {
   const Previous = (e) => {
@@ -9,7 +9,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
 
   //########################################################
   /* TODOs 
-    - add studiesData to state, backend 
+    - add studiesData_todelete to state, backend
   */
   //############################################################
   return (
@@ -24,7 +24,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
             <tbody>
 
               <tr>
-                {studiesData[0].studiesList.map((item) => (
+                {studiesData_todelete[0].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>
@@ -70,7 +70,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
             <tbody>
 
               <tr>
-                {studiesData[1].studiesList.map((item) => (
+                {studiesData_todelete[1].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>
@@ -116,7 +116,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
             <tbody>
 
               <tr>
-                {studiesData[2].studiesList.map((item) => (
+                {studiesData_todelete[2].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>
@@ -163,7 +163,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
            
 
               <tr>
-                {studiesData[3].studiesList.map((item) => (
+                {studiesData_todelete[3].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>
@@ -210,7 +210,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
              
 
               <tr>
-                {studiesData[4].studiesList.map((item) => (
+                {studiesData_todelete[4].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>
@@ -257,7 +257,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
              
 
               <tr>
-                {studiesData[5].studiesList.map((item) => (
+                {studiesData_todelete[5].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>
@@ -304,7 +304,7 @@ const ApproveTests_todelete = ({ prevStep, handleChange, handleSubmit, values })
               
 
               <tr>
-                {studiesData[6].studiesList.map((item) => (
+                {studiesData_todelete[6].studiesList.map((item) => (
                   <div id="studies">
                     <tr>
                       <td>

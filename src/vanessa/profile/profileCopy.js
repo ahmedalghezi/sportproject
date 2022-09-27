@@ -14,6 +14,7 @@ class TestProfileC extends Component {
     super(props);
   }
   state = {};
+  //TODO: make the state
   render() {
     return (
       <div id="beside">
