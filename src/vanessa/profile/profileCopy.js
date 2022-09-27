@@ -4,17 +4,60 @@ Vanessa Meyer
 
 import React, { Component } from "react";
 import "./profile.css";
+import PostCSVData from "../../DB/postCSV";
 
-
-
-//Profile Template 
+//Profile Template
 
 class TestProfileC extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      filesList: [],
+      surveyList: [],
+    };
   }
-  state = {};
-  //TODO: make the state
+
+  componentDidMount() {
+    this.getFiles();
+    this.getSurveys();
+  }
+
+  getFiles = () => {
+    PostCSVData.getMyFiles()
+      .then((response) => {
+        if (response.data.res === "error") {
+          const arr = ["connection error"];
+          this.setState({ filesList: arr });
+          return;
+        } else {
+          this.setState({ filesList: response.data.files });
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+  };
+  getSurveys = () => {
+    PostCSVData.getMySurveys()
+      .then((response) => {
+        if (response.data.res === "error") {
+          const arr = ["connection error"];
+          this.setState({ surveyList: arr });
+          return;
+        } else {
+          this.setState({ surveyList: response.data.files }); //todo
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+  };
+
+  handleClick = () => {
+    console.log(this.state);
+  };
   render() {
     return (
       <div id="beside">
@@ -27,51 +70,35 @@ class TestProfileC extends Component {
         <div>
           <h3>Welcome to your page!</h3>
 
-          <div className="information-content" >
+          <div className="information-content">
             {" "}
             <h4>Information</h4>
-             
-            <button className="btn btn-primary btn-block">
+            <button onClick={this.handleClick} className="btn btn-primary btn-block">
               {" "}
               update profile
             </button>
-           
           </div>
-<hr></hr>
+          <hr></hr>
           <div id="beside">
             <div className="list-one">
               <h4>My Surveys</h4>
 
               <ul>
-                <li>
-                  {" "}
-                  <a href="">Survey 1</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="">Survey 2</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="">Survey 3</a>{" "}
-                </li>
+              <ul>
+                {this.state.surveyList.map((item) => (
+                  <li key={item.title}>
+                    <a href={item.link}>{item.title}</a></li>
+                ))}
+              </ul>
               </ul>
             </div>
             <div className="list-two">
               <h4>My Documents</h4>
               <ul>
-                <li>
-                  {" "}
-                  <a href="">File 1</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="">File 2</a>{" "}
-                </li>
-                <li>
-                  {" "}
-                  <a href="">File 3</a>{" "}
-                </li>
+                {this.state.filesList.map((item) => (
+                  <li key={item.title}>
+                    <a href={item.link}>{item.title}</a></li>
+                ))}
               </ul>
             </div>
           </div>
@@ -82,3 +109,4 @@ class TestProfileC extends Component {
 }
 
 export default TestProfileC;
+
