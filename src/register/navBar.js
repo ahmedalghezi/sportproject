@@ -92,6 +92,14 @@ export default class NavBar extends Component {
                   </Link>
                 </li>
 
+                <li className="nav-item" hidden={this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer}>
+                  <Link className="nav-link" to={"/reg/uploadConsent"}>
+                    Einwilligungserklärung hochladen
+                  </Link>
+                </li>
+
+
+
 
                 <li
                     className="nav-item"

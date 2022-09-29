@@ -13,6 +13,7 @@ import alert from "bootstrap/js/src/alert";
 import MuiAlert from "@material-ui/lab/Alert";
 import {Alert} from "@mui/material";
 import DataTable from "react-data-table-component";
+import {useNavigate} from "react-router-dom";
 
 //import '../register/style.css';
 
@@ -65,7 +66,7 @@ export default function  GetIDS(){
     const [approvedStudies, setApprovedStudies] = useState([]);
     const [selectedStudyID, setSelectedStudyID] = useState();
 
-
+    let navigate = useNavigate();
 
     const processCSV = (str, delim=';') => {
         const headers = str.slice(0,str.indexOf('\n')).split(delim);
@@ -279,6 +280,7 @@ export default function  GetIDS(){
                         </td>
 
 
+
                         <td width="20px">     </td>
                         <td>
                             <div className="form-group" hidden={true}>
@@ -294,6 +296,8 @@ export default function  GetIDS(){
 
 
                         <td width={20}></td>
+                        <td width="20px">     </td>
+
 
                     </tr>
                 </table>
@@ -314,6 +318,22 @@ export default function  GetIDS(){
                 >
                     Get Names
                 </button>
+
+
+
+                    <button
+                        className="btn btn-primary btn-block paddingBtn"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setSuccess(false);
+                            setError(false);
+                            navigate("/csv/displayAccept");
+                        }}
+                    >
+                        Show Data Acceptance
+                    </button>
+
+
 
 
                 <br/>

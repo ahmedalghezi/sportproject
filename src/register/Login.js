@@ -49,7 +49,27 @@ class LoginC extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    PostSignup.login(this.state)
+
+      function forwardAthlete(response) {
+          if(response.data.missing){
+              if(response.data.missing.consent){
+                  window.location.href = window.location.origin+"/reg/uploadconsent";
+                  return;
+              }
+              if(response.data.missing.accept){
+                  window.location.href = window.location.origin+"/reg/accept";
+                  return;
+              }
+              if(response.data.missing.tests){
+                  window.location.href = window.location.origin+"/reg/approveTests";
+                  return;
+              }
+
+          }else
+              window.location.href = window.location.origin+"/reg/profile";
+      }
+
+      PostSignup.login(this.state)
       .then((response) => {
         if (response.data.res === "error")
           alert("Es ist ein Fehler aufgetreten.");
@@ -73,10 +93,8 @@ class LoginC extends Component {
             window.location.href =
                 window.location.origin+"/trainer/createTest";
           else
-            //window.location.href =
-             // "https://inprove-sport.info:3000/reg/profile";
-            window.location.href =
-                window.location.origin+"/csv/athleteInfo";
+              forwardAthlete(response);
+
         }
         this.iniReCapcha();
       })

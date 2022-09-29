@@ -13,6 +13,7 @@ import {processArr} from "../../csvHandler/processCSV";
 import Sheet from "../../csvHandler/xlsSheet/XlsSheet";
 import {Alert} from "@mui/material";
 import axios from "axios";
+import PostCSVData from "../../DB/postCSV";
 
 class UploadFileC extends Component {
 
@@ -28,7 +29,7 @@ class UploadFileC extends Component {
 
 
     componentDidMount() {
-
+        this.setState({ID:179});
     }
 
     handleChange(event) {
@@ -54,7 +55,21 @@ class UploadFileC extends Component {
         return true;
     }
 
-
+    saveFileName = (fileName) => {
+        PostCSVData.saveFileNameToAthlete({fileName:fileName,ID:179}).then(response => {
+            console.log(response.data.res);
+            if (response.data.res === "error")
+                alert("some error has happened");
+            if(response.data.res === "no")
+                window.location.href = window.location.origin+"/reg/sign-in?org=$reg$uploadConsent";
+            if(response.data.res === "ok"){
+                alert("File uploaded successfully");
+            }
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened...code 70");
+        });
+    }
 
     handleSubmit(event) {
         event.preventDefault();
@@ -63,17 +78,18 @@ class UploadFileC extends Component {
         const data = new FormData();
         data.append('file', this.state.file);
 
-        PostSignup.uploadConsent(data).then(response => {
+        PostCSVData.uploadToAthlete(data).then(response => {
             console.log(response.data.res);
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("some error has happened. code 84");
             if(response.data.res === "no")
                 window.location.href = window.location.origin+"/reg/sign-in?org=$reg$uploadConsent";
-            if(response.data.res === "ok")
-                this.props.navigate('/reg/regSuc');//show dialog
+            if(response.data.res === "ok"){
+                this.saveFileName(response.data.filename);
+            }
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("some error has happened..code 92");
         });
     }
 

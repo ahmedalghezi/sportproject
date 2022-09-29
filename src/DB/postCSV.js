@@ -5,6 +5,8 @@ By Ahmed Al-Ghezi
 
 import http from "./httpCommon";
 import axios from "axios";
+import baseUrl from "./httpCommon";
+
 export default class PostCSVData {
 
     static setPerformanceDump(data){
@@ -41,4 +43,12 @@ export default class PostCSVData {
     }
 
 
+    static uploadToAthlete(data) {
+
+        return axios.post("https://inprove-sport.info:3000"+"/files/sendFileToAthlete", data);
+    }
+
+    static saveFileNameToAthlete(param) {
+        return http.post("/files/saveFileNameToAthlete", param);
+    }
 }

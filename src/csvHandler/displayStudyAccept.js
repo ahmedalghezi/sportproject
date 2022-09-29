@@ -281,8 +281,11 @@ export default function DisplayStudyAccept() {
 
             if (response.data.res === "ok") {
                 const arr = response.data.data;
-                if(!arr || arr.length === 0)
+                if(!arr || arr.length === 0){
                     setStudyArray([]);
+                    showError("No entries for this discipline")
+                }
+
                 else
                     processStudyArr(arr);
             }
@@ -348,7 +351,8 @@ export default function DisplayStudyAccept() {
                 </button>
 
 
-
+                <Alert severity="success" hidden={!success}>{successMsg}</Alert>
+                <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
 
                 <table className={"styled-table"}>
                     <thead>
@@ -383,8 +387,7 @@ export default function DisplayStudyAccept() {
                 <br/>
 
 
-                <Alert severity="success" hidden={!success}>{successMsg}</Alert>
-                <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
+
 
 
             </form>

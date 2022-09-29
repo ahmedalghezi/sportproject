@@ -44,8 +44,6 @@ class UploadConsentC extends Component {
 
 
 
-
-
     checkInput(stateData){
         if(stateData.file === null){
             alert("please select a file");
