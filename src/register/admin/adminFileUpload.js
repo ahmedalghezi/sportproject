@@ -21,7 +21,7 @@ class UploadFileC extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success:false, error:false, file:null };
+            success:false, error:false, file:null,ID:"" };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -29,7 +29,8 @@ class UploadFileC extends Component {
 
 
     componentDidMount() {
-        this.setState({ID:179});
+        if(this.props.ID)
+            this.setState({ID:this.props.ID});
     }
 
     handleChange(event) {
@@ -45,18 +46,27 @@ class UploadFileC extends Component {
 
 
 
-
-
     checkInput(stateData){
         if(stateData.file === null){
             alert("please select a file");
+            return false;
+        }
+        if(this.state.ID === "" && !this.props.ID){
+            alert("please select an athlete ID");
+            return false;
+        }
+        if(this.state.title === ""){
+            alert("please give file tilte");
             return false;
         }
         return true;
     }
 
     saveFileName = (fileName) => {
-        PostCSVData.saveFileNameToAthlete({fileName:fileName,ID:179,title:this.state.title}).then(response => {
+        let IDa = this.props.ID;
+        if(!IDa)
+            IDa = this.state.ID;
+        PostCSVData.saveFileNameToAthlete({fileName:fileName,ID:IDa,title:this.state.title}).then(response => {
             console.log(response.data.res);
             if (response.data.res === "error")
                 alert("some error has happened");
@@ -121,6 +131,18 @@ class UploadFileC extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
+                    <div className="form-group" hidden={this.props.ID}>
+                        <label>Athlete ID</label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="ID"
+                            name="ID"
+                            onChange={this.handleChange}
+                            value = {this.state.ID}
+                        />
+                    </div>
+                    <br/><br/>
                     <input type="file"  accept=".pdf,.png,.jpg,.jpeg,.gif" onChange={this.handleFileUpload}/>
 <br/><br/>
                     <button type={"submit"}  className="btn btn-primary btn-block">submit</button>
@@ -141,12 +163,12 @@ class UploadFileC extends Component {
 
 
 
-function UploadFile(props) {
+function AdminUploadFile(props) {
     let navigate = useNavigate();
     return <UploadFileC {...props} navigate={navigate}/>
 }
 
-export default UploadFile;
+export default AdminUploadFile;
 
 
 

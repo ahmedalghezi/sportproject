@@ -27,8 +27,7 @@ class TestProfileC extends Component {
     PostCSVData.getMyFiles()
       .then((response) => {
         if (response.data.res === "error") {
-          const arr = ["connection error"];
-          this.setState({ filesList: arr });
+          alert("Some error has happened. Code pro 30");
           return;
         } else {
           this.setState({ filesList: response.data.files });
@@ -36,7 +35,7 @@ class TestProfileC extends Component {
       })
       .catch((e) => {
         console.log(e);
-        alert("Es ist ein Fehler aufgetreten.");
+        alert("Es ist ein Fehler aufgetreten. Code Pro39");
       });
   };
   getSurveys = () => {
@@ -52,13 +51,16 @@ class TestProfileC extends Component {
       })
       .catch((e) => {
         console.log(e);
-        alert("Es ist ein Fehler aufgetreten.");
+        alert("Es ist ein Fehler aufgetreten. Code Pro55");
       });
   };
 
-  handleClick = () => {
-    console.log(this.state);
+  handleFileClick = (event) => {
+    event.preventDefault();
+    window.location.href = "https://inprove-sport.info/"+"files/viewMyFiles/"+event.target.name;
   };
+
+
   render() {
     return (
       <div id="beside">
@@ -97,8 +99,8 @@ class TestProfileC extends Component {
               <h4>My Documents</h4>
               <ul>
                 {this.state.filesList.map((item) => (
-                  <li key={item.title}>
-                    <a href={item.link}>{item.title}</a></li>
+                  <li key={item.file_name} onClick={this.handleFileClick}>
+                    <a name={item.file_name} href={"#"+item.file_name}>{item.title}</a></li>
                 ))}
               </ul>
             </div>

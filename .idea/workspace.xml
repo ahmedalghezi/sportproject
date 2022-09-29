@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/user/profile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/UploadConsent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -210,7 +201,7 @@
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/user" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/register/admin" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -226,6 +217,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/register/admin" />
       <recent name="$PROJECT_DIR$/src/user" />
       <recent name="$PROJECT_DIR$/src/csvHandler" />
       <recent name="$PROJECT_DIR$/src/register" />
@@ -355,7 +347,7 @@
       <workItem from="1664276307903" duration="587000" />
       <workItem from="1664287702729" duration="1547000" />
       <workItem from="1664309117817" duration="85000" />
-      <workItem from="1664346465215" duration="19881000" />
+      <workItem from="1664346465215" duration="24935000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -637,7 +629,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664273046358</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Editing uploadFile">
+      <created>1664436197484</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1664436197484</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -742,7 +741,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="First version login component" />
     <MESSAGE value="First version login component_2" />
     <MESSAGE value="Adding csv handler" />
     <MESSAGE value=" csv handler: XLs component" />
@@ -767,7 +765,8 @@
     <MESSAGE value="Updating todos for the studies approves" />
     <MESSAGE value="finalize studies approves" />
     <MESSAGE value="starting profile page + updating signup" />
-    <option name="LAST_COMMIT_MESSAGE" value="starting profile page + updating signup" />
+    <MESSAGE value="Editing uploadFile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Editing uploadFile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

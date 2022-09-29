@@ -38,6 +38,7 @@ import EmailConfirmed from "./emailConfirmed";
 import DisplayStudyAccept from "../csvHandler/displayStudyAccept";
 import TestProfileC from "../user/profile";
 import UploadFile from "../vanessa/fileUpload/fileUpload";
+import AdminFileUpload from "./admin/adminFileUpload";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -91,7 +92,7 @@ function Main() {
                             <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
-                            <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><UploadFile/></div>} />
+                            <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
 
