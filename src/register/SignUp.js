@@ -280,6 +280,7 @@ class SignUpC extends Component {
             placeholder="Passwort"
             name="password"
             onChange={this.handleChange}
+            value={this.state.password}
           />
         </div>
 

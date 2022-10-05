@@ -27,6 +27,8 @@ export default function EvaluationsView() {
   if(evaluations.length === 0) {
     getEvaluations().then(res => {
       const athletesData = res['data']['athletes'];
+      if(!athletesData || res['data']['res'] != "ok")
+        return;
       setEvaluations(athletesData);
       setFilterEvaluations(athletesData);
     });

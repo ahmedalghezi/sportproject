@@ -66,7 +66,7 @@ class LoginC extends Component {
               }
 
           }else
-              window.location.href = window.location.origin+"/reg/profile";
+              window.location.href = window.location.origin+"/user/profile";
       }
 
       PostSignup.login(this.state)

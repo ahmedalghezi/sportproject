@@ -176,49 +176,9 @@ export default function DisplayStudyAccept() {
             matrix[i][index] = obj["ID"];
             index = getHeaderIndex(header, "name","-");
             matrix[i][index] = obj["name"]
-            /*
-            for (var key in obj) {
-                let toKey = key;
-                let val = obj[key];
-                if(toKey === "test"){
-                    toKey = obj["test"].title;
-                    val = obj["test"].accept;
-                }
-                j = getHeaderIndex(header, toKey);
-                if(j < 0){
-                    showError("error setting header");
-                    return;
-                }
-                matrix[i][j++] = val;
-            }
-            */
 
         }
         setValuesMatrix(matrix);
-
-
-/*
-
-        const coliN = [];
-        for(let i =0 ; i < processedArr.length; i++){
-            const obj = processedArr[i];
-            for (var key in obj) {
-                let vObj = coliN[key];
-                if(!vObj){
-                    vObj = {};
-                    vObj.vals = [];
-                    vObj.title = key;
-                }
-                let vals = vObj.vals;
-                vals.push(obj[key]);
-                coliN[key] = vObj;
-            }
-        }
-        const vCollArr = [];
-        for (var key in coliN) {
-            vCollArr.push(coliN[key]);
-        }
-        setColiArr(vCollArr);*/
     }
 
 
@@ -322,8 +282,6 @@ export default function DisplayStudyAccept() {
             <form id='csv-form'>
                 <br/>
 
-
-
                 <div className="form-group">
                     <label>Discipline</label>
                     <br></br>
@@ -378,9 +336,6 @@ export default function DisplayStudyAccept() {
                     ))}
                     </tbody>
                 </table>
-
-
-
 
 
                 <br/>

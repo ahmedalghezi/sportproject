@@ -37,7 +37,8 @@ export const reformatKey = string => {
 }
 
 export const reformatDate = dateString => {
-  return moment.utc(dateString).format("MMM Do, YYYY HH:mm");
+  //return moment.utc(dateString).format("MMM Do, YYYY HH:mm");
+    return moment.utc(dateString).format("MMM Do, YYYY");
 }
 
 export const germanDatePresentation = date => {

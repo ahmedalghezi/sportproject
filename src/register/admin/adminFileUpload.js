@@ -21,16 +21,18 @@ class UploadFileC extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success:false, error:false, file:null,ID:"" };
+            success:false, error:false, file:null,ID:"" , key:"" };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
 
     componentDidMount() {
         if(this.props.ID)
             this.setState({ID:this.props.ID});
+        if(this.props.key){
+            this.setState({key:this.props.key});
+        }
     }
 
     handleChange(event) {
@@ -66,7 +68,7 @@ class UploadFileC extends Component {
         let IDa = this.props.ID;
         if(!IDa)
             IDa = this.state.ID;
-        PostCSVData.saveFileNameToAthlete({fileName:fileName,ID:IDa,title:this.state.title}).then(response => {
+        PostCSVData.saveFileNameToAthlete({fileName:fileName,ID:IDa, title:this.state.title, key:this.state.key}).then(response => {
             console.log(response.data.res);
             if (response.data.res === "error")
                 alert("some error has happened");
@@ -108,7 +110,6 @@ class UploadFileC extends Component {
         event.preventDefault();
         console.log(event.target.files[0]);
         this.setState({file:event.target.files[0]});
-
     }
 
 
@@ -120,6 +121,17 @@ class UploadFileC extends Component {
             <div>
                 <h3>Dateien hochladen</h3>
                 <form id='uploadConsent' onSubmit={this.handleSubmit}>
+                    <div className="form-group" hidden={this.props.key}>
+                        <label>Key</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="key"
+                            name="key"
+                            onChange={this.handleChange}
+                        />
+                    </div>
+
                     <br/>
                     <div className="form-group">
                         <label>Title</label>

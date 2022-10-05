@@ -61,7 +61,7 @@ function Main() {
                             <Route path='/reg/sign-up-van' element={<div className="auth-inner"><SignUpVan/></div>} />
                             <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
                             <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
-                            <Route path='/reg/profile' element={<div className="auth-inner"><MyProfile/></div>} />
+
                             <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
                             <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
                             <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
@@ -69,7 +69,7 @@ function Main() {
                             <Route path='/reg/emailConfirmed' element={<div className="auth-inner"><EmailConfirmed/></div>} />
 
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
-
+                            <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
 
                             <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
 

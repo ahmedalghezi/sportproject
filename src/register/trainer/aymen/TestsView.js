@@ -47,8 +47,8 @@ const getFilterFunction = (fromDate, toDate, space, discipline, allSpaces, allDi
           label="From Date"
           value={fromDate}
           onChange={setFromDate}
-          style={{width: '340px'}}
-          renderInput={(params) => <TextField style={{width: '340px'}} size="small" {...params} />}
+          style={{width: '240px'}}
+          renderInput={(params) => <TextField style={{width: '240px'}} size="small" {...params} />}
         />
       </Stack>
       <Stack spacing={3} style={{width: '33%', display: 'inline-block'}}>
@@ -56,7 +56,7 @@ const getFilterFunction = (fromDate, toDate, space, discipline, allSpaces, allDi
           label="To Date"
           value={toDate}
           onChange={setToDate}
-          renderInput={(params) => <TextField style={{width: '340px'}} size="small" {...params} />}
+          renderInput={(params) => <TextField style={{width: '240px'}} size="small" {...params} />}
         />
       </Stack>
     </LocalizationProvider>
@@ -71,7 +71,7 @@ const getFilterFunction = (fromDate, toDate, space, discipline, allSpaces, allDi
             value={discipline}
             label={'Discipline'}
             onChange={setDiscipline}
-            style={{width: '340px'}}
+            style={{width: '240px'}}
         >
           <MenuItem value={false}>No selection.</MenuItem>
           {allDisciplines && allDisciplines.map((el, idx) => {
@@ -87,7 +87,7 @@ const getFilterFunction = (fromDate, toDate, space, discipline, allSpaces, allDi
             value={space}
             label={'Space'}
             onChange={setSpace}
-            style={{width: '340px'}}
+            style={{width: '240px'}}
         >
           <MenuItem value={false}>No selection.</MenuItem>
           {allSpaces && allSpaces.map((el, idx) => {
@@ -275,7 +275,7 @@ export default function TestsView(props) {
       {<CustomTable
               rows={jsonRecords} 
               headCells={testHeadCells}
-              title={'Note: page is under maintenance'}
+              title={''}
               hasSpecialRow={false}
               hasChartRepresentation={false}
               dense={true}

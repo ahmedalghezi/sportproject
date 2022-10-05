@@ -92,14 +92,11 @@ export default class NavBar extends Component {
                   </Link>
                 </li>
 
-                <li className="nav-item" hidden={this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer}>
+                <li className="nav-item" hidden={this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer ||this.state.showTrainer}>
                   <Link className="nav-link" to={"/reg/uploadConsent"}>
                     Einwilligungserklärung hochladen
                   </Link>
                 </li>
-
-
-
 
                 <li
                     className="nav-item"
@@ -109,6 +106,20 @@ export default class NavBar extends Component {
                     Athletes Info
                   </Link>
                 </li>
+
+
+
+                <li
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <Link className="nav-link" to={"/csv/displayAccept"}>
+                    Studies Approvals
+                  </Link>
+                </li>
+
+
+
 
 
                 <li
@@ -138,6 +149,17 @@ export default class NavBar extends Component {
                     Download Data
                   </Link>
                 </li>
+
+                <li
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <Link className="nav-link" to={"/csv/uploadToAthlete"}>
+                    Athlete Reports
+                  </Link>
+                </li>
+
+
 
 
 

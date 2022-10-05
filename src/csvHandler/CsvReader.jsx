@@ -72,7 +72,7 @@ export default function  CsvReader(){
         //TODO find better way
         if(disciplinesList.length == 0){
             getDisplines();
-            getApprovedStudies();
+            //getApprovedStudies();
         }
     });
 
@@ -376,6 +376,7 @@ export default function  CsvReader(){
                                     <option value="dna">DNA</option>
                                     <option value="bacterial">Bacterial</option>
                                     <option value="cognition">Cognition</option>
+                                    <option value="cognition">body Measurements </option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>

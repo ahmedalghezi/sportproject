@@ -19,7 +19,8 @@ export default function StatsView (){
     const [stats, setStats] = React.useState([]);
     if(stats.length === 0) {
         getStats().then(res => {
-            setStats(res['data']['arr']);
+            if(res['data']['res'] === "ok" && res['data']['arr'])
+                setStats(res['data']['arr']);
         });
     }
     return (

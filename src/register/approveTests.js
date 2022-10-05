@@ -35,6 +35,12 @@ class ApproveTests extends Component {
     this.setState({ email: this.props.email });
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(!this.props.emailConfirmationCode && prevProps.discipline != this.props.discipline){
+      this.getAllStudies();
+    }
+  }
+
   handleChange = (e) => {
     const target = e.target;
     let value = target.value;
@@ -164,10 +170,10 @@ class ApproveTests extends Component {
   render() {
      return (
       <div>
-        <p>Ich nehme an folgenden Testungen teil:</p>
+        <p>Ich nehme an folgenden Messungen teil:</p>
 
         <div>
-          <h6>Trainingswissenschaft Frankfurt</h6>
+          <h6>Motorik</h6>
           {this.state.area_frank.map(
             (item) =>
               
@@ -201,7 +207,7 @@ class ApproveTests extends Component {
         </div>
         <br/>
         <div>
-          <h6>Leistungsphysiologie Gießen</h6>
+          <h6>Physiologi</h6>
           {this.state.area_physiologie.map(
             (item) =>
               
@@ -235,7 +241,7 @@ class ApproveTests extends Component {
         </div>
         <br/>
         <div>
-          <h6>Leistungspsychologie Köln</h6>
+          <h6>Spsychologie</h6>
           {this.state.area_psychologie.map(
             (item) =>
               
@@ -269,7 +275,7 @@ class ApproveTests extends Component {
         </div>
         <br/>
         <div>
-          <h6>Sozialwissenschaften des Sports Gießen</h6>
+          <h6>Sozialwissenschaft</h6>
           {this.state.area_social.map(
             (item) =>
               

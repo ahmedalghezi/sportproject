@@ -5,11 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/approveTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/aymen/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/aymen/EvaluationsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/aymen/StatsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/aymen/StatsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/trainer/aymen/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/aymen/TestsView.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utli/dataConversion.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/dataConversion.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -347,7 +358,8 @@
       <workItem from="1664276307903" duration="587000" />
       <workItem from="1664287702729" duration="1547000" />
       <workItem from="1664309117817" duration="85000" />
-      <workItem from="1664346465215" duration="24935000" />
+      <workItem from="1664346465215" duration="32029000" />
+      <workItem from="1664869060542" duration="15824000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -636,7 +648,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664436197484</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Editing uploadFile">
+      <created>1664443118839</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1664443118839</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
