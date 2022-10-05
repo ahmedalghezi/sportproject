@@ -46,23 +46,23 @@ class AddAthleteC extends Component {
         this.setState({saving:true});
         HandelTrainer.postMyAthlete({"athletes":this.state.athletesArr}).then(response => {
             if (response.data.res === "error") {
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
                 this.setState({saving:false});
             }
             else if (response.data.res === "wrong") {
-                alert("user name or password are not correct");
+                alert("Benutzername oder Passwort nicht korrekt!");
                 this.setState({saving:false});
             }
             if(response.data.res === "no"){
-                alert("Please sign in first");
+                alert("Bitte erst anmelden.");
                 SignOut.forwardSignIn();
                 return;
             }
             if (response.data.res === "ok")
-                alert("Your athlete list is updated successfully");
+                alert("Deine Liste wurde erfolgreich aktualisiert.");
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
             this.setState({saving:false});
         });
     }
@@ -75,9 +75,9 @@ class AddAthleteC extends Component {
         }
         HandelTrainer.findAthletesEmail(this.state.email).then(response => {
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             else if (response.data.res === "wrong")
-                alert("Please login first");
+                alert("Bitte erst anmelden.");
             else if (response.data.res === "empty"){
                 this.setState({athletesArr: []});
             }
@@ -85,7 +85,7 @@ class AddAthleteC extends Component {
                 const  arr = this.state.athletesArr;
                 for(let i = 0 ; i < arr.length; i++){
                     if(arr[i].ID === response.data.athlete.ID){
-                        alert("athlete already exist in your list");
+                        alert("Athlet*in ist bereits in deiner Liste.");
                         return;
                     }
                 }
@@ -98,7 +98,7 @@ class AddAthleteC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting trainings list form server.");
+            alert("Fehler beim Abrufen der Trainingsliste vom Server.");
         });
     }
 
@@ -124,9 +124,9 @@ class AddAthleteC extends Component {
     getMyAthletes() {
         HandelTrainer.getMyAthletes().then(response => {
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             else if (response.data.res === "wrong")
-                alert("Please login first");
+                alert("Bitte erst anmelden.");
             else if (response.data.res === "empty"){
                 this.setState({athletesArr: []});
             }
@@ -134,10 +134,10 @@ class AddAthleteC extends Component {
                 this.setState({athletesArr: response.data.athletes});
             }
             if(response.data.res === "no")
-                alert("Not signed in!");
+                alert("Du bist nicht angemeldet, bitte melde dich an.");
         }).catch(e => {
             console.log(e);
-            alert("Error getting trainings list form server.");
+            alert("Fehler beim Abrufen der Trainingsliste vom Server.");
         });
     }
 
@@ -151,9 +151,9 @@ class AddAthleteC extends Component {
         //some are adapted from <!-- Adapted from https://stackoverflow.com/a/16243163 -->
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Add athletes to my list</h3>
+                <h3>Athlet*innen meiner Liste hinzufügen</h3>
                 <div className="form-group">
-                    <label>My Athlete List</label>
+                    <label>Meine Liste</label>
                     <br></br>
                     <select  onChange={this.handleChange} name="selectedAthlete" multiple={true}>
                         {this.state.athletesArr.map((option) => (
@@ -164,25 +164,25 @@ class AddAthleteC extends Component {
 
 
                 <div className="form-group">
-                    <label>Find by personal code</label>
-                    <input className="form-control" placeholder="Enter athlete's personal code" name="code" onChange={this.handleChange} />
+                    <label>Suche nach persönlichem Code</label>
+                    <input className="form-control" placeholder="Persönlichen Code eingeben" name="code" onChange={this.handleChange} />
                 </div>
-                <button onClick={this.findByCode} className="btn btn-secondary btn-block" disabled={false}>find</button>
+                <button onClick={this.findByCode} className="btn btn-secondary btn-block" disabled={false}>suchen</button>
 
                 <p></p><p></p>
                 <div className="form-group">
-                    <label>Find by email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email " name="email" onChange={this.handleChange} />
+                    <label>Suche nach Email-Adresse</label>
+                    <input type="email" className="form-control" placeholder="E-Mail eingeben " name="email" onChange={this.handleChange} />
                 </div>
-                <button onClick={this.findByEmail} className="btn btn-secondary btn-block" disabled={false}>find</button>
+                <button onClick={this.findByEmail} className="btn btn-secondary btn-block" disabled={false}>suchen</button>
 
                 <p></p><p></p>
 
                 <div>
                     <p className="blue">{this.state.added_succ}</p>
                 </div>
-                <button type="submit" className="btn btn-primary btn-block" disabled={this.state.saving}>save</button>
-                <button onClick={this.goBack} className="btn btn-primary btn-block paddingBtn">continue</button>
+                <button type="submit" className="btn btn-primary btn-block" disabled={this.state.saving}>speichern</button>
+                <button onClick={this.goBack} className="btn btn-primary btn-block paddingBtn">weiter</button>
 
 
             </form>

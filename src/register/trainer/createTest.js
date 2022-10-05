@@ -34,14 +34,14 @@ export default class CreateTest extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
     }
 
     handleSubmit(event) {
         event.preventDefault();
         if(this.state.title === ""){
-            alert("title cannot be empty!")
+            alert("Titel kann nicht leer sein!")
             return;
         }
         HandelTrainer.createTest(this.state).then(response => {
@@ -51,14 +51,14 @@ export default class CreateTest extends Component {
             if(response.data.res === "no")
                 this.props.navigate('/reg/sign-in');
             if(response.data.res === "ok")
-                alert("Test added successfully");
+                alert("Test erfolgreich hinzugefügt!");
             if(response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             else if(response.data.res.includes("duplicate"))
-                alert("This test already exists");
+                alert("Dieser Test existiert bereits.");
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
         //event.preventDefault();
     }
@@ -82,14 +82,14 @@ export default class CreateTest extends Component {
             if(response.data.res === "no")
                 this.props.navigate('/reg/sign-in');
             if(response.data.res === "ok")
-                alert("Test deleted successfully");
+                alert("Test erfolgreich gelöscht.");
             if(response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             if(response.data.res === "already_used")
-                alert("Can't delete this test. It is already used by at least one coach. Please contact DB admin");
+                alert("Dieser Test kann nicht gelöscht werden. Es wird bereits von mindestens einem Trainer genutzt. Bitte wenden Sie sich an den DB-Administrator.");
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
 
     }
@@ -97,14 +97,14 @@ export default class CreateTest extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Create New Training Type</h3>
+                <h3>Neuen Trainingstypen erstellen</h3>
                 <div className="form-group">
-                    <label>Test title</label>
-                    <input type="text" className="form-control" name="title" placeholder="Test title" onChange={this.handleChange} />
+                    <label>Testtitel</label>
+                    <input type="text" className="form-control" name="title" placeholder="Testtitel" onChange={this.handleChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Discipline</label>
+                    <label>Disziplin</label>
                     <br></br>
                     <select onChange={this.handleChange}  name="discipline">
                         {this.state.disciplinesList.map((item) => (
@@ -113,9 +113,9 @@ export default class CreateTest extends Component {
                     </select>
                 </div>
 
-                <button type="submit" className="btn btn-primary btn-block">create</button>
+                <button type="submit" className="btn btn-primary btn-block">erstellen</button>
                 &nbsp;&nbsp;&nbsp;
-                <button type="submit" className="btn btn-primary btn-block" onClick={this.deleteTest}>delete</button>
+                <button type="submit" className="btn btn-primary btn-block" onClick={this.deleteTest}>löschen</button>
             </form>
         );
     }

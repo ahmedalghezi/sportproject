@@ -32,7 +32,7 @@ export default class EditCoach extends Component {
                 return;
             }
             if(response.data.res === "error"){
-                alert("your should login first");
+                alert("Bitte erst anmelden.");
                 return;
             }
             if(response.data.res === "ok") {
@@ -41,7 +41,7 @@ export default class EditCoach extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -49,11 +49,11 @@ export default class EditCoach extends Component {
         event.preventDefault();
         HandelTrainer.makeCoach({email:this.state.email}).then(response => {
             if(response.data.res === "error") {
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
                 return;
             }
             if(response.data.res === "ok") {
-                alert("Coach set correctly!");
+                alert("Trainer korrekt erstellt!");
                 this.setState({email:''});
                 this.getTrainers();
                 return;
@@ -61,7 +61,7 @@ export default class EditCoach extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -85,7 +85,7 @@ export default class EditCoach extends Component {
     handleDisguisedLogin(event){
         event.preventDefault();
         if(this.state.selectedTrainer === ''){
-            alert("please select one coach");
+            alert("Bitte Trainer*in auswählen.");
             return;
         }
         PostSignup.disguisedTrainerLogin(this.state.selectedTrainer).then(response => {
@@ -93,11 +93,11 @@ export default class EditCoach extends Component {
                 //this.props.navigate('/trainer/addAthletes');
                 window.location.href = window.location.origin+"/trainer/addAthletes";
             }else{
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             }
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -115,17 +115,17 @@ export default class EditCoach extends Component {
     render() {
         return (
             <form onSubmit={this.handleDisguisedLogin}>
-                <h3>Make & Edit Coaches</h3>
+                <h3>Trainer*in erstellen & bearbeiten</h3>
 
                 <div className="form-group">
-                    <input type="email" className="form-control" placeholder="Enter email " name="email" onChange={this.handleChange} />
+                    <input type="email" className="form-control" placeholder="Email eingeben " name="email" onChange={this.handleChange} />
                 </div>
-                <button onClick={this.makeCoach} className="btn btn-secondary btn-block" disabled={false}>Make Coach</button>
+                <button onClick={this.makeCoach} className="btn btn-secondary btn-block" disabled={false}>erstelle Trainer*in</button>
 
                 <br></br><br></br>
 
                 <div className="vertical-menu">
-                    <a href="#" className="active">Coaches</a>
+                    <a href="#" className="active">Trainer*innen</a>
                     {this.state.trainersList.map((option) => (
                         <a name={option.email} key={option.email}
                            onClick={this.handleTrainersListClick}>{option.name}</a>
@@ -134,7 +134,7 @@ export default class EditCoach extends Component {
 
 
 
-                <button type="submit" className="btn btn-primary btn-block">login as coach</button>
+                <button type="submit" className="btn btn-primary btn-block">als Trainer*in anmelden</button>
             </form>
         );
     }

@@ -43,7 +43,7 @@ class AddToMyTestsC extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
         });
     }
 
@@ -69,18 +69,18 @@ class AddToMyTestsC extends Component {
             return;
         HandelTrainer.postMyTests({"tests":this.state.myTestsArr}).then(response => {
             if (response.data.res === "error") {
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
                 this.setState({saving:false});
             }
             else if (response.data.res === "wrong") {
-                alert("user name or password are not correct");
+                alert("Benutzername oder Passwort nicht korrekt!");
                 this.setState({saving:false});
             }
             if (response.data.res === "ok")
-                alert("Your trainings list is updated successfully");
+                alert("Deine Trainingsliste wurde erfolgreich aktualisiert.");
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten!");
             this.setState({saving:false});
         });
     }
@@ -123,11 +123,11 @@ class AddToMyTestsC extends Component {
             iDiscipline = this.state.discipline;
         HandelTrainer.getAllTests({"discipline":iDiscipline}).then(response => {
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             else if (response.data.res === "wrong")
-                alert("Please login first");
+                alert("Bitte erst anmelden.");
             else if(response.data.res === "empty"){
-                alert("There are currently no trainings for this discipline");
+                alert("Aktuell gibt es keine Trainings für diese Disziplin.");
                 this.setState({allTestsArr: []});
             }
             else if (response.data.res === "ok") {
@@ -135,7 +135,7 @@ class AddToMyTestsC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting trainings list form server.");
+            alert("Fehler beim Abrufen der Trainingsliste vom Server.");
         });
     }
 
@@ -143,9 +143,9 @@ class AddToMyTestsC extends Component {
     getMyTests() {
         HandelTrainer.getMyTests().then(response => {
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten!");
             else if (response.data.res === "wrong")
-                alert("Please login please");
+                alert("Bitte erst anmelden.");
             else if (response.data.res === "empty"){
                 this.setState({myTestsArr: []});
             }
@@ -154,7 +154,7 @@ class AddToMyTestsC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("Error getting trainings list form server.");
+            alert("Fehler beim Abrufen der Trainingsliste vom Server.");
         });
     }
 
@@ -196,7 +196,7 @@ class AddToMyTestsC extends Component {
         //some are adapted from <!-- Adapted from https://stackoverflow.com/a/16243163 -->
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Add to my trainings list</h3>
+                <h3>Meiner Trainingsliste hinzufügen</h3>
 
                 <br></br>
 
@@ -205,7 +205,7 @@ class AddToMyTestsC extends Component {
 
 
                 <div className="form-group">
-                    <label>Discipline</label>
+                    <label>Disziplin</label>
                     <br></br>
                     <select onChange={this.handleChange}  name="discipline">
                         {this.state.disciplinesList.map((item) => (
@@ -232,7 +232,7 @@ class AddToMyTestsC extends Component {
                         <tr>
                             <td>
                                 <div className="vertical-menu midH">
-                                    <a href="#" className="active">All Training Types</a>
+                                    <a href="#" className="active">Alle Trainingstypen</a>
                                     {this.state.allTestsArr.map((option) => (
                                         <a name={option.title} key={option.id}
                                            onClick={this.handleAllTestListClick}>{option.title}</a>
@@ -243,12 +243,12 @@ class AddToMyTestsC extends Component {
 
 
 
-                            <td> <button onClick={this.handleAdd}> >> </button>
+                            <td> <button onClick={this.handleAdd}> {">>"} </button>
                                 <br></br>
                                 <button onClick={this.handleRemove}> {"<<"} </button></td>
                             <td>
                                 <div className="vertical-menu midH">
-                                    <a href="#" className="active">My Trainings</a>
+                                    <a href="#" className="active">Meine Trainings</a>
                                     {this.state.myTestsArr.map((option) => (
                                         <a name={option.title} key={option.id}
                                            onClick={this.handleMyTestListClick}>{option.title}</a>
@@ -269,8 +269,8 @@ class AddToMyTestsC extends Component {
                 </div>
 
                 <p></p>
-                <button type="submit" className="btn btn-primary btn-block" disabled={this.state.saving}>save</button>
-                <button onClick={this.goBack} className="btn btn-primary btn-block paddingBtn">continue</button>
+                <button type="submit" className="btn btn-primary btn-block" disabled={this.state.saving}>speichern</button>
+                <button onClick={this.goBack} className="btn btn-primary btn-block paddingBtn">weiter</button>
             </form>
         );
     }
