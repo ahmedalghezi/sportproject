@@ -13,8 +13,8 @@ install
      dayjs
 
 Next TODOs
-  combine filtering for disp&space
-  update leftChecked & rightChecked for listitem-transfer
+  backend
+  add more conditions for filtering for disp&space
   create table from selected features
   download functionality
 */
@@ -27,7 +27,6 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-
 
 //imports for transferlist
 import Grid from "@mui/material/Grid";
@@ -48,7 +47,11 @@ class SubSetC extends Component {
       //testdata
       testData: testdata,
       featureList: [],
+
+      //filtering by disciplines & spaces
       filteredData: [],
+      filteredDisp: [],
+      filteredSpaces: [],
 
       //disciplin & space
       space: "",
@@ -111,7 +114,6 @@ class SubSetC extends Component {
     return a.filter((value) => b.indexOf(value) !== -1);
   }
 
-  //TODO
   //handle-functions for selection of discipline & space
   handleChange = (e) => {
     const target = e.target;
@@ -128,13 +130,25 @@ class SubSetC extends Component {
         ),
       });
 
-      this.state.testData.filter(
-        (el) => el["discipline"] === value
-      ).forEach((item) => {
-        featureNames = featureNames.concat(Object.keys(item["json_record"]));
-      });
-      this.setState({ left: featureNames });
+      this.state.testData
+        .filter((el) => el["discipline"] === value)
+        .forEach((item) => {
+          featureNames = featureNames.concat(Object.keys(item["json_record"]));
+        });
+      this.setState({ filteredDisp: featureNames });
 
+      this.setState((prevState) => {
+        if (prevState.filteredSpaces.length !== 0) {
+          return {
+            left: this.intersection(
+              prevState.filteredDisp,
+              prevState.filteredSpaces
+            ),
+          };
+        } else {
+          return { left: prevState.filteredDisp };
+        }
+      });
     }
     //set value and filter by space
     if (name === "space") {
@@ -143,19 +157,32 @@ class SubSetC extends Component {
         filteredData: this.state.testData.filter((el) => el["space"] === value),
       });
 
-      this.state.testData.filter(
-        (el) => el["space"] === value
-      ).forEach((item) => {
-        featureNames = featureNames.concat(Object.keys(item["json_record"]));
+      this.state.testData
+        .filter((el) => el["space"] === value)
+        .forEach((item) => {
+          featureNames = featureNames.concat(Object.keys(item["json_record"]));
+        });
+      this.setState({ filteredSpaces: featureNames });
+
+      this.setState((prevState) => {
+        if (prevState.filteredDisp.length !== 0) {
+          return {
+            left: this.intersection(
+              prevState.filteredDisp,
+              prevState.filteredSpaces
+            ),
+          };
+        } else {
+          return { left: prevState.filteredSpaces };
+        }
       });
-      this.setState({ left: featureNames });
     }
-    
   };
 
   //handle-functions for transferlist
   handleToggle = (value) => () => {
     let isChecked = this.state.isChecked;
+
     const currentIndex = isChecked.indexOf(value);
     const newChecked = [...isChecked];
 
@@ -165,6 +192,13 @@ class SubSetC extends Component {
       newChecked.splice(currentIndex, 1);
     }
     this.setState({ isChecked: newChecked });
+
+    this.setState((prevState) => {
+      return {
+        leftChecked: this.intersection(prevState.isChecked, prevState.left),
+        rightChecked: this.intersection(prevState.isChecked, prevState.right),
+      };
+    });
   };
 
   handleAllRight = () => {
@@ -182,24 +216,25 @@ class SubSetC extends Component {
   };
 
   handleCheckedRight = () => {
-    let isChecked = this.state.isChecked;
-    let left = this.state.left;
-    let right = this.state.right;
-    const leftChecked = this.intersection(isChecked, left);
-    this.setState({ leftChecked: leftChecked });
-    this.setState({ right: right.concat(leftChecked) });
-    this.setState({ left: this.not(left, leftChecked) });
-    this.setState({ isChecked: this.not(isChecked, leftChecked) });
+    this.setState((prevState) => {
+      return {
+        leftChecked: prevState.leftChecked,
+        right: prevState.right.concat(prevState.leftChecked),
+        left: this.not(prevState.left, prevState.leftChecked),
+        isChecked: this.not(prevState.isChecked, prevState.leftChecked),
+      };
+    });
   };
+
   handleCheckedLeft = () => {
-    let isChecked = this.state.isChecked;
-    let left = this.state.left;
-    let right = this.state.right;
-    const rightChecked = this.intersection(isChecked, right);
-    this.setState({ rightChecked: rightChecked });
-    this.setState({ left: left.concat(rightChecked) });
-    this.setState({ right: this.not(right, rightChecked) });
-    this.setState({ isChecked: this.not(isChecked, rightChecked) });
+    this.setState((prevState) => {
+      return {
+        rightChecked: prevState.rightChecked,
+        left: prevState.left.concat(prevState.rightChecked),
+        right: this.not(prevState.right, prevState.rightChecked),
+        isChecked: this.not(prevState.isChecked, prevState.rightChecked),
+      };
+    });
   };
 
   //handleClick for testing
