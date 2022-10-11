@@ -57,8 +57,8 @@ export default class PostSignup {
         return http.get("/reg/signOut");
     }
 
-    static disguisedTrainerLogin(selectedTrainer) {
-        return http.post("/reg/trainerDisguisedLogin",{email:selectedTrainer});
+    static disguisedTrainerLogin(data) {
+        return http.post("/reg/trainerDisguisedLogin",data);
     }
 
     static getStudies(){
@@ -75,6 +75,10 @@ export default class PostSignup {
 
     static getStudyResult(data) {
         return http.post("/reg/displayStudiesResultB",data);
+    }
+
+    static getAthleteIDs(data) {
+        return http.post("/reg/getIDs",data);
     }
 
     static requestChangePassword(data){
@@ -98,7 +102,8 @@ export default class PostSignup {
     }
 
     static uploadConsent(data){
-        return axios.post(window.location.origin+"/files/sendConsent", data)/*, {
+        //return axios.post("https://inprove-sport.info:3000"+"/files/sendFileToAthlete", data)
+        return axios.post("https://inprove-sport.info"+"/files/sendConsent", data)/*, {
             // receive two parameter endpoint url ,form data
         })
             .then(res => { // then print response status

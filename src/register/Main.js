@@ -39,6 +39,9 @@ import DisplayStudyAccept from "../csvHandler/displayStudyAccept";
 import TestProfileC from "../user/profile";
 import UploadFile from "../vanessa/fileUpload/fileUpload";
 import AdminFileUpload from "./admin/adminFileUpload";
+import AthleteControl from "../csvHandler/athleteControl";
+import SubsetData from "../vanessa/subsetData/subsetData";
+import SubSetC from "../vanessa/subsetData/subsetData";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -66,7 +69,7 @@ function Main() {
                             <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
                             <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
                             <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
-                            <Route path='/reg/emailConfirmed' element={<div className="auth-inner"><EmailConfirmed/></div>} />
+                            <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
 
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
@@ -96,6 +99,9 @@ function Main() {
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
 
+                            <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
+
+                            <Route path='/csv/subest' element={<div className="csv-inner data-view"><SubSetC/></div>} />
 
 
 

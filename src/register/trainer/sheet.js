@@ -335,7 +335,7 @@ export default class Sheet extends Component {
         //some are adapted from <!-- Adapted from https://stackoverflow.com/a/16243163 -->
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Trainerblatt</h3>
+                <h3>Trainingseinschätzung</h3>
                 <table>
                     <tr>
                         <td>

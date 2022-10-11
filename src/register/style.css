@@ -51,6 +51,19 @@ html,
   max-height: 800px;
 }
 
+
+.small-inner {
+  width: 450px;
+  margin: auto;
+  margin-top: 100px;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all 0.3s;
+  max-height: 800px;
+}
+
 .csv-inner {
   width: 1000px;
   margin: auto;
@@ -63,6 +76,7 @@ html,
   overflow-y: scroll;
   max-height: 800px;
 }
+
 
 
 

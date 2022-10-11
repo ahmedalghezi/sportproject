@@ -82,7 +82,7 @@ export default class NavBar extends Component {
 
                 <li className="nav-item" hidden={this.state.showSignIn}>
                   <Link className="nav-link" to={"/reg/sign-out"}>
-                    Sign out
+                    Ausloggen
                   </Link>
                 </li>
 
@@ -154,10 +154,12 @@ export default class NavBar extends Component {
                     className="nav-item"
                     hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
-                  <Link className="nav-link" to={"/csv/uploadToAthlete"}>
-                    Athlete Reports
+                  <Link className="nav-link" to={"/super/athleteControl"}>
+                    Manage Athlete
                   </Link>
                 </li>
+
+
 
 
 
@@ -165,23 +167,23 @@ export default class NavBar extends Component {
 
                 <li className="nav-item" hidden={!this.state.showTrainer}>
                   <Link className="nav-link" to={"/trainer/addMyTests"}>
-                    Trainings List
+                    Trainingsliste
                   </Link>
                 </li>
                 <li className="nav-item" hidden={!this.state.showTrainer}>
                   <Link className="nav-link" to={"/trainer/addAthletes"}>
-                    Athletes List
+                    Athletenliste
                   </Link>
                 </li>
                 <li className="nav-item" hidden={!this.state.showTrainer}>
                   <Link className="nav-link" to={"/trainer/sheet"}>
-                    Evaluation
+                    Einschätzung
                   </Link>
                 </li>
 
                 <li className="nav-item" hidden={!this.state.showTrainer}>
                   <Link className="nav-link" to={"/trainer/myhistory"}>
-                    My Data
+                    Meine Daten
                   </Link>
                 </li>
 
@@ -212,7 +214,7 @@ export default class NavBar extends Component {
 
                 <li className="nav-item" hidden={this.state.showSignIn}>
                   <Link className="nav-link" to={"/reg/changemypassword"}>
-                    Change Password
+                    Passwort ändern
                   </Link>
                 </li>
 

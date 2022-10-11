@@ -76,6 +76,8 @@ class UploadFileC extends Component {
                 window.location.href = window.location.origin+"/reg/sign-in?org=$reg$uploadConsent";
             if(response.data.res === "ok"){
                 alert("File uploaded successfully");
+                if(this.props.onUpload)
+                    this.props.onUpload();
             }
         }).catch(e => {
             console.log(e);
@@ -154,7 +156,11 @@ class UploadFileC extends Component {
                             value = {this.state.ID}
                         />
                     </div>
-                    <br/><br/>
+                    <br/>
+                    <div hidden={!this.props.ID}>
+                        <p>To Athlete ID: {this.props.ID}</p>
+                    </div>
+
                     <input type="file"  accept=".pdf,.png,.jpg,.jpeg,.gif" onChange={this.handleFileUpload}/>
 <br/><br/>
                     <button type={"submit"}  className="btn btn-primary btn-block">submit</button>

@@ -88,7 +88,7 @@ export default class EditCoach extends Component {
             alert("Bitte Trainer*in auswählen.");
             return;
         }
-        PostSignup.disguisedTrainerLogin(this.state.selectedTrainer).then(response => {
+        PostSignup.disguisedTrainerLogin({email:this.state.selectedTrainer}).then(response => {
             if(response.data.res === "ok"){
                 //this.props.navigate('/trainer/addAthletes');
                 window.location.href = window.location.origin+"/trainer/addAthletes";

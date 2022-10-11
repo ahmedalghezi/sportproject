@@ -44,8 +44,7 @@ export default class PostCSVData {
 
 
     static uploadToAthlete(data) {
-
-        return axios.post("https://inprove-sport.info:3000"+"/files/sendFileToAthlete", data);
+        return axios.post("https://inprove-sport.info"+"/files/sendFileToAthlete", data);
     }
 
     static saveFileNameToAthlete(param) {

@@ -31,7 +31,11 @@ export default class SignOut extends Component {
             if(response.data.disguised) {
                 this.setState({disguised: true});
                 if (response.data.res === "ok") {
-                    this.setState({message: "You have been sign out from that coach!"});
+                    if(response.data.role === "trainer")
+                        this.setState({message: "You have been sign out from that coach!"});
+                    else
+                        this.setState({message: "You have been sign out from that user!"});
+                    this.setState({disguisedRole:response.data.role})
                 }
                 return;
             }
@@ -57,10 +61,14 @@ export default class SignOut extends Component {
     }
 
     forwardSignInDisg() {
-        if(!this.state.disguised)
+        if(!this.state.disguised){
             window.location.href = window.location.origin+"/reg/";
-        else
-            window.location.href = window.location.origin+"/trainer/editCoach";
+        } else{
+            if(this.state.role === "trainer")
+                window.location.href = window.location.origin+"/trainer/editCoach";
+            else
+                window.location.href = window.location.origin+"/super/athleteControl";
+        }
     }
 
 

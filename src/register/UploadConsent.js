@@ -67,8 +67,12 @@ class UploadConsentC extends Component {
                 alert("some error has happened");
             if(response.data.res === "no")
                 window.location.href = window.location.origin+"/reg/sign-in?org=$reg$uploadConsent";
-            if(response.data.res === "ok")
-                this.props.navigate('/reg/regSuc');//show dialog
+            if(response.data.res === "ok"){
+                if(this.props.uploadDone)
+                    this.props.uploadDone();
+                else
+                    this.props.navigate('/reg/regSuc');
+            }
         }).catch(e => {
             console.log(e);
             alert("some error has happened");
