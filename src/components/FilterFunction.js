@@ -64,7 +64,7 @@ export default function FilterFunction(props) {
             type="number"
             size="small"
             name="Difference"
-            label="Difference"
+            label="Differenz"
             variant="filled"
             value={difference}
             onChange={event => setDifference(event.target.value)}/>
@@ -74,7 +74,7 @@ export default function FilterFunction(props) {
             type="number"
             size="small"
             name="Achieved"
-            label="Achieved"
+            label="Erreicht"
             variant="filled"
             value={achieved}
             onChange={event => setAchieved(event.target.value)}/>
@@ -84,7 +84,7 @@ export default function FilterFunction(props) {
             type="number"
             size="small"
             name="Planned"
-            label="Planned"
+            label="Geplant"
             variant="filled"
             value={planned}
             onChange={event  => setPlanned(event.target.value)}/>
@@ -105,7 +105,7 @@ export default function FilterFunction(props) {
             style={{width: '340px'}}
             onChange={onChange}
         >
-          <MenuItem value={false}>No selection.</MenuItem>
+          <MenuItem value={false}>Nichts ausgewählt.</MenuItem>
           {elements && elements.map((el, idx) => {
             return <MenuItem value={el} key={'key-select-' + idx}>{el}</MenuItem>
           })}
@@ -119,10 +119,10 @@ export default function FilterFunction(props) {
     <div>
       <div className="filter-function-wrapper">
             <div>
-                <TextField style={{width: '340px'}} id="search-general" label="Search text" variant="standard" onChange={event => setSearchText(event.target.value)}/>
+                <TextField style={{width: '340px'}} id="search-general" label="Suchen" variant="standard" onChange={event => setSearchText(event.target.value)}/>
                 <br/>
-                {selectComponent('Athlete', selectedAthlete, athletes, (event) => {setSelectedAthlete(event.target.value)})}
-                {selectComponent('Title', selectedTitle, titles, (event) => {setSelectedTitle(event.target.value)})}
+                {selectComponent('Athlet*innen', selectedAthlete, athletes, (event) => {setSelectedAthlete(event.target.value)})}
+                {selectComponent('Titel', selectedTitle, titles, (event) => {setSelectedTitle(event.target.value)})}
                 {numberInput()}
             </div>
             <div style={{marginBottom: '12px'}}>
@@ -131,7 +131,7 @@ export default function FilterFunction(props) {
                     style={{marginTop: '12px', width: '170px'}}
                     onClick={apply}
                   >
-                    Apply
+                    Anwenden
                   </Button>
                   <Button 
                       variant="contained" 
@@ -139,7 +139,7 @@ export default function FilterFunction(props) {
                       onClick={reset}
                       disabled={filterNotSet}
                     >
-                  Reset
+                  Zurücksetzen
                 </Button>
             </div>      
       </div>

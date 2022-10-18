@@ -9,7 +9,7 @@ export default function CustomChart(props) {
   const {evaluations, closeChartView, selectedAthlete} = props;
 
   // CHART DATA
-  const chartTitle = 'Performance History for Athlete ' + selectedAthlete;
+  const chartTitle = 'Leistungsverlauf für Athlet*in ' + selectedAthlete;
   let values = []
   evaluations.forEach(ev => {
     if(values.map(el => el.date).includes(ev.date)) {
