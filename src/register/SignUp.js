@@ -9,6 +9,7 @@ import PostSignup from "../DB/postSignup";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
 import ApproveTestsCNew from "./approveTests";
+import WelcomeReg from "./WelcomeReg";
 class SignUpC extends Component {
   constructor(props) {
     super(props);
@@ -191,7 +192,8 @@ class SignUpC extends Component {
         //this.props.history.push('./AfterReg');
         else {
           if(!this.state.askAgain)
-            this.props.showStudies(true);
+            //this.props.showStudies(true);
+            this.props.showWelcome(true,this.state);
           else{
             alert("Registration is successful! " +
                 "When you click on the link sent to your email, you'd be asked again to accept the terms and conditions. " +
@@ -344,8 +346,11 @@ function SignUp(props) {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [showStudies, setShowStudies] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
   const [email, setEmail] = useState("");
   const [discipline, setDiscipline] = useState("");
+  const [signUpData, setSignUpData] = useState({});
+
   const st = searchParams.get("admiregxn");
   let tempParam = searchParams.get("temreg");
   let isTemp = false;
@@ -353,18 +358,39 @@ function SignUp(props) {
     isTemp = true;
   let navigate = useNavigate();
 
-  function onSentF(){
-    navigate("/reg/regSuc");
+  function onSentF(approveStudyRes){
+    if(signUpData.showParentAccept){
+      const obj = signUpData;
+      obj.approveStudyRes = approveStudyRes;
+      navigate("/reg/uploadConsent", {state: obj });
+    }else
+      navigate("/reg/regSuc");
+  }
+
+  function handleShowWelcome(result,state) {
+    setShowWelcome(result);
+    setSignUpData(state);
+  }
+  function welcomeDone() {
+    console.log("welcome done");
+    setShowStudies(true);
+    setShowWelcome(false);
   }
 
   if(st === "" || st == null) {
     return <div>
-      <div hidden={showStudies}>
-        <SignUpC {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies} setEmail={setEmail} setDiscipline={setDiscipline} />
+      <div hidden={showStudies || showWelcome}>
+        <SignUpC {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies} showWelcome={handleShowWelcome}
+                 setEmail={setEmail} setDiscipline={setDiscipline} />
       </div>
       <div hidden={!showStudies}>
-        <ApproveTestsCNew {...props} navigate={navigate} showStudies={setShowStudies} onSent={onSentF} email={email} discipline={discipline}/>
+        <ApproveTestsCNew {...props} navigate={navigate} signUpData={signUpData} showStudies={setShowStudies} onSent={onSentF} email={email} discipline={discipline}/>
       </div>
+
+      <div hidden={!showWelcome}>
+        <WelcomeReg done={welcomeDone}/>
+      </div>
+
     </div>;
   }
   else

@@ -42,6 +42,7 @@ import AdminFileUpload from "./admin/adminFileUpload";
 import AthleteControl from "../csvHandler/athleteControl";
 import SubsetData from "../vanessa/subsetData/subsetData";
 import SubSetC from "../vanessa/subsetData/subsetData";
+import WelcomeReg from "./WelcomeReg";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -70,6 +71,8 @@ function Main() {
                             <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
                             <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
+                            <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
+
 
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />

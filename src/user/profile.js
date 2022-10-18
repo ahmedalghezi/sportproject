@@ -1,5 +1,6 @@
 /*
 Vanessa Meyer
+Ahmed Al-Ghezi
 */
 
 import React, {Component} from "react";
@@ -65,8 +66,31 @@ class TestProfileC extends Component {
 
     handleFileClick = (event) => {
         event.preventDefault();
+        if(event.target.name.startsWith("deletevftr5")){
+            this.deleteFile(event.target.name.replace("deletevftr5",""));
+            return;
+        }
         window.location.href = "https://inprove-sport.info/" + "files/viewMyFiles/" + event.target.name;
     };
+
+    deleteFile(fileName) {
+        PostCSVData.deleteFile({"fileName":fileName}).then((response) => {
+            if (response.data.res === "error") {
+                alert("Some error has happened. Code pro 79");
+                return;
+            } else if (response.data.res === "ok") {
+                alert("File deleted");
+                this.getFiles();
+            }
+            if (response.data.res === "no") {
+                alert("Please login first");
+            }
+        })
+            .catch((e) => {
+                console.log(e);
+                alert("Es ist ein Fehler aufgetreten. Code Pro93");
+            });
+    }
 
 
     showEmptyMessage() {
@@ -127,7 +151,9 @@ class TestProfileC extends Component {
                                 <ul>
                                     {this.state.filesList.map((item) => (
                                         <li key={item.file_name} onClick={this.handleFileClick}>
-                                            <a name={item.file_name} href={"#" + item.file_name}>{item.title}</a></li>
+                                            <a hidden={!item.admin} name={"deletevftr5"+item.file_name} href={"#" + item.file_name}>(delete)</a>
+                                            <a name={item.file_name} href={"#" + item.file_name}>{item.title}</a>
+                                        </li>
                                     ))}
                                 </ul>
                             </div>
@@ -137,7 +163,6 @@ class TestProfileC extends Component {
             </div>
         );
     }
-
 
 }
 

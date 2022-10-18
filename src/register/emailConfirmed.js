@@ -48,7 +48,7 @@ import ApproveTestsCNew from "./approveTests";
         });
     }
 
-     onSendAcceptTerms = () =>{
+     onSendAcceptTerms = (approveStudyRes) =>{
          this.props.done(true);
      }
 
@@ -70,7 +70,7 @@ import ApproveTestsCNew from "./approveTests";
         return (
             <div>
                 <div>
-                    <h3> Vielen Dank für die Bestätigung dein E-Mail
+                    <h3> Vielen Dank für die Bestätigung Deiner E-Mail
                     </h3>
                 </div>
 

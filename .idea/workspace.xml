@@ -5,21 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/WelcomeReg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utli/readMore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/specialRow.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/specialRow.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/AfterReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/AfterReg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/UploadConsent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/sign-out.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/sign-out.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/acceptTerms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/acceptTerms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/approveTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/emailConfirmed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/emailConfirmed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/regMain.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/editCoach.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,7 +211,7 @@
   <component name="PropertiesComponent">
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/csvHandler" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/utli" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -221,17 +221,17 @@
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/utli" />
+      <recent name="$PROJECT_DIR$/src/register" />
       <recent name="$PROJECT_DIR$/src/csvHandler" />
       <recent name="$PROJECT_DIR$/src/register/admin" />
       <recent name="$PROJECT_DIR$/src/user" />
-      <recent name="$PROJECT_DIR$/src/register" />
-      <recent name="$PROJECT_DIR$/src/register/trainer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/utli/" />
@@ -290,8 +290,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.start (1)" />
       </list>
@@ -359,7 +359,9 @@
       <workItem from="1664309117817" duration="85000" />
       <workItem from="1664346465215" duration="32029000" />
       <workItem from="1664869060542" duration="41882000" />
-      <workItem from="1665388984497" duration="3396000" />
+      <workItem from="1665388984497" duration="8740000" />
+      <workItem from="1665580455250" duration="15363000" />
+      <workItem from="1666006143826" duration="17924000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -662,7 +664,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664965097710</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Translations and editings">
+      <created>1665485830463</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1665485830463</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -767,7 +776,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding csv handler" />
     <MESSAGE value=" csv handler: XLs component" />
     <MESSAGE value="minor change" />
     <MESSAGE value="minor changes" />
@@ -792,7 +800,8 @@
     <MESSAGE value="starting profile page + updating signup" />
     <MESSAGE value="Editing uploadFile" />
     <MESSAGE value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
-    <option name="LAST_COMMIT_MESSAGE" value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
+    <MESSAGE value="Translations and editings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Translations and editings" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -804,7 +813,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>128</line>
+          <line>129</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

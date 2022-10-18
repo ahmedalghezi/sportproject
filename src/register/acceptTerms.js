@@ -106,7 +106,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                     </label>
                 </div>
                 <button type="submit" onClick={this.handleSubmit} className="btn btn-primary btn-block">
-                    Submit
+                    Senden
                 </button>
 
                 <button onClick={this.requestDelete} hidden={!this.state.showThank} >

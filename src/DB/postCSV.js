@@ -50,4 +50,8 @@ export default class PostCSVData {
     static saveFileNameToAthlete(param) {
         return http.post("/files/saveFileNameToAthlete", param);
     }
+    static deleteFile(param) {
+        return http.post("/files/deleteFile", param);
+    }
+
 }
