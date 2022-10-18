@@ -78,15 +78,15 @@ export default function EvaluationsView() {
                   <table  style={{margin: '0 18px 32px'}}>
                     <tbody>
                       <tr>
-                          <td style={tableCellStyle}><b>Training sessions this Month:</b></td>
+                          <td style={tableCellStyle}><b>Trainingseinheiten diesen Monat:</b></td>
                           <td style={tableCellStyle}>{evaluations.length}</td>
                       </tr>
                       <tr>
-                          <td style={tableCellStyle}><b>Number of Athletes:</b></td>
+                          <td style={tableCellStyle}><b>Anzahl Athlet*innen:</b></td>
                           <td style={tableCellStyle}>{Array.from(new Set(evaluations.map(ev => ev.name))).length}</td>
                       </tr>
                       <tr>
-                          <td style={tableCellStyle}><b>Last Training Session:</b></td>
+                          <td style={tableCellStyle}><b>Letzte Trainingseinheit:</b></td>
                           <td style={tableCellStyle}>{reformatDate(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]) }</td>
                       </tr>
                     </tbody>
