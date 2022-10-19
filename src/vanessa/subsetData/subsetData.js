@@ -11,15 +11,19 @@ install
      @mui/x-date-pickers
      moment
      dayjs
+     @mui/x-data-grid
 
 Next TODOs
   backend
-  add more conditions for filtering for disp&space
-  create table from selected features
+  add data to table
+  remove duplicates of features, that are listed in transferlist
   download functionality
+  
 */
 
 import React, { Component } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+
 import {
   Button,
   FormControl,
@@ -48,8 +52,9 @@ class SubSetC extends Component {
       testData: testdata,
       featureList: [],
 
-      //filtering by disciplines & spaces
+      //filter
       filteredData: [],
+      filteredJsonRecords: [],
       filteredDisp: [],
       filteredSpaces: [],
 
@@ -85,6 +90,10 @@ class SubSetC extends Component {
     });
 
     this.setState({ featureList: featureNames, left: featureNames });
+
+    this.setState((prevState) => {
+      return { testHeadCells: prevState.featureList };
+    });
   };
 
   //TODO
@@ -222,6 +231,7 @@ class SubSetC extends Component {
         right: prevState.right.concat(prevState.leftChecked),
         left: this.not(prevState.left, prevState.leftChecked),
         isChecked: this.not(prevState.isChecked, prevState.leftChecked),
+        leftChecked: [],
       };
     });
   };
@@ -233,6 +243,7 @@ class SubSetC extends Component {
         left: prevState.left.concat(prevState.rightChecked),
         right: this.not(prevState.right, prevState.rightChecked),
         isChecked: this.not(prevState.isChecked, prevState.rightChecked),
+        rightChecked: [],
       };
     });
   };
@@ -240,6 +251,21 @@ class SubSetC extends Component {
   //handleClick for testing
   handleClick = () => {
     console.log(this.state);
+  };
+
+  //TODO
+  handleApply = () => {
+    /*
+    Object.keys(item["json_record"])
+    */
+
+    this.setState((prevState) => {
+      return {
+        filteredJsonRecords: prevState.filteredData.map(
+          (t) => t["json_record"]
+        ),
+      };
+    });
   };
 
   // feature list for transferlist
@@ -284,6 +310,19 @@ class SubSetC extends Component {
     let right = this.state.right;
     let leftChecked = this.state.leftChecked;
     let rightChecked = this.state.rightChecked;
+    let filteredJsonRecords = this.state.filteredJsonRecords;
+
+    //Table Data
+    let rows = filteredJsonRecords;
+    let columns = right.map((headCell) => {
+      return {
+        field: headCell,
+
+        headerName: headCell,
+      };
+    });
+
+    
     return (
       <div>
         <div style={{ padding: "8px 0" }}>
@@ -397,8 +436,31 @@ class SubSetC extends Component {
             <Grid item>{this.customList(right)}</Grid>
           </Grid>
         </div>
-        <div>
-          <button onClick={this.handleClick}>Test</button>
+
+        <div style={{ marginBottom: "12px", width: "100%" }}>
+          <div style={{ width: "33%", display: "inline-block" }}>
+            {
+              <Button
+                variant="contained"
+                style={{
+                  marginTop: "12px",
+                  marginRight: "20px",
+                  width: "160px",
+                }}
+                onClick={this.handleClick}
+              >
+                Test
+              </Button>
+            }
+          </div>
+        </div>
+        <div style={{ height: 400, width: "100%" }}>
+          <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+          />
         </div>
       </div>
     );
