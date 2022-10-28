@@ -49,14 +49,17 @@ async function getTests (fromDate, toDate) {
 
 const getColLabelsFromData = (data) => {
   let labels = [];
+  
   data.forEach((test) => {
     labels = labels.concat(Object.keys(test["json_record"]));
-    labels = Array.from(new Set(labels)); //make entries unique
     
-
+    labels = Array.from(new Set(labels)); //make entries unique
   });
+
   return labels;
 };
+
+
 
 // components
 const getFilterFunction = (
@@ -296,15 +299,14 @@ export default function TestsViewCopy(props) {
 
   const onApply = () => {
     console.log(jsonRecords);
-//create subset of jsonRecords
-let subset = [];
-jsonRecords.forEach(item => {
-  
-  subset = subset.concat(right.reduce((a, e) => ((a[e] = item[e]), a), {}));
-})
+    //create subset of jsonRecords
+    let subset = [];
+    jsonRecords.forEach((item) => {
+      subset = subset.concat(right.reduce((a, e) => ((a[e] = item[e]), a), {}));
+    });
 
-console.log(subset);
-setSubset(subset);
+    console.log(subset);
+    setSubset(subset);
 
     /*
     let filteredJsonRecords = jsonRecords.filter(
@@ -325,7 +327,7 @@ setSubset(subset);
 
     //});
   };
-//TODO AKTUELL ENDE ###############################################################################
+  //TODO AKTUELL ENDE ###############################################################################
   const onReset = () => {
     if (discipline || space) {
       setDiscipline(false);
@@ -546,9 +548,11 @@ setSubset(subset);
                   }}
                   onClick={onApply}
                 >
-                  Apply
+                  Show Data
                 </Button>
               }
+            </div>
+            <div style={{ width: "33%", display: "inline-block" }}>
               {
                 <Button
                   variant="contained"
@@ -571,7 +575,7 @@ setSubset(subset);
                   variant="contained"
                   style={{ marginTop: "12px", width: "120px" }}
                   onClick={onDownload}
-                  disabled={filteredTests.length === 0}
+                  disabled={subset.length === 0}
                 >
                   Download
                 </Button>
