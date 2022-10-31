@@ -1,3 +1,8 @@
+/* 
+Copy of register/trainer/aymen/TestsView.js with additional subset functionalities 
+by Vanessa Meyer
+*/
+
 import React from "react";
 import CustomTable from "../../components/CustomTable";
 import axios from "axios";
@@ -15,9 +20,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { germanDatePresentation } from "../../utli/dataConversion";
 
-//added
-import testdata from "./testdata";
-//import TransferList from './transferlist';
+import testdata from "./testdata"; // just for testing, delete if not needed
+
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -32,7 +36,8 @@ const defaultDates = {
   to: new Date(2023, 0, 1),
 };
 
-// requesting data from API
+// requesting data from API -- TODO uncomment next lines
+
 /*
 async function getTests (fromDate, toDate) {
   console.log("https://inprove-sport.info/csvapi/get_slice/" + fromDate + "/" + toDate);
@@ -45,21 +50,48 @@ async function getTests (fromDate, toDate) {
   }).get("/csvapi/get_slice/" + fromDate + "/" + toDate);
 }*/
 
-// utils
+// transform data to get all json records for each person in a row
+const mergeRecords = (data) => {
+  let merged = [];
+  data.forEach((test) => {
+    let UserID = test.personID; // TODO -- maybe rename personID to person identifier
+    let json_record = test.json_record;
+    const subset = [{ UserID, json_record }];
+    merged = merged.concat(subset);
+  });
+  //console.log(merged);
+
+  const result = merged.reduce((acc, { UserID, json_record }) => {
+    acc[UserID] ??= { UserID: UserID, json_record: [] };
+    if (Array.isArray(json_record))
+      // if it's array type then concat
+      acc[UserID].json_record = acc[UserID].json_record.concat(json_record);
+    else acc[UserID].json_record.push({ ...json_record });
+
+    return acc;
+  }, {});
+  let mergedJsonRecords = Object.values(result);
+  //console.log(mergedJsonRecords);
+
+  let test = [];
+  mergedJsonRecords.forEach((item) => {
+    test = test.concat(Object.assign({}, ...item.json_record));
+  });
+  //console.log(test);
+  return test;
+};
 
 const getColLabelsFromData = (data) => {
   let labels = [];
-  
+
   data.forEach((test) => {
     labels = labels.concat(Object.keys(test["json_record"]));
-    
+
     labels = Array.from(new Set(labels)); //make entries unique
   });
 
   return labels;
 };
-
-
 
 // components
 const getFilterFunction = (
@@ -174,7 +206,6 @@ function intersection(a, b) {
 
 export default function TestsViewCopy(props) {
   const [filteredTests, setFilteredTests] = React.useState([]);
-  //const[filteredTestsRight, setFilteredTestsRight] = React.useState([]);
   const [jsonRecords, setJsonRecords] = React.useState([]);
   const [subset, setSubset] = React.useState([]);
   const [space, setSpace] = React.useState(false);
@@ -185,6 +216,7 @@ export default function TestsViewCopy(props) {
   const [allSpaces, setAllSpaces] = React.useState([]);
   const [colLabels, setColLabels] = React.useState([]);
   const [isFirstRender, setIsFirstRender] = React.useState(true);
+  const [mergedRecords, setMergedRecords] = React.useState([]);
 
   //transferlist
   const [checked, setChecked] = React.useState([]);
@@ -263,12 +295,12 @@ export default function TestsViewCopy(props) {
 
   // event handlers
 
-  //TODO AKTUELL ###############################################################################
   // Apply button after Selection of Discipline and Space to create left list of transferlist with filtered data
-  const onApply2 = () => {
+  const onApply = () => {
+    // -- TODO uncomment next two lines to get test from API
     //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
     //let testsData = res['data']['arr'];
-    let testsData = testdata;
+    let testsData = testdata; // TODO -- delete if not needed
     setAllDisciplines(
       Array.from(new Set(testsData.map((el) => el.discipline)))
     );
@@ -286,68 +318,50 @@ export default function TestsViewCopy(props) {
     let testDataJsonRecords = testsData.map((t) => t["json_record"]);
 
     setJsonRecords(
-      Array.from(new Set(jsonRecords.concat(testDataJsonRecords))) //unique records? -> what if in data 2 identical rows and we want both?
+      Array.from(new Set(jsonRecords.concat(testDataJsonRecords))) // TODO -- delete if not needed
     );
 
-    //setColLabels(getColLabelsFromData(testsData));
     setLeft(getColLabelsFromData(testsData));
+    setMergedRecords(mergeRecords(filteredTests.concat(testsData)));
 
-    //});
+    //}); //TODO -- uncomment
   };
 
-  // create filtered data by right list of transferlist (selected features) to use for subset table
-
-  const onApply = () => {
-    console.log(jsonRecords);
+  //show data of selected features (right list of transferlist) to use for subset table
+  const showData = () => {
     //create subset of jsonRecords
     let subset = [];
-    jsonRecords.forEach((item) => {
+    mergedRecords.forEach((item) => {
       subset = subset.concat(right.reduce((a, e) => ((a[e] = item[e]), a), {}));
     });
 
-    console.log(subset);
     setSubset(subset);
-
-    /*
-    let filteredJsonRecords = jsonRecords.filter(
-      key => right.includes(key)
-    );
-    console.log(filteredJsonRecords);*/
-    /*
-      let filteredData = filteredTests;
-      if(right) {
-        // daten weiter filtern nach den features, die in Right enthalten sind
-        filteredData = filteredData.filter()
-      }
-      setFilteredTestsRight(filteredData);
-      setJsonRecords(jsonRecords.concat(filteredData.map(t => t['json_record'])));
-      //anschließend argumente für Tabellendarstellung anpassen 
-      
-     */
-
-    //});
   };
-  //TODO AKTUELL ENDE ###############################################################################
+
   const onReset = () => {
     if (discipline || space) {
       setDiscipline(false);
       setSpace(false);
       setFromDate(defaultDates["from"]);
       setToDate(defaultDates["to"]);
+      // TODO -- uncomment next two lines
       //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
       // let testsData = res['data']['arr'];
-      let testsData = testdata;
+      let testsData = testdata; // TODO - delete if not needed
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
       setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
-      setFilteredTests(testsData);
-      //setJsonRecords(testsData.map(t => t['json_record']));
+
+      setFilteredTests([]);
+
       setJsonRecords([]);
       setColLabels(getColLabelsFromData(testsData));
       setLeft([]);
       setRight([]);
-      //});
+      setSubset([]);
+      setMergedRecords([]);
+      //}); //TODO -- uncomment
     }
   };
 
@@ -411,9 +425,10 @@ export default function TestsViewCopy(props) {
       }
     }
     if (fetchData) {
+      // TODO -- uncomment next two lines
       //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
       // const testsData = res['data']['arr'];
-      const testsData = testdata;
+      const testsData = testdata; // TODO -- delete if not needed
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
@@ -425,21 +440,22 @@ export default function TestsViewCopy(props) {
       if (!allSpaces.includes(space)) {
         setSpace(false);
       }
-      //});
+      //}); //TODO -- uncomment
     }
   };
 
   // data preprocessing
   if (isFirstRender) {
+    // TODO -- uncomment next two lines
     //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
     //const testsData = res['data']['arr'];
-    const testsData = testdata;
+    const testsData = testdata; // TODO -- delete if not needed
     setAllDisciplines(
       Array.from(new Set(testsData.map((el) => el.discipline)))
     );
     setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
     setIsFirstRender(false);
-    // });
+    // }); //TODO -- uncomment
   }
   let testHeadCells = Array.from(new Set(right));
   testHeadCells = testHeadCells.map((headCell) => {
@@ -473,7 +489,7 @@ export default function TestsViewCopy(props) {
               <Button
                 variant="contained"
                 style={{ marginTop: "12px", width: "120px" }}
-                onClick={onApply2}
+                onClick={onApply}
               >
                 Apply
               </Button>
@@ -546,7 +562,7 @@ export default function TestsViewCopy(props) {
                     marginRight: "20px",
                     width: "160px",
                   }}
-                  onClick={onApply}
+                  onClick={showData}
                 >
                   Show Data
                 </Button>
