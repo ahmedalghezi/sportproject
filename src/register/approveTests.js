@@ -341,7 +341,7 @@ class ApproveTests extends Component {
                 </div>
                 <br/>
                 <div>
-                    <h6 hidden={!(this.state.area_psychologie&&this.state.area_psychologie.length > 0)} >Spsychologie</h6>
+                    <h6 hidden={!(this.state.area_psychologie&&this.state.area_psychologie.length > 0)} >Psychologie</h6>
                     {this.state.area_psychologie.map(
                         (item) =>
 
@@ -413,8 +413,7 @@ class ApproveTests extends Component {
                         <tbody>
                             <tr>
                                 <td width={300}>
-                                    Video-/Ton- und Bildaufnahme von mir bei
-                                    der Absolvierung der Tests gemacht werden darf
+                                    Einverständnis, dass Video-/Ton- und Bildaufnahmen bei Absolvierung der Tests gemacht werden dürfen.
                                 </td>
                                 <td
                                         className="form-check form-switch"
@@ -446,7 +445,7 @@ class ApproveTests extends Component {
                         <tbody>
                         <tr>
                             <td width={300}>
-                                Daten am OSP/Stützpunkt für das In:prove- Projekt genutzt werden dürfen.
+                                Einverständnis, dass die im Rahmen der Leistungsdiagnostiken erhobenen Daten am OSP/Stützpunkt für das In:prove- Projekt genutzt werden dürfen.
                             </td>
                             <td
                                 className="form-check form-switch"
@@ -477,7 +476,7 @@ class ApproveTests extends Component {
                         <tr>
                             <t><a name={"switchId"} href={"#"} onClick={this.showInfo}>?</a></t>
                             <td width={300}>
-                                Möchte ich informiert Über sogenannte „Zufalls- oder Zusatzbefunde
+                                Einverständnis, dass ich über Befunde, die möglicherweise für einen optimalen Trainingserfolg von Bedeutung sind, oder medizinisch abgeklärt werden sollten, informiert werden möchte.
                             </td>
                             <td
                                 className="form-check form-switch"
