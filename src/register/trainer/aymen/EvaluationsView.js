@@ -5,7 +5,9 @@ import FilterFunction from '../../../components/FilterFunction';
 import { evaluationsHeadCells } from '../../../temp-data/evaluations';
 import axios from "axios";
 import { reformatDate } from '../../../utli/dataConversion';
-
+import { germanDatePresentation } from "../../../utli/dataConversion"; 
+//TODO change order of table columns to: Datum-Name-Titel-Qualität-Geplante Int.-Erreichte Int.-Differenz
+//TODO German date format
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
 
 async function getEvaluations () {
@@ -88,6 +90,9 @@ export default function EvaluationsView() {
                       <tr>
                           <td style={tableCellStyle}><b>Letzte Trainingseinheit:</b></td>
                           <td style={tableCellStyle}>{reformatDate(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]) }</td>
+                          
+                          
+                          
                       </tr>
                     </tbody>
                   </table>
@@ -99,3 +104,4 @@ export default function EvaluationsView() {
     <div className="view-footer"></div></>
   )
 }
+// 
