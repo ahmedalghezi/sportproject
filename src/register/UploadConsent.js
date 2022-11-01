@@ -1,7 +1,7 @@
 /*
 By Ahmed Al-Ghezi
  */
-
+//TODO Do not show again after login if consent is already uploaded. 
 import React, {Component} from "react";
 
 import './style.css';
@@ -48,7 +48,7 @@ class UploadConsentC extends Component {
 
     checkInput(stateData){
         if(stateData.file === null){
-            alert("please select a file");
+            alert("Wähle bitte eine Datei aus.");
             return false;
         }
         return true;
@@ -66,7 +66,7 @@ class UploadConsentC extends Component {
         PostSignup.uploadConsent(data).then(response => {
             console.log(response.data.res);
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("Es ist ein Fehler aufgetreten.");
             if(response.data.res === "no")
                 window.location.href = window.location.origin+"/reg/sign-in?org=$reg$uploadConsent";
             if(response.data.res === "ok"){
@@ -77,7 +77,7 @@ class UploadConsentC extends Component {
             }
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Es ist ein Fehler aufgetreten.");
         });
     }
 
@@ -170,12 +170,12 @@ class UploadConsentC extends Component {
         return(
 
             <div>
-                <h3>Bitte lade deine unterschriebene Einverständniserklärung hoch</h3>
+                <h3>Bitte lade Deine unterschriebene Einverständniserklärung hoch</h3>
                 <form id='uploadConsent' onSubmit={this.handleSubmit}>
                     <br/>
                     <input type="file"  accept=".pdf,.png,.jpg,.jpeg,.gif" onChange={this.handleFileUpload}/>
 <br/><br/>
-                    <button type={"submit"}  className="btn btn-primary btn-block">submit</button>
+                    <button type={"submit"}  className="btn btn-primary btn-block">Senden</button>
                     <Alert severity="success" hidden={!this.state.success}>{this.state.successMsg}</Alert>
                     <Alert severity="error" hidden={!this.state.error}>{this.state.errorMsg}</Alert>
 
