@@ -1,3 +1,4 @@
+
 export const evaluationsLocal = [
     {
       name: 'Mark Foster',
@@ -192,13 +193,13 @@ export const evaluationsLocal = [
     {
         id: 'planned',
         numeric: true,
-        label: 'Geplant',
+        label: 'Geplante Int.',
         tableView: false,
       }, 
       {
         id: 'achieved',
         numeric: true,
-        label: 'Erreicht',
+        label: 'Erreichte Int.',
         tableView: true,
       },
       {
@@ -228,7 +229,7 @@ export const evaluationsLocal = [
       {
         id: 'as_planned',
         numeric: true,
-        label: 'Wie geplant',
+        label: 'Wie geplant?',
         tableView: false,
       },
       {
