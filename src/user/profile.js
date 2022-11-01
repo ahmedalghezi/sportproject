@@ -1,5 +1,5 @@
 /*
-Vanessa Meyer
+Vanessa Meyer 
 Ahmed Al-Ghezi
 */
 
@@ -30,7 +30,7 @@ class TestProfileC extends Component {
         PostCSVData.getMyFiles()
             .then((response) => {
                 if (response.data.res === "error") {
-                    alert("Some error has happened. Code pro 30");
+                    alert("Es ist ein Fehler aufgetreten. Code pro 30");
                     return;
                 } else if (response.data.files && response.data.res === "ok") {
                     this.setState({filesList: response.data.files});
@@ -39,7 +39,7 @@ class TestProfileC extends Component {
                     this.setState({showEmptyMsg: true})
                 }
                 if (response.data.res === "no") {
-                    alert("Please login first");
+                    alert("Bitte melde Dich an.");
                 }
             })
             .catch((e) => {
@@ -76,14 +76,14 @@ class TestProfileC extends Component {
     deleteFile(fileName) {
         PostCSVData.deleteFile({"fileName":fileName}).then((response) => {
             if (response.data.res === "error") {
-                alert("Some error has happened. Code pro 79");
+                alert("Es ist ein Fehler aufgetreten. Code pro 79");
                 return;
             } else if (response.data.res === "ok") {
-                alert("File deleted");
+                alert("Datei gelöscht");
                 this.getFiles();
             }
             if (response.data.res === "no") {
-                alert("Please login first");
+                alert("Bitte melde Dich an.");
             }
         })
             .catch((e) => {
@@ -96,8 +96,8 @@ class TestProfileC extends Component {
     showEmptyMessage() {
         const msg = "Hallo,</br>" +
             "<p>willkommen im Projektportal des in:prove Projektes.</p>" +
-            "<p>Aktuell können wir deine Ergebnisse noch nicht für den Abruf bereitstellen." +
-            "Wir geben dir Bescheid, sobald du diese im Projektportal abrufen kannst.<p/>" +
+            "<p>Aktuell können wir Deine Ergebnisse noch nicht für den Abruf bereitstellen." +
+            "Wir geben Dir Bescheid, sobald Du diese im Projektportal abrufen kannst.<p/>" +
             "<p>Mit sportlichen Grüßen</br>," +
             "Dein in:prove Team</p>";
 
@@ -125,8 +125,8 @@ class TestProfileC extends Component {
                     </div>
                     <div hidden={!this.state.showEmptyMsg}>
                         <p>Hallo,</p><p>willkommen im Projektportal des in:prove Projektes.</p><p>Aktuell können wir
-                        deine Ergebnisse noch nicht für den Abruf bereitstellen.
-                        Wir geben dir Bescheid, sobald du diese im Projektportal abrufen kannst.</p>
+                        Deine Ergebnisse noch nicht für den Abruf bereitstellen.
+                        Wir geben Dir Bescheid, sobald Du diese im Projektportal abrufen kannst.</p>
                         <p>Mit sportlichen Grüßen,<br></br> Dein in:prove Team</p>
                     </div>
                     <hr></hr>
