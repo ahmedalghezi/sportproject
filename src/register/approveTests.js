@@ -22,10 +22,10 @@ class ApproveTests extends Component {
             area_social: [],
             statusArr: [],
             ID: "",
-            isReadMore: true,
-            video:"",
-            ops:"",
-            extra:""
+            isReadMore: false,
+            video:true,
+            ops:true,
+            extra:true
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,18 +54,18 @@ class ApproveTests extends Component {
 
 
     setVideo = (e) => {
-        e.preventDefault();
-        this.setState({video:e.target.value});
+        //e.preventDefault();
+        this.setState({video:e.target.checked});
     }
 
     setOps = (e) => {
-        e.preventDefault();
-        this.setState({ops:e.target.value});
+       // e.preventDefault();
+        this.setState({ops:e.target.checked});
     }
 
     setExtra = (e) => {
-        e.preventDefault();
-        this.setState({extra:e.target.value});
+      //  e.preventDefault();
+        this.setState({extra:e.target.checked});
     }
 
 
@@ -135,31 +135,7 @@ class ApproveTests extends Component {
                 testStr += arr[i].study_title;
             }
         }
-        console.log(testStr);
-
-        let videoStr = "X Ja       Nein";
-        if(this.state.video)
-            videoStr = "Ja       X Nein";
-
-        let opsStr = "X Ja       Nein";
-        if(this.state.ops)
-            opsStr = "Ja       X Nein";
-
-        let extraStr = "X Ja       Nein";
-        if(this.state.extra)
-            extraStr = "Ja       X Nein";
-
-
-
-
         return ({"tests":testStr, "video":this.state.video , "ops":this.state.ops, "extra":this.state.extra});
-
-
-
-
-
-
-
     }
 
 
@@ -474,7 +450,6 @@ class ApproveTests extends Component {
                     <table>
                         <tbody>
                         <tr>
-                            <t><a name={"switchId"} href={"#"} onClick={this.showInfo}>?</a></t>
                             <td width={300}>
                                 Einverständnis, dass ich über Befunde, die möglicherweise für einen optimalen Trainingserfolg von Bedeutung sind, oder medizinisch abgeklärt werden sollten, informiert werden möchte.
                             </td>

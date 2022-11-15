@@ -21,7 +21,7 @@ class UploadConsentC extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success:false, error:false, file:null };
+            success:false, error:false, file:null ,showHeader:true};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -29,8 +29,13 @@ class UploadConsentC extends Component {
 
 
     componentDidMount() {
-        if(this.props.signUpData)
+        if(this.props.signUpData){
             this.modifyPdf(this.props.signUpData);
+            if(this.props.signUpData.alreadyReg)
+                this.setState({showHeader:false});
+        }
+
+
     }
 
     handleChange(event) {
@@ -72,6 +77,8 @@ class UploadConsentC extends Component {
             if(response.data.res === "ok"){
                 if(this.props.uploadDone)
                     this.props.uploadDone();
+                else if(this.props.signUpData && this.props.signUpData.alreadyReg)
+                    window.location.href = window.location.origin+"/reg/profile";
                 else
                     this.props.navigate('/reg/regSuc');
             }
@@ -90,50 +97,72 @@ class UploadConsentC extends Component {
     }
 
 
+
     async modifyPdf(signUpData) {
         // Fetch an existing PDF document
-        const url = 'https://inprove-sport.info:3000/files/getEinwilg'
-        const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+        let url = 'https://inprove-sport.info/files/getEinwilg';
+        if(signUpData.alreadyReg)
+            url = 'https://inprove-sport.info/files/getEinwilgAlreadyReg';
+            //url = 'https://inprove-sport.info:8080/datenschutz_grundverordnung_u18.pdf';
+        const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+        if(existingPdfBytes)
+            console.log("file is gotten");
 
         // Load a PDFDocument from the existing PDF bytes
         const pdfDoc = await PDFDocument.load(existingPdfBytes)
 
-        // Embed the Helvetica font
-        const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+        if(!signUpData.alreadyReg && signUpData.firstName) {
+            // Embed the Helvetica font
+            const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
 
-        // Get the first page of the document
-        const pages = pdfDoc.getPages()
-        const firstPage = pages[0]
+            // Get the first page of the document
+            const pages = pdfDoc.getPages()
+            const firstPage = pages[0]
 
-        const form = pdfDoc.getForm()
+            const form = pdfDoc.getForm()
 
-        // Get all fields in the PDF by their names
-        const name= form.getTextField('ein_name');
-        name.setText(signUpData.firstName+" "+signUpData.lastName);
-        const birthDate = form.getTextField('ein_birthdate');
-        birthDate.setText(signUpData.birthdate);
-        //const ID = form.getTextField('ein_id');
+            // Get all fields in the PDF by their names
+            const name = form.getTextField('ein_name');
+            name.setText(signUpData.firstName + " " + signUpData.lastName);
+            const birthDate = form.getTextField('ein_birthdate');
+            birthDate.setText(signUpData.birthdate);
+            //const ID = form.getTextField('ein_id');
 
-        const name2 = form.getTextField('ein_name2');
-        name2.setText(signUpData.firstName+" "+signUpData.lastName);
-        const birthdate2 = form.getTextField('ein_birthdate2');
-        birthdate2.setText(signUpData.birthdate);
+            const name2 = form.getTextField('ein_name2');
+            name2.setText(signUpData.firstName + " " + signUpData.lastName);
+            const birthdate2 = form.getTextField('ein_birthdate2');
+            birthdate2.setText(signUpData.birthdate);
 
-        const test1 = form.getTextField('approved_tests_1');
-        test1.setText(signUpData.approveStudyRes.tests);
-        //const test2 = form.getTextField('approved_tests2');
-        //test1.setText(signUpData.approveStudyRes.tests);
-        let video = video = form.getTextField('ein_video_ja');;
-        if(signUpData.approveStudyRes.video)
-             video = form.getTextField('ein_video_nein');
+            const test1 = form.getTextField('approved_tests_1');
+            test1.setText(signUpData.approveStudyRes.tests);
+            //const test2 = form.getTextField('approved_tests2');
+            //test1.setText(signUpData.approveStudyRes.tests);
+            let video = form.getTextField('ein_video_ja');
+            if (!signUpData.approveStudyRes.video)
+                video = form.getTextField('ein_video_nein');
+
+            video.setText("X");
 
 
+            video = form.getTextField('ein_osp_ja');
+            if (!signUpData.approveStudyRes.ops)
+                video = form.getTextField('ein_osp_nein');
+            video.setText("X");
 
+            video = form.getTextField('ein_extra_ja');
+            if (!signUpData.approveStudyRes.extra)
+                video = form.getTextField('ein_extra_nein');
+            video.setText("X");
+
+        }
+/*
         video.setText(signUpData.approveStudyRes.video);
         const osp = form.getTextField('ein_osp');
         osp.setText(signUpData.approveStudyRes.ops);
         const extra = form.getTextField('ein_extra');
         extra.setText(signUpData.approveStudyRes.extra);
+
+ */
 
 
 
@@ -141,7 +170,8 @@ class UploadConsentC extends Component {
         const pdfBytes = await pdfDoc.save()
 
         // Trigger the browser to download the PDF document
-        this.download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
+        console.log("downloading file... ");
+        this.download(pdfBytes, "inprove_einwilligung.pdf", "application/pdf");
     }
 
      download (content, fileName, mimeType) {
@@ -170,7 +200,12 @@ class UploadConsentC extends Component {
         return(
 
             <div>
-                <h3>Bitte lade Deine unterschriebene Einverständniserklärung hoch</h3>
+
+                <h4 hidden={!this.state.showHeader}>Bitte lade Deine unterschriebene Einverständniserklärung hoch</h4>
+
+                <br></br>
+                <h6 hidden={this.state.showHeader}>Bitte lade hier die letzte Seite mit Unterschrift hoch.</h6>
+
                 <form id='uploadConsent' onSubmit={this.handleSubmit}>
                     <br/>
                     <input type="file"  accept=".pdf,.png,.jpg,.jpeg,.gif" onChange={this.handleFileUpload}/>
@@ -197,6 +232,7 @@ function UploadConsent(props) {
     let navigate = useNavigate();
     const {state} = useLocation();
     const signUpData = state; // Read values passed on state
+    //TODO fix this when the guy does it later, then there is no signupData!
     return <UploadConsentC {...props} navigate={navigate} signUpData = {signUpData}/>
 }
 

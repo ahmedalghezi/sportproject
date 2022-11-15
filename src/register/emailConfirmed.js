@@ -20,7 +20,8 @@ import ApproveTestsCNew from "./approveTests";
             emailConfirmationCode:'',
             showConfirmedEmail:false,
             showAcceptTerms:false,
-            showNextButton:false
+            showNextButton:false,
+            under18:false
         };
     }
 
@@ -48,15 +49,21 @@ import ApproveTestsCNew from "./approveTests";
         });
     }
 
-     onSendAcceptTerms = (approveStudyRes) =>{
+     onSendAcceptTerms = () =>{
          this.props.done(true);
      }
 
      hasAcceptTerms = () =>{
         PostSignup.hasAcceptTerms({emailConfirmCode: this.props.emailConfirmCode}).then((response)=>{
             if(response.data.res == "ok" && !response.data.accept){
-                this.setState({showAcceptTerms:true});
-                this.setState({showNextButton:false});
+                if(response.data.consent_required){
+                    this.setState({under18:true});
+                    this.props.setUnder18(true);
+                }
+                //for now we just skip the approve studies part for the alerady registered people
+                //this.setState({showAcceptTerms:true});
+                //this.setState({showNextButton:false});
+                this.onSendAcceptTerms()
             }else
                 this.setState({showNextButton:true});
         }).catch((e) => {
@@ -87,26 +94,29 @@ import ApproveTestsCNew from "./approveTests";
         );
     }
 
-
 }
+
 
 function EmailConfirmed(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [showAcceptTerms, setShowAcceptTerms] = useState(false);
+    const [under18, setUnder18] = useState(false);
 
     const emailConfirmCode = searchParams.get("emailConfirmCode");
 
     return(
     <div>
         <div hidden={showAcceptTerms}>
-            <EmailConfirmedC {...props}   done = {setShowAcceptTerms} emailConfirmCode={emailConfirmCode}/>
+            <EmailConfirmedC {...props}   done = {setShowAcceptTerms} emailConfirmCode={emailConfirmCode} setUnder18={setUnder18}/>
         </div>
         <div hidden={!showAcceptTerms}>
-            <AcceptTerms  emailConfirmCode = {emailConfirmCode}  />
+            <AcceptTerms  emailConfirmCode = {emailConfirmCode} under18={under18} />
         </div>
     </div>);
 
     /*<div>
+
+
         <AcceptTerms  hidden={!this.state.showAcceptTerms} hideSubmit={true}/>
     </div>*/
 }

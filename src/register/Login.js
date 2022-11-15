@@ -3,7 +3,7 @@ By Ahmed Al-Ghezi
  */
 
 import React, { Component } from "react";
-import "./style.css";
+import "./style_mobile.css";
 import PostSignup from "../DB/postSignup";
 import { useNavigate, useSearchParams } from "react-router-dom";
 

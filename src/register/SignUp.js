@@ -360,6 +360,7 @@ function SignUp(props) {
 
   function onSentF(approveStudyRes){
     if(signUpData.showParentAccept){
+      signUpData.alreadyReg = false;
       const obj = signUpData;
       obj.approveStudyRes = approveStudyRes;
       navigate("/reg/uploadConsent", {state: obj });

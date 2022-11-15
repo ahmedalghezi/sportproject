@@ -138,7 +138,8 @@ export default class Sheet extends Component {
                 this.setState({athletesArr: []});
             }
             if (response.data.res === "ok") {
-                this.setState({athletesArr: response.data.athletes});
+                const athletesArr = this.processNames(response.data.athletes);
+                this.setState({athletesArr: athletesArr});
             }
         }).catch(e => {
             console.log(e);
@@ -146,6 +147,16 @@ export default class Sheet extends Component {
         });
     }
 
+
+    processNames(arr){
+        for(let i = 0 ; i < arr.length ; i++){
+            arr[i].name = arr[i].firstname + " "+arr[i].lastname;
+            if(arr[i].name.length > 12){
+                arr[i].name = arr[i].name.substring(0,11)+"..";
+            }
+        }
+        return arr;
+    }
 
 
 
@@ -336,24 +347,24 @@ export default class Sheet extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3>Trainingseinschätzung</h3>
-                <table>
+                <table className={"fullTable"}>
                     <tr>
                         <td>
                 <label>Startzeit</label>
-                <div><input className="col-xs-4" type="time" id="start_time" name="start_time" min="1" max="200" onChange={this.handleChange} value={this.state.start_time}/></div>
+                <div><input className="timeInputWidth" type="time" id="start_time" name="start_time" min="1" max="200" onChange={this.handleChange} value={this.state.start_time}/></div>
                         </td>
-                        <td width="20px">
+                        <td width="25px">
                         </td>
                         <td>
                 <label>Endzeit</label><br></br>
-                <div><input className="col-xs-4" type="time" id="end_time" name="end_time" min="1" max="200" onChange={this.handleChange} value={this.state.end_time}/></div>
+                <div><input className="timeInputWidth" type="time" id="end_time" name="end_time" min="1" max="200" onChange={this.handleChange} value={this.state.end_time}/></div>
                             </td>
 
-                        <td width="40px">
+                        <td width="25px">
                         </td>
                         <td>
                             <label>Datum</label><br></br>
-                            <div><input className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={this.handleChange} value={this.state.date}/></div>
+                            <div><input className="col-xs-2" type="date" id="date" name="date" min="1" max="200" onChange={this.handleChange} value={this.state.date}/></div>
                         </td>
 
                         </tr>
@@ -380,9 +391,9 @@ export default class Sheet extends Component {
                                     {this.state.athletesArr.map((option) => (
                                         !this.state.evaluatedArr[option.ID+""+this.state.tests]
                                             ? (<a name={option.ID} key={option.ID}
-                                                  onClick={this.handleAthListClick}>{option.firstname}</a>)
+                                                  onClick={this.handleAthListClick}>{option.name}</a>)
                                             : (<s><a name={option.ID} key={option.ID}
-                                                  onClick={this.handleAthListClick}>{option.firstname}</a></s>)
+                                                  onClick={this.handleAthListClick}>{option.name}</a></s>)
                                     ))}
                                 </div>
                             </td>

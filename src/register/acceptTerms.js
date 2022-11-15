@@ -52,7 +52,12 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                 alert("Es ist ein Fehler aufgetreten");
                 return;
             } else {
-                window.location.href = window.location.origin+"/reg/profile";
+                if(!this.props.under18)
+                    window.location.href = window.location.origin+"/reg/profile";
+                else{
+                    const obj = {alreadyReg:true};
+                    this.props.navigate("/reg/uploadConsent", {state: obj });
+                }
             }
         }).catch((e) => {
                 console.log(e);
@@ -82,6 +87,12 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                 </div>
 
 
+                <div hidden={!this.props.under18}>
+                    <p>Um die Registrierung in dem Datenportal abzuschließen, benötigen wir bei Dir noch die Unterschrift Deiner Sorgeberechtigten. Lade dafür bitte das Dokument herunter, lasse es unterschreiben und lade die letzte Seite (mit der Unterschrift) wieder hoch.
+                    </p>
+                </div>
+
+
                 <div className="form-group">
                     <label htmlFor="checkid">
                         <input
@@ -90,8 +101,14 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                             onChange={this.handleChange}
                             defaultChecked={this.state.readTerms}
                         />{" "}
-                        Ich habe die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die
-                        Bedingungen für die Datenspeicherung und -nutzung</a> gelesen und akzeptiere sie.
+                        <span hidden={this.props.under18}>
+                        Ich habe die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die Bedingungen für die Datenspeicherung und -nutzung</a> gelesen und akzeptiere sie.
+                   </span>
+
+                        <span hidden={!this.props.under18}>
+                            Ich bestätige, dass ich das Einverständnis meiner Sorgeberechtigten habe, mich in diesem Portal zu registrieren.
+                            <br/>Sie haben die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die Bedingungen für die Datenspeicherung und -nutzung</a> gelesen und akzeptieren diese.
+                        </span>
                     </label>
                 </div>
 
@@ -106,7 +123,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
                     </label>
                 </div>
                 <button type="submit" onClick={this.handleSubmit} className="btn btn-primary btn-block">
-                    Senden
+                    weiter
                 </button>
 
                 <button onClick={this.requestDelete} hidden={!this.state.showThank} >
@@ -121,9 +138,12 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 function AcceptTerms(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const emailConfirmCode = searchParams.get("emailConfirmCode");
+
+    let navigate = useNavigate();
+
     if(!props.emailConfirmCode || props.emailConfirmCode == "")
-        return <AcceptTermsC {...props}   emailConfirmCode={emailConfirmCode}/>;
-    return <AcceptTermsC {...props} />;
+        return <AcceptTermsC {...props}   emailConfirmCode={emailConfirmCode} navigate={navigate}/>;
+    return <AcceptTermsC {...props} navigate={navigate}/>;
 }
 
 export default AcceptTerms;

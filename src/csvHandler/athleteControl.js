@@ -45,7 +45,7 @@ function AthleteControl(props) {
         handleDisguisedLogin(ID);
     }
     const showProfileFunc = (ID) =>{
-        scrollToTop();
+        //scrollToTop();
         handleDisguisedLogin(ID);
         setMsg("");
         setShowUploadReport(false);
@@ -53,6 +53,7 @@ function AthleteControl(props) {
         setShowProfile(true);
         setAthleteID(ID);
         //navigate("");
+        navigate("/user/profile");
     }
     const goToProfile = () => {
         navigate("/user/profile");

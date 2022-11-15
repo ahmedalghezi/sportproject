@@ -39,7 +39,9 @@ class TestProfileC extends Component {
                     this.setState({showEmptyMsg: true})
                 }
                 if (response.data.res === "no") {
-                    alert("Bitte melde Dich an.");
+                    window.location.href = window.location.origin+"/reg/sign-in?org=$user$profile";
+                    return;
+                    //xxx alert("Bitte melde Dich an.");
                 }
             })
             .catch((e) => {
@@ -151,7 +153,7 @@ class TestProfileC extends Component {
                                 <ul>
                                     {this.state.filesList.map((item) => (
                                         <li key={item.file_name} onClick={this.handleFileClick}>
-                                            <a hidden={!item.admin} name={"deletevftr5"+item.file_name} href={"#" + item.file_name}>(delete)</a>
+                                            <a hidden={!item.admin} name={"deletevftr5"+item.file_name} href={"#" + item.file_name}>(delete) </a>
                                             <a name={item.file_name} href={"#" + item.file_name}>{item.title}</a>
                                         </li>
                                     ))}

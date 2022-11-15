@@ -249,17 +249,6 @@ export default function  GetIDS(){
             <form id='csv-form'>
                 <br/>
 
-                <button
-                    className="btn btn-primary btn-block"
-                    onClick={(e) => {
-                        e.preventDefault()
-                        const res = processArr(headerArray,valuesMatrix);
-                        if(res)
-                            setValuesMatrix(valuesMatrix);
-                        updateDataMatrix(valuesMatrix,headerArray);
-                    }} hidden={true}>
-                    Anonymize(name,birthdate)
-                </button>
 
 
 

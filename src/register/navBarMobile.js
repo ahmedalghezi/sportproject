@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import image from "../images/inprove_logo-400x103.png";
 import Footer from "./footer";
 
-export default class NavBar extends Component {
+export default class NavBarMobile extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -2,7 +2,7 @@
 By Ahmed Al-Ghezi
  */
 import axios from "axios";
-const baseUrl = "https://inprove-sport.info:3000/";
+const baseUrl = "https://inprove-sport.info/";
 //baseURL:window.location.origin,
 const http = axios.create({
     baseURL: baseUrl,

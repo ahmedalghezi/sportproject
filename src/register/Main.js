@@ -43,6 +43,7 @@ import AthleteControl from "../csvHandler/athleteControl";
 import SubsetData from "../vanessa/subsetData/subsetData";
 import SubSetC from "../vanessa/subsetData/subsetData";
 import WelcomeReg from "./WelcomeReg";
+import NavBarMobile from "./navBarMobile";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -55,7 +56,7 @@ function Main() {
     return (
             <div className="App">
 
-                <NavBar loggedin={nvLogin} navBarUpdated={onNavBar}/>
+                <NavBarMobile loggedin={nvLogin} navBarUpdated={onNavBar}/>
                 <div className="auth-wrapper">
                         <Routes>
                             <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />

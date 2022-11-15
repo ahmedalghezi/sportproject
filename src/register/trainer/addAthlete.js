@@ -157,7 +157,7 @@ class AddAthleteC extends Component {
                     <br></br>
                     <select  onChange={this.handleChange} name="selectedAthlete" multiple={true}>
                         {this.state.athletesArr.map((option) => (
-                            <option key={option.ID}  value={option.firstname}>{option.firstname}</option>
+                            <option key={option.ID}  value={option.firstname}>{option.firstname + " "+option.lastname}</option>
                         ))}
                     </select>
                 </div>
