@@ -40,14 +40,14 @@ import TestProfileC from "../user/profile";
 import UploadFile from "../vanessa/fileUpload/fileUpload";
 import AdminFileUpload from "./admin/adminFileUpload";
 import AthleteControl from "../csvHandler/athleteControl";
-import SubsetData from "../vanessa/subsetData/subsetData";
-import SubSetC from "../vanessa/subsetData/subsetData";
+
 import WelcomeReg from "./WelcomeReg";
 import NavBarMobile from "./navBarMobile";
 import {ShareSharp} from "@mui/icons-material";
 import ShareVideo from "../nico/videosharing/shareVideo";
 import CreateGroup from "../nico/videosharing/createGroup";
 import DisplayVideo from "../nico/videosharing/displayVideo";
+import TestsViewCopy from "../vanessa/subsetData/TestsViewCopy";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -104,12 +104,13 @@ function Main() {
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
                             <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
+                            <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><TestsViewCopy/></div>} />
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
 
                             <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
 
-                            <Route path='/csv/subest' element={<div className="csv-inner data-view"><SubSetC/></div>} />
+
 
 
 

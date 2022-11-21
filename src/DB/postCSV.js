@@ -54,4 +54,22 @@ export default class PostCSVData {
         return http.post("/files/deleteFile", param);
     }
 
+
+    /**
+     *
+     * @param data ={disciplineID:1,spaceID:1}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:[name,ID]}
+     */
+    static getFeatures(data){
+        return http.post("/csv/getFeatures", data);
+    }
+
+    /**
+     *
+     * @param data ={features:[name:"f1", name:"f2", ...]}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data: similar to download data from Ayman}
+     */
+    static getFeaturesData(data){
+        return http.post("/csv/getFeatures", data);
+    }
 }

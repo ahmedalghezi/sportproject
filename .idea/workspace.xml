@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/handelTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/handelTrainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/createGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/createGroup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/style_mobile.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +361,7 @@
       <workItem from="1668510556254" duration="1636000" />
       <workItem from="1668532290327" duration="416000" />
       <workItem from="1668590533448" duration="23378000" />
-      <workItem from="1669024892645" duration="3362000" />
+      <workItem from="1669024892645" duration="5166000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -689,7 +685,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668512684657</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Adding first video share support">
+      <created>1669028358572</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1669028358574</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -794,7 +797,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor changes" />
     <MESSAGE value="Changes to regi. components set." />
     <MESSAGE value="Registration version 1 (update profile is still disabled)" />
     <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
@@ -819,7 +821,8 @@
     <MESSAGE value="Translations and editings" />
     <MESSAGE value="New PDF Consent fill" />
     <MESSAGE value="adding first mobile style support" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding first mobile style support" />
+    <MESSAGE value="Adding first video share support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding first video share support" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
