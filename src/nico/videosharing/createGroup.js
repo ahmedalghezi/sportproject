@@ -10,18 +10,18 @@ const testdata = [
     {
       name: "Hans",
       lastname: "Roth",
-      email: "1"
+      ID: "1"
     },
     {
         name: "Peter",
         lastname: "Roth",
-        email: "2"
+        ID: "2"
     },
   
     {
       name: "Julia",
       lastname: "Kunz",
-      email: "3"
+      ID: "3"
       
     }];
     const testdata2 = [
@@ -29,7 +29,7 @@ const testdata = [
         {
           name: "Julia",
           lastname: "Kunz",
-          email: "3"
+          ID: "3"
           
         }];
 
@@ -115,6 +115,7 @@ export default class CreateGroup extends Component {
         this.setState({groupTitle: this.state.textField});
         this.setState({selectedTrainerList: []});
         this.updateTrainersList([],this.state.trainersList);
+        this.setState({textField: ''});
         //resp to make new group
     }
     removeGroup(event){
@@ -137,7 +138,7 @@ export default class CreateGroup extends Component {
     updateTrainersList(selecttrain, train){
         train.forEach(function (item, index) {
             const div = document.getElementsByClassName("vertical-menu")[0].children[index+1]
-            var check = selecttrain.some(function(o){return o["email"] === item['email'];});
+            var check = selecttrain.some(function(o){return o["ID"] === item['ID'];});
             if(check){
                 div.classList.add("active");
             }else{
@@ -199,16 +200,6 @@ export default class CreateGroup extends Component {
             <form onSubmit={this.handleUpload}>
                 <h3>Gruppe erstellen</h3>
                 <div>
-                    <label>Gruppen:</label>
-                    <select id="groups" name="groups" onChange={this.handleGroupClick} defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Gruppe auswählen</option>
-                        {this.state.groupList.map((option) => (
-                        <option value={option.id} name={option.name} key={option.id}
-                            >{option.name}</option>
-                         ))}
-                    </select>
-                </div>
-                <div>
                 <label className="select-file">
                 <input
                 type="button"
@@ -223,25 +214,38 @@ export default class CreateGroup extends Component {
                 onChange={this.changeTitle}
               />
                 </label>
-                <label className="select-file">
-                <input
-                type="button"
-                value="Gruppe löschen"
-                onClick={this.removeGroup}
-                 />
-                 </label>
-
+                </div>
+                <div>
+                    <label>Gruppen:</label>
+                    <select id="groups" name="groups" onChange={this.handleGroupClick} defaultValue={'DEFAULT'}>
+                        <option value="DEFAULT" disabled>Gruppe auswählen</option>
+                        {this.state.groupList.map((option) => (
+                        <option value={option.id} name={option.name} key={option.id}
+                            >{option.name}</option>
+                         ))}
+                    </select>
                 </div>
 
                 <div className="vertical-menu">
                     <a href="#" className="active">Trainer*innen</a>
                     {this.state.trainersList.map((option) => (
-                        <a id={option.email} name={option.email} key={option.email} className={""}
+                        <a id={option.ID} name={option.ID} key={option.ID} className={""}
                            onClick={this.handleTrainersListClick}>{option.name}</a>
                     ))}
                 </div>
 
                 <br></br><br></br>
+
+                <div>
+                <label className="select-file">
+                <input
+                type="button"
+                value="Ausgewählte Gruppe löschen"
+                onClick={this.removeGroup}
+                 />
+                 </label>
+
+                </div>
 
                 <div className="form-group">
 
