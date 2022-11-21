@@ -202,46 +202,14 @@ export default class CreateGroup extends Component {
     handleTrainersListClick(event) {
         event.preventDefault();
         if(event.target.classList.contains("active")){
-            HandelTrainer.removeFromGroup(this.state.selectedGroup,event.target.id).then(response => {
-                if(response.data.res === "error") {
-                    const arr = ["connection error"];
-                    return;
-                }
-                if(response.data.res === "no"){
-                    alert("Bitte erst anmelden.");
-                    return;
-                }
-                if(response.data.res === "ok") {
-                    event.target.classList.remove("active");
-                    let filteredArray = this.state.selectedTrainerList.filter(item => item !== event.target.id)
-                    this.setState({selectedTrainerList: filteredArray});
-                }
-    
-            }).catch(e => {
-                console.log(e);
-                alert("Es ist ein Fehler aufgetreten!");
-            });
+            event.target.classList.remove("active");
+            let filteredArray = this.state.selectedTrainerList.filter(item => item !== event.target.id)
+            this.setState({selectedTrainerList: filteredArray});
         }else{
-            HandelTrainer.addToGroup(this.state.selectedGroup,event.target.id).then(response => {
-                if(response.data.res === "error") {
-                    const arr = ["connection error"];
-                    return;
-                }
-                if(response.data.res === "no"){
-                    alert("Bitte erst anmelden.");
-                    return;
-                }
-                if(response.data.res === "ok") {
-                    event.target.classList.add("active");
-                    this.setState(previousState => ({
-                        selectedTrainerList: [...previousState.selectedTrainerList, event.target.id]
-                    }));
-                }
-    
-            }).catch(e => {
-                console.log(e);
-                alert("Es ist ein Fehler aufgetreten!");
-            });
+            event.target.classList.add("active");
+            this.setState(previousState => ({
+                selectedTrainerList: [...previousState.selectedTrainerList, event.target.id]
+            }));
         }
     }
 
@@ -274,25 +242,51 @@ export default class CreateGroup extends Component {
 
     handleUpload(event){
         event.preventDefault();
-        if(this.state.selectedTrainerList === []){
-            alert("Bitte Trainer*in auswählen.");
+        if(this.state.selectedGroup === ''){
+            alert("Bitte Gruppe auswählen.");
             return;
         }
-        //post selectedTrainerList and selected group
-        /*
-        PostSignup.disguisedTrainerLogin({email:this.state.selectedTrainer}).then(response => {
-            if(response.data.res === "ok"){
-                //this.props.navigate('/trainer/addAthletes');
-                window.location.href = window.location.origin+"/trainer/addAthletes";
+       var list = this.state.selectedTrainerList
+        this.state.trainersList.forEach(function (item, index) {
+            var check = list.some(function(o){return o["ID"] === item['ID'];});
+            if(check){
+                HandelTrainer.addToGroup(this.state.selectedGroup,item['ID']).then(response => {
+                    if(response.data.res === "error") {
+                        const arr = ["connection error"];
+                        return;
+                    }
+                    if(response.data.res === "no"){
+                        alert("Bitte erst anmelden.");
+                        return;
+                    }
+                    if(response.data.res === "ok") {
+                        
+                    }
+        
+                }).catch(e => {
+                    console.log(e);
+                    alert("Es ist ein Fehler aufgetreten!");
+                });
             }else{
-                alert("Es ist ein Fehler aufgetreten!");
-            }
-        }).catch(e => {
-            console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
-        });
-        */
+                HandelTrainer.removeFromGroup(this.state.selectedGroup,item['ID']).then(response => {
+                    if(response.data.res === "error") {
+                        const arr = ["connection error"];
+                        return;
+                    }
+                    if(response.data.res === "no"){
+                        alert("Bitte erst anmelden.");
+                        return;
+                    }
+                    if(response.data.res === "ok") {
 
+                    }
+        
+                }).catch(e => {
+                    console.log(e);
+                    alert("Es ist ein Fehler aufgetreten!");
+                });
+            }
+        });
     }
 
     render() {
