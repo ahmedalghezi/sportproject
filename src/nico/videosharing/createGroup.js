@@ -10,18 +10,18 @@ const testdata = [
     {
       name: "Hans",
       lastname: "Roth",
-      email: "1"
+      ID: "1"
     },
     {
         name: "Peter",
         lastname: "Roth",
-        email: "2"
+        ID: "2"
     },
   
     {
       name: "Julia",
       lastname: "Kunz",
-      email: "3"
+      ID: "3"
       
     }];
     const testdata2 = [
@@ -29,7 +29,7 @@ const testdata = [
         {
           name: "Julia",
           lastname: "Kunz",
-          email: "3"
+          ID: "3"
           
         }];
 
@@ -68,10 +68,27 @@ export default class CreateGroup extends Component {
 
     componentDidMount() {
         this.getTrainers();
+        this.getGroups();
     }
 
     getGroups(){
-        //getGroups
+        HandelTrainer.getGroups().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.setState({groupList: response.data.groupList});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
     }
 
     getTrainers(){
@@ -105,6 +122,7 @@ export default class CreateGroup extends Component {
             alert("Gruppe existiert schon");
             return;
         }
+        /*
         const ids = this.state.groupList.map(object => {
             return object.id;
           });
@@ -112,24 +130,59 @@ export default class CreateGroup extends Component {
         this.setState(previousState => ({
             groupList: [...previousState.groupList, {id: String(max + 1), name: this.state.textField}], selectedGroup: String(max + 1)
         }));
-        this.setState({groupTitle: this.state.textField});
-        this.setState({selectedTrainerList: []});
-        this.updateTrainersList([],this.state.trainersList);
-        //resp to make new group
+        */
+        HandelTrainer.createTrainerGroup(this.state.textField).then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({trainersList: arr});
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.getGroups();
+                this.setState({groupTitle: this.state.textField});
+                this.setState({selectedTrainerList: []});
+                this.updateTrainersList([],this.state.trainersList);
+                this.setState({textField: ''});
+                var text = document.getElementById("text");
+                text.value = '';
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
     }
     removeGroup(event){
         if(this.state.selectedGroup === ''){
             alert("Bitte Gruppe auswählen");
             return;
         }
-        this.setState({selectedTrainerList: [], selectedGroup: '', groupTitle: ''});
-        this.updateTrainersList([],this.state.trainersList);
-        var gr = this.state.selectedGroup;
-        this.setState({groupList: this.state.groupList.filter(function(sport) {
-            return sport.id !== gr
-        })});
-        var select = document.getElementById("groups");
-        select.value = "DEFAULT";
+        HandelTrainer.removeTrainerGroup(this.state.selectedGroup).then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                this.setState({trainersList: arr});
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.getGroups();
+                this.setState({selectedTrainerList: [], selectedGroup: '', groupTitle: ''});
+                this.updateTrainersList([],this.state.trainersList);
+                var select = document.getElementById("groups");
+                select.value = "DEFAULT";
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
     }
     changeTitle(event){
         this.setState({textField: event.target.value});
@@ -137,7 +190,7 @@ export default class CreateGroup extends Component {
     updateTrainersList(selecttrain, train){
         train.forEach(function (item, index) {
             const div = document.getElementsByClassName("vertical-menu")[0].children[index+1]
-            var check = selecttrain.some(function(o){return o["email"] === item['email'];});
+            var check = selecttrain.some(function(o){return o["ID"] === item['ID'];});
             if(check){
                 div.classList.add("active");
             }else{
@@ -149,14 +202,46 @@ export default class CreateGroup extends Component {
     handleTrainersListClick(event) {
         event.preventDefault();
         if(event.target.classList.contains("active")){
-            event.target.classList.remove("active");
-            let filteredArray = this.state.selectedTrainerList.filter(item => item !== event.target.name)
-            this.setState({selectedTrainerList: filteredArray});
+            HandelTrainer.removeFromGroup(this.state.selectedGroup,event.target.id).then(response => {
+                if(response.data.res === "error") {
+                    const arr = ["connection error"];
+                    return;
+                }
+                if(response.data.res === "no"){
+                    alert("Bitte erst anmelden.");
+                    return;
+                }
+                if(response.data.res === "ok") {
+                    event.target.classList.remove("active");
+                    let filteredArray = this.state.selectedTrainerList.filter(item => item !== event.target.id)
+                    this.setState({selectedTrainerList: filteredArray});
+                }
+    
+            }).catch(e => {
+                console.log(e);
+                alert("Es ist ein Fehler aufgetreten!");
+            });
         }else{
-            event.target.classList.add("active");
-            this.setState(previousState => ({
-                selectedTrainerList: [...previousState.selectedTrainerList, event.target.name]
-            }));
+            HandelTrainer.addToGroup(this.state.selectedGroup,event.target.id).then(response => {
+                if(response.data.res === "error") {
+                    const arr = ["connection error"];
+                    return;
+                }
+                if(response.data.res === "no"){
+                    alert("Bitte erst anmelden.");
+                    return;
+                }
+                if(response.data.res === "ok") {
+                    event.target.classList.add("active");
+                    this.setState(previousState => ({
+                        selectedTrainerList: [...previousState.selectedTrainerList, event.target.id]
+                    }));
+                }
+    
+            }).catch(e => {
+                console.log(e);
+                alert("Es ist ein Fehler aufgetreten!");
+            });
         }
     }
 
@@ -164,10 +249,26 @@ export default class CreateGroup extends Component {
 
     handleGroupClick(event) {
         event.preventDefault();
-        this.setState({selectedTrainerList: testdata2});
-        this.updateTrainersList(testdata2,this.state.trainersList);
-        this.setState({selectedGroup: this.state.groupList.find(o => o.id === String(event.target.value)).id});
-        this.setState({groupTitle: this.state.groupList.find(o => o.id === String(event.target.value)).name});
+        HandelTrainer.getGroupMembers(event.target.id).then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.setState({selectedTrainerList: response.data.selectedtrainerlist});
+                this.updateTrainersList(response.data.selectedtrainerlist,this.state.trainersList);
+                this.setState({selectedGroup: this.state.groupList.find(o => o.id === String(event.target.value)).id});
+                this.setState({groupTitle: this.state.groupList.find(o => o.id === String(event.target.value)).name});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
     }
 
 
@@ -199,16 +300,6 @@ export default class CreateGroup extends Component {
             <form onSubmit={this.handleUpload}>
                 <h3>Gruppe erstellen</h3>
                 <div>
-                    <label>Gruppen:</label>
-                    <select id="groups" name="groups" onChange={this.handleGroupClick} defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Gruppe auswählen</option>
-                        {this.state.groupList.map((option) => (
-                        <option value={option.id} name={option.name} key={option.id}
-                            >{option.name}</option>
-                         ))}
-                    </select>
-                </div>
-                <div>
                 <label className="select-file">
                 <input
                 type="button"
@@ -223,25 +314,38 @@ export default class CreateGroup extends Component {
                 onChange={this.changeTitle}
               />
                 </label>
-                <label className="select-file">
-                <input
-                type="button"
-                value="Gruppe löschen"
-                onClick={this.removeGroup}
-                 />
-                 </label>
-
+                </div>
+                <div>
+                    <label>Gruppen:</label>
+                    <select id="groups" name="groups" onChange={this.handleGroupClick} defaultValue={'DEFAULT'}>
+                        <option value="DEFAULT" disabled>Gruppe auswählen</option>
+                        {this.state.groupList.map((option) => (
+                        <option value={option.id} name={option.name} key={option.id}
+                            >{option.name}</option>
+                         ))}
+                    </select>
                 </div>
 
                 <div className="vertical-menu">
                     <a href="#" className="active">Trainer*innen</a>
                     {this.state.trainersList.map((option) => (
-                        <a id={option.email} name={option.email} key={option.email} className={""}
+                        <a id={option.ID} name={option.ID} key={option.ID} className={""}
                            onClick={this.handleTrainersListClick}>{option.name}</a>
                     ))}
                 </div>
 
                 <br></br><br></br>
+
+                <div>
+                <label className="select-file">
+                <input
+                type="button"
+                value="Ausgewählte Gruppe löschen"
+                onClick={this.removeGroup}
+                 />
+                 </label>
+
+                </div>
 
                 <div className="form-group">
 
