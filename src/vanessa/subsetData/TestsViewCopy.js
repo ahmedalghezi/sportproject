@@ -297,6 +297,11 @@ export default function TestsViewCopy(props) {
 
   // Apply button after Selection of Discipline and Space to create left list of transferlist with filtered data
   const onApply = () => {
+
+    postCSV.getFeatures(data).then(res => {
+
+    });
+
     // -- TODO uncomment next two lines to get test from API
     //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
     //let testsData = res['data']['arr'];

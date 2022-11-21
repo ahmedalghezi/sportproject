@@ -8,6 +8,11 @@ import { Link } from "react-router-dom";
 import image from "../images/inprove_logo-400x103.png";
 import Footer from "./footer";
 
+
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 export default class NavBarMobile extends Component {
   constructor(props) {
     super(props);
@@ -62,167 +67,172 @@ export default class NavBarMobile extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar  navbar-light fixed-top">
+
+        <Navbar bg="light" expand="lg">
           <a href="https://www.inprove.info/" target="_blank">
             {" "}
             <img className="image" src={image} />
           </a>
+          <Container>
 
-          <div className="container">
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-              <ul className="navbar-nav ml-auto">
-                <li
-                  className="nav-item"
-                  hidden={!this.state.showSignIn /*|| this.props.loggedin*/}
-                >
-                  <Link className="nav-link" to={"/reg/sign-in"}>
-                    Login
-                  </Link>
-                </li>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <ul className="navbar-nav ml-auto">
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showSignIn /*|| this.props.loggedin*/}
+                  >
+                    <Link className="nav-link" to={"/reg/sign-in"}>
+                      Login
+                    </Link>
+                  </li>
 
-                <li className="nav-item" hidden={this.state.showSignIn}>
-                  <Link className="nav-link" to={"/reg/sign-out"}>
-                    Ausloggen
-                  </Link>
-                </li>
+                  <li className="nav-item" hidden={this.state.showSignIn}>
+                    <Link className="nav-link" to={"/reg/sign-out"}>
+                      Ausloggen
+                    </Link>
+                  </li>
 
-                <li className="nav-item" hidden={!this.state.showSignUp}>
-                  <Link className="nav-link" to={"/reg/sign-up"}>
-                    Registrieren
-                  </Link>
-                </li>
+                  <li className="nav-item" hidden={!this.state.showSignUp}>
+                    <Link className="nav-link" to={"/reg/sign-up"}>
+                      Registrieren
+                    </Link>
+                  </li>
 
-                <li className="nav-item" hidden={true ||   this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer ||this.state.showTrainer}>
-                  <Link className="nav-link" to={"/reg/uploadConsent"}>
-                    Einwilligungserklärung hochladen
-                  </Link>
-                </li>
+                  <li className="nav-item" hidden={true ||   this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer ||this.state.showTrainer}>
+                    <Link className="nav-link" to={"/reg/uploadConsent"}>
+                      Einwilligungserklärung hochladen
+                    </Link>
+                  </li>
 
-                <li
-                    className="nav-item"
-                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
-                  <Link className="nav-link" to={"/csv/athleteInfo"}>
-                    Athletes Info
-                  </Link>
-                </li>
-
-
-
-                <li
-                    className="nav-item"
-                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
-                  <Link className="nav-link" to={"/csv/displayAccept"}>
-                    Studies Approvals
-                  </Link>
-                </li>
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/csv/athleteInfo"}>
+                      Athletes Info
+                    </Link>
+                  </li>
 
 
 
-
-
-                <li
-                  className="nav-item"
-                  hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
-                  <Link className="nav-link" to={"/lime/control"}>
-                    Control Limesurvey
-                  </Link>
-                </li>
-
-
-                <li
-                    className="nav-item"
-                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
-                  <Link className="nav-link" to={"/csv/reader"}>
-                    Upload Data
-                  </Link>
-                </li>
-
-                <li
-                    className="nav-item"
-                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
-                  <Link className="nav-link" to={"/csv/history"}>
-                    Download Data
-                  </Link>
-                </li>
-
-                <li
-                    className="nav-item"
-                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
-                  <Link className="nav-link" to={"/super/athleteControl"}>
-                    Manage Athlete
-                  </Link>
-                </li>
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/csv/displayAccept"}>
+                      Studies Approvals
+                    </Link>
+                  </li>
 
 
 
 
 
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/lime/control"}>
+                      Control Limesurvey
+                    </Link>
+                  </li>
 
 
-                <li className="nav-item" hidden={!this.state.showTrainer}>
-                  <Link className="nav-link" to={"/trainer/addMyTests"}>
-                    Trainingsliste
-                  </Link>
-                </li>
-                <li className="nav-item" hidden={!this.state.showTrainer}>
-                  <Link className="nav-link" to={"/trainer/addAthletes"}>
-                    Athletenliste
-                  </Link>
-                </li>
-                <li className="nav-item" hidden={!this.state.showTrainer}>
-                  <Link className="nav-link" to={"/trainer/sheet"}>
-                    Einschätzung
-                  </Link>
-                </li>
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/csv/reader"}>
+                      Upload Data
+                    </Link>
+                  </li>
 
-                <li className="nav-item" hidden={!this.state.showTrainer}>
-                  <Link className="nav-link" to={"/trainer/myhistory"}>
-                    Meine Daten
-                  </Link>
-                </li>
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/csv/history"}>
+                      Download Data
+                    </Link>
+                  </li>
 
-                <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
-                  <Link className="nav-link" to={"/trainer/VideoUpload/uploadFile"}>
-                    Upload videos
-                  </Link>
-                </li>
-
-                <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
-                  <Link className="nav-link" to={"/trainer/VideoUpload/videonav"}>
-                    Manage videos
-                  </Link>
-                </li>
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/super/athleteControl"}>
+                      Manage Athlete
+                    </Link>
+                  </li>
 
 
-                <li className="nav-item" hidden={!this.state.showAdminTrainer}>
-                  <Link className="nav-link" to={"/trainer/createTest"}>
-                    Create New Training
-                  </Link>
-                </li>
-
-                <li className="nav-item" hidden={!this.state.showAdminTrainer}>
-                  <Link className="nav-link" to={"/trainer/editCoach"}>
-                    Edit Coaches
-                  </Link>
-                </li>
-
-                <li className="nav-item" hidden={this.state.showSignIn}>
-                  <Link className="nav-link" to={"/reg/changemypassword"}>
-                    Passwort ändern
-                  </Link>
-                </li>
 
 
-              </ul>
-            </div>
-          </div>
-        </nav>
+
+
+
+                  <li className="nav-item" hidden={!this.state.showTrainer}>
+                    <Link className="nav-link" to={"/trainer/addMyTests"}>
+                      Trainingsliste
+                    </Link>
+                  </li>
+                  <li className="nav-item" hidden={!this.state.showTrainer}>
+                    <Link className="nav-link" to={"/trainer/addAthletes"}>
+                      Athletenliste
+                    </Link>
+                  </li>
+                  <li className="nav-item" hidden={!this.state.showTrainer}>
+                    <Link className="nav-link" to={"/trainer/sheet"}>
+                      Einschätzung
+                    </Link>
+                  </li>
+
+                  <li className="nav-item" hidden={!this.state.showTrainer}>
+                    <Link className="nav-link" to={"/trainer/myhistory"}>
+                      Meine Daten
+                    </Link>
+                  </li>
+
+                  <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/trainer/VideoUpload/uploadFile"}>
+                      Upload videos
+                    </Link>
+                  </li>
+
+                  <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/trainer/VideoUpload/videonav"}>
+                      Manage videos
+                    </Link>
+                  </li>
+
+
+                  <li className="nav-item" hidden={!this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/trainer/createTest"}>
+                      Create New Training
+                    </Link>
+                  </li>
+
+                  <li className="nav-item" hidden={!this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/trainer/editCoach"}>
+                      Edit Coaches
+                    </Link>
+                  </li>
+
+                  <li className="nav-item" hidden={this.state.showSignIn}>
+                    <Link className="nav-link" to={"/reg/changemypassword"}>
+                      Passwort ändern
+                    </Link>
+                  </li>
+
+
+                </ul>
+
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
 
 
       </div>

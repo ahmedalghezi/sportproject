@@ -57,4 +57,63 @@ export default class HandelTrainer{
     static deleteTest(data) {
         return http.post("/trainer/deleteTest",data);
     }
+
+
+    /**
+     *
+     * @param data {name:""}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
+     */
+    static createTrainerGroup(data){
+        return http.post("/trainer/createGroup");
+    }
+
+    /**
+     *
+     * @param data {ID:""}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
+     */
+    static removeTrainerGroup(data){
+        return http.post("/trainer/deleteGroup");
+    }
+
+    /**
+     *
+     * @param
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error", data:[{ID:1,name:""},...]}
+     */
+    static getGroups(){
+        return http.get("/trainer/getGroups");
+    }
+
+
+    /**
+     *
+     * @param data = {ID:1}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error", data:[{ID:1,name:""}...]}
+     */
+    static getGroupMembers(data){
+        return http.post("/trainer/getGroupMembers");
+    }
+
+
+
+    /**
+     *
+     * @param data = {groupID:1,trainerID:1}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
+     */
+    static addToGroup(data){
+        return http.post("/trainer/addToGroup");
+    }
+
+
+    /**
+     *
+     * @param data = {groupID:1,trainerID:1}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
+     */
+    static removeFromGroup(data){
+        return http.post("/trainer/removeFromGroup");
+    }
 }

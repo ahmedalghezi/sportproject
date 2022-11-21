@@ -5,25 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/style_mobile.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/httpCommon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/httpCommon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/UploadConsent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/acceptTerms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/acceptTerms.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/approveTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/emailConfirmed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/emailConfirmed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/trainer/sheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,22 +75,22 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/csvHandler/getIDs.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/register/trainer/VideoUpload/myVideos.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/DB/postLimeControl.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/DB/postSignup.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/register/limeControl.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/index.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/register/trainer/sheet.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/navBar.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/register/Main.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/App.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/Login.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/trainer/sheet.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/Main.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csvHandler/getIDs.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/trainer/VideoUpload/myVideos.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DB/postLimeControl.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/register/limeControl.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/DB/postSignup.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -373,7 +358,10 @@
       <workItem from="1667895258327" duration="4175000" />
       <workItem from="1667987507756" duration="1305000" />
       <workItem from="1668427511132" duration="268000" />
-      <workItem from="1668510556254" duration="1082000" />
+      <workItem from="1668510556254" duration="1636000" />
+      <workItem from="1668532290327" duration="416000" />
+      <workItem from="1668590533448" duration="23378000" />
+      <workItem from="1669024892645" duration="5166000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -690,7 +678,21 @@
       <option name="project" value="LOCAL" />
       <updated>1666094872160</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="adding first mobile style support">
+      <created>1668512684657</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1668512684657</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Adding first video share support">
+      <created>1669028358572</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1669028358574</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -795,8 +797,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor change" />
-    <MESSAGE value="minor changes" />
     <MESSAGE value="Changes to regi. components set." />
     <MESSAGE value="Registration version 1 (update profile is still disabled)" />
     <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
@@ -820,7 +820,9 @@
     <MESSAGE value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
     <MESSAGE value="Translations and editings" />
     <MESSAGE value="New PDF Consent fill" />
-    <option name="LAST_COMMIT_MESSAGE" value="New PDF Consent fill" />
+    <MESSAGE value="adding first mobile style support" />
+    <MESSAGE value="Adding first video share support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding first video share support" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -83,7 +83,7 @@ export default class CreateGroup extends Component {
                 this.setState({trainersList: arr});
                 return;
             }
-            if(response.data.res === "error"){
+            if(response.data.res === "no"){
                 alert("Bitte erst anmelden.");
                 return;
             }
