@@ -44,6 +44,10 @@ import SubsetData from "../vanessa/subsetData/subsetData";
 import SubSetC from "../vanessa/subsetData/subsetData";
 import WelcomeReg from "./WelcomeReg";
 import NavBarMobile from "./navBarMobile";
+import {ShareSharp} from "@mui/icons-material";
+import ShareVideo from "../nico/videosharing/shareVideo";
+import CreateGroup from "../nico/videosharing/createGroup";
+import DisplayVideo from "../nico/videosharing/displayVideo";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -108,6 +112,10 @@ function Main() {
                             <Route path='/csv/subest' element={<div className="csv-inner data-view"><SubSetC/></div>} />
 
 
+
+                            <Route path='/trainer/videoshare' element={<div className="auth-inner data-view"><ShareVideo/></div>} />
+                            <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />
+                            <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
 
 
 
