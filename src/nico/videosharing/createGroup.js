@@ -60,7 +60,7 @@ export default class CreateGroup extends Component {
         this.getGroups = this.getGroups.bind(this);
         this.newGroup = this.newGroup.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
-        this.updateTrainersList = this.updateTrainersList.bind(this);
+        //this.updateTrainersList = this.updateTrainersList.bind(this);
         this.handleGroupClick = this.handleGroupClick.bind(this);
         this.changeTitle = this.changeTitle.bind(this);
         this.removeGroup = this.removeGroup.bind(this);
@@ -93,7 +93,6 @@ export default class CreateGroup extends Component {
 
     getTrainers(){
         this.setState({trainersList: testdata});
-        this.setState({selectedTrainerList: testdata2});
         this.setState({groupList: testgroup});
         HandelTrainer.getAllTrainers().then(response => {
             if(response.data.res === "error") {
@@ -137,7 +136,6 @@ export default class CreateGroup extends Component {
                 this.getGroups();
                 this.setState({groupTitle: this.state.textField});
                 this.setState({selectedTrainerList: []});
-                this.updateTrainersList([],this.state.trainersList);
                 this.setState({textField: ''});
                 var text = document.getElementById("text");
                 text.value = '';
@@ -166,7 +164,6 @@ export default class CreateGroup extends Component {
             if(response.data.res === "ok") {
                 this.getGroups();
                 this.setState({selectedTrainerList: [], selectedGroup: '', groupTitle: ''});
-                this.updateTrainersList([],this.state.trainersList);
                 var select = document.getElementById("groups");
                 select.value = "DEFAULT";
             }
@@ -179,6 +176,7 @@ export default class CreateGroup extends Component {
     changeTitle(event){
         this.setState({textField: event.target.value});
     }
+    /*
     updateTrainersList(selecttrain, train){
         train.forEach(function (item, index) {
             const div = document.getElementsByClassName("vertical-menu")[0].children[index+1]
@@ -190,6 +188,7 @@ export default class CreateGroup extends Component {
             }
         });
     }
+    */
 
     handleTrainersListClick(event) {
         event.preventDefault();
@@ -210,6 +209,7 @@ export default class CreateGroup extends Component {
 
     handleGroupClick(event) {
         event.preventDefault();
+        this.setState({selectedTrainerList: testdata2});
         HandelTrainer.getGroupMembers(event.target.id).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -288,9 +288,6 @@ export default class CreateGroup extends Component {
                     }
                     if(response.data.res === "ok") {
                         this.setState({selectedTrainerList: response.data.selectedtrainerlist});
-                        this.updateTrainersList(response.data.selectedtrainerlist,this.state.trainersList);
-                        this.setState({selectedGroup: this.state.groupList.find(o => o.id === String(event.target.value)).id});
-                        this.setState({groupTitle: this.state.groupList.find(o => o.id === String(event.target.value)).name});
                     }
         
                 }).catch(e => {
