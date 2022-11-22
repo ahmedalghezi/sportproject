@@ -133,6 +133,7 @@ h1 {
     column-count: 2;
   }
 }
+/*
 @media (max-width: 991px) {
   .gallery {
     -webkit-column-count: 2;
@@ -140,6 +141,7 @@ h1 {
     column-count: 2;
   }
 }
+*/
 @media (max-width: 480px) {
   .gallery {
     -webkit-column-count: 1;
@@ -148,6 +150,12 @@ h1 {
     -webkit-column-width: 100%;
     -moz-column-width: 100%;
     column-width: 100%;
+    padding: 0px;
+  }
+  .csv-inner {
+    width: 450px;
+    margin-top: 10px;
+    padding: 10px 10px 10px 10px;
   }
 }
 
