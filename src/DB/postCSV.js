@@ -58,7 +58,7 @@ export default class PostCSVData {
     /**
      *
      * @param data= {}
-     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:{space:"space1":features:[{ID:"id1",name:"feat1"},{ID:"id2",name:"feat2"}...]}}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:[space:"space1":features:[{ID:"id1",name:"feat1"},{ID:"id2",name:"feat2"}...] , ...]}
      */
     static getFeatures(data){
         return http.post("/csv/getFeatures", data);
