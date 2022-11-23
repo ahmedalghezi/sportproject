@@ -4,8 +4,7 @@ by Vanessa Meyer
 */
 /*
   TODO
-    getAllDisciplines(), getAllSpaces() for select-scroll down
-    getAllSpaces() has to be defined
+    
 */
 import React from "react";
 import CustomTable from "../../components/CustomTable";
@@ -227,21 +226,9 @@ export default function TestsViewCopy(props) {
       });
   };
   const getSpaces = () => {
-    PostSignup.getAllSpaces()
-      .then((response) => {
-        if (response.data.res === "error") {
-          const arr = ["connection error"];
-
-          setAllSpaces(arr);
-          return;
-        } else {
-          setAllSpaces(response.data.res);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        alert("Es ist ein Fehler aufgetreten.");
-      });
+    let arr = ["Performance data", "Blood samples", "DNA", "Bacterial", "Cognition", "body Measurements", "Other"]
+    setAllSpaces(arr);
+    
   };
 
   const customList = (items) => (
