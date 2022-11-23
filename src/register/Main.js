@@ -43,17 +43,14 @@ import AthleteControl from "../csvHandler/athleteControl";
 
 import WelcomeReg from "./WelcomeReg";
 import NavBarMobile from "./navBarMobile";
-<<<<<<< HEAD
-import DisplayVideo from "../nico/videosharing/displayVideo"
-import ShareVideo from "../nico/videosharing/shareVideo"
-import CreateGroup from "../nico/videosharing/createGroup"
-=======
+
+
 import {ShareSharp} from "@mui/icons-material";
 import ShareVideo from "../nico/videosharing/shareVideo";
 import CreateGroup from "../nico/videosharing/createGroup";
 import DisplayVideo from "../nico/videosharing/displayVideo";
 import TestsViewCopy from "../vanessa/subsetData/TestsViewCopy";
->>>>>>> 0a63511368b87645a779c7bd7cc37419ae07e7aa
+
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -101,9 +98,13 @@ function Main() {
                             <Route path='/trainer/VideoUpload/uploadFile' element={<div className="auth-inner"><UploadFileC/></div>} />
                             <Route path='/trainer/VideoUpload/videonav' element={<div className="auth-inner"><VideoNavC/></div>} />
                             <Route path='/trainer/VideoUpload/myvideos' element={<div className="csv-inner"><MyVideosC/></div>} />
+
+                            {/*
                             <Route path='nico/displayVideo' element={<div className="csv-inner"><DisplayVideo/></div>} />
                             <Route path='nico/sharevideo' element={<div className="auth-inner"><ShareVideo/></div>} />
-                            <Route path='nico/creategroup' element={<div className="auth-inner"><CreateGroup/></div>} />
+                            <Route path='nico/creategroup' element={<div className="auth-inner"><CreateGroup/></div>} />*/}
+
+
 
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
