@@ -7,8 +7,6 @@
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -361,7 +359,7 @@
       <workItem from="1668510556254" duration="1636000" />
       <workItem from="1668532290327" duration="416000" />
       <workItem from="1668590533448" duration="23378000" />
-      <workItem from="1669024892645" duration="5166000" />
+      <workItem from="1669024892645" duration="17987000" />
     </task>
     <task id="LOCAL-00001" summary="First version login component">
       <created>1647258313351</created>
@@ -692,7 +690,21 @@
       <option name="project" value="LOCAL" />
       <updated>1669028358574</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Adding first video share support">
+      <created>1669030254320</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1669030254320</updated>
+    </task>
+    <task id="LOCAL-00049" summary="updating the download api">
+      <created>1669217254258</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1669217254259</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -797,7 +809,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changes to regi. components set." />
     <MESSAGE value="Registration version 1 (update profile is still disabled)" />
     <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
     <MESSAGE value="Coach interface v1.01" />
@@ -822,7 +833,8 @@
     <MESSAGE value="New PDF Consent fill" />
     <MESSAGE value="adding first mobile style support" />
     <MESSAGE value="Adding first video share support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding first video share support" />
+    <MESSAGE value="updating the download api" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating the download api" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

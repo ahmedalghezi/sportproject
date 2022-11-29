@@ -332,6 +332,7 @@ export default class CreateGroup extends Component {
                 </label>
                 </div>
                 <div>
+                    <br/><br/>
                     <label>Gruppen:</label>
                     <select id="groups" name="groups" onChange={this.handleGroupClick} defaultValue={'DEFAULT'}>
                         <option value="DEFAULT" disabled>Gruppe auswählen</option>

@@ -57,8 +57,8 @@ export default class PostCSVData {
 
     /**
      *
-     * @param data ={disciplineID:1,spaceID:1}
-     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:[name,ID]}
+     * @param data= {}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:[space:"space1":features:[{ID:"id1",name:"feat1"},{ID:"id2",name:"feat2"}...] , ...]}
      */
     static getFeatures(data){
         return http.post("/csv/getFeatures", data);
@@ -66,10 +66,10 @@ export default class PostCSVData {
 
     /**
      *
-     * @param data ={features:[name:"f1", name:"f2", ...]}
+     * @param data ={space:"selected_space",features:[{ID:"slec_id1"},{ID:"selec_id2"}...]}}
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data: similar to download data from Ayman}
      */
     static getFeaturesData(data){
-        return http.post("/csv/getFeatures", data);
+        return http.post("/csv/getFeaturesData", data);
     }
 }

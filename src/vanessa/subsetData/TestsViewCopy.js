@@ -2,10 +2,15 @@
 Copy of register/trainer/aymen/TestsView.js with additional subset functionalities 
 by Vanessa Meyer
 */
-
+/*
+  TODO
+    
+*/
 import React from "react";
 import CustomTable from "../../components/CustomTable";
-import axios from "axios";
+import postCSV from "../../DB/postCSV";
+import PostSignup from "../../DB/postSignup";
+
 import {
   Button,
   FormControl,
@@ -19,8 +24,6 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { germanDatePresentation } from "../../utli/dataConversion";
-
-import testdata from "./testdata"; // just for testing, delete if not needed
 
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -36,62 +39,7 @@ const defaultDates = {
   to: new Date(2023, 0, 1),
 };
 
-// requesting data from API -- TODO uncomment next lines
 
-/*
-async function getTests (fromDate, toDate) {
-  console.log("https://inprove-sport.info/csvapi/get_slice/" + fromDate + "/" + toDate);
-  return await axios.create({
-     baseURL: "https://inprove-sport.info/",
-     json: true,
-     headers: {
-         "Content-type": "application/json"
-     },
-  }).get("/csvapi/get_slice/" + fromDate + "/" + toDate);
-}*/
-
-// transform data to get all json records for each person in a row
-const mergeRecords = (data) => {
-  let merged = [];
-  data.forEach((test) => {
-    let UserID = test.personID; // TODO -- maybe rename personID to person identifier
-    let json_record = test.json_record;
-    const subset = [{ UserID, json_record }];
-    merged = merged.concat(subset);
-  });
-  //console.log(merged);
-
-  const result = merged.reduce((acc, { UserID, json_record }) => {
-    acc[UserID] ??= { UserID: UserID, json_record: [] };
-    if (Array.isArray(json_record))
-      // if it's array type then concat
-      acc[UserID].json_record = acc[UserID].json_record.concat(json_record);
-    else acc[UserID].json_record.push({ ...json_record });
-
-    return acc;
-  }, {});
-  let mergedJsonRecords = Object.values(result);
-  //console.log(mergedJsonRecords);
-
-  let test = [];
-  mergedJsonRecords.forEach((item) => {
-    test = test.concat(Object.assign({}, ...item.json_record));
-  });
-  //console.log(test);
-  return test;
-};
-
-const getColLabelsFromData = (data) => {
-  let labels = [];
-
-  data.forEach((test) => {
-    labels = labels.concat(Object.keys(test["json_record"]));
-
-    labels = Array.from(new Set(labels)); //make entries unique
-  });
-
-  return labels;
-};
 
 // components
 const getFilterFunction = (
@@ -205,8 +153,7 @@ function intersection(a, b) {
 }
 
 export default function TestsViewCopy(props) {
-  const [filteredTests, setFilteredTests] = React.useState([]);
-  const [jsonRecords, setJsonRecords] = React.useState([]);
+  
   const [subset, setSubset] = React.useState([]);
   const [space, setSpace] = React.useState(false);
   const [discipline, setDiscipline] = React.useState(false);
@@ -216,7 +163,7 @@ export default function TestsViewCopy(props) {
   const [allSpaces, setAllSpaces] = React.useState([]);
   const [colLabels, setColLabels] = React.useState([]);
   const [isFirstRender, setIsFirstRender] = React.useState(true);
-  const [mergedRecords, setMergedRecords] = React.useState([]);
+
 
   //transferlist
   const [checked, setChecked] = React.useState([]);
@@ -260,6 +207,29 @@ export default function TestsViewCopy(props) {
     setLeft(left.concat(right));
     setRight([]);
   };
+  // get all disciplines and spaces for select drop down --TODO
+  const getDisciplines = () => {
+    PostSignup.getAllDisciplines()
+      .then((response) => {
+        if (response.data.res === "error") {
+          const arr = ["connection error"];
+
+          setAllDisciplines(arr);
+          return;
+        } else {
+          setAllDisciplines(response.data.res);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+  };
+  const getSpaces = () => {
+    let arr = ["Performance data", "Blood samples", "DNA", "Bacterial", "Cognition", "body Measurements", "Other"]
+    setAllSpaces(arr);
+    
+  };
 
   const customList = (items) => (
     <Paper sx={{ width: 200, height: 230, overflow: "auto" }}>
@@ -297,50 +267,50 @@ export default function TestsViewCopy(props) {
 
   // Apply button after Selection of Discipline and Space to create left list of transferlist with filtered data
   const onApply = () => {
+    postCSV
+      .getFeatures(discipline, space)
+      .then((response) => {
+        if (response.data.res === "error") {
+          alert("Es ist ein Fehler aufgetreten.");
+        }
+        if (response.data.res === "no") {
+          alert("Bitte wähle eine Disziplin und Space.");
+        }
+        if (response.data.res === "ok") {
+          let featureNames = response["data"]["arr"];
+          getDisciplines();
+          getSpaces();
 
-    postCSV.getFeatures(data).then(res => {
-
-    });
-
-    // -- TODO uncomment next two lines to get test from API
-    //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
-    //let testsData = res['data']['arr'];
-    let testsData = testdata; // TODO -- delete if not needed
-    setAllDisciplines(
-      Array.from(new Set(testsData.map((el) => el.discipline)))
-    );
-    setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
-    // filter the data
-    if (discipline) {
-      testsData = testsData.filter((el) => el["discipline"] === discipline);
-    }
-    if (space) {
-      testsData = testsData.filter((el) => el["space"] === space);
-    }
-
-    setFilteredTests(testsData);
-
-    let testDataJsonRecords = testsData.map((t) => t["json_record"]);
-
-    setJsonRecords(
-      Array.from(new Set(jsonRecords.concat(testDataJsonRecords))) // TODO -- delete if not needed
-    );
-
-    setLeft(getColLabelsFromData(testsData));
-    setMergedRecords(mergeRecords(filteredTests.concat(testsData)));
-
-    //}); //TODO -- uncomment
+          setLeft(featureNames);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
   };
 
   //show data of selected features (right list of transferlist) to use for subset table
   const showData = () => {
-    //create subset of jsonRecords
-    let subset = [];
-    mergedRecords.forEach((item) => {
-      subset = subset.concat(right.reduce((a, e) => ((a[e] = item[e]), a), {}));
-    });
+    postCSV
+      .getFeaturesData(right)
+      .then((response) => {
+        if (response.data.res === "error") {
+          alert("Es ist ein Fehler aufgetreten.");
+        }
+        if (response.data.res === "no") {
+          alert("Bitte wähle eine Disziplin und Space.");
+        }
+        if (response.data.res === "ok") {
+          let featuresData = response["data"]["arr"];
 
-    setSubset(subset);
+          setSubset(featuresData);
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
   };
 
   const onReset = () => {
@@ -349,24 +319,34 @@ export default function TestsViewCopy(props) {
       setSpace(false);
       setFromDate(defaultDates["from"]);
       setToDate(defaultDates["to"]);
-      // TODO -- uncomment next two lines
-      //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
-      // let testsData = res['data']['arr'];
-      let testsData = testdata; // TODO - delete if not needed
-      setAllDisciplines(
-        Array.from(new Set(testsData.map((el) => el.discipline)))
-      );
-      setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
 
-      setFilteredTests([]);
+      postCSV
+        .getFeatures(discipline, space)
+        .then((response) => {
+          if (response.data.res === "error") {
+            alert("Es ist ein Fehler aufgetreten.");
+          }
+          if (response.data.res === "no") {
+            alert("Bitte wähle eine Disziplin und Space.");
+          }
+          if (response.data.res === "ok") {
+            let featureNames = response["data"]["arr"];
+            getDisciplines();
+            getSpaces();
+            
 
-      setJsonRecords([]);
-      setColLabels(getColLabelsFromData(testsData));
-      setLeft([]);
-      setRight([]);
-      setSubset([]);
-      setMergedRecords([]);
-      //}); //TODO -- uncomment
+            
+            setColLabels(featureNames);
+            setLeft([]);
+            setRight([]);
+            setSubset([]);
+            
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          alert("Es ist ein Fehler aufgetreten.");
+        });
     }
   };
 
@@ -430,37 +410,42 @@ export default function TestsViewCopy(props) {
       }
     }
     if (fetchData) {
-      // TODO -- uncomment next two lines
-      //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
-      // const testsData = res['data']['arr'];
-      const testsData = testdata; // TODO -- delete if not needed
-      setAllDisciplines(
-        Array.from(new Set(testsData.map((el) => el.discipline)))
-      );
-      setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
-      // reset if the select option is not available anymore
-      if (!allDisciplines.includes(discipline)) {
-        setDiscipline(false);
-      }
-      if (!allSpaces.includes(space)) {
-        setSpace(false);
-      }
-      //}); //TODO -- uncomment
+      postCSV
+        .getFeatures(discipline, space)
+        .then((response) => {
+          if (response.data.res === "error") {
+            alert("Es ist ein Fehler aufgetreten.");
+          }
+          if (response.data.res === "no") {
+            alert("Bitte wähle eine Disziplin und Space.");
+          }
+          if (response.data.res === "ok") {
+            let featureNames = response["data"]["arr"];
+            setColLabels(featureNames);
+            getDisciplines();
+            getSpaces();
+            // reset if the select option is not available anymore
+            if (!allDisciplines.includes(discipline)) {
+              setDiscipline(false);
+            }
+            if (!allSpaces.includes(space)) {
+              setSpace(false);
+            }
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          alert("Es ist ein Fehler aufgetreten.");
+        });
     }
   };
 
   // data preprocessing
+
   if (isFirstRender) {
-    // TODO -- uncomment next two lines
-    //getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
-    //const testsData = res['data']['arr'];
-    const testsData = testdata; // TODO -- delete if not needed
-    setAllDisciplines(
-      Array.from(new Set(testsData.map((el) => el.discipline)))
-    );
-    setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
+    getDisciplines();
+    getSpaces();
     setIsFirstRender(false);
-    // }); //TODO -- uncomment
   }
   let testHeadCells = Array.from(new Set(right));
   testHeadCells = testHeadCells.map((headCell) => {
