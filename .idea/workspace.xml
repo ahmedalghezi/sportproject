@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/handelTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/handelTrainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/createGroup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/createGroup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,8 +282,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.build" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.start (1)" />
       </list>
@@ -359,14 +364,9 @@
       <workItem from="1668510556254" duration="1636000" />
       <workItem from="1668532290327" duration="416000" />
       <workItem from="1668590533448" duration="23378000" />
-      <workItem from="1669024892645" duration="17987000" />
-    </task>
-    <task id="LOCAL-00001" summary="First version login component">
-      <created>1647258313351</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1647258313351</updated>
+      <workItem from="1669024892645" duration="19484000" />
+      <workItem from="1669562602637" duration="597000" />
+      <workItem from="1670403514060" duration="23865000" />
     </task>
     <task id="LOCAL-00002" summary="First version login component">
       <created>1647261499498</created>
@@ -704,7 +704,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669217254259</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="updating the download api">
+      <created>1669219570430</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1669219570433</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
