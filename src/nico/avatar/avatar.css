@@ -168,11 +168,11 @@ h3 {
   padding: 20px;
 }
 
-.progress-bar{
+.center .progress-bar{
   animation: progress-bar 5s linear forwards;
   border-radius: 30px;
 }
-.progress{
+.center .progress{
   border-radius: 30px;
   background-color: black;
   height: 30px;
