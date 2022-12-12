@@ -66,7 +66,7 @@ export default class PostCSVData {
 
     /**
      *
-     * @param data ={space:"selected_space",features:[{ID:"slec_id1"},{ID:"selec_id2"}...]}}
+     * @param data =[space1:"selected_space",features:[{ID:"slec_id1"},{ID:"selec_id2"}...]} , .....]
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data: similar to download data from Ayman}
      */
     static getFeaturesData(data){
