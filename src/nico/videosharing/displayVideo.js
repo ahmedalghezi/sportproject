@@ -12,13 +12,14 @@ import video3 from "./videos/testvideo3.mp4";
 import video4 from "./videos/testvideo4.mp4";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import handelTrainer from "../../DB/handelTrainer";
 
 const testdata = [
-    { id: 1, videourl: video1, title: "eins", date: '2021-05-23T22:00:00.000Z' },
-    { id: 2, videourl: video2, title: "zwei", date: '2022-05-23T22:00:00.000Z'},
-    { id: 3, videourl: video3, title: "drei", date: '2022-05-23T10:00:00.000Z'},
-    { id: 4, videourl: video4, title: "vier", date: '2020-05-23T22:00:00.000Z'},
-    { id: 5, videourl: video3, title: "fünf", date: '2010-05-23T10:00:00.000Z'},
+    { id: 1, filename: video1, title: "eins", date: '2021-05-23T22:00:00.000Z' },
+    { id: 2, filename: video2, title: "zwei", date: '2022-05-23T22:00:00.000Z'},
+    { id: 3, filename: video3, title: "drei", date: '2022-05-23T10:00:00.000Z'},
+    { id: 4, filename: video4, title: "vier", date: '2020-05-23T22:00:00.000Z'},
+    { id: 5, filename: video3, title: "fünf", date: '2010-05-23T10:00:00.000Z'},
     //{ id: 6, videourl: video4, title: "sechs", date: '2000-05-23T22:00:00.000Z'},
   ]
 const vidperpage = 4;
@@ -66,9 +67,10 @@ export default class DisplayVideo extends Component {
             alert("Es ist ein Fehler aufgetreten!");
         });
     }
+
     getAll(){
-        this.updateVideoPage(testdata, this.state.currentPage);
-        CoachInputDataService.getAll().then(response => {
+       // this.updateVideoPage(testdata, this.state.currentPage);
+        handelTrainer.getVideos().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 this.setState({videoList: arr});
@@ -80,6 +82,7 @@ export default class DisplayVideo extends Component {
             }
             if(response.data.res === "ok") {
                 this.setState({videoList: response.data.videoList});
+                this.updateVideoPage(response.data.videoList, this.state.currentPage);
             }
 
         }).catch(e => {
@@ -88,6 +91,8 @@ export default class DisplayVideo extends Component {
             alert("Es ist ein Fehler aufgetreten!");
         });
     }
+
+
     updateVideoPage(listofvids, curpage){
       var getvideos = listofvids.slice(curpage * vidperpage, curpage * vidperpage + vidperpage);
       var ordervid = [];
@@ -159,10 +164,9 @@ export default class DisplayVideo extends Component {
                         <video width="350" height="200"
                             className="video"
                             title={item.title}
-                            
                             progress
                             controls
-                            src={item.videourl}
+                            src={"https://inprove-sport.info/trainer/streamVideo/"+item.filename}
                         />
                     </div>
                   </div>

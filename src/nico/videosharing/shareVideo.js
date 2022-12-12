@@ -26,11 +26,13 @@ const testdata = [
     }];
 
 
+
+
 export default class ShareVideo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {selectedFile:''};
+        this.state = {selectedFile:'', title:'',serverFileName:''};
         this.handleUpload = this.handleUpload.bind(this);
     }
  
@@ -40,31 +42,64 @@ export default class ShareVideo extends Component {
       };
 
 
-    handleUpload(event){
-        event.preventDefault();
-        if(this.state.selectedTrainerList === []){
-            alert("Bitte Trainer*in auswählen.");
+
+    sendVideoTitle = (fileName) => {
+        if(fileName === '')
             return;
-        }
-        /*
-        PostSignup.disguisedTrainerLogin({email:this.state.selectedTrainer}).then(response => {
+        HandelTrainer.sendVideoTitle({fileName:fileName, title:this.state.title}).then(response => {
+            console.log(response.data.res);
+            if (response.data.res === "error")
+                alert("Es ist ein Fehler aufgetreten.");
+            if(response.data.res === "no")
+                window.location.href = window.location.origin+"/reg/sign-in?org=$trainer$videoshare";
             if(response.data.res === "ok"){
-                //this.props.navigate('/trainer/addAthletes');
-                window.location.href = window.location.origin+"/trainer/addAthletes";
-            }else{
-                alert("Es ist ein Fehler aufgetreten!");
+                if(this.props.uploadDone)
+                    this.props.uploadDone();
+                else{
+                    alert("Hochladen erfolgreich");
+                }
             }
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten.");
         });
-        */
 
     }
 
+    handleChange = (event) => {
+        event.preventDefault();
+        if(event.target.name === "title")
+            this.setState({title:event.target.value});
+    }
+
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        if(!this.state.selectedFile == '')
+            return;
+        const data = new FormData();
+        data.append('file', this.state.selectedFile);
+
+        PostSignup.uploadVideo(data).then(response => {
+            console.log(response.data.res);
+            if (response.data.res === "error")
+                alert("Es ist ein Fehler aufgetreten.");
+            if(response.data.res === "no")
+                window.location.href = window.location.origin+"/reg/sign-in?org=$trainer$videoshare";
+            if(response.data.res === "ok"){
+                this.sendVideoTitle(response.data.fileName);
+            }
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten.");
+        });
+    }
+
+
+
     render() {
         return (
-            <form onSubmit={this.handleUpload}>
+            <form>
                 <h3>Video teilen</h3>
 
                 <div >
@@ -77,15 +112,23 @@ export default class ShareVideo extends Component {
             <label className="select-file">
               <input
                 type="file"
-
                 onChange={this.onFileChange}
               />
-              Wähle eine Videodatei
             </label>
           </div>
-        
-        
-                <button type="submit" className="btn btn-primary btn-block">Video hochladen</button>
+
+
+                <input
+                    type="text"
+                    className="form-control"
+                    name="title"
+                    placeholder="Video title"
+                    onChange={this.handleChange}
+                />
+
+        <br/>
+
+                <button onClick={this.handleSubmit} className="btn btn-primary btn-block">Video hochladen</button>
             </form>
         );
     }

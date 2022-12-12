@@ -112,4 +112,9 @@ export default class PostSignup {
     }
 
 
+    static uploadVideo(data){
+        return axios.post("https://inprove-sport.info"+"/files/saveVideo", data);
+    }
+
+
 }

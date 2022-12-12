@@ -54,7 +54,7 @@ export default class CreateGroup extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {trainersList:[], selectedTrainerList:[], selectedTrainer:'', selectedGroup:'', groupList:[], groupTitle:'', textField: '',preEvArr:[]};
+        this.state = {trainersList:[], selectedTrainerList:[], selectedTrainer:'', selectedGroup:'', groupList:[], groupTitle:'', groupName: '',preEvArr:[]};
         this.handleTrainersListClick = this.handleTrainersListClick.bind(this);
         this.getTrainers = this.getTrainers.bind(this);
         this.getGroups = this.getGroups.bind(this);
@@ -113,16 +113,18 @@ export default class CreateGroup extends Component {
             alert("Es ist ein Fehler aufgetreten!");
         });
     }
+
+
     newGroup(event){
         //make new group
-        if(this.state.textField === ''){
+        if(this.state.groupName === ''){
             alert("Bitte Gruppennamen auswählen");
             return;
-        }else if(this.state.groupList.some(item => this.state.textField === item.name)){
+        }else if(this.state.groupList.some(item => this.state.groupName === item.name)){
             alert("Gruppe existiert schon");
             return;
         }
-        HandelTrainer.createTrainerGroup(this.state.textField).then(response => {
+        HandelTrainer.createTrainerGroup(this.state.groupName).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 this.setState({trainersList: arr});
@@ -134,9 +136,9 @@ export default class CreateGroup extends Component {
             }
             if(response.data.res === "ok") {
                 this.getGroups();
-                this.setState({groupTitle: this.state.textField});
+                this.setState({groupTitle: this.state.groupName});
                 this.setState({selectedTrainerList: []});
-                this.setState({textField: ''});
+                this.setState({groupName: ''});
                 var text = document.getElementById("text");
                 text.value = '';
             }
