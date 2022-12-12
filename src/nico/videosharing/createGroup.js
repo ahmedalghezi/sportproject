@@ -124,7 +124,7 @@ export default class CreateGroup extends Component {
             alert("Gruppe existiert schon");
             return;
         }
-        HandelTrainer.createTrainerGroup(this.state.groupName).then(response => {
+        HandelTrainer.createTrainerGroup({name: this.state.groupName}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 this.setState({trainersList: arr});
@@ -153,7 +153,7 @@ export default class CreateGroup extends Component {
             alert("Bitte Gruppe auswählen");
             return;
         }
-        HandelTrainer.removeTrainerGroup(this.state.selectedGroup).then(response => {
+        HandelTrainer.removeTrainerGroup({ID: this.state.selectedGroup}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 this.setState({trainersList: arr});
@@ -212,7 +212,7 @@ export default class CreateGroup extends Component {
     handleGroupClick(event) {
         event.preventDefault();
         this.setState({selectedTrainerList: testdata2});
-        HandelTrainer.getGroupMembers(event.target.id).then(response => {
+        HandelTrainer.getGroupMembers({ID: event.target.id}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
@@ -232,7 +232,7 @@ export default class CreateGroup extends Component {
     }
     handleAdd = (event) => {
         event.preventDefault();
-        HandelTrainer.addToGroup(this.state.selectedGroup,this.state.selectedTrainer).then(response => {
+        HandelTrainer.addToGroup({groupID: this.state.selectedGroup,trainerID: this.state.selectedTrainer}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
@@ -242,7 +242,7 @@ export default class CreateGroup extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                HandelTrainer.getGroupMembers(this.state.selectedGroup).then(response => {
+                HandelTrainer.getGroupMembers({ID: this.state.selectedGroup}).then(response => {
                     if(response.data.res === "error") {
                         const arr = ["connection error"];
                         return;
@@ -269,7 +269,7 @@ export default class CreateGroup extends Component {
 
     handleRemove = (event) => {
         event.preventDefault();
-        HandelTrainer.removeFromGroup(this.state.selectedGroup,this.state.selectedTrainer).then(response => {
+        HandelTrainer.removeFromGroup({groupID: this.state.selectedGroup,trainerID: this.state.selectedTrainer}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
@@ -279,7 +279,7 @@ export default class CreateGroup extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                HandelTrainer.getGroupMembers(this.state.selectedGroup).then(response => {
+                HandelTrainer.getGroupMembers({ID: this.state.selectedGroup}).then(response => {
                     if(response.data.res === "error") {
                         const arr = ["connection error"];
                         return;
