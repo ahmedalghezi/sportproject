@@ -65,7 +65,7 @@ export default class HandelTrainer{
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
      */
     static createTrainerGroup(data){
-        return http.post("/trainer/createGroup");
+        return http.post("/trainer/createGroup",data);
     }
 
     /**
@@ -74,7 +74,7 @@ export default class HandelTrainer{
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
      */
     static removeTrainerGroup(data){
-        return http.post("/trainer/deleteGroup");
+        return http.post("/trainer/deleteGroup",data);
     }
 
     /**
@@ -93,7 +93,7 @@ export default class HandelTrainer{
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error", data:[{ID:1,name:""}...]}
      */
     static getGroupMembers(data){
-        return http.post("/trainer/getGroupMembers");
+        return http.post("/trainer/getGroupMembers",data);
     }
 
 
@@ -101,10 +101,10 @@ export default class HandelTrainer{
     /**
      *
      * @param data = {groupID:1,trainerID:1}
-     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error,duplicate"}
      */
     static addToGroup(data){
-        return http.post("/trainer/addToGroup");
+        return http.post("/trainer/addToGroup",data);
     }
 
 
@@ -114,6 +114,16 @@ export default class HandelTrainer{
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error"}
      */
     static removeFromGroup(data){
-        return http.post("/trainer/removeFromGroup");
+        return http.post("/trainer/removeFromGroup",data);
     }
+
+
+    static getVideos(){
+        return http.post("/trainer/getVideos",{});
+    }
+
+    static sendVideoTitle(data){
+        return http.post("/trainer/updateVideoTitle",data);
+    }
+
 }
