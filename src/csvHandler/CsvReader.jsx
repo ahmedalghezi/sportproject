@@ -376,7 +376,7 @@ export default function  CsvReader(){
                                     <option value="dna">DNA</option>
                                     <option value="bacterial">Bacterial</option>
                                     <option value="cognition">Cognition</option>
-                                    <option value="cognition">body Measurements </option>
+                                    <option value="body measurements">Body measurements </option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>

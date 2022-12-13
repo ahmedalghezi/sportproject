@@ -2,10 +2,7 @@
 Copy of register/trainer/aymen/TestsView.js with additional subset functionalities 
 by Vanessa Meyer
 */
-/*
-  TODO
-    
-*/
+
 import React from "react";
 import CustomTable from "../../components/CustomTable";
 import postCSV from "../../DB/postCSV";
@@ -33,13 +30,12 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 
 import Paper from "@mui/material/Paper";
+import data from "./testdata";
 
 const defaultDates = {
   from: new Date(2020, 0, 1),
   to: new Date(2023, 0, 1),
 };
-
-
 
 // components
 const getFilterFunction = (
@@ -153,7 +149,6 @@ function intersection(a, b) {
 }
 
 export default function TestsViewCopy(props) {
-  
   const [subset, setSubset] = React.useState([]);
   const [space, setSpace] = React.useState(false);
   const [discipline, setDiscipline] = React.useState(false);
@@ -161,9 +156,8 @@ export default function TestsViewCopy(props) {
   const [toDate, setToDate] = React.useState(defaultDates["to"]);
   const [allDisciplines, setAllDisciplines] = React.useState([]);
   const [allSpaces, setAllSpaces] = React.useState([]);
-  const [colLabels, setColLabels] = React.useState([]);
   const [isFirstRender, setIsFirstRender] = React.useState(true);
-
+  const [selecFeatsBySpace, setSelecFeatsBySpace] = React.useState([]);
 
   //transferlist
   const [checked, setChecked] = React.useState([]);
@@ -207,7 +201,7 @@ export default function TestsViewCopy(props) {
     setLeft(left.concat(right));
     setRight([]);
   };
-  // get all disciplines and spaces for select drop down --TODO
+  // get all disciplines for drop down
   const getDisciplines = () => {
     PostSignup.getAllDisciplines()
       .then((response) => {
@@ -226,9 +220,16 @@ export default function TestsViewCopy(props) {
       });
   };
   const getSpaces = () => {
-    let arr = ["Performance data", "Blood samples", "DNA", "Bacterial", "Cognition", "body Measurements", "Other"]
+    let arr = [
+      "Performance data",
+      "Blood samples",
+      "DNA",
+      "Bacterial",
+      "Cognition",
+      "body Measurements",
+      "other",
+    ];
     setAllSpaces(arr);
-    
   };
 
   const customList = (items) => (
@@ -267,6 +268,22 @@ export default function TestsViewCopy(props) {
 
   // Apply button after Selection of Discipline and Space to create left list of transferlist with filtered data
   const onApply = () => {
+    // with testdata
+
+    if (discipline || space) {
+      let featureNames = [];
+
+      let testdata = data.filter((el) => el["space"] === space);
+
+      testdata[0].features.forEach((item) => {
+        featureNames.push(`${item.ID} - ${item.name}`);
+      });
+      setLeft(featureNames);
+    } else {
+      alert("Select discipline or space.");
+    }
+
+    /*
     postCSV
       .getFeatures(discipline, space)
       .then((response) => {
@@ -277,23 +294,110 @@ export default function TestsViewCopy(props) {
           alert("Bitte wähle eine Disziplin und Space.");
         }
         if (response.data.res === "ok") {
-          let featureNames = response["data"]["arr"];
-          getDisciplines();
-          getSpaces();
-
-          setLeft(featureNames);
+         if (discipline || space) {
+      let featureNames = [];
+      let data = response["data"]["arr"];
+      let testdata = data.filter(el => el['space'] === space);
+      
+      testdata[0].features.forEach((item) => {
+        featureNames.push(`${item.ID} - ${item.name}`);
+        
+        
+      });
+      setLeft(featureNames);
+      
+    } else {
+      alert("Select discipline or space.");
+    }
         }
       })
       .catch((e) => {
         console.log(e);
         alert("Es ist ein Fehler aufgetreten.");
-      });
+      });*/
+  };
+
+  const groupBy = (arr, key) => {
+    return arr.reduce((res, currVal) => {
+      (res[currVal[key]] = res[currVal[key]] || []).push(currVal);
+      return res;
+    }, {});
   };
 
   //show data of selected features (right list of transferlist) to use for subset table
   const showData = () => {
+    // with testdata
+    try {
+      if (right.length === 0) {
+        alert("No features selected.");
+      } else {
+        for (let i = 0; i <= data.length; i++) {
+          data[i].features.forEach((item) => {
+            if (right.indexOf(`${item.ID} - ${item.name}`) !== -1) {
+              setSelecFeatsBySpace(
+                selecFeatsBySpace.push({
+                  space: data[i].space,
+                  ID: item.ID,
+                  name: item.name,
+                })
+              );
+            }
+          });
+        }
+      }
+    } catch {
+      alert("Please reset first before creating new subset.");
+    }
+
+    /*
     postCSV
-      .getFeaturesData(right)
+    .getFeatures(discipline, space)
+    .then((response) => {
+      if (response.data.res === "error") {
+        alert("Es ist ein Fehler aufgetreten.");
+      }
+      if (response.data.res === "no") {
+        alert("Bitte wähle eine Disziplin und Space.");
+      }
+      if (response.data.res === "ok") {
+        let data = response["data"]["arr"];
+       try {
+      if (right.length === 0) {
+        alert("No features selected.");
+      } else {
+        for (let i = 0; i <= data.length; i++){
+             data[i].features.forEach((item) => {
+          if (right.indexOf(`${item.ID} - ${item.name}`) !== -1) {
+            setSelecFeatsBySpace(
+              selecFeatsBySpace.push({
+                space: data[i].space,
+                ID: item.ID,
+                name: item.name,
+              })
+            );
+          }
+        });
+        }
+     
+
+      }
+    } catch {
+      alert("Please reset first before creating new subset.");
+    }
+    
+  } 
+      }
+    })
+    .catch((e) => {
+      console.log(e);
+      alert("Es ist ein Fehler aufgetreten.");
+    });*/
+
+    const groups = groupBy(selecFeatsBySpace, "space");
+    console.log(groups);
+    /*
+     postCSV
+      .getFeaturesData(groups)
       .then((response) => {
         if (response.data.res === "error") {
           alert("Es ist ein Fehler aufgetreten.");
@@ -302,52 +406,48 @@ export default function TestsViewCopy(props) {
           alert("Bitte wähle eine Disziplin und Space.");
         }
         if (response.data.res === "ok") {
-          let featuresData = response["data"]["arr"];
-
-          setSubset(featuresData);
+          let subsetData = response["data"]["arr"];
+          
+          setSubset(subsetData);
         }
       })
       .catch((e) => {
         console.log(e);
         alert("Es ist ein Fehler aufgetreten.");
       });
+      */
   };
 
   const onReset = () => {
-    if (discipline || space) {
-      setDiscipline(false);
-      setSpace(false);
-      setFromDate(defaultDates["from"]);
-      setToDate(defaultDates["to"]);
-
-      postCSV
-        .getFeatures(discipline, space)
-        .then((response) => {
-          if (response.data.res === "error") {
-            alert("Es ist ein Fehler aufgetreten.");
-          }
-          if (response.data.res === "no") {
-            alert("Bitte wähle eine Disziplin und Space.");
-          }
-          if (response.data.res === "ok") {
-            let featureNames = response["data"]["arr"];
-            getDisciplines();
-            getSpaces();
-            
-
-            
-            setColLabels(featureNames);
-            setLeft([]);
-            setRight([]);
-            setSubset([]);
-            
-          }
-        })
-        .catch((e) => {
-          console.log(e);
+    //if (discipline || space) {
+    setDiscipline(false);
+    setSpace(false);
+    setFromDate(defaultDates["from"]);
+    setToDate(defaultDates["to"]);
+    setSelecFeatsBySpace([]);
+    setLeft([]);
+    setRight([]);
+    setSubset([]);
+    postCSV
+      .getFeatures(discipline, space)
+      .then((response) => {
+        if (response.data.res === "error") {
           alert("Es ist ein Fehler aufgetreten.");
-        });
-    }
+        }
+        if (response.data.res === "no") {
+          alert("Bitte wähle eine Disziplin und Space.");
+        }
+        if (response.data.res === "ok") {
+          //let featureNames = response["data"]["arr"];
+          getDisciplines();
+          getSpaces();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten.");
+      });
+    //}
   };
 
   const onDownload = () => {
@@ -420,8 +520,8 @@ export default function TestsViewCopy(props) {
             alert("Bitte wähle eine Disziplin und Space.");
           }
           if (response.data.res === "ok") {
-            let featureNames = response["data"]["arr"];
-            setColLabels(featureNames);
+            //let featureNames = response["data"]["arr"];
+
             getDisciplines();
             getSpaces();
             // reset if the select option is not available anymore
