@@ -12,16 +12,72 @@ import './survey.css'
 
 
 const testdata = [
-  { id: 1, videourl: "https://inprove-sport.info/videos/DVV_herren_jap_bra_angriff1.mp4", title: "eins", date: '2021-05-23T22:00:00.000Z' },
-  { id: 2, videourl: "https://inprove-sport.info/videos/DVV_herren_jap_bra_angriff1.mp4", title: "zwei", date: '2022-05-23T22:00:00.000Z'},
-  { id: 3, videourl: "https://inprove-sport.info/videos/DVV_herren_jap_bra_angriff1.mp4", title: "drei", date: '2022-05-23T10:00:00.000Z'},
+  { id: 1, videourl: "https://inprove-sport.info:8080/videos/dvv/Test_Trial_1.mp4"},
+  { id: 2, videourl: "https://inprove-sport.info:8080/videos/dvv/Test_Trial_2.mp4"},
+  { id: 3, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_1.mp4"},
+  { id: 4, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_2.mp4"},
+  { id: 5, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_3.mp4"},
+  { id: 6, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_4.mp4"},
+  { id: 7, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_5.mp4"},
+  { id: 8, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_6.mp4"},
+  { id: 9, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_7.mp4"},
+  { id: 10, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_8.mp4"},
+  { id: 11, videourl: "https://inprove-sport.info:8080/videos/dvv/Angriff_9.mp4"},
+  { id: 12, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_1.mp4"},
+  { id: 13, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_2.mp4"},
+  { id: 14, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_3.mp4"},
+  { id: 15, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_4.mp4"},
+  { id: 16, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_5.mp4"},
+  { id: 17, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_6.mp4"},
+  { id: 18, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_7.mp4"},
+  { id: 19, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_8.mp4"},
+  { id: 20, videourl: "https://inprove-sport.info:8080/videos/dvv/Abwehr_9.mp4"},
 ]
+const recordAudio = () =>
+  new Promise(async resolve => {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mediaRecorder = new MediaRecorder(stream);
+    const audioChunks = [];
+
+    mediaRecorder.addEventListener("dataavailable", event => {
+      audioChunks.push(event.data);
+    });
+
+    const start = () => mediaRecorder.start();
+
+    const stop = () =>
+      new Promise(resolve => {
+        mediaRecorder.addEventListener("stop", () => {
+          const audioBlob = new Blob(audioChunks);
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audio = new Audio(audioUrl);
+          const play = () => audio.play();
+          resolve({ audioBlob, audioUrl, play });
+        });
+
+        mediaRecorder.stop();
+      });
+
+    resolve({ start, stop });
+  });
+
+const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+
+const handleAudio = async () => {
+  const recorder = await recordAudio();
+  recorder.start();
+  await sleep(10000);
+  const audio = await recorder.stop();
+  //save audio
+  //URL.revokeObjectURL(url)
+  console.log(audio.audioUrl)
+};
 
 export default class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {videoList:[], athlete:'', numberofquestions: 40, answeredquestions: 0, counter:0, seconds: 3, answers:[]};
+        this.state = {videoList:[], athlete:'', numberofquestions: 83, answeredquestions: 0, counter:0, seconds: 15, answers:[]};
         this.getData = this.getData.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
@@ -31,15 +87,18 @@ export default class Survey extends Component {
         this.questionwithtimer = this.questionwithtimer.bind(this);
         this.questionwithbutton = this.questionwithbutton.bind(this);
         this.questionwithcheckbox = this.questionwithcheckbox.bind(this);
-        this.recordAudio = this.recordAudio.bind(this);
+        this.uploadSurvey = this.uploadSurvey.bind(this);
+        this.startRecord = this.startRecord.bind(this);
         this.timer = undefined;
     }
 
 
     componentDidMount() {
-      //get id of athlete and videos
+      //get id of athlete
         this.getData();
     }
+
+
 
     getData(){
         CoachInputDataService.getAll().then(response => {
@@ -61,8 +120,9 @@ export default class Survey extends Component {
             alert("Es ist ein Fehler aufgetreten!");
         });
     }
-    recordAudio(){
-
+    
+    startRecord(){
+        handleAudio();
     }
     handleButtonClick(event){
       if(!document.querySelector('input[name="firstquestion"]:checked') || !document.querySelector('input[name="secondquestion"]:checked')){
@@ -85,16 +145,21 @@ export default class Survey extends Component {
       })); 
     }
     showVideo(id){
+        if(this.state.seconds === 10){
+            console.log("in if");
+            this.startRecord();
+        }
         return(
-            <video controls="controls" autoPlay="autoplay" controlsList="nodownload" height="630" src={testdata[id].videourl}> </video>
+            <div className="survey-video-container">
+               <video controls="controls" autoPlay="autoplay" controlsList="nodownload" height="630" src={testdata[id].videourl}> </video>
+            </div>
           );
     }
-    showCounter(){
-        return(
-            <div className="timerdiv"><span className="timerspan">{this.state.seconds}</span></div>
-          );
-    }
+
     questionwithtimer(){
+        if(this.state.seconds === 10){
+            this.startRecord();
+        }
         return(
             <div>
             <div className="questiontimerdiv"><span className="questiontimerspan">{this.state.seconds}</span></div>
@@ -124,14 +189,14 @@ export default class Survey extends Component {
           }));
         }
     }
-    questionwithbutton(string){
+    questionwithbutton(string, string2){
         return(
             <div>
             <div className=" question-title-container  bg-primary-survey col-xs-12 ">
               <div className=" question-text ">
                   <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
                       <p><span className="span_question"><u>{string}</u></span></p>
-              <p><span className="span_question">Welches sind angemessene Handlungen für den stellenden Spieler, um einen Punkt zu erzielen?</span></p>
+              <p><span className="span_question">Welches sind angemessene Handlungen für den {string2}, um einen Punkt zu erzielen?</span></p>
               <p><span className="span_question">Du hast 10 Sekunden Zeit sobald das Video anhält.</span></p>
                   </div>
               </div>
@@ -445,6 +510,12 @@ export default class Survey extends Component {
           </div>
         );
     }
+    uploadSurvey(){
+        //upload
+        this.setState((prevState, props) => ({
+            counter: prevState.counter + 1
+          }));
+    }
 
     render() {
         require("./survey.css")
@@ -453,7 +524,7 @@ export default class Survey extends Component {
         <div>
 
 <div className="progressWrapper">       
-<div className="progress" style= {{...{width: "100%"}}}><div className="progress-bar" role="progressbar" style= {{...{width: this.state.answeredquestions/this.state.numberofquestions * 100 +"%", "--to-width": this.state.answeredquestions/this.state.numberofquestions * 100 + "%"}}} aria-valuenow={String(this.state.answeredquestions/this.state.numberofquestions * 100 +"%")} aria-valuemin="0" aria-valuemax="100"></div>{this.state.answeredquestions/this.state.numberofquestions * 100 +"%"}</div>
+<div className="progress" style= {{...{width: "100%"}}}><div className="progress-bar" role="progressbar" style= {{...{width: this.state.answeredquestions/this.state.numberofquestions * 100 +"%", "--to-width": this.state.answeredquestions/this.state.numberofquestions * 100 + "%"}}} aria-valuenow={String(this.state.answeredquestions/this.state.numberofquestions * 100 +"%")} aria-valuemin="0" aria-valuemax="100"></div>{Math.ceil(this.state.answeredquestions/this.state.numberofquestions * 100) +"%"}</div>
 </div> 
           {
           (this.state.counter === 0)
@@ -499,35 +570,28 @@ export default class Survey extends Component {
           </div>
           : (this.state.counter === 1)
           ?         
-          this.questionwithbutton("Übungsdurchgang 1:")
-          : (this.state.counter === 2)
-          ? //timer 3 seconds show video
-          //this.timer(3)
-          (this.startTimer(10), this.showCounter())
+          this.questionwithbutton("Übungsdurchgang 1:","stellenden Spieler")
           //danach Frage 10 Sekunden
-          : (this.state.counter === 3)
+          : (this.state.counter === 2)
           ?
-          (this.startTimer(10), this.showVideo(0))
-          : (this.state.counter === 4)
+          (this.startTimer(15), this.showVideo(0))
+          : (this.state.counter === 3)
           ? (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 4)
+          ?
+          this.questionwithcheckbox()
           : (this.state.counter === 5)
           ?
-          this.questionwithcheckbox()
+          this.questionwithbutton("Übungsdurchgang 2:","stellenden Spieler")
           : (this.state.counter === 6)
           ?
-          this.questionwithbutton("Übungsdurchgang 2:")
+          (this.startTimer(15), this.showVideo(1))
           : (this.state.counter === 7)
-          ?
-          (this.startTimer(3), this.showCounter())
+          ? (this.startTimer(10), (this.questionwithtimer()))
           : (this.state.counter === 8)
           ?
-          (this.startTimer(10), this.showVideo(1))
-          : (this.state.counter === 9)
-          ? (this.startTimer(10), this.questionwithtimer())
-          : (this.state.counter === 10)
-          ?
           this.questionwithcheckbox()
-          : (this.state.counter === 11)
+          : (this.state.counter === 9)
           ?         
           <div>
                     <div className=" question-title-container  bg-primary-survey col-xs-12 ">
@@ -542,29 +606,36 @@ export default class Survey extends Component {
                       <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
                     </div>
           </div>
-          : (this.state.counter === 12)
+          : (this.state.counter === 10)
           ?         
-          this.questionwithbutton("Angriffs-Sequenz 1:")
+          this.questionwithbutton("Angriffs-Sequenz 1:","stellenden Spieler")
+          : (this.state.counter === 11)
+          ?
+          (this.startTimer(15), this.showVideo(2))
+          : (this.state.counter === 12)
+          ? (this.startTimer(10), this.questionwithtimer())
           : (this.state.counter === 13)
           ?
-          (this.startTimer(3), this.showCounter())
+          this.questionwithcheckbox()
           : (this.state.counter === 14)
-          ?
-          (this.startTimer(10), this.showVideo(1))
+          ?         
+          this.questionwithbutton("Angriffs-Sequenz 2:","stellenden Spieler")
+
           : (this.state.counter === 15)
-          ? (this.startTimer(10), this.questionwithtimer())
+          ?
+          (this.startTimer(15), this.showVideo(3))
           : (this.state.counter === 16)
+          ? (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 17)
           ?
           this.questionwithcheckbox()
-          : (this.state.counter === 17)
-          ?         
-          this.questionwithbutton("Angriffs-Sequenz 2:")
           : (this.state.counter === 18)
-          ?
-          (this.startTimer(3), this.showCounter())
+          ?         
+          this.questionwithbutton("Angriffs-Sequenz 3:","stellenden Spieler")
+
           : (this.state.counter === 19)
           ?
-          (this.startTimer(10), this.showVideo(1))
+          (this.startTimer(15), this.showVideo(4))
           : (this.state.counter === 20)
           ? (this.startTimer(10), this.questionwithtimer())
           : (this.state.counter === 21)
@@ -572,49 +643,198 @@ export default class Survey extends Component {
           this.questionwithcheckbox()
           : (this.state.counter === 22)
           ?         
-          this.questionwithbutton("Angriffs-Sequenz 3:")
+          this.questionwithbutton("Angriffs-Sequenz 4:","stellenden Spieler")
           : (this.state.counter === 23)
           ?
-          (this.startTimer(3), this.showCounter())
+          (this.startTimer(15), this.showVideo(5))
           : (this.state.counter === 24)
-          ?
-          (this.startTimer(10), this.showVideo(1))
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
           : (this.state.counter === 25)
-          ? (this.startTimer(10), this.questionwithtimer())
+          ? 
+          this.questionwithcheckbox()
           : (this.state.counter === 26)
-          ?
-          this.questionwithcheckbox()
+          ?         
+          this.questionwithbutton("Angriffs-Sequenz 5:","stellenden Spieler")
+
           : (this.state.counter === 27)
-          ?         
-          this.questionwithbutton("Angriffs-Sequenz 4:")
+          ?
+          (this.startTimer(15), this.showVideo(6))
           : (this.state.counter === 28)
-          ?
-          (this.startTimer(3), this.showCounter())
-          : (this.state.counter === 29)
-          ?
-          (this.startTimer(10), this.showVideo(1))
-          : (this.state.counter === 30)
           ? 
           (this.startTimer(10), this.questionwithtimer())
-          : (this.state.counter === 31)
+          : (this.state.counter === 29)
           ? 
           this.questionwithcheckbox()
+          : (this.state.counter === 30)       
+          ? this.questionwithbutton("Angriffs-Sequenz 6:","stellenden Spieler")
+          : (this.state.counter === 31)
+          ?
+          (this.startTimer(15), this.showVideo(7))
           : (this.state.counter === 32)
-          ?         
-          this.questionwithbutton("Angriffs-Sequenz 5:")
-          : (this.state.counter === 33)
-          ?
-          (this.startTimer(3), this.showCounter())
-          : (this.state.counter === 34)
-          ?
-          (this.startTimer(10), this.showVideo(1))
-          : (this.state.counter === 35)
           ? 
           (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 33)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 34)       
+          ? this.questionwithbutton("Angriffs-Sequenz 7:","stellenden Spieler")
+          : (this.state.counter === 35)
+          ?
+          (this.startTimer(15), this.showVideo(8))
           : (this.state.counter === 36)
           ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 37)
+          ? 
           this.questionwithcheckbox()
-          : console.log("else")
+          : (this.state.counter === 38)       
+          ? this.questionwithbutton("Angriffs-Sequenz 8:","stellenden Spieler")
+
+          : (this.state.counter === 39)
+          ?
+          (this.startTimer(15), this.showVideo(9))
+          : (this.state.counter === 40)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 41)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 42)       
+          ? this.questionwithbutton("Angriffs-Sequenz 9:","stellenden Spieler")
+
+          : (this.state.counter === 43)
+          ?
+          (this.startTimer(15), this.showVideo(10))
+          : (this.state.counter === 44)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 45)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 46)
+          ?         
+          <div>
+                    <div className=" question-title-container  bg-primary-survey col-xs-12 ">
+                      <div className=" question-text ">
+                          <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
+                      <p><span className="span_question">Sehr gut! Du hast die erste Hälfte der Befragung absolviert. Es werden im Folgenden keine Angriffs-Sequenzen mehr präsentiert, sondern ausschließlich Sequenzen aus der <strong>ABWEHR</strong>-Perspektive.</span></p>
+                      <p><span className="span_question">Bitte beachte, dass es <strong>KEINE</strong> Übungsdurchgänge geben wird.</span></p>
+                          </div>
+                      </div>
+                    </div>
+                    <div className="weiter">
+                      <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
+                    </div>
+          </div>
+          : (this.state.counter === 47)       
+          ? this.questionwithbutton("Abwehr-Sequenz 1:","Mittelblocker")
+          : (this.state.counter === 48)
+          ?
+          (this.startTimer(15), this.showVideo(11))
+          : (this.state.counter === 49)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 50)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 51)       
+          ? this.questionwithbutton("Abwehr-Sequenz 2:","Mittelblocker")
+          : (this.state.counter === 52)
+          ?
+          (this.startTimer(15), this.showVideo(12))
+          : (this.state.counter === 53)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 54)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 55)       
+          ? this.questionwithbutton("Abwehr-Sequenz 3:","Mittelblocker")
+
+          : (this.state.counter === 56)
+          ?
+          (this.startTimer(15), this.showVideo(13))
+          : (this.state.counter === 57)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 58)
+          ?
+          this.questionwithcheckbox()
+          : (this.state.counter === 59)       
+          ? this.questionwithbutton("Abwehr-Sequenz 4:","Mittelblocker")
+          : (this.state.counter === 60)
+          ?
+          (this.startTimer(15), this.showVideo(14))
+          : (this.state.counter === 61)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 62)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 63)       
+          ? this.questionwithbutton("Abwehr-Sequenz 5:","Mittelblocker")
+
+          : (this.state.counter === 64)
+          ?
+          (this.startTimer(15), this.showVideo(15))
+          : (this.state.counter === 65)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 66)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 67)       
+          ? this.questionwithbutton("Abwehr-Sequenz 6:","Mittelblocker")
+          : (this.state.counter === 68)
+          ?
+          (this.startTimer(15), this.showVideo(16))
+          : (this.state.counter === 69)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 70)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 71)       
+          ? this.questionwithbutton("Abwehr-Sequenz 7:","Mittelblocker")
+          : (this.state.counter === 72)
+          ?
+          (this.startTimer(15), this.showVideo(17))
+          : (this.state.counter === 72)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 73)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 74)       
+          ? this.questionwithbutton("Abwehr-Sequenz 8:","Mittelblocker")
+          : (this.state.counter === 75)
+          ?
+          (this.startTimer(15), this.showVideo(18))
+          : (this.state.counter === 76)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 77)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 78)       
+          ? this.questionwithbutton("Abwehr-Sequenz 9:","Mittelblocker")
+          : (this.state.counter === 79)
+          ?
+          (this.startTimer(15), this.showVideo(19))
+          : (this.state.counter === 80)
+          ? 
+          (this.startTimer(10), this.questionwithtimer())
+          : (this.state.counter === 81)
+          ? 
+          this.questionwithcheckbox()
+          : (this.state.counter === 82)
+          ? 
+          this.uploadSurvey()
+          : (this.state.counter === 83)
+          ? 
+          <div>Vielen Dank für die Teilnahme an dieser Studie!</div>
+          : alert("Ein Fehler ist aufgetreten")
         }
         </div>
       );

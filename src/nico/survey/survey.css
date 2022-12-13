@@ -48,7 +48,7 @@ h3 {
 }
 
 .progressWrapper .progress-bar{
-  animation: progress-bar 5s linear forwards;
+  animation: progressWrapper progress-bar 5s linear forwards;
 }
 
 
@@ -147,5 +147,8 @@ sup {
   font-size: 40px;
 }
 .questionwithtimer{
+  text-align: center;
+}
+.survey-video-container{
   text-align: center;
 }
