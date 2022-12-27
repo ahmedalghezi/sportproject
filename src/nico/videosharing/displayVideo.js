@@ -28,7 +28,7 @@ export default class DisplayVideo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {trainersList:[], videoList:[], currentVideos:[], currentPage: 0};
+        this.state = {trainersList:[], videoList:[], currentVideos:[], currentPage: 0, windowWidth: undefined};
         this.getTrainers = this.getTrainers.bind(this);
         this.getAll = this.getAll.bind(this);
         this.orderVideos = this.orderVideos.bind(this);
@@ -40,7 +40,12 @@ export default class DisplayVideo extends Component {
 
     componentDidMount() {
         this.getAll();
+        window.addEventListener('resize', this.handleResize);
+        this.setState({windowWidth: window.innerWidth});
     }
+    handleResize = () => this.setState({
+      windowWidth: window.innerWidth
+    });
 
     getTrainers(){
         HandelTrainer.getAllTrainers().then(response => {
@@ -91,18 +96,22 @@ export default class DisplayVideo extends Component {
     updateVideoPage(listofvids, curpage){
       var getvideos = listofvids.slice(curpage * vidperpage, curpage * vidperpage + vidperpage);
       var ordervid = [];
-      getvideos.forEach(element => {
-        if(!(getvideos.indexOf(element) % 2)){
-          ordervid.push(element);
-        }
-      });
-      getvideos.forEach(element => {
-        console.log(getvideos.indexOf(element));
-        if(getvideos.indexOf(element) % 2){
-          ordervid.push(element);
-        }
-      });
-      this.setState({currentVideos: ordervid});
+      if(this.state.windowWidth > 480){
+        getvideos.forEach(element => {
+          if(!(getvideos.indexOf(element) % 2)){
+            ordervid.push(element);
+          }
+        });
+        getvideos.forEach(element => {
+          console.log(getvideos.indexOf(element));
+          if(getvideos.indexOf(element) % 2){
+            ordervid.push(element);
+          }
+        });
+        this.setState({currentVideos: ordervid});
+      }else{
+        this.setState({currentVideos: getvideos});
+      }
     }
 
     orderVideos(event) {
@@ -121,11 +130,14 @@ export default class DisplayVideo extends Component {
       }
     }
     handleButtonClickRight(event) {
-      if(this.state.videoList.length /4 > this.state.currentPage + 1){
+      if(this.state.videoList.length /vidperpage > this.state.currentPage + 1){
         this.setState({currentPage: this.state.currentPage + 1});
         this.updateVideoPage(this.state.videoList, this.state.currentPage + 1);
       }
     }
+    resize = () => this.forceUpdate()
+
+
     render() {
         require("./uploadFile.css")
 
