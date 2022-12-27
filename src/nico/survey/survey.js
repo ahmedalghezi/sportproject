@@ -80,7 +80,7 @@ export default class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {testList: [], athlete:'', numberofquestions: 83, answeredquestions: 0, counter:0, seconds: 15, answers:[], audioList:[]};
+        this.state = {testList: [], athlete:'', numberofquestions: 83, answeredquestions: 0, counter:0, seconds: 15, answersList:[], audioList:[], currentVideoID: 1};
         this.getTests = this.getTests.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
@@ -131,8 +131,11 @@ export default class Survey extends Component {
         }));
         this.setState((prevState, props) => ({
             counter: prevState.counter + 1
-        })); 
-        this.setState({ answers: [...this.state.answers, ...[q1,q2]] });
+        }));
+        this.setState((prevState, props) => ({
+            currentVideoID: prevState.currentVideoID + 1
+        }));
+        this.setState({ answersList: [...this.state.answersList, ...{videoID: this.state.currentVideoID, answers: [q1,q2]}]});
       }
     }
     handleFirstButtonClick(event){
@@ -140,7 +143,7 @@ export default class Survey extends Component {
         counter: prevState.counter + 1
       })); 
     }
-    onVideoEnd(video){
+    onVideoEnd(){
         (async () => {
             var blob = await Audiostop()
             HandelCognition.uploadRecordFiles({file: blob}).then(response => {
@@ -154,7 +157,7 @@ export default class Survey extends Component {
                 }
                 if(response.data.res === "ok") {
                     this.setState(prevState => ({
-                        audioList: [...prevState.audioList, {videoID: video.videoID, recFileName: response.data.filename}]
+                        audioList: [...prevState.audioList, {videoID: this.state.currentVideoID, recFileName: response.data.filename}]
                       }))
                 }
     
@@ -173,7 +176,7 @@ export default class Survey extends Component {
           })
         return(
             <div className="survey-video-container">
-               <video controls="controls" onPlay={Audiostart} onEnded={this.onVideoEnd(obj)} autoPlay="autoplay" controlsList="nodownload" height="630" src={obj[0].url}> </video>
+               <video controls="controls" onPlay={Audiostart} onEnded={this.onVideoEnd} autoPlay="autoplay" controlsList="nodownload" height="630" src={obj[0].url}> </video>
             </div>
           );
     }
@@ -501,7 +504,7 @@ export default class Survey extends Component {
         );
     }
     uploadSurvey(){
-        HandelCognition.postTestRes(this.state.audioList).then(response => {
+        HandelCognition.postTestRes( {arr:this.state.audioList}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
