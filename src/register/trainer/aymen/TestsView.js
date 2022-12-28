@@ -8,6 +8,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
 import { germanDatePresentation } from '../../../utli/dataConversion';
+import PostCSVData from "../../../DB/postCSV";
 
 const defaultDates = {
   from:new Date(2020, 0, 1),
@@ -111,9 +112,13 @@ export default function TestsView(props) {
   const [allSpaces, setAllSpaces] = React.useState([]);
   const [colLabels, setColLabels] = React.useState([]);
   const [isFirstRender, setIsFirstRender] = React.useState(true);
+  const [selectedRowIndex, setSelectedRowIndex] = React.useState(null);
+  const [indexArr, setIndexArr] = React.useState([]);
+
 
   // event handlers
   const onApply = () => {
+    setJsonRecords([]);
     getTests(germanDatePresentation(fromDate), germanDatePresentation(toDate)).then(res => {
       let testsData = res['data']['arr'];
       setAllDisciplines(Array.from(new Set(testsData.map(el => el.discipline))));
@@ -127,6 +132,7 @@ export default function TestsView(props) {
       }
       setFilteredTests(testsData);
       setJsonRecords(testsData.map(t => t['json_record']));
+      setIndexArr(testsData.map(tt => tt['id']));
       setColLabels(getColLabelsFromData(testsData));
     });
   }
@@ -178,6 +184,27 @@ export default function TestsView(props) {
     download(csvContent, 'dowload.csv', 'text/csv;encoding:utf-8');
   }
 
+  const onDelete = () =>{
+    //ask before deletion
+    if(!selectedRowIndex || !jsonRecords)
+      return;
+    setSelectedRowIndex(null);
+    const id = indexArr[selectedRowIndex];
+    PostCSVData.deleteCSVRow({rowID:id}).then(response => {
+      if (response.data.res === "error")
+        alert("some error has happened. code dowcsv187");
+      if(response.data.res === "no")
+        window.location.href = window.location.origin+"/reg/sign-in?org=$csv$downloadCsv";
+      if(response.data.res === "ok"){
+        alert("Row moved to deletion bin..");
+        onApply();
+     }
+    }).catch(e => {
+      console.log(e);
+      alert("some error has happened..code dowcsv195");
+    });
+  }
+
   const onDatesChange = () => {
     const from = germanDatePresentation(fromDate).split('.').map(el => parseInt(el));
     const to = germanDatePresentation(toDate).split('.').map(el => parseInt(el));
@@ -221,6 +248,12 @@ export default function TestsView(props) {
   let testHeadCells = Array.from(new Set(colLabels));
   testHeadCells = testHeadCells.map(headCell => { return {'id': headCell, 'label': headCell, 'tableView': true}});
 
+
+  function onRowSelected(index){
+    setSelectedRowIndex(index);
+  }
+
+
   return (
     <>
     <div className="view-header">
@@ -259,16 +292,29 @@ export default function TestsView(props) {
                   </Button>)}
                   </div>
                   <div style={{width: '33%', display: 'inline-block'}}>
-                    
-                  {(<Button 
-                    variant="contained" 
+
+                  {(<Button
+                    variant="contained"
                     style={{marginTop: '12px', width: '120px'}}
                     onClick={onDownload}
                     disabled={filteredTests.length === 0}
                   >
                     Download
                   </Button>)}</div>
-            </div>      
+
+          <div style={{width: '33%', display: 'inline-block'}}>
+
+            {(<Button
+                variant="contained"
+                style={{marginTop: '12px', width: '220px'}}
+                onClick={onDelete}
+                disabled={selectedRowIndex===null}
+            >
+              Delete selected row
+            </Button>)}</div>
+            </div>
+
+
       </div>
     </div>
     <div className="view-content">
@@ -280,6 +326,7 @@ export default function TestsView(props) {
               hasChartRepresentation={false}
               dense={true}
               rowsPerPage={10}
+              onRowSelected={onRowSelected}
               />}
         
     </div>

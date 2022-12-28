@@ -8,7 +8,11 @@ export default class HandelCognition{
     /**
      *
      * @param data {id:testID}
-     * @returns res = {[{videoID:1,url:"http://.."}, {videoID:2,url:"http://.."}]}
+     * @returns res = [ {videoID:1, sportVideo:{ID:1,url:"http://.."}, questionVideo:{ID:2,url:"http://.."}}  ,
+     *                  {sportVideo:{ID:1,url:"http://.."}, questionVideo:{ID:2,url:"http://.."}} ,
+     *                  {sportVideo:{ID:1,url:"http://.."}, questionVideo:{ID:2,url:"http://.."}} ,
+     *                  ....
+     *                  ]
      */
     static getTests(data){
         return http.post("/lime/getCognitionTests", data);
@@ -29,7 +33,7 @@ export default class HandelCognition{
 
     /**
      *
-     * @param data {[{videoID:1, recFileName:"fileName1"} , {videoID:2, recFileName:"fileName2"}]}
+     * @param data {{videoID:1, recFileName:"fileName1"} , {videoID:2, recFileName:"fileName2"} ,  }
      * @returns {Promise<AxiosResponse<any>>}
      */
 

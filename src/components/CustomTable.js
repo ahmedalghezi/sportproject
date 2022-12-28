@@ -71,8 +71,8 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function CustomTable(props) {
-  const {rows, toggleChartView, headCells, title, statsSection, hasSpecialRow, dense, hasChartRepresentation} = props;
+export default function CustomTonRowSelectedable(props) {
+  const {rows, toggleChartView, headCells, title, statsSection, hasSpecialRow, dense, hasChartRepresentation, onRowSelected} = props;
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -93,8 +93,10 @@ export default function CustomTable(props) {
   const handleRowClick = index => {
     if(index === clickedRow) {
       setClickedRow(null);
+      onRowSelected(null);
     } else {
       setClickedRow(index);
+      onRowSelected(index);
     }
   }
 

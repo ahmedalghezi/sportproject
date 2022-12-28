@@ -41,6 +41,10 @@ export default class PostSignup {
         return http.get("/reg/isLoggedIn");
     }
 
+    static openReg(data){
+        return http.post("/reg/openRegis",data);
+    }
+
     static isTrainer(role) {
         return role === "trainer";
     }
@@ -115,6 +119,8 @@ export default class PostSignup {
     static uploadVideo(data){
         return axios.post("https://inprove-sport.info"+"/files/saveVideo", data);
     }
+
+
 
 
 }

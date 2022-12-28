@@ -8,6 +8,12 @@ import Main from './register/Main';
 import { BrowserRouter } from "react-router-dom";
 
 
+if (process.env.NODE_ENV === 'production') {
+    console.log = () => {}
+    console.error = () => {}
+    console.debug = () => {}
+}
+
 
 
 ReactDOM.render(

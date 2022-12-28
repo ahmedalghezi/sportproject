@@ -19,6 +19,8 @@ import './tableStyle.css';
 //import '../register/style.css';
 
 
+
+
 export default function AthletesGrid(props) {
 
 
@@ -33,6 +35,8 @@ export default function AthletesGrid(props) {
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
     const [key, setKey] = useState("");
+
+    const[isOnlyCoach,setOnlyCoach] = useState(false);
 
 
 
@@ -64,13 +68,14 @@ export default function AthletesGrid(props) {
     }
 
 
-    function createRow(ID){
+    function createRow(ID,name){
         const obj = [];
         obj[0]= ID;
-        obj[1]= "Upload report";
-        obj[2] = "Upload consent";
-        obj[3] = "Show profile";
-        obj[4] = "Show consent";
+        obj[1]= name;
+        obj[2]= "Upload report";
+        obj[3] = "Upload consent";
+        obj[4] = "Show profile";
+        obj[5] = "Show consent";
         return obj;
     }
 
@@ -92,7 +97,9 @@ export default function AthletesGrid(props) {
     function processStudyArr(arr) {
         const actionArr = [];
         for (let i = 0; i < arr.length; i++) {
-            const row = createRow(arr[i].ID);
+            let name = "-";
+            arr[i].name? name = arr[i].name: name ="-";
+            const row = createRow(arr[i].ID,name);
             actionArr.push(row);
         }
         let header = [];
@@ -129,7 +136,7 @@ export default function AthletesGrid(props) {
 
 
     const getAthlete = (event) => {
-        PostSignup.getAthletesID({"discipline": discipline, "key": key}).then(response => {
+        PostSignup.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
             console.log(response.data);
             if (response.data.res === "no") {
                 showError("Not authorize to access the data");
@@ -176,6 +183,11 @@ export default function AthletesGrid(props) {
     }
 
 
+    const changeCoach = (event) => {
+        event.preventDefault();
+        const value = event.target.checked;
+        setOnlyCoach(value);
+    }
 
     return (
         <div>
@@ -197,6 +209,7 @@ export default function AthletesGrid(props) {
                     <input type="text" className="form-control" name="key" placeholder="key" onChange={handleKey}/>
                 </div>
 
+
                 <button
                     className="btn btn-primary btn-block paddingBtn"
                     onClick={(e) => {
@@ -208,6 +221,9 @@ export default function AthletesGrid(props) {
                 >
                     Show
                 </button>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="coaches" name="coaches" value="no_coaches"  onChange={changeCoach}/>
+                <label htmlFor="coaches"> only coaches </label>
 
 
                 <Alert severity="success" hidden={!success}>{successMsg}</Alert>

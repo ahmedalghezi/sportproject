@@ -33,7 +33,6 @@ export default class ShareVideo extends Component {
     constructor(props) {
         super(props);
         this.state = {selectedFile:'', title:'',serverFileName:''};
-        this.handleUpload = this.handleUpload.bind(this);
     }
  
     onFileChange = (event) => {
@@ -75,7 +74,7 @@ export default class ShareVideo extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if(!this.state.selectedFile == '')
+        if(this.state.selectedFile === '')
             return;
         const data = new FormData();
         data.append('file', this.state.selectedFile);

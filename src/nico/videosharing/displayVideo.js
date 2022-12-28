@@ -76,7 +76,7 @@ export default class DisplayVideo extends Component {
                 this.setState({videoList: arr});
                 return;
             }
-            if(response.data.res === "error"){
+            if(response.data.res === "no"){
                 alert("Bitte erst anmelden.");
                 return;
             }
