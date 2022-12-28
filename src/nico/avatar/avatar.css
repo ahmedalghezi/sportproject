@@ -110,6 +110,9 @@ h3 {
   padding: 0.8rem;
   margin: 10px;
   background-color:rgb(235, 235, 235);
+  column-gap: 300px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
 }
 .avatargallery .video {
   -webkit-transition: all 350ms ease;
@@ -123,9 +126,9 @@ h3 {
 
 @media screen {
   .avatargallery {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
   }
 }
 /*
@@ -153,7 +156,7 @@ h3 {
     padding: 10px 10px 10px 10px;
   }
   .avatar-icon{
-    display: none;
+    display: none !important;
   }
   .avatar-inner{
     display: none;
@@ -204,6 +207,7 @@ h3 {
 }
 .avatar-all-content{
   padding-left: 10px;
+  break-inside: avoid;
 }
 
 .avatar-icon{
@@ -212,6 +216,7 @@ h3 {
   align-items: center;
   padding-top: 230px;
   padding-bottom: 230px;
+  height: 100%;
 }
 
 #circle {
@@ -234,3 +239,4 @@ h3 {
   position: relative; 
   height: auto;
 }
+

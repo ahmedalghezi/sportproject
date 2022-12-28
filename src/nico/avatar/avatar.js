@@ -17,7 +17,6 @@ const testdata = [
   { id: 2,title: "Mikrobiom", text: "text text text", parameter: [{id: 3,title: "", value: 0.5}]},
   { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
   { id: 4,title: "Soziologie", text: "text text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
-  { id: 5,title: 'Icon'},
   { id: 6,title: "Motorik", text: "text text text", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
   { id: 7,title: "Motorik", text: "text text text", parameter: [{id: 8,title: "", value: 0.1}]},
   { id: 8,title: "Kognition", text: "text text text", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
@@ -81,22 +80,26 @@ export default class Avatar extends Component {
                         <line x1="400" y1="310" x2="300" y2="236" stroke="black"/>
                         <line x1="400" y1="330" x2="300" y2="389" stroke="black"/>
                         <line x1="400" y1="330" x2="320" y2="542" stroke="black"/>
-                        <line x1="450" y1="310" x2="517" y2="83" stroke="black"/>
-                        <line x1="450" y1="310" x2="537" y2="236" stroke="black"/>
-                        <line x1="450" y1="330" x2="537" y2="389" stroke="black"/>
-                        <line x1="450" y1="330" x2="517" y2="542" stroke="black"/>
+                        <line x1="430" y1="310" x2="517" y2="83" stroke="black"/>
+                        <line x1="430" y1="310" x2="537" y2="236" stroke="black"/>
+                        <line x1="430" y1="330" x2="537" y2="389" stroke="black"/>
+                        <line x1="430" y1="330" x2="517" y2="542" stroke="black"/>
+                        <circle cx="415 " cy="305" r="82" stroke="black" fill="none"/>
+                        <circle cx="415 " cy="305" r="75" stroke="#DAD2D2" fill="#DAD2D2"/>
+                        <circle cx="480 " cy="359" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="349" cy="359" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="490 " cy="267" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="340" cy="265" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="459 " cy="233" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="371" cy="233" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="452 " cy="381" r="10" stroke="gray" fill="gray"/>
+                        <circle cx="379" cy="383" r="10" stroke="gray" fill="gray"/>
+                        <image x="360" y="245" width="120" height="120" href={runner}></image>
                       </svg>
                     </div>
                   </div>
             {this.state.avatarlist.map((item, index) => {
               return (
-                (index === 4)
-                ?
-                <div className="avatar-icon">
-
-                <div id="circle"></div>
-                </div>
-                :
                 <div className="avatar-all-content">
                 <div className="avatar-content-section">
                     <h1 id="avatar-title">{item.title}</h1>
