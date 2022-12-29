@@ -7,7 +7,7 @@ by Vanessa Meyer
 //Note: click 'Show Data' after feature selection to see param-structure in console. 
 
 import React from "react";
-import CustomTable from "../../components/CustomTable";
+import CustomTable from "../../utli/components/CustomTable";
 import postCSV from "../../DB/postCSV";
 import PostSignup from "../../DB/postSignup";
 

@@ -5,8 +5,8 @@ By Ahmed Al-Ghezi
 import React, {Component} from "react";
 //import './trainerStyle.css';
 
-import '../style.css';
-import HandelTrainer from "../../DB/handelTrainer";
+import '../register/style.css';
+import HandelTrainer from "../DB/handelTrainer";
 
 export default class Sheet extends Component {
 
@@ -387,7 +387,7 @@ export default class Sheet extends Component {
                             <td><button hidden={this.state.expanded}  onClick={this.handleCollapseEvent}>{this.state.collapseIcon}</button></td>
                             <td>
                                 <div className="vertical-menu mid">
-                                    <div><a href="#" className="active">Athlet*innen</a></div>
+                                    <div><a href="src/trainer#" className="active">Athlet*innen</a></div>
                                     {this.state.athletesArr.map((option) => (
                                         !this.state.evaluatedArr[option.ID+""+this.state.tests]
                                             ? (<a name={option.ID} key={option.ID}
@@ -405,7 +405,7 @@ export default class Sheet extends Component {
                             <td></td>
                             <td>
                                 <div className="vertical-menu">
-                                    <a href="#" className="active">Trainings</a>
+                                    <a href="src/trainer#" className="active">Trainings</a>
                                     {this.state.testsArr.map((option) => (
                                         <a name={option.id} key={option.id}
                                            onClick={this.handleTestListClick}>{option.title}</a>

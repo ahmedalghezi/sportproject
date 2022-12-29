@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React from 'react';
-import { reformatDate } from '../../../utli/dataConversion';
+import { reformatDate } from '../../utli/dataConversion';
 
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
 

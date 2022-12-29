@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Plot from 'react-plotly.js';
-import { reformatDate } from '../utli/dataConversion.js';
+import { reformatDate } from '../dataConversion.js';
 import './customChart.css'
 import { IconButton, Tooltip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';

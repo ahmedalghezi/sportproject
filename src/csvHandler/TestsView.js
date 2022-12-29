@@ -1,5 +1,5 @@
 import React from 'react'
-import CustomTable from '../../../components/CustomTable';
+import CustomTable from '../utli/components/CustomTable';
 import axios from "axios";
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Stack from '@mui/material/Stack';
@@ -7,8 +7,8 @@ import TextField from '@mui/material/TextField';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers';
-import { germanDatePresentation } from '../../../utli/dataConversion';
-import PostCSVData from "../../../DB/postCSV";
+import { germanDatePresentation } from '../utli/dataConversion';
+import PostCSVData from "../DB/postCSV";
 
 const defaultDates = {
   from:new Date(2020, 0, 1),

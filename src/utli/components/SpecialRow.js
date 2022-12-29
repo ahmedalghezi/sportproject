@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import './specialRow.css';
 import { IconButton, Tooltip } from '@mui/material';
-import { reformatDate, reformatKey } from '../utli/dataConversion.js';
+import { reformatDate, reformatKey } from '../dataConversion.js';
 
 const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);

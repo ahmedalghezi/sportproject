@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Main from './register/Main';
+import Main from './Main';
 //import reportWebVitals from './reportWebVitals';
 
 
@@ -9,9 +9,9 @@ import { BrowserRouter } from "react-router-dom";
 
 
 if (process.env.NODE_ENV === 'production') {
-    console.log = () => {}
-    console.error = () => {}
-    console.debug = () => {}
+    //console.log = () => {}
+    //console.error = () => {}
+    //console.debug = () => {}
 }
 
 

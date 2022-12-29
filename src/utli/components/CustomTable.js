@@ -17,7 +17,7 @@ import Tooltip from '@mui/material/Tooltip';
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import { visuallyHidden } from '@mui/utils';
 import SpecialRow from './SpecialRow';
-import { getComparator, reformatDate, stableSort } from '../utli/dataConversion.js';
+import { getComparator, reformatDate, stableSort } from '../dataConversion.js';
 import './customTable.css';
 
 const chartIcon = (clickHandle) => {

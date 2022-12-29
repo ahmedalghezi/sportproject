@@ -28,7 +28,7 @@ export default class DisplayVideo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {trainersList:[], videoList:[], currentVideos:[], currentPage: 0, windowWidth: undefined};
+        this.state = {trainersList:[], videoList:[], currentVideos:[], currentPage: 0, windowWidth: undefined,sortByTitle:false};
         this.getTrainers = this.getTrainers.bind(this);
         this.getAll = this.getAll.bind(this);
         this.orderVideos = this.orderVideos.bind(this);
@@ -84,6 +84,7 @@ export default class DisplayVideo extends Component {
                 this.setState({videoList: response.data.videoList});
                 this.updateVideoPage(response.data.videoList, this.state.currentPage);
             }
+            this.orderVideos();
 
         }).catch(e => {
             this.setState({videoList: testdata});
@@ -115,7 +116,12 @@ export default class DisplayVideo extends Component {
     }
 
     orderVideos(event) {
-      if(event.target.value === "Titel"){
+        let sortByTitle = this.state.sortByTitle;
+        if(event){
+            sortByTitle = event.target.value ===  "Titel"
+            this.setState({sortByTitle:sortByTitle})
+        }
+      if(sortByTitle){
         var list = this.state.videoList.sort((a, b) => (a.title > b.title) ? 1 : -1);
         this.updateVideoPage(list,this.state.currentPage);
       }else{
@@ -147,8 +153,8 @@ export default class DisplayVideo extends Component {
           <div>
             <label>Liste sortieren nach: </label>
             <select onChange={this.orderVideos}>
+                <option>Datum</option>
               <option>Titel</option>
-              <option>Datum</option>
             </select>
           </div>
           

@@ -5,10 +5,10 @@ By Ahmed Al-Ghezi
 import React, {Component} from "react";
 //import './trainerStyle.css';
 
-import '../style.css';
-import HandelTrainer from "../../DB/handelTrainer";
+import '../register/style.css';
+import HandelTrainer from "../DB/handelTrainer";
 import {useNavigate} from 'react-router-dom';
-import PostSignup from "../../DB/postSignup";
+import PostSignup from "../DB/postSignup";
 
 class AddToMyTestsC extends Component {
 
@@ -232,7 +232,7 @@ class AddToMyTestsC extends Component {
                         <tr>
                             <td>
                                 <div className="vertical-menu midH">
-                                    <a href="#" className="active">Alle Trainingstypen</a>
+                                    <a href="src/trainer#" className="active">Alle Trainingstypen</a>
                                     {this.state.allTestsArr.map((option) => (
                                         <a name={option.title} key={option.id}
                                            onClick={this.handleAllTestListClick}>{option.title}</a>
@@ -248,7 +248,7 @@ class AddToMyTestsC extends Component {
                                 <button onClick={this.handleRemove}> {"<<"} </button></td>
                             <td>
                                 <div className="vertical-menu midH">
-                                    <a href="#" className="active">Meine Trainings</a>
+                                    <a href="src/trainer#" className="active">Meine Trainings</a>
                                     {this.state.myTestsArr.map((option) => (
                                         <a name={option.title} key={option.id}
                                            onClick={this.handleMyTestListClick}>{option.title}</a>

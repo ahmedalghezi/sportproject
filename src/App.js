@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Main from './register/Main';
+import Main from './Main';
 //import LoginBox from './register/LoginBox';
 //import RegisterBox from './register/RegisterBox';
 
