@@ -25,6 +25,19 @@ const testdata = [
       
     }];
 
+    //progress bar
+    const options = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          let percent = Math.floor((loaded * 100) / total);
+          console.log(loaded + "bytes of " + total + " bytes | " + percent + "%");
+          if (percent < 100) {
+            this.setState({ progress: percent });
+          } else {
+            this.setState({viewprogress: false, progress: 0})
+          }
+        },
+      };
 
 
 
@@ -32,8 +45,7 @@ export default class ShareVideo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {selectedFile:'', title:'',serverFileName:''};
-        this.handleUpload = this.handleUpload.bind(this);
+        this.state = {selectedFile:'', title:'',serverFileName:'', viewprogress: false, progress: 0};
     }
  
     onFileChange = (event) => {
@@ -73,14 +85,15 @@ export default class ShareVideo extends Component {
     }
 
 
+
     handleSubmit = (event) => {
         event.preventDefault();
         if(!this.state.selectedFile == '')
             return;
+        this.setState({viewprogress: true})
         const data = new FormData();
         data.append('file', this.state.selectedFile);
-
-        PostSignup.uploadVideo(data).then(response => {
+        PostSignup.uploadVideo(data,options).then(response => {
             console.log(response.data.res);
             if (response.data.res === "error")
                 alert("Es ist ein Fehler aufgetreten.");
@@ -98,6 +111,7 @@ export default class ShareVideo extends Component {
 
 
     render() {
+          require("./shareVideo.css")
         return (
             <form>
                 <h3>Video teilen</h3>
@@ -129,6 +143,21 @@ export default class ShareVideo extends Component {
         <br/>
 
                 <button onClick={this.handleSubmit} className="btn btn-primary btn-block">Video hochladen</button>
+
+                {
+                (this.state.viewprogress)
+                ?
+                <div className="shareVideobar">
+                    <div className="progress">
+                            <div className="progress-bar" role="progressbar" style= {{...{width: this.state.progress +"%", "--to-width": this.state.progress + "%"}}} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                :
+                <div>
+
+                </div>
+                }
+
             </form>
         );
     }

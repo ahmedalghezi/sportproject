@@ -112,8 +112,8 @@ export default class PostSignup {
     }
 
 
-    static uploadVideo(data){
-        return axios.post("https://inprove-sport.info"+"/files/saveVideo", data);
+    static uploadVideo(data, options){
+        return axios.post("https://inprove-sport.info"+"/files/saveVideo", data, options);
     }
 
 
