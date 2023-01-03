@@ -65,6 +65,9 @@ class UploadFileC extends Component {
             if(response.data.res === "ok"){
                 alert("File uploaded successfully");
             }
+            if(response.data.res == "wrong email"){
+                alert("Error, server could not send notification email..Is the athlete email correct?");
+            }
         }).catch(e => {
             console.log(e);
             alert("some error has happened...code 70");

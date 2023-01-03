@@ -59,7 +59,6 @@ export default class CreateGroup extends Component {
         this.getTrainers = this.getTrainers.bind(this);
         this.getGroups = this.getGroups.bind(this);
         this.newGroup = this.newGroup.bind(this);
-        this.handleUpload = this.handleUpload.bind(this);
         //this.updateTrainersList = this.updateTrainersList.bind(this);
         this.handleGroupClick = this.handleGroupClick.bind(this);
         this.changeTitle = this.changeTitle.bind(this);
@@ -82,18 +81,18 @@ export default class CreateGroup extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({groupList: response.data.groupList});
+                this.setState({groupList: response.data.data});
             }
 
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten! (code:crGr90)");
         });
     }
 
     getTrainers(){
-        this.setState({trainersList: testdata});
-        this.setState({groupList: testgroup});
+        //this.setState({trainersList: testdata});
+        //this.setState({groupList: testgroup});
         HandelTrainer.getAllTrainers().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -110,7 +109,7 @@ export default class CreateGroup extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten! (code:crGr113)");
         });
     }
 
@@ -145,7 +144,7 @@ export default class CreateGroup extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten! code:crGr148");
         });
     }
     removeGroup(event){
@@ -172,11 +171,11 @@ export default class CreateGroup extends Component {
 
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten! (code:crGr175)");
         });
     }
     changeTitle(event){
-        this.setState({textField: event.target.value});
+        this.setState({groupName: event.target.value});
     }
     /*
     updateTrainersList(selecttrain, train){
@@ -211,25 +210,11 @@ export default class CreateGroup extends Component {
 
     handleGroupClick(event) {
         event.preventDefault();
-        this.setState({selectedTrainerList: testdata2});
-        HandelTrainer.getGroupMembers({ID: event.target.id}).then(response => {
-            if(response.data.res === "error") {
-                const arr = ["connection error"];
-                return;
-            }
-            if(response.data.res === "no"){
-                alert("Bitte erst anmelden.");
-                return;
-            }
-            if(response.data.res === "ok") {
-                this.setState({selectedTrainerList: response.data.selectedtrainerlist});
-            }
-
-        }).catch(e => {
-            console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
-        });
+        this.setState({selectedGroup:event.target.value});
+        //this.setState({selectedTrainerList: testdata2});
+        this.getGroupMembers(event.target.value);
     }
+
     handleAdd = (event) => {
         event.preventDefault();
         HandelTrainer.addToGroup({groupID: this.state.selectedGroup,trainerID: this.state.selectedTrainer}).then(response => {
@@ -241,29 +226,41 @@ export default class CreateGroup extends Component {
                 alert("Bitte erst anmelden.");
                 return;
             }
+            if(response.data.res === "duplicate"){
+                alert("coach already exists");
+                return;
+            }
             if(response.data.res === "ok") {
-                HandelTrainer.getGroupMembers({ID: this.state.selectedGroup}).then(response => {
-                    if(response.data.res === "error") {
-                        const arr = ["connection error"];
-                        return;
-                    }
-                    if(response.data.res === "no"){
-                        alert("Bitte erst anmelden.");
-                        return;
-                    }
-                    if(response.data.res === "ok") {
-                        this.setState({selectedTrainerList: response.data.selectedtrainerlist});
-                    }
-        
-                }).catch(e => {
-                    console.log(e);
-                    alert("Es ist ein Fehler aufgetreten!");
-                });
+               this.getGroupMembers();
             }
 
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten! (code:crGr266)");
+        });
+    }
+
+    getGroupMembers = (groupID) => {
+        if(!groupID)
+            groupID = this.state.selectedGroup;
+        if(groupID === "")
+            return;
+        HandelTrainer.getGroupMembers({ID: groupID}).then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.setState({selectedTrainerList: response.data.data});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten! (code:crGr260)");
         });
     }
 
@@ -279,43 +276,20 @@ export default class CreateGroup extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                HandelTrainer.getGroupMembers({ID: this.state.selectedGroup}).then(response => {
-                    if(response.data.res === "error") {
-                        const arr = ["connection error"];
-                        return;
-                    }
-                    if(response.data.res === "no"){
-                        alert("Bitte erst anmelden.");
-                        return;
-                    }
-                    if(response.data.res === "ok") {
-                        this.setState({selectedTrainerList: response.data.selectedtrainerlist});
-                    }
-        
-                }).catch(e => {
-                    console.log(e);
-                    alert("Es ist ein Fehler aufgetreten!");
-                });
+                this.getGroupMembers();
             }
 
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            alert("Es ist ein Fehler aufgetreten! (code:crGr303)");
         });
     }
 
 
-    handleUpload(event){
-        event.preventDefault();
-        if(this.state.selectedGroup === ''){
-            alert("Bitte Gruppe auswählen.");
-            return;
-        }
-    }
 
     render() {
         return (
-            <form onSubmit={this.handleUpload}>
+            <form>
                 <h3>Gruppe erstellen</h3>
                 <div>
                 <label className="select-file">
@@ -404,6 +378,7 @@ export default class CreateGroup extends Component {
                 type="button"
                 value="Ausgewählte Gruppe löschen"
                 onClick={this.removeGroup}
+                disabled={true}
                  />
                  </label>
 
@@ -412,9 +387,7 @@ export default class CreateGroup extends Component {
                 <div className="form-group">
 
           </div>
-        
-        
-                <button type="submit" className="btn btn-primary btn-block">Trainer*innen zur Gruppe hinzufügen</button>
+
             </form>
         );
     }

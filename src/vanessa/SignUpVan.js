@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 //import {Navigation} from 'react-router';
-import "./style.css";
+import "../register/style.css";
 import PostSignup from "../DB/postSignup";
 import { useNavigate } from "react-router-dom";
 
-import PersonalInfo from "./personalInfo";
-import ApproveTests_todelete from "./approveTests_todelete";
+import PersonalInfo from "../register/personalInfo";
+import ApproveTests_todelete from "../register/approveTests_todelete";
 
 class FormParent extends Component {
   constructor(props) {

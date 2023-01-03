@@ -3,8 +3,8 @@ By Ahmed Al-Ghezi
  */
 
 import React, {Component} from "react";
-import HandelTrainer from "../../DB/handelTrainer";
-import PostSignup from "../../DB/postSignup";
+import HandelTrainer from "../DB/handelTrainer";
+import PostSignup from "../DB/postSignup";
 
 export default class CreateTest extends Component {
 

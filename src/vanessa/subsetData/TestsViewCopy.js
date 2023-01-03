@@ -3,8 +3,11 @@ Copy of register/trainer/aymen/TestsView.js with additional subset functionaliti
 by Vanessa Meyer
 */
 
+//TODO: getFeaturesData(param) to show subset data in table 
+//Note: click 'Show Data' after feature selection to see param-structure in console. 
+
 import React from "react";
-import CustomTable from "../../components/CustomTable";
+import CustomTable from "../../utli/components/CustomTable";
 import postCSV from "../../DB/postCSV";
 import PostSignup from "../../DB/postSignup";
 
@@ -159,6 +162,8 @@ export default function TestsViewCopy(props) {
   const [isFirstRender, setIsFirstRender] = React.useState(true);
   const [selecFeatsBySpace, setSelecFeatsBySpace] = React.useState([]);
 
+  const [isShowDataClicked, setIsShowDataClicked] = React.useState(false);
+
   //transferlist
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState([]);
@@ -276,13 +281,15 @@ export default function TestsViewCopy(props) {
       let testdata = data.filter((el) => el["space"] === space);
 
       testdata[0].features.forEach((item) => {
-        featureNames.push(`${item.ID} - ${item.name}`);
+        if (right.indexOf(`${item.ID} - ${item.name}`) === -1) {
+          featureNames.push(`${item.ID} - ${item.name}`);
+        }
       });
       setLeft(featureNames);
     } else {
       alert("Select discipline or space.");
     }
-
+ //#### backend ####
     /*
     postCSV
       .getFeatures(discipline, space)
@@ -317,15 +324,9 @@ export default function TestsViewCopy(props) {
       });*/
   };
 
-  const groupBy = (arr, key) => {
-    return arr.reduce((res, currVal) => {
-      (res[currVal[key]] = res[currVal[key]] || []).push(currVal);
-      return res;
-    }, {});
-  };
-
   //show data of selected features (right list of transferlist) to use for subset table
   const showData = () => {
+    setIsShowDataClicked(true);
     // with testdata
     try {
       if (right.length === 0) {
@@ -333,12 +334,29 @@ export default function TestsViewCopy(props) {
       } else {
         for (let i = 0; i <= data.length; i++) {
           data[i].features.forEach((item) => {
-            if (right.indexOf(`${item.ID} - ${item.name}`) !== -1) {
+            if (
+              right.indexOf(`${item.ID} - ${item.name}`) !== -1 &&
+              selecFeatsBySpace.indexOf(
+                {
+                  space: data[i].space,
+                  features: [
+                    {
+                      ID: item.ID,
+                      name: item.name,
+                    },
+                  ],
+                } === -1
+              )
+            ) {
               setSelecFeatsBySpace(
                 selecFeatsBySpace.push({
                   space: data[i].space,
-                  ID: item.ID,
-                  name: item.name,
+                  features: [
+                    {
+                      ID: item.ID,
+                      name: item.name,
+                    },
+                  ],
                 })
               );
             }
@@ -346,9 +364,29 @@ export default function TestsViewCopy(props) {
         }
       }
     } catch {
-      alert("Please reset first before creating new subset.");
+      if (isShowDataClicked) {
+        alert("Please reset first before creating new subset.");
+      }
     }
 
+    //  param for getFeaturesData
+    try {
+      const out = selecFeatsBySpace.reduce((a, v) => {
+        if (a[v.space]) {
+          a[v.space].features.push(...v.features);
+        } else {
+          a[v.space] = v;
+        }
+        return a;
+      }, {});
+
+      const objArray = Object.values(out);
+      console.log("param for getFeaturesData = ", objArray);
+    } catch {
+      
+    }
+
+    // ##### Backend #####
     /*
     postCSV
     .getFeatures(discipline, space)
@@ -361,28 +399,62 @@ export default function TestsViewCopy(props) {
       }
       if (response.data.res === "ok") {
         let data = response["data"]["arr"];
-       try {
+         try {
       if (right.length === 0) {
         alert("No features selected.");
       } else {
-        for (let i = 0; i <= data.length; i++){
-             data[i].features.forEach((item) => {
-          if (right.indexOf(`${item.ID} - ${item.name}`) !== -1) {
-            setSelecFeatsBySpace(
-              selecFeatsBySpace.push({
-                space: data[i].space,
-                ID: item.ID,
-                name: item.name,
-              })
-            );
-          }
-        });
+        for (let i = 0; i <= data.length; i++) {
+          data[i].features.forEach((item) => {
+            if (
+              right.indexOf(`${item.ID} - ${item.name}`) !== -1 &&
+              selecFeatsBySpace.indexOf(
+                {
+                  space: data[i].space,
+                  features: [
+                    {
+                      ID: item.ID,
+                      name: item.name,
+                    },
+                  ],
+                } === -1
+              )
+            ) {
+              setSelecFeatsBySpace(
+                selecFeatsBySpace.push({
+                  space: data[i].space,
+                  features: [
+                    {
+                      ID: item.ID,
+                      name: item.name,
+                    },
+                  ],
+                })
+              );
+            }
+          });
         }
-     
-
       }
     } catch {
-      alert("Please reset first before creating new subset.");
+      if (isShowDataClicked) {
+        alert("Please reset first before creating new subset.");
+      }
+    }
+
+    //  param for getFeaturesData
+    try {
+      const out = selecFeatsBySpace.reduce((a, v) => {
+        if (a[v.space]) {
+          a[v.space].features.push(...v.features);
+        } else {
+          a[v.space] = v;
+        }
+        return a;
+      }, {});
+
+      const objArray = Object.values(out);
+      console.log("param for getFeaturesData = ", objArray);
+    } catch {
+      
     }
     
   } 
@@ -393,11 +465,12 @@ export default function TestsViewCopy(props) {
       alert("Es ist ein Fehler aufgetreten.");
     });*/
 
-    const groups = groupBy(selecFeatsBySpace, "space");
-    console.log(groups);
+    //#############################################################
+
+
     /*
      postCSV
-      .getFeaturesData(groups)
+      .getFeaturesData(objArray)
       .then((response) => {
         if (response.data.res === "error") {
           alert("Es ist ein Fehler aufgetreten.");
@@ -419,7 +492,6 @@ export default function TestsViewCopy(props) {
   };
 
   const onReset = () => {
-    //if (discipline || space) {
     setDiscipline(false);
     setSpace(false);
     setFromDate(defaultDates["from"]);
@@ -428,26 +500,7 @@ export default function TestsViewCopy(props) {
     setLeft([]);
     setRight([]);
     setSubset([]);
-    postCSV
-      .getFeatures(discipline, space)
-      .then((response) => {
-        if (response.data.res === "error") {
-          alert("Es ist ein Fehler aufgetreten.");
-        }
-        if (response.data.res === "no") {
-          alert("Bitte wähle eine Disziplin und Space.");
-        }
-        if (response.data.res === "ok") {
-          //let featureNames = response["data"]["arr"];
-          getDisciplines();
-          getSpaces();
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        alert("Es ist ein Fehler aufgetreten.");
-      });
-    //}
+    setIsShowDataClicked(false);
   };
 
   const onDownload = () => {

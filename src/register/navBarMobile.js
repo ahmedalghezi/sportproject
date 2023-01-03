@@ -88,11 +88,15 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
-                  <li className="nav-item" hidden={this.state.showSignIn}>
-                    <Link className="nav-link" to={"/reg/sign-out"}>
-                      Ausloggen
+
+                  <li className="nav-item" hidden={this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/user/profile"}>
+                      Mein Profil
                     </Link>
                   </li>
+
+
+
 
                   <li className="nav-item" hidden={!this.state.showSignUp}>
                     <Link className="nav-link" to={"/reg/sign-up"}>
@@ -226,6 +230,11 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
+                  <li className="nav-item" hidden={this.state.showSignIn}>
+                    <Link className="nav-link" to={"/reg/sign-out"}>
+                      Ausloggen
+                    </Link>
+                  </li>
 
                 </ul>
 

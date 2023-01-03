@@ -16,8 +16,6 @@ export default class PostCSVData {
     static componentDidMount() {
         // Simple POST request with a JSON body using axios
         const article = { title: 'React POST Request Example' };
-        axios.post('http://localhost:8080/api/tutorials/csv/dump_performance', article)
-            .then(response => this.setState({ articleId: response.data.id }));
     }
 
 
@@ -58,7 +56,7 @@ export default class PostCSVData {
     /**
      *
      * @param data= {}
-     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:[space:"space1":features:[{ID:"id1",name:"feat1"},{ID:"id2",name:"feat2"}...] , ...]}
+     * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data:[{space:"space1":features:[{ID:"id1",name:"feat1"},{ID:"id2",name:"feat2"}...]} , ...]}
      */
     static getFeatures(data){
         return http.post("/csv/getFeatures", data);
@@ -66,10 +64,14 @@ export default class PostCSVData {
 
     /**
      *
-     * @param data =[space1:"selected_space",features:[{ID:"slec_id1"},{ID:"selec_id2"}...]} , .....]
+     * @param data =[{space:"selected_space",features:[{ID:"slec_id1"},{ID:"selec_id2"}...]}} , .....]
      * @returns {Promise<AxiosResponse<any>>} {res:"ok,no,error",data: similar to download data from Ayman}
      */
     static getFeaturesData(data){
         return http.post("/csv/getFeaturesData", data);
+    }
+
+    static deleteCSVRow(data) {
+        return http.post("/csv/deleteSelectedRow", data);
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react'
-import CustomChart from '../../components/CustomChart';
-import CustomTable from '../../components/CustomTable';
-import FilterFunction from '../../components/FilterFunction';
+import CustomChart from '../../utli/components/CustomChart';
+import CustomTable from '../../utli/components/CustomTable';
+import FilterFunction from '../../utli/components/FilterFunction';
 import { evaluationsHeadCells } from '../../temp-data/evaluations';
 import { evaluationsLocal } from '../../temp-data/evaluations';
 import axios from "axios";

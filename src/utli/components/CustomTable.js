@@ -17,7 +17,7 @@ import Tooltip from '@mui/material/Tooltip';
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart';
 import { visuallyHidden } from '@mui/utils';
 import SpecialRow from './SpecialRow';
-import { getComparator, reformatDate, stableSort } from '../utli/dataConversion.js';
+import { getComparator, reformatDate, stableSort } from '../dataConversion.js';
 import './customTable.css';
 
 const chartIcon = (clickHandle) => {
@@ -71,8 +71,8 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function CustomTable(props) {
-  const {rows, toggleChartView, headCells, title, statsSection, hasSpecialRow, dense, hasChartRepresentation} = props;
+export default function CustomTonRowSelectedable(props) {
+  const {rows, toggleChartView, headCells, title, statsSection, hasSpecialRow, dense, hasChartRepresentation, onRowSelected} = props;
 
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name');
@@ -93,8 +93,10 @@ export default function CustomTable(props) {
   const handleRowClick = index => {
     if(index === clickedRow) {
       setClickedRow(null);
+      onRowSelected(null);
     } else {
       setClickedRow(index);
+      onRowSelected(index);
     }
   }
 

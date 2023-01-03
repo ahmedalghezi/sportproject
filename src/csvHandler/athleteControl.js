@@ -145,6 +145,7 @@ function AthleteControl(props) {
             <p>.....</p>
         </div>
 
+
         <div hidden={!showUploadReport}>
             <AdminUploadFile ID ={athleteID} onUpload={hideAll}/>
         </div>

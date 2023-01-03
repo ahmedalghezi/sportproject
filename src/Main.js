@@ -3,53 +3,52 @@ By Ahmed Al-Ghezi
  */
 
 import React, {useState} from 'react';
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import { Routes, Route, } from "react-router-dom";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import SignUpVan from "./SignUpVan";
-import AfterReg from "./AfterReg";
-import LimeControl from "./limeControl"
-import UpdateProfile from "./UpdateProfile";
-import MyProfile from "./profile";
-import TrainerSheet from  "./trainer/sheet";
+import Login from "./register/Login";
+import SignUp from "./register/SignUp";
+import AfterReg from "./register/AfterReg";
+import LimeControl from "./register/limeControl"
+import UpdateProfile from "./register/UpdateProfile";
+import TrainerSheet from "./trainer/sheet";
 import CreateTest from "./trainer/createTest";
 import AddToMyTests from "./trainer/addToMyTests";
 import AddAthlete from "./trainer/addAthlete";
-import NavBar from "./navBar";
-import SignOut from "./sign-out";
+import NavBar from "./register/navBar";
+import SignOut from "./register/sign-out";
 import EditCoach from "./trainer/editCoach";
-import CsvReader from "../csvHandler/CsvReader";
-import GetIDS from "../csvHandler/getIDs";
-import ForgetPassword from "./forgetPassword";
-import Footer from "./footer";
-import ChangePassword from "./changePassword";
+import CsvReader from "./csvHandler/CsvReader";
+import GetIDS from "./csvHandler/getIDs";
+import ForgetPassword from "./register/forgetPassword";
+import Footer from "./register/footer";
+import ChangePassword from "./register/changePassword";
 import UploadFileC from "./trainer/VideoUpload/uploadFile";
 import VideoNavC from "./trainer/VideoUpload/uploadVideoNav";
 import MyVideosC from "./trainer/VideoUpload/myVideos";
-import TestsView from "./trainer/aymen/TestsView";
+import TestsView from "./csvHandler/TestsView";
 import StatsView from "./trainer/aymen/StatsView";
 import EvaluationsView from "./trainer/aymen/EvaluationsView";
-import UploadConsent from "./UploadConsent";
-import AcceptTerms from "./acceptTerms";
-import ApproveTests from "./approveTests";
-import EmailConfirmed from "./emailConfirmed";
-import DisplayStudyAccept from "../csvHandler/displayStudyAccept";
-import TestProfileC from "../user/profile";
-import UploadFile from "../vanessa/fileUpload/fileUpload";
-import AdminFileUpload from "./admin/adminFileUpload";
-import AthleteControl from "../csvHandler/athleteControl";
+import UploadConsent from "./register/UploadConsent";
+import AcceptTerms from "./register/acceptTerms";
+import ApproveTests from "./register/approveTests";
+import EmailConfirmed from "./register/emailConfirmed";
+import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
+import TestProfileC from "./user/profile";
+import UploadFile from "./vanessa/fileUpload/fileUpload";
+import AdminFileUpload from "./register/admin/adminFileUpload";
+import AthleteControl from "./csvHandler/athleteControl";
 
-import WelcomeReg from "./WelcomeReg";
-import NavBarMobile from "./navBarMobile";
+import WelcomeReg from "./register/WelcomeReg";
+import NavBarMobile from "./register/navBarMobile";
 
 
 import {ShareSharp} from "@mui/icons-material";
-import ShareVideo from "../nico/videosharing/shareVideo";
-import CreateGroup from "../nico/videosharing/createGroup";
-import DisplayVideo from "../nico/videosharing/displayVideo";
-import TestsViewCopy from "../vanessa/subsetData/TestsViewCopy";
+import ShareVideo from "./nico/videosharing/shareVideo";
+import CreateGroup from "./nico/videosharing/createGroup";
+import DisplayVideo from "./nico/videosharing/displayVideo";
+import TestsViewCopy from "./vanessa/subsetData/TestsViewCopy";
+import TrainerVideo from "./trainer/trainerVideo";
 
 
 function Main() {
@@ -70,7 +69,6 @@ function Main() {
                             <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
                             <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
                             <Route path='/reg/sign-up' element={<div className="auth-inner"><SignUp/></div>} />
-                            <Route path='/reg/sign-up-van' element={<div className="auth-inner"><SignUpVan/></div>} />
                             <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
                             <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
 
@@ -123,6 +121,9 @@ function Main() {
 
 
 
+
+
+                            <Route path='/trainer/videos' element={<div className="csv-inner data-view"><TrainerVideo/></div>} />
 
                             <Route path='/trainer/videoshare' element={<div className="auth-inner data-view"><ShareVideo/></div>} />
                             <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />

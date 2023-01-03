@@ -28,7 +28,8 @@ class SignUpC extends Component {
       adminReg:'',
       captchaToken:'',
       tempReg:false,
-      askAgain:false
+      askAgain:false,
+      working:false
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -182,9 +183,13 @@ class SignUpC extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    if(this.state.working)
+      return;
+    this.setState({working:true});
     if (!this.checkInput(this.state)) return;
     PostSignup.setSignUP(this.state)
       .then((response) => {
+        this.setState({working:false});
         if (response.data.res === "error")
           alert("Es ist ein Fehler aufgetreten.");
         else if (response.data.res === "duplicate key")
@@ -204,6 +209,7 @@ class SignUpC extends Component {
 
       })
       .catch((e) => {
+        this.setState({working:false});
         console.log(e);
         alert("Es ist ein Fehler aufgetreten.");
       });
@@ -331,7 +337,7 @@ class SignUpC extends Component {
           </label>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn btn-primary btn-block" disabled={this.state.working}>
           Registrieren
         </button>
         <p className="forgot-password text-right">

@@ -17,7 +17,8 @@ class TestProfileC extends Component {
             filesList: [],
             surveyList: [],
             emptyMsg: "",
-            showEmptyMsg: false
+            showEmptyMsg: false,
+            hideSurvey:false
         };
     }
 
@@ -57,7 +58,11 @@ class TestProfileC extends Component {
                     this.setState({surveyList: arr});
                     return;
                 } else {
-                    this.setState({surveyList: response.data.files}); //todo
+                    if(response.data.res === "hide"){
+                        this.setState({hideSurvey:true});
+                    }
+                    else
+                        this.setState({surveyList: response.data.files}); //todo
                 }
             })
             .catch((e) => {
@@ -135,7 +140,7 @@ class TestProfileC extends Component {
 
 
                         <div id="beside">
-                            <div className="list-one">
+                            <div className="list-one" hidden={this.state.hideSurvey}>
 
                                 <h4>Meine Umfragen</h4>
 

@@ -69,6 +69,7 @@ export default class ShareVideo extends Component {
                     this.props.uploadDone();
                 else{
                     alert("Hochladen erfolgreich");
+                    this.props.onUpload();
                 }
             }
         }).catch(e => {
@@ -88,7 +89,7 @@ export default class ShareVideo extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        if(!this.state.selectedFile == '')
+        if(this.state.selectedFile === '')
             return;
         this.setState({viewprogress: true})
         const data = new FormData();
@@ -120,15 +121,13 @@ export default class ShareVideo extends Component {
                     Hier kannst du ein Video mit deiner Gruppe teilen. Wähle dazu eine Datei aus und drücke anschließend auf "Video hochladen"!
                 </div>
 
-                <br></br><br></br>
+                <br></br>
 
                 <div className="form-group">
-            <label className="select-file">
-              <input
-                type="file"
-                onChange={this.onFileChange}
-              />
-            </label>
+                    <input
+                        type="file"
+                        onChange={this.onFileChange}
+                    />
           </div>
 
 
@@ -136,11 +135,10 @@ export default class ShareVideo extends Component {
                     type="text"
                     className="form-control"
                     name="title"
-                    placeholder="Video title"
+                    placeholder="Video Title"
                     onChange={this.handleChange}
                 />
 
-        <br/>
 
                 <button onClick={this.handleSubmit} className="btn btn-primary btn-block">Video hochladen</button>
 

@@ -1,11 +1,11 @@
 import React from 'react'
-import CustomChart from '../../../components/CustomChart';
-import CustomTable from '../../../components/CustomTable';
-import FilterFunction from '../../../components/FilterFunction';
-import { evaluationsHeadCells } from '../../../temp-data/evaluations';
+import CustomChart from '../../utli/components/CustomChart';
+import CustomTable from '../../utli/components/CustomTable';
+import FilterFunction from '../../utli/components/FilterFunction';
+import { evaluationsHeadCells } from '../../temp-data/evaluations';
 import axios from "axios";
-import { reformatDate } from '../../../utli/dataConversion';
-import { germanDatePresentation } from "../../../utli/dataConversion"; 
+import { reformatDate } from '../../utli/dataConversion';
+import { germanDatePresentation } from "../../utli/dataConversion";
 //TODO change order of table columns to: Datum-Name-Titel-Qualität-Geplante Int.-Erreichte Int.-Differenz
 //TODO German date format
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
