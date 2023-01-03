@@ -146,7 +146,8 @@ export default class Survey extends Component {
     onVideoEnd(){
         (async () => {
             var blob = await Audiostop()
-            HandelCognition.uploadRecordFiles({file: blob}).then(response => {
+            console.log(blob.audioUrl);
+            HandelCognition.uploadRecordFiles({file: blob.audioURL}).then(response => {
                 if(response.data.res === "error") {
                     const arr = ["connection error"];
                     return;
