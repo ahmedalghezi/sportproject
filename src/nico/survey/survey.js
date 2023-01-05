@@ -76,6 +76,16 @@ const Audiostop = async () => {
     //URL.revokeObjectURL(url)
 };
 
+const saveFile = async (blob) => {
+    const a = document.createElement('a');
+    a.download = 'my-file.mp3';
+    a.href = blob.audioUrl;
+    a.addEventListener('click', (e) => {
+      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+    });
+    a.click();
+};
+
 export default class Survey extends Component {
 
     constructor(props) {
@@ -146,10 +156,12 @@ export default class Survey extends Component {
     onVideoEnd(){
         (async () => {
             var blob = await Audiostop();
+            const audiofile = new File([blob], "audiofile.mp3", {
+                type: "audio/mpeg",
+            });
             var fd = new FormData();
-            fd.append('fname', 'file');
-            fd.append('data', blob);
-            blob.play();
+            fd.append('data', audiofile);
+            saveFile(blob);
             HandelCognition.uploadRecordFiles({file: fd}).then(response => {
                 if(response.data.res === "error") {
                     const arr = ["connection error"];
