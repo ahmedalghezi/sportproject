@@ -15,9 +15,9 @@ import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
 
 const testdata = [
-  { id: 1, title: "Blutanalyse", text: "text text text text text text text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
-  { id: 2,title: "Mikrobiom", text: "text text text text tex", parameter: [{id: 3,title: "", value: 0.5}]},
-  { id: 3,title: "Genetik", text: "text text text text text text text text text text text text text text text text text text text text text text text text text text text", parameter: [{id: 4,title: "", value: 0.1}]},
+  { id: 1, title: "Blutanalyse", text: "text text text ", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
+  { id: 2,title: "Mikrobiom", text: "text text text", parameter: [{id: 3,title: "", value: 0.5}]},
+  { id: 3,title: "Genetik", text: "text text text text text text text text text text text text text text text", parameter: [{id: 4,title: "", value: 0.1}]},
   { id: 4,title: "Soziologie", text: "text text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
   { id: 6,title: "Motorik", text: "text text text", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
   { id: 7,title: "Motorik", text: "text text text ", parameter: [{id: 8,title: "", value: 0.1}]},
@@ -29,7 +29,7 @@ export default class Avatar extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {avatarlist:[], galleryheight: "600px", gallerywidth: "600px"};
+        this.state = {avatarlist:[]};
         this.getData = this.getData.bind(this);
         this.drawhorizontalLines = this.drawhorizontalLines.bind(this);
         this.drawiconLines = this.drawiconLines.bind(this);
@@ -44,8 +44,12 @@ export default class Avatar extends Component {
     }
 
     setBoundingSVG(){
-      var gal = document.getElementById("avatargallery").getBoundingClientRect();
-      this.setState({galleryheight: gal.height, gallerywidth: gal.width});
+      if(!document.getElementById("avatargallery")){
+        var gal = {height: "600px", width: "600px"}
+      }else{
+        var gal = document.getElementById("avatargallery").getBoundingClientRect();
+      }
+      return {height: gal.height, width: gal.width};
     }
     getData(){
         this.setState({avatarlist: testdata});
@@ -122,7 +126,6 @@ export default class Avatar extends Component {
           var x = con.x - gal.x - 60
         }
       }
-      console.log(x)
       var pyth = Math.sqrt(Math.pow(x-415, 2) + Math.pow(y-305, 2))
       cxPosition = Math.abs(x-415)*82/pyth
       cyPosition = Math.sqrt(Math.pow(82, 2) - Math.pow(cxPosition, 2))
@@ -186,7 +189,7 @@ export default class Avatar extends Component {
           <div className="avatargallery" id="avatargallery">
           <div className="avatar-inner">
                     <div className="avatar-line-container">
-                      <svg className="avatar-svg" style= {{...{width: this.state.gallerywidth},...{height: this.state.galleryheight}}}>
+                      <svg className="avatar-svg" style= {{...{width: this.setBoundingSVG().width},...{height: this.setBoundingSVG().height}}}>
                         {
                           this.state.avatarlist.map((item, index) => {
                             return (
