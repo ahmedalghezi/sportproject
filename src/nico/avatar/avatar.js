@@ -6,8 +6,6 @@ import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
 import CoachInputDataService from "../../DB/rw"
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { color } from "@mui/system";
 import './avatar.css'
 import runner from './runner.png'
@@ -15,11 +13,11 @@ import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
 
 const testdata = [
-  { id: 1, title: "Blutanalyse", text: "text text text ", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
-  { id: 2,title: "Mikrobiom", text: "text text text", parameter: [{id: 3,title: "", value: 0.5}]},
+  { id: 1, title: "Blutanalyse", text: "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
+  { id: 2,title: "Mikrobiom", text: "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ", parameter: [{id: 3,title: "", value: 0.5}]},
   { id: 3,title: "Genetik", text: "text text text text text text text text text text text text text text text", parameter: [{id: 4,title: "", value: 0.1}]},
-  { id: 4,title: "Soziologie", text: "text text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
-  { id: 6,title: "Motorik", text: "text text text", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
+  { id: 4,title: "Soziologie", text: "text text text ", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
+  { id: 6,title: "Motorik", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
   { id: 7,title: "Motorik", text: "text text text ", parameter: [{id: 8,title: "", value: 0.1}]},
   { id: 8,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
   { id: 9,title: "Soziologie", text: "text text text ", parameter: [{id: 11, title: "", value: 0.1}]},
@@ -85,20 +83,12 @@ export default class Avatar extends Component {
         var con = element.getBoundingClientRect();
         var gal = document.getElementById("avatargallery").getBoundingClientRect();
         yPosition = con.y - gal.y + con.height/2 - 10
-        if(index < 4){
-          x1Position = 260
-          if(index === 1 || index === 2){
-            x2Position = 300
-          }else{
-            x2Position = 320
-          }
+        if(con.x - gal.x < 415){
+          x1Position = 260;
+          x2Position = 300;
         }else{
-          x2Position = 574
-          if(index === 5 || index === 6){
-            x1Position = 537
-          }else{
-            x1Position = 517
-          }
+          x2Position = 574;
+          x1Position = 517;
         }
       } 
       return <line x1={x1Position} y1={yPosition} x2={x2Position} y2={yPosition} stroke="black"/>;
@@ -113,18 +103,10 @@ export default class Avatar extends Component {
       var con = element.getBoundingClientRect();
       var gal = document.getElementById("avatargallery").getBoundingClientRect();
       var y = con.y - gal.y + con.height/2 - 10
-      if(index < 4){
-        if(index === 1 || index === 2){
-          var x = con.x - gal.x + con.width + 30
-        }else{
-          var x = con.x - gal.x + con.width + 40
-        }
+      if(con.x - gal.x < 415){
+        var x = con.x - gal.x + con.width + 30
       }else{
-        if(index === 5 || index === 6){
-          var x = con.x - gal.x - 50
-        }else{
-          var x = con.x - gal.x - 60
-        }
+        var x = con.x - gal.x - 50
       }
       var pyth = Math.sqrt(Math.pow(x-415, 2) + Math.pow(y-305, 2))
       cxPosition = Math.abs(x-415)*82/pyth
@@ -156,27 +138,15 @@ export default class Avatar extends Component {
       var con = element.getBoundingClientRect();
       var gal = document.getElementById("avatargallery").getBoundingClientRect();
       yPosition = con.y - gal.y + con.height/2 - 10
-      if(index < 4){
-        x1Position = 400
-        if(index === 1 || index === 2){
-          x2Position = 300
-        }else{
-          x2Position = 320
-        }
+      console.log(con.x - gal.x)
+      if(con.x - gal.x < 415){
+        x1Position = 400;
+        x2Position = 300;
       }else{
-        x1Position = 430
-        if(index === 5 || index === 6){
-          x2Position = 537
-        }else{
-          x2Position = 517
-        }
-
+        x1Position = 430;
+        x2Position = 517;
       }
-      if(index === 0 || index === 1 || index === 4 || index === 5){
-        relativey = 310
-      }else{
-        relativey = 330
-      }
+      relativey = 310;
     }
     return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black"/>;
 }
