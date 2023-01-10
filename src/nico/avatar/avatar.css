@@ -110,7 +110,7 @@ h3 {
   padding: 0.8rem;
   margin: 10px;
   background-color:rgb(235, 235, 235);
-  column-gap: 300px;
+  column-gap: 320px;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
 }
@@ -151,7 +151,7 @@ h3 {
     padding: 0px;
   }
   .csv-inner {
-    width: 450px;
+    width: 400px;
     margin-top: 10px;
     padding: 10px 10px 10px 10px;
   }
@@ -163,6 +163,7 @@ h3 {
   }
   .avatar-content-section{
     margin: 0 auto;
+    margin-bottom: 40px;
   }
 }
 .avatar-text-field{
@@ -211,6 +212,7 @@ h3 {
 .avatar-all-content{
   padding-left: 10px;
   break-inside: avoid;
+  position: relative;
 }
 
 .avatar-icon{

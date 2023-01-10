@@ -13,14 +13,14 @@ import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
 
 const testdata = [
-  { id: 1, title: "Blutanalyse", text: "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
-  { id: 2,title: "Mikrobiom", text: "text text text text text text text text text text text text text text text text text text text text text text text text text text text text text text ", parameter: [{id: 3,title: "", value: 0.5}]},
-  { id: 3,title: "Genetik", text: "text text text text text text text text text text text text text text text", parameter: [{id: 4,title: "", value: 0.1}]},
-  { id: 4,title: "Soziologie", text: "text text text ", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
+  { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
+  { id: 2,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
+  { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
+  { id: 4,title: "Soziologie", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
   { id: 6,title: "Motorik", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
-  { id: 7,title: "Motorik", text: "text text text ", parameter: [{id: 8,title: "", value: 0.1}]},
+  { id: 7,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
   { id: 8,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-  { id: 9,title: "Soziologie", text: "text text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+  { id: 9,title: "Soziologie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
 ];
 
 export default class Avatar extends Component {
@@ -33,6 +33,9 @@ export default class Avatar extends Component {
         this.drawiconLines = this.drawiconLines.bind(this);
         this.drawiconCircles = this.drawiconCircles.bind(this);
         this.setBoundingSVG = this.setBoundingSVG.bind(this);
+        this.setColumnGap = this.setColumnGap.bind(this);
+        this.drawCircle = this.drawCircle.bind(this);
+        this.drawImageIcon = this.drawImageIcon.bind(this);
     }
 
 
@@ -48,6 +51,15 @@ export default class Avatar extends Component {
         var gal = document.getElementById("avatargallery").getBoundingClientRect();
       }
       return {height: gal.height, width: gal.width};
+    }
+    setColumnGap(){
+      if(!document.getElementById("avatargallery")){
+        var columngap = {gap: 300}
+      }else{
+        var el = document.getElementById("avatargallery").getBoundingClientRect();
+        columngap =  {gap: el.width - 535}
+      }
+      return {gap: columngap.gap};
     }
     getData(){
         this.setState({avatarlist: testdata});
@@ -83,12 +95,12 @@ export default class Avatar extends Component {
         var con = element.getBoundingClientRect();
         var gal = document.getElementById("avatargallery").getBoundingClientRect();
         yPosition = con.y - gal.y + con.height/2 - 10
-        if(con.x - gal.x < 415){
-          x1Position = 260;
-          x2Position = 300;
+        if(con.x - gal.x < gal.width/2){
+          x1Position = con.x - gal.x + con.width - 12;
+          x2Position = con.x - gal.x + con.width + 20;
         }else{
-          x2Position = 574;
-          x1Position = 517;
+          x2Position = con.x - gal.x;
+          x1Position = con.x - gal.x - 40;
         }
       } 
       return <line x1={x1Position} y1={yPosition} x2={x2Position} y2={yPosition} stroke="black"/>;
@@ -103,23 +115,23 @@ export default class Avatar extends Component {
       var con = element.getBoundingClientRect();
       var gal = document.getElementById("avatargallery").getBoundingClientRect();
       var y = con.y - gal.y + con.height/2 - 10
-      if(con.x - gal.x < 415){
-        var x = con.x - gal.x + con.width + 30
+      if(con.x - gal.x < gal.width/2){
+        var x = con.x - gal.x + con.width + 20
       }else{
-        var x = con.x - gal.x - 50
+        var x = con.x - gal.x - 40
       }
-      var pyth = Math.sqrt(Math.pow(x-415, 2) + Math.pow(y-305, 2))
-      cxPosition = Math.abs(x-415)*82/pyth
+      var pyth = Math.sqrt(Math.pow(x-gal.width/2, 2) + Math.pow(y - gal.height/2, 2))
+      cxPosition = Math.abs(x-gal.width/2)*82/pyth
       cyPosition = Math.sqrt(Math.pow(82, 2) - Math.pow(cxPosition, 2))
-      if(x-415 > 0){
-        cxPosition = 415 +  cxPosition
+      if(x-gal.width/2 > 0){
+        cxPosition = gal.width/2 +  cxPosition
       }else{
-        cxPosition = 415 - cxPosition
+        cxPosition = gal.width/2 - cxPosition
       }
-      if(y-305 > 0){
-        cyPosition = 305 +  cyPosition
+      if(y-gal.height/2 > 0){
+        cyPosition = gal.height/2 +  cyPosition
       }else{
-        cyPosition = 305 - cyPosition
+        cyPosition = gal.height/2 - cyPosition
       }
     } 
     return <circle cx={cxPosition} cy={cyPosition} r="10" stroke="gray" fill="gray"/>;
@@ -138,25 +150,46 @@ export default class Avatar extends Component {
       var con = element.getBoundingClientRect();
       var gal = document.getElementById("avatargallery").getBoundingClientRect();
       yPosition = con.y - gal.y + con.height/2 - 10
-      console.log(con.x - gal.x)
-      if(con.x - gal.x < 415){
-        x1Position = 400;
-        x2Position = 300;
-      }else{
-        x1Position = 430;
-        x2Position = 517;
+      if(con.x - gal.x < gal.width/2){
+        x2Position = con.x - gal.x + con.width + 20;
+      }else{ 
+        x2Position = con.x - gal.x - 40;
       }
-      relativey = 310;
+      x1Position = gal.width/2;
+      relativey = gal.height/2;
     }
     return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black"/>;
 }
+  drawCircle(r, stroke, fill){
+    if(document.getElementById("avatargallery")){
+      var gal = document.getElementById("avatargallery").getBoundingClientRect();
+      var x = gal.width/2;
+      var y = gal.height/2;
+    }else{
+      var x = 0;
+      var y = 0;
+    }
+    return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill}/>;
+  }
+  drawImageIcon(){
+    if(document.getElementById("avatargallery")){
+      var gal = document.getElementById("avatargallery").getBoundingClientRect();
+      var x = gal.width/2 - 60;
+      var y = gal.height/2 - 60;
+    }else{
+      var x = 0;
+      var y = 0;
+    }
+    return <image x={x} y={y} width="120" height="120" href={runner}></image>;
+
+  }
     render() {
         require("./avatar.css")
 
       return (
         <div>
           <h3>Athlet:In</h3>
-          <div className="avatargallery" id="avatargallery">
+          <div className="avatargallery" id="avatargallery" style= {{...{columnGap: this.setColumnGap().gap + 'px'}}}>
           <div className="avatar-inner">
                     <div className="avatar-line-container">
                       <svg className="avatar-svg" style= {{...{width: this.setBoundingSVG().width},...{height: this.setBoundingSVG().height}}}>
@@ -172,9 +205,9 @@ export default class Avatar extends Component {
                                 this.drawiconLines(document.getElementById("text"+ String(index)), index)
                             );
                         })}
-                        <circle cx="415 " cy="305" r="82" stroke="black" fill="none"/>
-                        <circle cx="415 " cy="305" r="75" stroke="#DAD2D2" fill="#DAD2D2"/>                      
-                        <image x="360" y="245" width="120" height="120" href={runner}></image>
+                        {this.drawCircle(82,"black","none")}
+                        {this.drawCircle(75,"#DAD2D2","#DAD2D2")}
+                        {this.drawImageIcon()}                      
                         {
                           this.state.avatarlist.map((item, index) => {
                             return (
