@@ -125,7 +125,7 @@ export default class DisplayVideo extends Component {
         var list = this.state.videoList.sort((a, b) => (a.title > b.title) ? 1 : -1);
         this.updateVideoPage(list,this.state.currentPage);
       }else{
-        var list = this.state.videoList.sort((a, b) => (a.date > b.date) ? 1 : -1);
+        var list = this.state.videoList.sort((a, b) => (a.time > b.time) ? 1 : -1);
         this.updateVideoPage(list,this.state.currentPage);
       }
     }
