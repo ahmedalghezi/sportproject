@@ -17,9 +17,13 @@ import handelTrainer from "../../DB/handelTrainer";
 const testdata = [
     { id: 1, filename: video1, title: "eins", date: '2021-05-23T22:00:00.000Z' },
     { id: 2, filename: video2, title: "zwei", date: '2022-05-23T22:00:00.000Z'},
-    { id: 3, filename: video3, title: "drei", date: '2022-05-23T10:00:00.000Z'},
+    { id: 3, filename: video3, title: "drei", date: '2022-02-22T10:00:00.000Z'},
     { id: 4, filename: video4, title: "vier", date: '2020-05-23T22:00:00.000Z'},
-    { id: 5, filename: video3, title: "fünf", date: '2010-05-23T10:00:00.000Z'},
+    { id: 5, filename: video3, title: "fünf", date: '2010-04-21T10:00:00.000Z'},
+    { id: 6, filename: video3, title: "sechst", date: '2022-06-22T10:00:00.000Z'},
+    { id: 7, filename: video4, title: "sieben", date: '2019-05-23T22:00:00.000Z'},
+    { id: 8, filename: video3, title: "acht", date: '2000-05-21T10:00:00.000Z'},
+    { id: 9, filename: video3, title: "neun", date: '1000-05-21T10:00:00.000Z'},
     //{ id: 6, videourl: video4, title: "sechs", date: '2000-05-23T22:00:00.000Z'},
   ]
 const vidperpage = 4;
@@ -81,13 +85,12 @@ export default class DisplayVideo extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({videoList: response.data.videoList});
-                this.updateVideoPage(response.data.videoList, this.state.currentPage);
+                var list = response.data.videoList.sort((a, b) => (a.time > b.time) ? 1 : -1);
+                this.setState({videoList: list});
+                this.updateVideoPage(list, this.state.currentPage);
             }
-            this.orderVideos();
 
         }).catch(e => {
-            this.setState({videoList: testdata});
             console.log(e);
             alert("Es ist ein Fehler aufgetreten!");
         });
@@ -172,7 +175,7 @@ export default class DisplayVideo extends Component {
                             title={item.title}
                             progress
                             controls
-                            src={"https://inprove-sport.info/trainer/streamVideo/"+item.filename}
+                            src={"https://inprove-sport.info/trainer/streamVideo/"+ item.filename}
                         />
                     </div>
                   </div>
@@ -197,14 +200,23 @@ export default class DisplayVideo extends Component {
             </div>
           </div>
         <div className="arrows">
-        <button onClick={this.handleButtonClickLeft}>        <ArrowBackIosIcon>0
+          {
+            (this.state.currentPage > 0)
+            ?         <button onClick={this.handleButtonClickLeft}>        <ArrowBackIosIcon>
 
-</ArrowBackIosIcon></button>
-        <button onClick={this.handleButtonClickRight}>
-        <ArrowForwardIosIcon>
-
-        </ArrowForwardIosIcon>
-        </button>
+            </ArrowBackIosIcon></button>
+            : null
+          }
+          {
+            (this.state.videoList.length /vidperpage > this.state.currentPage + 1)
+            ? <button onClick={this.handleButtonClickRight}>
+            <ArrowForwardIosIcon>
+    
+            </ArrowForwardIosIcon>
+            </button>
+            : null
+          }
+        
         </div>
         </div>
       );
