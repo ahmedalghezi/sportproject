@@ -5,41 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/trainer/trainerVideo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/firebase/login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/firebase/signup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lime/survey/survey.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/loading-gif.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/admin/changeEmail.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/CustomChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CustomTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/CustomTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FilterFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/FilterFunction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SpecialRow.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/SpecialRow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customChart.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/customChart.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/customTable.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/customTable.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/specialRow.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/utli/components/specialRow.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/eval/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/eval/EvaluationsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/TestsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/survey/survey.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUpVan.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/SignUpVan.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/myVideos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/myVideos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/navLinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/navLinks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadFile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/uploadFile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadFile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/uploadFile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/uploadVideoNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/uploadVideoNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/videos/testvideo.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/videos/testvideo2.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo2.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/videos/testvideo3.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo3.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/VideoUpload/videos/testvideo4.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo4.mp4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addAthlete.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/addAthlete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/addToMyTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/addToMyTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/aymen/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/aymen/EvaluationsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/aymen/StatsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/aymen/StatsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/aymen/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/TestsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/createTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/createTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/editCoach.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/sheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/trainer/trainerStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/trainerStyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -228,31 +211,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/register/trainer&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/register/admin",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/register/admin" />
+      <recent name="$PROJECT_DIR$/src/firebase" />
+      <recent name="$PROJECT_DIR$/src/lime" />
       <recent name="$PROJECT_DIR$/src/register/trainer" />
       <recent name="$PROJECT_DIR$/src/DB" />
-      <recent name="$PROJECT_DIR$/src/register" />
-      <recent name="$PROJECT_DIR$/src/utli" />
-      <recent name="$PROJECT_DIR$/src/csvHandler" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/utli" />
       <recent name="$PROJECT_DIR$/src/csvHandler" />
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/vanessa" />
       <recent name="$PROJECT_DIR$/src/utli/" />
     </key>
@@ -395,14 +378,11 @@
       <workItem from="1670538675837" duration="145000" />
       <workItem from="1670538898898" duration="598000" />
       <workItem from="1670832540278" duration="62859000" />
-      <workItem from="1672172435854" duration="21314000" />
-    </task>
-    <task id="LOCAL-00006" summary="First version login component">
-      <created>1647263754990</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1647263754990</updated>
+      <workItem from="1672172435854" duration="42275000" />
+      <workItem from="1672850503133" duration="5127000" />
+      <workItem from="1673004200904" duration="598000" />
+      <workItem from="1673011132225" duration="1916000" />
+      <workItem from="1673195139967" duration="57346000" />
     </task>
     <task id="LOCAL-00007" summary="First version login component_2">
       <created>1647272205850</created>
@@ -740,7 +720,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672229082207</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Video share ready">
+      <created>1672308662532</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1672308662532</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -835,6 +822,11 @@
             </State>
           </value>
         </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
       </map>
     </option>
     <option name="OPEN_GENERIC_TABS">
@@ -845,7 +837,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Coach interface v1.01" />
     <MESSAGE value="Minor changes by adding trainer history function" />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="More functions added to the trainer admin panels. Dealing with warnings." />
@@ -870,7 +861,8 @@
     <MESSAGE value="updating the download api" />
     <MESSAGE value="Changes still required to the video share pages" />
     <MESSAGE value="partial fix , video share" />
-    <option name="LAST_COMMIT_MESSAGE" value="partial fix , video share" />
+    <MESSAGE value="Video share ready" />
+    <option name="LAST_COMMIT_MESSAGE" value="Video share ready" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

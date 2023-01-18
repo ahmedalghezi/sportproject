@@ -156,7 +156,21 @@ export default function TestsView(props) {
 
   const onDownload = () => {
     var data = jsonRecords;
-    let csvRows = [Object.keys(data[0])].concat(data);
+    var golbalKeys = {};
+    for(let i = 0 ; i < data.length ; i++){
+      var arr = Object.keys(data[i]);
+      for(let j = 0 ;  j < arr.length ; j++){
+        arr[j].replace('"',"");
+        arr[j].replace("'","");
+        arr[j] = arr[j].trim();
+        golbalKeys[arr[j]] = 1;
+      }
+    }
+   // let csvRows = [Object.keys(data[0])].concat(data);
+
+
+    let csvRows = [Object.keys(golbalKeys)].concat(data);
+
 
     const csvContent = csvRows.map(it => {
       return Object.values(it).toString()
@@ -177,7 +191,7 @@ export default function TestsView(props) {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-      } 
+      }
     };
 
     // execute the download
@@ -215,7 +229,7 @@ export default function TestsView(props) {
       if(from[1] < to[1]) {
         fetchData = true;
       } else if (from[1] === to[1]) { // same year, same month
-        if (from[0] <= to[0]) { 
+        if (from[0] <= to[0]) {
           fetchData = true;
         }
       }
@@ -258,9 +272,9 @@ export default function TestsView(props) {
     <>
     <div className="view-header">
       <div>
-        {getFilterFunction(fromDate, toDate, space, discipline , allSpaces, allDisciplines, 
-          event => setSpace(event.target.value), 
-          event => setDiscipline(event.target.value), 
+        {getFilterFunction(fromDate, toDate, space, discipline , allSpaces, allDisciplines,
+          event => setSpace(event.target.value),
+          event => setDiscipline(event.target.value),
           event => {
             setFromDate(event);
             onDatesChange();
@@ -273,18 +287,18 @@ export default function TestsView(props) {
         <div style={{marginBottom: '12px', width: '100%'}}>
                   <div style={{width: '33%', display: 'inline-block'}}>
                     {<Button
-                    variant="contained" 
+                    variant="contained"
                     style={{marginTop: '12px', marginRight: '20px', width: '160px'}}
                     onClick={onApply}
                   >
                     Apply
                   </Button>}
-                  {(<Button 
-                    variant="contained" 
+                  {(<Button
+                    variant="contained"
                     style={{marginTop: '12px', width: '160px'}}
                     onClick={onReset}
-                    disabled={!discipline 
-                              && !space 
+                    disabled={!discipline
+                              && !space
                               && fromDate.getTime() === defaultDates['from'].getTime()
                               && toDate.getTime() === defaultDates['to'].getTime() }
                   >
@@ -319,7 +333,7 @@ export default function TestsView(props) {
     </div>
     <div className="view-content">
       {<CustomTable
-              rows={jsonRecords} 
+              rows={jsonRecords}
               headCells={testHeadCells}
               title={''}
               hasSpecialRow={false}
@@ -328,7 +342,7 @@ export default function TestsView(props) {
               rowsPerPage={10}
               onRowSelected={onRowSelected}
               />}
-        
+
     </div>
     <div className="view-footer"></div></>
   )
