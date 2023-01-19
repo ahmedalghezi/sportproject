@@ -12,14 +12,6 @@ import { getAnalytics } from "firebase/analytics";
 
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyCQkwvUWIgSj9mFLBgL1gzy39Ga94WT7C4",
-    authDomain: "dinary-ac874.firebaseapp.com",
-    databaseURL: "https://dinary-ac874.firebaseio.com",
-    projectId: "dinary-ac874",
-    storageBucket: "dinary-ac874.appspot.com",
-    messagingSenderId: "830776009978",
-    appId: "1:830776009978:web:851ae1ceadba808ccb9543",
-    measurementId: "G-JDQTQ48F8D"
 };
 
 const app = initializeApp(firebaseConfig);
