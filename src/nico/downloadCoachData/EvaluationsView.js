@@ -20,8 +20,8 @@ async function getEvaluations () {
      },
   }).get("/trainer/getHistory");
 }
-function downloadCoach(chartAthlete) {
-  HandelTrainer.disguisedTrainerLogin({trainerID: chartAthlete}).then(response => {
+function downloadCoach() {
+  HandelTrainer.readHistory({}).then(response => {
       if (response.data.res === "ok") {
 
       } else {

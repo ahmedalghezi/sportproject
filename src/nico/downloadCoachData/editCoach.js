@@ -109,7 +109,7 @@ export default class EditCoach extends Component {
             alert("Bitte Trainer*in auswählen.");
             return;
         }
-        PostSignup.disguisedTrainerLogin({trainerID: this.state.selectedTrainerID}).then(response => {
+        HandelTrainer.readHistoryAdmin({trainerID: this.state.selectedTrainerID}).then(response => {
             if (response.data.res === "ok") {
 
             } else {
