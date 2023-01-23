@@ -23,7 +23,8 @@ async function getEvaluations () {
 function downloadCoach() {
   HandelTrainer.readHistory({}).then(response => {
       if (response.data.res === "ok") {
-
+        var csv = convertToCsv(testdata);
+        download(csv, "history.csv", "text/csv");
       } else {
           alert("Es ist ein Fehler aufgetreten!");
       }
@@ -32,6 +33,23 @@ function downloadCoach() {
       alert("Es ist ein Fehler aufgetreten!");
   });
 }
+
+const convertToCsv = (arr) => {
+  let testsData = arr['athletes']
+  const keys = Object.keys(testsData[0]);
+  const replacer = (_key, value) => value === null ? '' : value;
+  const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
+  return [ keys.join(','), ...testsData.map(processRow) ].join('\r\n');
+};
+
+function download(content, fileName, contentType) {
+  const a = document.createElement("a");
+  const file = new Blob([content], { type: contentType });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
+}
+
 
 export default function EvaluationsView() {
   const [isChartView, setIsChartView] = React.useState(false);
