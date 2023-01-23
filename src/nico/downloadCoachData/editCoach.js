@@ -7,6 +7,13 @@ import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
 
+function download(content, fileName, contentType) {
+    const a = document.createElement("a");
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
 
 export default class EditCoach extends Component {
 
@@ -115,7 +122,7 @@ export default class EditCoach extends Component {
         }
         HandelTrainer.readHistoryAdmin({trainerID: this.state.selectedTrainerID}).then(response => {
             if (response.data.res === "ok") {
-
+                download(JSON.stringify(response.data), "history.csv", "text/csv");
             } else {
                 alert("Es ist ein Fehler aufgetreten!");
             }
