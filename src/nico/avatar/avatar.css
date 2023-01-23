@@ -173,6 +173,7 @@ h3 {
   padding-left: 10px;
   margin-bottom: 10px;
   padding: 20px;
+  word-wrap:break-word;
 }
 
 .avatar-center .progress-bar{
