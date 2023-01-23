@@ -167,9 +167,7 @@ export default class EditCoach extends Component {
                             &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.editGroups}> Edit Groups</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.downloadCoach}> Download Coachdata</button>
                         </td>
-                        
-                    </tr>
-                    
+                  </tr>
                 </table>
 
 

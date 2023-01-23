@@ -17,7 +17,8 @@ import AddToMyTests from "./trainer/addToMyTests";
 import AddAthlete from "./trainer/addAthlete";
 import NavBar from "./register/navBar";
 import SignOut from "./register/sign-out";
-import EditCoach from "./trainer/editCoach";
+//import EditCoach from "./trainer/editCoach";
+import EditCoach from "./nico/downloadCoachData/editCoach";
 import CsvReader from "./csvHandler/CsvReader";
 import GetIDS from "./csvHandler/getIDs";
 import ForgetPassword from "./register/forgetPassword";
@@ -49,12 +50,19 @@ import CreateGroup from "./nico/videosharing/createGroup";
 import DisplayVideo from "./nico/videosharing/displayVideo";
 import TestsViewCopy from "./vanessa/subsetData/TestsViewCopy";
 import TrainerVideo from "./trainer/trainerVideo";
+import Survey from "./nico/survey/survey";
+import SignUpJiz from "./firebase/signup";
 
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
+    const [hideNav, setHideNav] = useState(false);
+
     const onLoginF = () => {
         setnvLogin(true);
+    }
+    const hideNavBarFooter=() =>{
+        setHideNav(true);
     }
     const onNavBar = () => {
         setnvLogin(false);
@@ -62,7 +70,9 @@ function Main() {
     return (
             <div className="App">
 
-                <NavBarMobile loggedin={nvLogin} navBarUpdated={onNavBar}/>
+                <div hidden={hideNav}>
+                    <NavBarMobile loggedin={nvLogin} navBarUpdated={onNavBar} />
+                </div>
                 <div className="auth-wrapper">
                         <Routes>
                             <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
@@ -130,11 +140,18 @@ function Main() {
                             <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
 
 
+                            <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey/></div>} />
+
+                            <Route path='/jizdan/signup' element={<div className="auth-inner"><SignUpJiz onHideNav={setHideNav}/></div>} />
+
+
+
+
 
                         </Routes>
                 </div>
                 <div><p></p></div>
-                <Footer />
+                <Footer hidden={hideNav}/>
 
             </div>
     );

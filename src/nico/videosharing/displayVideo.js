@@ -98,6 +98,8 @@ export default class DisplayVideo extends Component {
 
 
     updateVideoPage(listofvids, curpage){
+        if(!listofvids)
+            return;
       var getvideos = listofvids.slice(curpage * vidperpage, curpage * vidperpage + vidperpage);
       var ordervid = [];
       if(this.state.windowWidth > 480){
@@ -160,7 +162,7 @@ export default class DisplayVideo extends Component {
               <option>Titel</option>
             </select>
           </div>
-          
+
           <div className="gallery">
             {this.state.currentVideos.map((item, index) => {
               return (
@@ -180,7 +182,7 @@ export default class DisplayVideo extends Component {
                     </div>
                   </div>
 
-                  </div>               
+                  </div>
                 </div>
               );
             })}

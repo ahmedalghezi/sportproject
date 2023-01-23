@@ -68,7 +68,7 @@ export default function AthletesGrid(props) {
     }
 
 
-    function createRow(ID,name){
+    function createRow(ID,name,lastAccessTime){
         const obj = [];
         obj[0]= ID;
         obj[1]= name;
@@ -76,6 +76,7 @@ export default function AthletesGrid(props) {
         obj[3] = "Upload consent";
         obj[4] = "Show profile";
         obj[5] = "Show consent";
+        obj[6] = lastAccessTime;
         return obj;
     }
 
@@ -99,13 +100,20 @@ export default function AthletesGrid(props) {
         for (let i = 0; i < arr.length; i++) {
             let name = "-";
             arr[i].name? name = arr[i].name: name ="-";
-            const row = createRow(arr[i].ID,name);
+            let lastAccessTime = "-";
+            if(arr[i].last_access) {
+                lastAccessTime = arr[i].last_access;
+                lastAccessTime = lastAccessTime.split("T")[0];
+            }
+            const row = createRow(arr[i].ID, name, lastAccessTime);
             actionArr.push(row);
         }
         let header = [];
         for (let i =0 ; i <  actionArr[0].length; i++) {
             if(i==0)
                 header.push("ID");
+            else if(i===actionArr[0].length-1)
+                header.push("Last access");
             else
                 header.push(" ");
         }
