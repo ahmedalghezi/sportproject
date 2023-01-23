@@ -85,7 +85,7 @@ export default class EditCoach extends Component {
         var obj = this.state.trainersList.filter((element) => {
             return element.email === event.target.name
         });
-        this.setState({selectedTrainerID: obj.ID});        
+        this.setState({selectedTrainerID: obj[0].ID});        
     }
 
     handleDisguisedLogin(event) {
