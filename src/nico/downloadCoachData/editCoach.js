@@ -2,9 +2,11 @@
 By Ahmed Al-Ghezi
  */
 
+
 import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
+
 
 export default class EditCoach extends Component {
 
@@ -80,8 +82,10 @@ export default class EditCoach extends Component {
         this.setState({preEvArr: arr});
 
         this.setState({selectedTrainer: event.target.name});
-        this.setState({selectedTrainerID: event.target.ID});
-
+        var obj = this.state.trainersList.filter((element) => {
+            return element.email === event.target.name
+        });
+        this.setState({selectedTrainerID: obj.ID});
     }
 
     handleDisguisedLogin(event) {

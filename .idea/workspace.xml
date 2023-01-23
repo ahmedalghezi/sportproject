@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="adding request of trainer admin">
-      <change afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/EvaluationsView.js" afterDir="false" />
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/eval/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/eval/EvaluationsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/aymen/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/aymen/EvaluationsView.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -372,14 +369,7 @@
       <workItem from="1673004200904" duration="598000" />
       <workItem from="1673011132225" duration="1916000" />
       <workItem from="1673195139967" duration="60452000" />
-      <workItem from="1674210892788" duration="10514000" />
-    </task>
-    <task id="LOCAL-00010" summary=" csv handler: XLs component">
-      <created>1648058184420</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1648058184421</updated>
+      <workItem from="1674210892788" duration="12289000" />
     </task>
     <task id="LOCAL-00011" summary=" csv handler: XLs component">
       <created>1648061123996</created>
@@ -717,7 +707,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674462559162</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="adding request of trainer admin">
+      <created>1674472464199</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1674472464199</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
