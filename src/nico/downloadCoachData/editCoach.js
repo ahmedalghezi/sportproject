@@ -2,9 +2,30 @@
 By Ahmed Al-Ghezi
  */
 
+import { element } from "prop-types";
 import React, {Component} from "react";
+import { array } from "yargs";
 import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
+
+const testdata = [
+    {
+      name: "Hans",
+      lastname: "Roth",
+      ID: "1"
+    },
+    {
+        name: "Peter",
+        lastname: "Roth",
+        ID: "2"
+    },
+  
+    {
+      name: "Julia",
+      lastname: "Kunz",
+      ID: "3"
+      
+    }];
 
 export default class EditCoach extends Component {
 
@@ -44,6 +65,7 @@ export default class EditCoach extends Component {
             console.log(e);
             alert("Es ist ein Fehler aufgetreten!");
         });
+        this.setState({trainersList: testdata});
     }
 
     makeCoach(event) {
@@ -80,8 +102,13 @@ export default class EditCoach extends Component {
         this.setState({preEvArr: arr});
 
         this.setState({selectedTrainer: event.target.name});
-        this.setState({selectedTrainerID: event.target.ID});
-
+        /*
+        var obj = array.find((element) => {
+            return element.email === event.target.name
+        });
+        this.setState({selectedTrainerID: obj.ID});
+        console.log(obj.id);
+        */
     }
 
     handleDisguisedLogin(event) {
