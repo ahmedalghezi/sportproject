@@ -17,7 +17,7 @@ async function getEvaluations () {
      headers: {
          "Content-type": "application/json"
      },
-  }).get("/trainer/getHistory");
+  }).post("/trainer/getHistory", {});
 }
 
 export default function EvaluationsView() {
@@ -44,9 +44,9 @@ export default function EvaluationsView() {
     <>
     <div className="view-header">
       <div>
-        <FilterFunction 
+        <FilterFunction
           initialEvaluations={evaluations}
-          titles={titles} 
+          titles={titles}
           athletes={athletes}
           updateEvaluations={data => {
             setFilterEvaluations(data);
@@ -55,9 +55,9 @@ export default function EvaluationsView() {
       </div>
     </div>
     <div className="view-content">
-      {isChartView ? 
-        <CustomChart 
-          evaluations={filteredEvaluations.filter(el => el.name === chartAthlete)} 
+      {isChartView ?
+        <CustomChart
+          evaluations={filteredEvaluations.filter(el => el.name === chartAthlete)}
           headCells={evaluationsHeadCells}
           selectedAthlete={chartAthlete}
           closeChartView={() => {
@@ -66,12 +66,12 @@ export default function EvaluationsView() {
           }}
           />
         : <CustomTable
-              rows={filteredEvaluations} 
+              rows={filteredEvaluations}
               headCells={evaluationsHeadCells}
               toggleChartView={athlete => {
                 setChartAthlete(athlete);
                 setIsChartView(!isChartView);
-              }} 
+              }}
               title={''}
               hasSpecialRow={true}
               hasChartRepresentation={true}
@@ -90,18 +90,18 @@ export default function EvaluationsView() {
                       <tr>
                           <td style={tableCellStyle}><b>Letzte Trainingseinheit:</b></td>
                           <td style={tableCellStyle}>{reformatDate(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]) }</td>
-                          
-                          
-                          
+
+
+
                       </tr>
                     </tbody>
                   </table>
                 }
                 rowsPerPage={10}
               />}
-        
+
     </div>
     <div className="view-footer"></div></>
   )
 }
-// 
+//

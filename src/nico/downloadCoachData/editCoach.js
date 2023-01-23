@@ -109,7 +109,7 @@ export default class EditCoach extends Component {
             alert("Bitte Trainer*in auswählen.");
             return;
         }
-        PostSignup.disguisedTrainerLogin({trainerID: this.state.selectedTrainerID}).then(response => {
+        HandelTrainer.readHistoryAdmin({trainerID: this.state.selectedTrainerID}).then(response => {
             if (response.data.res === "ok") {
 
             } else {
@@ -167,9 +167,7 @@ export default class EditCoach extends Component {
                             &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.editGroups}> Edit Groups</button>
                             &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.downloadCoach}> Download Coachdata</button>
                         </td>
-
                     </tr>
-
                 </table>
 
 
