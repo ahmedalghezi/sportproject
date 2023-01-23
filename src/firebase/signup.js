@@ -126,7 +126,7 @@ class SignUpC extends Component {
 
 
   informServer = () =>{
-    PostJizdanSignup.setSignUP({ID:this.state.ID,phone:this.state.phone})
+    PostJizdanSignup.setSignUP({ID:this.state.ID,phone:this.state.phone,name:this.state.name})
         .then((response) => {
           this.setState({working:false});
           if (response.data.res === "error")

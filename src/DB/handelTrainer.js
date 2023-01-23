@@ -42,8 +42,12 @@ export default class HandelTrainer{
         return http.post("/trainer/postTestResults",data);
     }
 
+    static readHistoryAdmin(data){
+        return http.post("/trainer/getHistory",data);
+    }
+
     static readHistory(){
-        return http.get("/trainer/getHistory");
+        return http.post("/trainer/getHistory",{});
     }
 
     static getAllTrainers() {

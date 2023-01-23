@@ -5,24 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/firebase/login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/firebase/signup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lime/survey/survey.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/loading-gif.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/changeEmail.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/TestsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/survey/survey.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/signup.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,19 +199,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/register/admin",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/register/admin&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/register/admin" />
@@ -382,21 +370,8 @@
       <workItem from="1672850503133" duration="5127000" />
       <workItem from="1673004200904" duration="598000" />
       <workItem from="1673011132225" duration="1916000" />
-      <workItem from="1673195139967" duration="57346000" />
-    </task>
-    <task id="LOCAL-00007" summary="First version login component_2">
-      <created>1647272205850</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1647272205850</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Adding csv handler">
-      <created>1647417367549</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1647417367550</updated>
+      <workItem from="1673195139967" duration="60452000" />
+      <workItem from="1674210892788" duration="4566000" />
     </task>
     <task id="LOCAL-00009" summary="Adding csv handler">
       <created>1647417747838</created>
@@ -727,7 +702,21 @@
       <option name="project" value="LOCAL" />
       <updated>1672308662532</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Fixing download data">
+      <created>1674061268035</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1674061268035</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Fixing download data">
+      <created>1674114101822</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1674114101823</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -837,7 +826,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Minor changes by adding trainer history function" />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="More functions added to the trainer admin panels. Dealing with warnings." />
     <MESSAGE value="Version2" />
@@ -862,7 +850,8 @@
     <MESSAGE value="Changes still required to the video share pages" />
     <MESSAGE value="partial fix , video share" />
     <MESSAGE value="Video share ready" />
-    <option name="LAST_COMMIT_MESSAGE" value="Video share ready" />
+    <MESSAGE value="Fixing download data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing download data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
