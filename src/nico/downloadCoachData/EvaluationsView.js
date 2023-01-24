@@ -41,26 +41,6 @@ export default function EvaluationsView() {
   const titles = Array.from(new Set(evaluations.map(el => el.title)));
   const athletes = Array.from(new Set(evaluations.map(el => el.name)));
 
-  const downloadCoach = (event) => {
-    var csv = convertToCsv(filteredEvaluations);
-    download(csv, "history.csv", "text/csv");
-  }
-  
-  function convertToCsv(arr){
-      const keys = Object.keys(arr[0]);
-      const replacer = (_key, value) => value === null ? '' : value;
-      const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
-      return [ keys.join(','), ...arr.map(processRow) ].join('\r\n');
-  };
-  
-  const download = (content, fileName, contentType) => {
-    const a = document.createElement("a");
-    const file = new Blob([content], { type: contentType });
-    a.href = URL.createObjectURL(file);
-    a.download = fileName;
-    a.click();
-  }
-
   return (
         <>
             <div className="view-header">
@@ -124,6 +104,6 @@ export default function EvaluationsView() {
               />}
         
     </div>
-    <div className="view-footer"><button className={"btn btn-primary btn-block"} onClick={downloadCoach}> Download Coachdata</button></div></>
+    </>
   )
 }

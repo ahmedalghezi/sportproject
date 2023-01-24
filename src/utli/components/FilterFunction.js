@@ -49,6 +49,31 @@ export default function FilterFunction(props) {
     updateEvaluations(initialEvaluations);
   }
 
+  const downloadCoach = (event) => {
+    if(updateEvaluations === undefined){
+      var initcsv = convertToCsv(initialEvaluations);
+      download(initcsv, "history.csv", "text/csv");
+    }else{
+      var filtercsv = convertToCsv(updateEvaluations);
+      download(filtercsv, "history.csv", "text/csv");
+    }
+  }
+  
+  function convertToCsv(arr){
+      const keys = Object.keys(arr[0]);
+      const replacer = (_key, value) => value === null ? '' : value;
+      const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
+      return [ keys.join(','), ...arr.map(processRow) ].join('\r\n');
+  };
+  
+  const download = (content, fileName, contentType) => {
+    const a = document.createElement("a");
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
+
   // COMPONENTS
   const numberInput = () => {
     return (
@@ -140,6 +165,13 @@ export default function FilterFunction(props) {
                       disabled={filterNotSet}
                     >
                   Zurücksetzen
+                </Button>
+                <Button 
+                      variant="contained" 
+                      style={{marginTop: '12px', marginLeft: '12px', width: '160px'}}
+                      onClick={downloadCoach}
+                    >
+                  Herunterladen
                 </Button>
             </div>      
       </div>

@@ -127,8 +127,6 @@ export default class EditCoach extends Component {
 
     downloadCoach(event) {
         event.preventDefault();
-        var csv = convertToCsv(testdata);
-        download(csv, "history.csv", "text/csv");
         if (this.state.selectedTrainer === '') {
             alert("Bitte Trainer*in auswählen.");
             return;
