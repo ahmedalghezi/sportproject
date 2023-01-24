@@ -11,6 +11,7 @@ export default function FilterFunction(props) {
   const [achieved, setAchieved] = React.useState('');
   const [difference, setDifference] = React.useState('');
   const [searchText, setSearchText] = React.useState("");
+  const [filteredeva, setFilteredeva] = React.useState([]);
   
   const filterNotSet = !selectedAthlete && !selectedTitle && !planned && !achieved && !difference && !searchText;
   // EVENT HANDLERS
@@ -37,6 +38,7 @@ export default function FilterFunction(props) {
     if (difference) {
       filteredData = filteredData.filter(el => el.difference === difference);
     }
+    setFilteredeva(filteredData);
     updateEvaluations(filteredData);
   }
 
@@ -50,11 +52,11 @@ export default function FilterFunction(props) {
   }
 
   const downloadCoach = (event) => {
-    if(updateEvaluations === undefined){
+    if(filteredeva.length === 0){
       var initcsv = convertToCsv(initialEvaluations);
       download(initcsv, "history.csv", "text/csv");
     }else{
-      var filtercsv = convertToCsv(updateEvaluations);
+      var filtercsv = convertToCsv(filteredeva);
       download(filtercsv, "history.csv", "text/csv");
     }
   }
