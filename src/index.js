@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Main from './Main';
+//import Main from './register/MainReg';
 //import reportWebVitals from './reportWebVitals';
 
 
 import { BrowserRouter } from "react-router-dom";
+import Main from "./Main";
 
 
 if (process.env.NODE_ENV === 'production') {
