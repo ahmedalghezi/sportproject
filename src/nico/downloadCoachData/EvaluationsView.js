@@ -50,7 +50,7 @@ export default function EvaluationsView() {
       const keys = Object.keys(arr[0]);
       const replacer = (_key, value) => value === null ? '' : value;
       const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
-      return [ keys.join(','), ...testsData.map(processRow) ].join('\r\n');
+      return [ keys.join(','), ...arr.map(processRow) ].join('\r\n');
   };
   
   const download = (content, fileName, contentType) => {
