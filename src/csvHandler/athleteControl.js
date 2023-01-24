@@ -15,7 +15,7 @@ import {Alert} from "@mui/material";
 import axios from "axios";
 import AthletesGrid from "./athleteGrid";
 import UploadConsent from "../register/UploadConsent";
-import UploadFile from "../vanessa/fileUpload/fileUpload";
+
 import AdminUploadFile from "../register/admin/adminFileUpload";
 
 
