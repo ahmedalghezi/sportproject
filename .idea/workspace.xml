@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" afterDir="false" />
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="adding request of trainer admin">
+      <change afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/EvaluationsView.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firebase/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/eval/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/eval/EvaluationsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trainer/aymen/EvaluationsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/aymen/EvaluationsView.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -371,14 +372,7 @@
       <workItem from="1673004200904" duration="598000" />
       <workItem from="1673011132225" duration="1916000" />
       <workItem from="1673195139967" duration="60452000" />
-      <workItem from="1674210892788" duration="4566000" />
-    </task>
-    <task id="LOCAL-00009" summary="Adding csv handler">
-      <created>1647417747838</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1647417747838</updated>
+      <workItem from="1674210892788" duration="10514000" />
     </task>
     <task id="LOCAL-00010" summary=" csv handler: XLs component">
       <created>1648058184420</created>
@@ -716,7 +710,14 @@
       <option name="project" value="LOCAL" />
       <updated>1674114101823</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="adding request of trainer admin">
+      <created>1674462559161</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1674462559162</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -826,7 +827,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Minor changes" />
     <MESSAGE value="More functions added to the trainer admin panels. Dealing with warnings." />
     <MESSAGE value="Version2" />
     <MESSAGE value="Version2, change to connection url" />
@@ -851,7 +851,8 @@
     <MESSAGE value="partial fix , video share" />
     <MESSAGE value="Video share ready" />
     <MESSAGE value="Fixing download data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing download data" />
+    <MESSAGE value="adding request of trainer admin" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding request of trainer admin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

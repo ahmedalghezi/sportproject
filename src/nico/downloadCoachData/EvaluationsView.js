@@ -12,8 +12,7 @@ import HandelTrainer from "../../DB/handelTrainer";
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
 
 async function getEvaluations () {
-  console.log()
-  return await axios.create({
+return await axios.create({
      baseURL: "https://inprove-sport.info",
      json: true,
      headers: {

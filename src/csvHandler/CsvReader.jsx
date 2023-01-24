@@ -377,6 +377,7 @@ export default function  CsvReader(){
                                     <option value="bacterial">Bacterial</option>
                                     <option value="cognition">Cognition</option>
                                     <option value="body measurements">Body measurements </option>
+                                    <option value="Einschätzungen">Einschätzungen</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>

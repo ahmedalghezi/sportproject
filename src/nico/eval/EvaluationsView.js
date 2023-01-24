@@ -6,7 +6,7 @@ import { evaluationsHeadCells } from '../../temp-data/evaluations';
 import { evaluationsLocal } from '../../temp-data/evaluations';
 import axios from "axios";
 import { reformatDate } from '../../utli/dataConversion';
-import { germanDatePresentation } from "../../utli/dataConversion"; 
+import { germanDatePresentation } from "../../utli/dataConversion";
 //TODO change order of table columns to: Datum-Name-Titel-Qualität-Geplante Int.-Erreichte Int.-Differenz
 //TODO German date format
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
@@ -18,7 +18,7 @@ async function getEvaluations () {
      headers: {
          "Content-type": "application/json"
      },
-  }).get("/trainer/getHistory");
+  }).post("/trainer/getHistory",{});
 }
 
 export default function EvaluationsView2() {
@@ -48,9 +48,9 @@ export default function EvaluationsView2() {
     <>
     <div className="view-header">
       <div>
-        <FilterFunction 
+        <FilterFunction
           initialEvaluations={evaluations}
-          titles={titles} 
+          titles={titles}
           athletes={athletes}
           updateEvaluations={data => {
             setFilterEvaluations(data);
@@ -59,9 +59,9 @@ export default function EvaluationsView2() {
       </div>
     </div>
     <div className="view-content">
-      {isChartView ? 
-        <CustomChart 
-          evaluations={filteredEvaluations.filter(el => el.name === chartAthlete)} 
+      {isChartView ?
+        <CustomChart
+          evaluations={filteredEvaluations.filter(el => el.name === chartAthlete)}
           headCells={evaluationsHeadCells}
           selectedAthlete={chartAthlete}
           closeChartView={() => {
@@ -70,12 +70,12 @@ export default function EvaluationsView2() {
           }}
           />
         : <CustomTable
-              rows={filteredEvaluations} 
+              rows={filteredEvaluations}
               headCells={evaluationsHeadCells}
               toggleChartView={athlete => {
                 setChartAthlete(athlete);
                 setIsChartView(!isChartView);
-              }} 
+              }}
               title={''}
               hasSpecialRow={true}
               hasChartRepresentation={true}
@@ -94,18 +94,18 @@ export default function EvaluationsView2() {
                       <tr>
                           <td style={tableCellStyle}><b>Letzte Trainingseinheit:</b></td>
                           <td style={tableCellStyle}>{germanDatePresentation(new Date(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]))}</td>
-                          
-                          
-                          
+
+
+
                       </tr>
                     </tbody>
                   </table>
                 }
                 rowsPerPage={10}
               />}
-        
+
     </div>
     <div className="view-footer"></div></>
   )
 }
-// 
+//
