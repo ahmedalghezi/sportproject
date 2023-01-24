@@ -47,8 +47,7 @@ export default function EvaluationsView() {
   }
   
   function convertToCsv(arr){
-      let testsData = arr['athletes']
-      const keys = Object.keys(testsData[0]);
+      const keys = Object.keys(arr[0]);
       const replacer = (_key, value) => value === null ? '' : value;
       const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
       return [ keys.join(','), ...testsData.map(processRow) ].join('\r\n');
