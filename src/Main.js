@@ -30,13 +30,14 @@ import MyVideosC from "./trainer/VideoUpload/myVideos";
 import TestsView from "./csvHandler/TestsView";
 import StatsView from "./trainer/aymen/StatsView";
 import EvaluationsView from "./trainer/aymen/EvaluationsView";
+import EvaluationsView2 from "./nico/downloadCoachData/EvaluationsView";
 import UploadConsent from "./register/UploadConsent";
 import AcceptTerms from "./register/acceptTerms";
 import ApproveTests from "./register/approveTests";
 import EmailConfirmed from "./register/emailConfirmed";
 import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
-import UploadFile from "./vanessa/fileUpload/fileUpload";
+
 import AdminFileUpload from "./register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
 
@@ -51,7 +52,7 @@ import DisplayVideo from "./nico/videosharing/displayVideo";
 import TestsViewCopy from "./vanessa/subsetData/TestsViewCopy";
 import TrainerVideo from "./trainer/trainerVideo";
 import Survey from "./nico/survey/survey";
-import SignUpJiz from "./firebase/signup";
+
 
 
 function Main() {
@@ -102,7 +103,10 @@ function Main() {
                             <Route path='/trainer/addMyTests' element={<div className="auth-inner"><AddToMyTests/></div>} />
                             <Route path='/trainer/adminMain' element={<div className="auth-inner"><CreateTest/></div>} />
                             <Route path='/trainer/addAthletes' element={<div className="auth-inner"><AddAthlete/></div>} />
+
                             <Route path='/trainer/editCoach' element={<div className="auth-inner"><EditCoach/></div>} />
+
+
                             <Route path='/trainer/VideoUpload/uploadFile' element={<div className="auth-inner"><UploadFileC/></div>} />
                             <Route path='/trainer/VideoUpload/videonav' element={<div className="auth-inner"><VideoNavC/></div>} />
                             <Route path='/trainer/VideoUpload/myvideos' element={<div className="csv-inner"><MyVideosC/></div>} />
@@ -125,6 +129,7 @@ function Main() {
                             <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><TestsViewCopy/></div>} />
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
+                            <Route path='/trainer/nico/myhistory' element={<div className="csv-inner data-view"><EvaluationsView2/></div>} />
 
                             <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
 
@@ -142,7 +147,7 @@ function Main() {
 
                             <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey/></div>} />
 
-                            <Route path='/jizdan/signup' element={<div className="auth-inner"><SignUpJiz onHideNav={setHideNav}/></div>} />
+
 
 
 

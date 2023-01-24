@@ -18,10 +18,8 @@ return await axios.create({
      headers: {
          "Content-type": "application/json"
      },
-  }).get("/trainer/getHistory");
+  }).post("/trainer/getHistory", {});
 }
-
-
 
 export default function EvaluationsView() {
   const [isChartView, setIsChartView] = React.useState(false);
@@ -38,9 +36,7 @@ export default function EvaluationsView() {
       setFilterEvaluations(athletesData);
     });
   }
-
   
-
   // data preprocessing
   const titles = Array.from(new Set(evaluations.map(el => el.title)));
   const athletes = Array.from(new Set(evaluations.map(el => el.name)));
@@ -67,55 +63,57 @@ export default function EvaluationsView() {
   }
 
   return (
-    <>
-    <div className="view-header">
-      <div>
-        <FilterFunction 
-          initialEvaluations={evaluations}
-          titles={titles} 
-          athletes={athletes}
-          updateEvaluations={data => {
-            setFilterEvaluations(data);
-          }}
-        />
-      </div>
-    </div>
-    <div className="view-content">
-      {isChartView ? 
-        <CustomChart 
-          evaluations={filteredEvaluations.filter(el => el.name === chartAthlete)} 
-          headCells={evaluationsHeadCells}
-          selectedAthlete={chartAthlete}
-          closeChartView={() => {
-            setChartAthlete(false);
-            setIsChartView(false);
-          }}
-          />
-        : <CustomTable
-              rows={filteredEvaluations} 
-              headCells={evaluationsHeadCells}
-              toggleChartView={athlete => {
-                setChartAthlete(athlete);
-                setIsChartView(!isChartView);
-              }} 
-              title={''}
-              hasSpecialRow={true}
-              hasChartRepresentation={true}
-              dense={false}
-              statsSection={
-                  <table  style={{margin: '0 18px 32px'}}>
-                    <tbody>
-                      <tr>
-                          <td style={tableCellStyle}><b>Trainingseinheiten diesen Monat:</b></td>
-                          <td style={tableCellStyle}>{evaluations.length}</td>
-                      </tr>
-                      <tr>
-                          <td style={tableCellStyle}><b>Anzahl Athlet*innen:</b></td>
-                          <td style={tableCellStyle}>{Array.from(new Set(evaluations.map(ev => ev.name))).length}</td>
-                      </tr>
-                      <tr>
-                          <td style={tableCellStyle}><b>Letzte Trainingseinheit:</b></td>
-                          <td style={tableCellStyle}>{reformatDate(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]) }</td>
+        <>
+            <div className="view-header">
+                <div>
+                    <FilterFunction
+                        initialEvaluations={evaluations}
+                        titles={titles}
+                        athletes={athletes}
+                        updateEvaluations={data => {
+                            setFilterEvaluations(data);
+                        }}
+                    />
+                </div>
+            </div>
+            <div className="view-content">
+                {isChartView ?
+                    <CustomChart
+                        evaluations={filteredEvaluations.filter(el => el.name === chartAthlete)}
+                        headCells={evaluationsHeadCells}
+                        selectedAthlete={chartAthlete}
+                        closeChartView={() => {
+                            setChartAthlete(false);
+                            setIsChartView(false);
+                        }}
+                    />
+                    : <CustomTable
+                        rows={filteredEvaluations}
+                        headCells={evaluationsHeadCells}
+                        toggleChartView={athlete => {
+                            setChartAthlete(athlete);
+                            setIsChartView(!isChartView);
+                        }}
+                        title={''}
+                        hasSpecialRow={true}
+                        hasChartRepresentation={true}
+                        dense={false}
+                        statsSection={
+                            <table  style={{margin: '0 18px 32px'}}>
+                                <tbody>
+                                <tr>
+                                    <td style={tableCellStyle}><b>Trainingseinheiten diesen Monat:</b></td>
+                                    <td style={tableCellStyle}>{evaluations.length}</td>
+                                </tr>
+                                <tr>
+                                    <td style={tableCellStyle}><b>Anzahl Athlet*innen:</b></td>
+                                    <td style={tableCellStyle}>{Array.from(new Set(evaluations.map(ev => ev.name))).length}</td>
+                                </tr>
+                                <tr>
+                                    <td style={tableCellStyle}><b>Letzte Trainingseinheit:</b></td>
+                                    <td style={tableCellStyle}>{reformatDate(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]) }</td>
+
+
                           
                           
                           
