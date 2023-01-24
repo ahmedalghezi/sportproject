@@ -133,7 +133,7 @@ export default class EditCoach extends Component {
         }
         HandelTrainer.readHistoryAdmin({trainerID: this.state.selectedTrainerID}).then(response => {
             if (response.data.res === "ok") {
-                var csv = convertToCsv(testdata);
+                var csv = convertToCsv(response.data);
                 download(csv, "history.csv", "text/csv");
             } else {
                 alert("Es ist ein Fehler aufgetreten!");

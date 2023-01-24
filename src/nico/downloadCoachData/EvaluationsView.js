@@ -12,6 +12,7 @@ import HandelTrainer from "../../DB/handelTrainer";
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
 
 async function getEvaluations () {
+  console.log()
   return await axios.create({
      baseURL: "https://inprove-sport.info",
      json: true,
@@ -20,35 +21,7 @@ async function getEvaluations () {
      },
   }).get("/trainer/getHistory");
 }
-function downloadCoach() {
-  HandelTrainer.readHistory({}).then(response => {
-      if (response.data.res === "ok") {
-        var csv = convertToCsv(testdata);
-        download(csv, "history.csv", "text/csv");
-      } else {
-          alert("Es ist ein Fehler aufgetreten!");
-      }
-  }).catch(e => {
-      console.log(e);
-      alert("Es ist ein Fehler aufgetreten!");
-  });
-}
 
-const convertToCsv = (arr) => {
-  let testsData = arr['athletes']
-  const keys = Object.keys(testsData[0]);
-  const replacer = (_key, value) => value === null ? '' : value;
-  const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
-  return [ keys.join(','), ...testsData.map(processRow) ].join('\r\n');
-};
-
-function download(content, fileName, contentType) {
-  const a = document.createElement("a");
-  const file = new Blob([content], { type: contentType });
-  a.href = URL.createObjectURL(file);
-  a.download = fileName;
-  a.click();
-}
 
 
 export default function EvaluationsView() {
@@ -72,6 +45,27 @@ export default function EvaluationsView() {
   // data preprocessing
   const titles = Array.from(new Set(evaluations.map(el => el.title)));
   const athletes = Array.from(new Set(evaluations.map(el => el.name)));
+
+  const downloadCoach = (event) => {
+    var csv = convertToCsv(filteredEvaluations);
+    download(csv, "history.csv", "text/csv");
+  }
+  
+  function convertToCsv(arr){
+      let testsData = arr['athletes']
+      const keys = Object.keys(testsData[0]);
+      const replacer = (_key, value) => value === null ? '' : value;
+      const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
+      return [ keys.join(','), ...testsData.map(processRow) ].join('\r\n');
+  };
+  
+  const download = (content, fileName, contentType) => {
+    const a = document.createElement("a");
+    const file = new Blob([content], { type: contentType });
+    a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+  }
 
   return (
     <>
@@ -137,4 +131,3 @@ export default function EvaluationsView() {
     <div className="view-footer"><button className={"btn btn-primary btn-block"} onClick={downloadCoach}> Download Coachdata</button></div></>
   )
 }
-// 
