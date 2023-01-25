@@ -45,8 +45,12 @@ async function getTests(fromDate, toDate) {
 const getColLabelsFromData = (data) => {
   let labels = [];
   data.forEach((test) => {
+
     labels = labels.concat(Object.keys(test["json_record"]));
+    
   });
+  // add date to position 1 
+  labels.splice(1,0,"date");
   return labels;
 };
 
@@ -196,12 +200,12 @@ export default function TestsView(props) {
   // event handlers
   const onApply = () => {
     setJsonRecords([]);
-     getTests(
+      getTests(
       germanDatePresentation(fromDate),
       germanDatePresentation(toDate)
     ).then((res) => {
       
-      let testsData = res["data"]["arr"]; 
+      let testsData = res["data"]["arr"];  
       
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
@@ -214,15 +218,25 @@ export default function TestsView(props) {
       if (space) {
         testsData = testsData.filter((el) => el["space"] === space);
       }
-      //also filter for gender --TODO
+      //also filter for gender 
       if(gender){
         testsData = testsData.filter(el => el['gender'] === gender);
       }
       setFilteredTests(testsData);
-      setJsonRecords(testsData.map((t) => t["json_record"]));
+
+      // combined date and json_record for table display
+      setJsonRecords(testsData.map((item) => {
+        let jsonObj = item.json_record;
+        let objEntries = Object.entries(jsonObj);
+        objEntries.splice(1,0, ["date", item.date]);
+        let newJson = Object.fromEntries(objEntries);
+        return newJson;
+       
+      }));
+      //setJsonRecords(testsData.map((t) => t["json_record"]));
       setIndexArr(testsData.map((tt) => tt["id"]));
       setColLabels(getColLabelsFromData(testsData));
-     }); 
+      });  
   };
 
   const onReset = () => {
@@ -232,11 +246,12 @@ export default function TestsView(props) {
       setGender(false);
       setFromDate(defaultDates["from"]);
       setToDate(defaultDates["to"]);
-       getTests(
+        getTests(
         germanDatePresentation(fromDate),
         germanDatePresentation(toDate)
       ).then((res) => { 
-        let testsData = res["data"]["arr"];
+        let testsData = res["data"]["arr"]; 
+        
         setAllDisciplines(
           Array.from(new Set(testsData.map((el) => el.discipline)))
         );
@@ -245,7 +260,7 @@ export default function TestsView(props) {
         setJsonRecords(testsData.map((t) => t["json_record"])); 
       
         setColLabels(getColLabelsFromData(testsData));
-       }); 
+        });  
     }
   };
 
@@ -344,11 +359,12 @@ export default function TestsView(props) {
       }
     }
     if (fetchData) {
-       getTests(
+        getTests(
         germanDatePresentation(fromDate),
         germanDatePresentation(toDate)
       ).then((res) => {
-        const testsData = res["data"]["arr"]; 
+        const testsData = res["data"]["arr"];  
+        
         
         setAllDisciplines(
           Array.from(new Set(testsData.map((el) => el.discipline)))
@@ -361,24 +377,25 @@ export default function TestsView(props) {
         if (!allSpaces.includes(space)) {
           setSpace(false);
         }
-       }); 
+        });  
     }
   };
 
   // data preprocessing
   if (isFirstRender) {
-     getTests(
+      getTests(
       germanDatePresentation(fromDate),
       germanDatePresentation(toDate)
     ).then((res) => {
-      const testsData = res["data"]["arr"]; 
+      const testsData = res["data"]["arr"];  
+      
       
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
       setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
       setIsFirstRender(false);
-     }); 
+      });  
   }
   let testHeadCells = Array.from(new Set(colLabels));
   testHeadCells = testHeadCells.map((headCell) => {
