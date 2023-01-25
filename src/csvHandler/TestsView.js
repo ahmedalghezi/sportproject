@@ -15,6 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { germanDatePresentation } from "../utli/dataConversion";
 import PostCSVData from "../DB/postCSV";
+import ReactJson from "react-json-view";
 
 
 
@@ -193,6 +194,9 @@ export default function TestsView(props) {
   const [isFirstRender, setIsFirstRender] = React.useState(true);
   const [selectedRowIndex, setSelectedRowIndex] = React.useState(null);
   const [indexArr, setIndexArr] = React.useState([]);
+  const [showJson,setShowJson] = React.useState(false);
+  const [formatText, setFormatText] = React.useState("Show JSON");
+
 
   //added for filtering gender
   const [gender, setGender] = React.useState(false);
@@ -406,6 +410,15 @@ export default function TestsView(props) {
     setSelectedRowIndex(index);
   }
 
+  function switchShowJson(){
+    if(showJson)
+      setFormatText("Show Tabular");
+    else
+      setFormatText("Show JSON");
+    setShowJson(!showJson);
+
+  }
+
   return (
     <>
       <div className="view-header">
@@ -486,12 +499,34 @@ export default function TestsView(props) {
                 </Button>
               }
             </div>
+
+
+            <div style={{ width: "33%", display: "inline-block" }}>
+              {
+                <Button
+                    variant="contained"
+                    style={{ marginTop: "12px", width: "100px" }}
+                    onClick={switchShowJson}
+                    disabled={filteredTests.length === 0}
+                >
+                  {formatText}
+                </Button>
+              }
+            </div>
+
+
+
           </div>
         </div>
       </div>
       <div className="view-content">
         {
-          <CustomTable
+          <div>
+            <div hidden={!showJson}>
+          <ReactJson collapsed={true} src={jsonRecords} />
+            </div>
+            <div hidden={showJson}>
+            <CustomTable
             rows={jsonRecords}
             headCells={testHeadCells}
             title={""}
@@ -501,6 +536,8 @@ export default function TestsView(props) {
             rowsPerPage={10}
             onRowSelected={onRowSelected}
           />
+            </div>
+          </div>
         }
       </div>
       <div className="view-footer"></div>
