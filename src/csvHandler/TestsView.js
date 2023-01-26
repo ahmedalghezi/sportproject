@@ -232,7 +232,9 @@ export default function TestsView(props) {
       setJsonRecords(testsData.map((item) => {
         let jsonObj = item.json_record;
         let objEntries = Object.entries(jsonObj);
-        objEntries.splice(1,0, ["date", item.date]);
+        let dateStr = item.date;
+        let newDateStr = dateStr.split("T")[0];
+        objEntries.splice(1,0, ["date", newDateStr]);
         let newJson = Object.fromEntries(objEntries);
         return newJson;
        
