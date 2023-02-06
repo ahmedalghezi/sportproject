@@ -12,6 +12,8 @@ import getApp from "./firebase";
 import { getAuth, signInWithPhoneNumber ,RecaptchaVerifier} from "firebase/auth";
 
 
+const debug = false;
+
 class SignUpC extends Component {
   constructor(props) {
     super(props);
@@ -56,6 +58,17 @@ class SignUpC extends Component {
     const target = event.target;
     let value = target.value;
     const name = target.name;
+    if(name === "phone"){
+      value = this.a2e(value);
+      if(value === "999")
+        value = "9990564977";
+      if(value.startsWith("0"))
+        value = "+964"+this.state.phone.substring(1);
+      value = "+964"+value;
+    }
+    if(name === "code"){
+      value = this.a2e(value);
+    }
     this.setState({
       [name]: value,
     });
@@ -86,23 +99,23 @@ class SignUpC extends Component {
     return false;
   }
 
+  a2e = s => s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d));
 
   signInWithPhone(){
     console.log("signing in with firebase");
     const auth = getAuth(getApp());
     // const auth = getAuth();
     auth.languageCode = 'iq';
-    let phoneNumber = "+964"+this.state.phone;
-    if(this.state.phone.startsWith("0"))
-      phoneNumber = "+964"+this.state.phone.substring(1);
-    if(this.state.phone === "999")
-      phoneNumber = "+964 9990564977";
     this.setState({showCapcha:true});
     window.recaptchaVerifier = new RecaptchaVerifier('cont_cap_id', {}, auth);
     const appVerifier = window.recaptchaVerifier;
-
+    const phoneNumber = this.state.phone;
+    if(debug)
+      alert("pereparing to sign in with phone");
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
         .then((confirmationResult) => {
+          if(debug)
+            alert("got res sign in with phone");
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
           window.confirmationResult = confirmationResult;
@@ -116,6 +129,7 @@ class SignUpC extends Component {
         }).catch((error) => {
           this.setState({working:false});
       this.setState({showCapcha:false});
+      alert("رقم الموبايل المعطى غير صالح");
       // Error; SMS not sent
       // ...
       console.log("Error; SMS not sent");
@@ -125,8 +139,8 @@ class SignUpC extends Component {
 
 
 
-  informServer = () =>{
-    PostJizdanSignup.setSignUP({ID:this.state.ID,phone:this.state.phone,name:this.state.name})
+  informServer = (userID) =>{
+    PostJizdanSignup.setSignUP({ID:this.state.ID,phone:this.state.phone,name:this.state.name,userID:userID})
         .then((response) => {
           this.setState({working:false});
           if (response.data.res === "error")
@@ -135,7 +149,7 @@ class SignUpC extends Component {
             alert("Diese Email-Adresse ist bereits registriert.");
           //this.props.history.push('./AfterReg');
           else {
-            sendDataToReactNativeApp("ok");
+            sendDataToReactNativeApp(this.state.phone+"code:"+response.data.code);
             //this.props.navigate("/reg/regSuc");
           }
         })
@@ -157,7 +171,6 @@ class SignUpC extends Component {
       return;
     if(this.state.working)
       return;
-    this.setState({working:true});
     if(!this.state.askForCode)
       this.signInWithPhone();
     else if(this.state.code != "") {
@@ -168,6 +181,7 @@ class SignUpC extends Component {
     }
     else
     {
+      alert("يرجى ادخال الكود الذي وصلك بالرسالة القصيرة")
       this.setState({working:false});
       //TODO make it red!!
     }
@@ -208,11 +222,11 @@ class SignUpC extends Component {
         <br></br>
 
         <div className="form-group" hidden={!this.state.askForCode}>
-          <label>سيتم ارسال كود الى جهازك لتأكيد الرقم عبر رسالة قصيرة</label>
+          <label>تم ارسال كود الى جهازك لتأكيد الرقم عبر رسالة قصيرة</label>
           <input
               type="ادخل كود التفعيل"
               className="form-control"
-              placeholder="number"
+              placeholder="SMS code"
               name="code"
               onChange={this.handleChange}
           />
@@ -245,9 +259,7 @@ class SignUpC extends Component {
         <button type="submit" className="btn btn-primary btn-block" disabled={this.state.working}>
           سجل
         </button>
-        <p className="forgot-password text-right">
-        Schon registriert? <a href="/reg/sign-in">Login</a>
-        </p>
+
       </form>
     );
   }
@@ -305,13 +317,16 @@ const signInWithCode= (code,confirmationResult,ref)  =>{
     alert("error code Jz288; no confirmation result attached");
     return;
   }
+  ref.setState({working:true});
   confirmationResult.confirm(code).then((result) => {
+    ref.setState({working:false});
     // User signed in successfully.
     const user = result.user;
     alert("تم التسجيل");
-    ref.informServer();
+    ref.informServer(user.uid);
     // ...
   }).catch((error) => {
+    ref.setState({working:false});
     alert( "error in code "+error)
     // User couldn't sign in (bad verification code?)
     // ...

@@ -238,7 +238,10 @@ export default function  CsvReader(){
                 if(response.data.insertCount > 0)
                     showSuccess(response.data.insertCount+" records were added successfully");
                 if(response.data.errCount > 0)
-                    showError(response.data.insertCount+" records failed to be added");
+                    showError(response.data.errCount+" records failed to be added");
+
+                if(response.data.duplCount > 0)
+                    showError(response.data.duplCount+" records are duplicates");
             }
 
 

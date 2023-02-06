@@ -9,7 +9,7 @@ export function descendingComparator(a, b, orderBy) {
     }
     return 0;
 }
-  
+
 export function getComparator(order, orderBy) {
     return order === 'desc'
         ? (a, b) => descendingComparator(a, b, orderBy)
@@ -46,4 +46,12 @@ export const germanDatePresentation = date => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
   return day + "." + month + "." + year
+}
+
+
+export const usDatePresentation = date => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return year + "." + month + "." + day
 }
