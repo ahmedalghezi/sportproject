@@ -15,6 +15,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { germanDatePresentation } from "../utli/dataConversion";
 import PostCSVData from "../DB/postCSV";
+import ReactJson from "react-json-view";
+
+
 
 const defaultDates = {
   from: new Date(2020, 0, 1),
@@ -23,7 +26,7 @@ const defaultDates = {
 
 // requesting data from API
 async function getTests(fromDate, toDate) {
-  console.log(
+ console.log(
     "https://inprove-sport.info/csvapi/get_slice/" + fromDate + "/" + toDate
   );
   return await axios
@@ -35,14 +38,20 @@ async function getTests(fromDate, toDate) {
       },
     })
     .get("/csvapi/get_slice/" + fromDate + "/" + toDate);
+    
+    
 }
 
 // utils
 const getColLabelsFromData = (data) => {
   let labels = [];
   data.forEach((test) => {
+
     labels = labels.concat(Object.keys(test["json_record"]));
+    
   });
+  // add date to position 1 
+  labels.splice(1,0,"date");
   return labels;
 };
 
@@ -163,8 +172,8 @@ const getFilterFunction = (
             style={{ width: "240px" }}
           >
             <MenuItem value={false}>No selection.</MenuItem>
-            <MenuItem value={"Male"}>Male</MenuItem>
-            <MenuItem value={"Female"}>Female</MenuItem>
+            <MenuItem value={"M"}>Male</MenuItem>
+            <MenuItem value={"F"}>Female</MenuItem>
           </Select>
         </FormControl>
       </div>
@@ -185,6 +194,9 @@ export default function TestsView(props) {
   const [isFirstRender, setIsFirstRender] = React.useState(true);
   const [selectedRowIndex, setSelectedRowIndex] = React.useState(null);
   const [indexArr, setIndexArr] = React.useState([]);
+  const [showJson,setShowJson] = React.useState(false);
+  const [formatText, setFormatText] = React.useState("Show JSON");
+
 
   //added for filtering gender
   const [gender, setGender] = React.useState(false);
@@ -192,11 +204,13 @@ export default function TestsView(props) {
   // event handlers
   const onApply = () => {
     setJsonRecords([]);
-    getTests(
+      getTests(
       germanDatePresentation(fromDate),
       germanDatePresentation(toDate)
     ).then((res) => {
-      let testsData = res["data"]["arr"];
+      
+      let testsData = res["data"]["arr"];  
+      
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
@@ -208,15 +222,27 @@ export default function TestsView(props) {
       if (space) {
         testsData = testsData.filter((el) => el["space"] === space);
       }
-      //also filter for gender --TODO
+      //also filter for gender 
       if(gender){
         testsData = testsData.filter(el => el['gender'] === gender);
       }
       setFilteredTests(testsData);
-      setJsonRecords(testsData.map((t) => t["json_record"]));
+
+      // combined date and json_record for table display
+      setJsonRecords(testsData.map((item) => {
+        let jsonObj = item.json_record;
+        let objEntries = Object.entries(jsonObj);
+        let dateStr = item.date;
+        let newDateStr = dateStr.split("T")[0];
+        objEntries.splice(1,0, ["date", newDateStr]);
+        let newJson = Object.fromEntries(objEntries);
+        return newJson;
+       
+      }));
+      //setJsonRecords(testsData.map((t) => t["json_record"]));
       setIndexArr(testsData.map((tt) => tt["id"]));
       setColLabels(getColLabelsFromData(testsData));
-    });
+      });  
   };
 
   const onReset = () => {
@@ -226,19 +252,21 @@ export default function TestsView(props) {
       setGender(false);
       setFromDate(defaultDates["from"]);
       setToDate(defaultDates["to"]);
-      getTests(
+        getTests(
         germanDatePresentation(fromDate),
         germanDatePresentation(toDate)
-      ).then((res) => {
-        let testsData = res["data"]["arr"];
+      ).then((res) => { 
+        let testsData = res["data"]["arr"]; 
+        
         setAllDisciplines(
           Array.from(new Set(testsData.map((el) => el.discipline)))
         );
         setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
         setFilteredTests(testsData);
-        setJsonRecords(testsData.map((t) => t["json_record"]));
+        setJsonRecords(testsData.map((t) => t["json_record"])); 
+      
         setColLabels(getColLabelsFromData(testsData));
-      });
+        });  
     }
   };
 
@@ -337,11 +365,13 @@ export default function TestsView(props) {
       }
     }
     if (fetchData) {
-      getTests(
+        getTests(
         germanDatePresentation(fromDate),
         germanDatePresentation(toDate)
       ).then((res) => {
-        const testsData = res["data"]["arr"];
+        const testsData = res["data"]["arr"];  
+        
+        
         setAllDisciplines(
           Array.from(new Set(testsData.map((el) => el.discipline)))
         );
@@ -353,23 +383,25 @@ export default function TestsView(props) {
         if (!allSpaces.includes(space)) {
           setSpace(false);
         }
-      });
+        });  
     }
   };
 
   // data preprocessing
   if (isFirstRender) {
-    getTests(
+      getTests(
       germanDatePresentation(fromDate),
       germanDatePresentation(toDate)
     ).then((res) => {
-      const testsData = res["data"]["arr"];
+      const testsData = res["data"]["arr"];  
+      
+      
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
       setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
       setIsFirstRender(false);
-    });
+      });  
   }
   let testHeadCells = Array.from(new Set(colLabels));
   testHeadCells = testHeadCells.map((headCell) => {
@@ -378,6 +410,15 @@ export default function TestsView(props) {
 
   function onRowSelected(index) {
     setSelectedRowIndex(index);
+  }
+
+  function switchShowJson(){
+    if(showJson)
+      setFormatText("Show Tabular");
+    else
+      setFormatText("Show JSON");
+    setShowJson(!showJson);
+
   }
 
   return (
@@ -460,12 +501,34 @@ export default function TestsView(props) {
                 </Button>
               }
             </div>
+
+
+            <div style={{ width: "33%", display: "inline-block" }}>
+              {
+                <Button
+                    variant="contained"
+                    style={{ marginTop: "12px", width: "100px" }}
+                    onClick={switchShowJson}
+                    disabled={filteredTests.length === 0}
+                >
+                  {formatText}
+                </Button>
+              }
+            </div>
+
+
+
           </div>
         </div>
       </div>
       <div className="view-content">
         {
-          <CustomTable
+          <div>
+            <div hidden={!showJson}>
+          <ReactJson collapsed={true} src={jsonRecords} />
+            </div>
+            <div hidden={showJson}>
+            <CustomTable
             rows={jsonRecords}
             headCells={testHeadCells}
             title={""}
@@ -475,6 +538,8 @@ export default function TestsView(props) {
             rowsPerPage={10}
             onRowSelected={onRowSelected}
           />
+            </div>
+          </div>
         }
       </div>
       <div className="view-footer"></div>

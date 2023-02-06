@@ -12,36 +12,36 @@ import HandelTrainer from "../../DB/handelTrainer";
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
 
 async function getEvaluations () {
-return await axios.create({
-     baseURL: "https://inprove-sport.info",
-     json: true,
-     headers: {
-         "Content-type": "application/json"
-     },
-  }).post("/trainer/getHistory", {});
+  return await axios.create({
+      baseURL: "https://inprove-sport.info",
+      json: true,
+      headers: {
+        "Content-type": "application/json"
+      },
+   }).post("/trainer/getHistory", {});
 }
 
 export default function EvaluationsView() {
-  const [isChartView, setIsChartView] = React.useState(false);
-  const [chartAthlete, setChartAthlete] = React.useState(false);
-  const [evaluations, setEvaluations] = React.useState([]);
-  const [filteredEvaluations, setFilterEvaluations] = React.useState([]);
+    const [isChartView, setIsChartView] = React.useState(false);
+    const [chartAthlete, setChartAthlete] = React.useState(false);
+    const [evaluations, setEvaluations] = React.useState([]);
+    const [filteredEvaluations, setFilterEvaluations] = React.useState([]);
 
-  if(evaluations.length === 0) {
-    getEvaluations().then(res => {
-      const athletesData = res['data']['athletes'];
-      if(!athletesData || res['data']['res'] != "ok")
-        return;
-      setEvaluations(athletesData);
-      setFilterEvaluations(athletesData);
-    });
-  }
-  
-  // data preprocessing
-  const titles = Array.from(new Set(evaluations.map(el => el.title)));
-  const athletes = Array.from(new Set(evaluations.map(el => el.name)));
+    if(evaluations.length === 0) {
+        getEvaluations().then(res => {
+            const athletesData = res['data']['athletes'];
+            if(!athletesData || res['data']['res'] != "ok")
+                return;
+            setEvaluations(athletesData);
+            setFilterEvaluations(athletesData);
+        });
+    }
 
-  return (
+    // data preprocessing
+    const titles = Array.from(new Set(evaluations.map(el => el.title)));
+    const athletes = Array.from(new Set(evaluations.map(el => el.name)));
+
+    return (
         <>
             <div className="view-header">
                 <div>
@@ -93,17 +93,17 @@ export default function EvaluationsView() {
                                     <td style={tableCellStyle}>{reformatDate(Array.from(new Set(evaluations.map(ev => ev.date))).sort().reverse()[0]) }</td>
 
 
-                          
-                          
-                          
-                      </tr>
-                    </tbody>
-                  </table>
-                }
-                rowsPerPage={10}
-              />}
-        
-    </div>
-    </>
-  )
+
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+                        }
+                        rowsPerPage={10}
+                    />}
+
+            </div>
+        </>
+    )
 }
