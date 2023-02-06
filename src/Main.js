@@ -52,6 +52,8 @@ import DisplayVideo from "./nico/videosharing/displayVideo";
 import TestsViewCopy from "./vanessa/subsetData/TestsViewCopy";
 import TrainerVideo from "./trainer/trainerVideo";
 import Survey from "./nico/survey/survey";
+import SignUpJiz from "./firebase/signup";
+import VideoPlayer from "./temp-data/optionsGenTemp";
 
 
 
@@ -147,6 +149,10 @@ function Main() {
 
                             <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey/></div>} />
 
+
+                            <Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />
+
+                            <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
 
 
 
