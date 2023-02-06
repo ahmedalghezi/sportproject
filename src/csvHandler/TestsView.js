@@ -343,6 +343,30 @@ export default function TestsView(props) {
       });
   };
 
+  const onDeleteall = () => {
+    //ask before deletion
+    setFilteredTests([]);
+    filteredTests.forEach(item =>
+      PostCSVData.deleteCSVRow({ rowID: item.id })
+      .then((response) => {
+        if (response.data.res === "error")
+          alert("some error has happened. code dowcsv187");
+        if (response.data.res === "no")
+          window.location.href =
+            window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
+        if (response.data.res === "ok") {
+
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("some error has happened..code dowcsv195");
+      }) 
+    );
+    alert("Rows moved to deletion bin..");
+    onApply();
+  };
+
   const onDatesChange = () => {
     const from = germanDatePresentation(fromDate)
       .split(".")
@@ -498,6 +522,19 @@ export default function TestsView(props) {
                   disabled={selectedRowIndex === null}
                 >
                   Delete selected row
+                </Button>
+              }
+            </div>
+
+            <div style={{ width: "33%", display: "inline-block" }}>
+              {
+                <Button
+                  variant="contained"
+                  style={{ marginTop: "12px", width: "160px" }}
+                  onClick={() => { if (window.confirm('Are you sure you wish to delete all rows?')) onDeleteall() } }
+                  disabled={filteredTests.length === 0}
+                >
+                  Delete all
                 </Button>
               }
             </div>
