@@ -346,25 +346,34 @@ export default function TestsView(props) {
   const onDeleteall = () => {
     //ask before deletion
     setFilteredTests([]);
+    let success = 0;
+    let promises = [];
     filteredTests.forEach(item =>
-      PostCSVData.deleteCSVRow({ rowID: item.id })
-      .then((response) => {
-        if (response.data.res === "error")
-          alert("some error has happened. code dowcsv187");
-        if (response.data.res === "no")
-          window.location.href =
-            window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
-        if (response.data.res === "ok") {
-
-        }
-      })
+      promises.push(
+        PostCSVData.deleteCSVRow({ rowID: item.id })
+        .then((response) => {
+          if (response.data.res === "error")
+            alert("some error has happened. code dowcsv187");
+          if (response.data.res === "no")
+            window.location.href =
+              window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
+          if (response.data.res === "ok") {
+              success++;
+          }
+        })
+      )
       .catch((e) => {
         console.log(e);
         alert("some error has happened..code dowcsv195");
       }) 
     );
-    alert("Rows moved to deletion bin..");
-    onApply();
+    Promise.all(promises)
+      .then(() => 
+        alert(String(success) + " rows moved to deletion bin..")
+      )
+      .then(() => 
+        onApply()
+      );
   };
 
   const onDatesChange = () => {
