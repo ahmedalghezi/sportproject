@@ -1,0 +1,23 @@
+.folder {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.toggle-button {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.folder-link {
+    text-decoration: none;
+    color: black;
+}
+
+.file-list {
+    margin-left: 20px;
+}
+
+.link-list {
+    margin-left: 20px;
+}
