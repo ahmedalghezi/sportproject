@@ -1,6 +1,7 @@
 import React from "react";
 import CustomTable from "../utli/components/CustomTable";
 import axios from "axios";
+import { CircularProgress } from '@mui/material';
 import {
   Button,
   FormControl,
@@ -196,6 +197,7 @@ export default function TestsView(props) {
   const [indexArr, setIndexArr] = React.useState([]);
   const [showJson,setShowJson] = React.useState(false);
   const [formatText, setFormatText] = React.useState("Show JSON");
+  const [loading, setLoading] = React.useState(false);
 
 
   //added for filtering gender
@@ -346,6 +348,7 @@ export default function TestsView(props) {
   const onDeleteall = () => {
     //ask before deletion
     setFilteredTests([]);
+    setLoading(true);
     let success = 0;
     let promises = [];
     filteredTests.forEach(item =>
@@ -370,6 +373,9 @@ export default function TestsView(props) {
     Promise.all(promises)
       .then(() => 
         alert(String(success) + " rows moved to deletion bin..")
+      )
+      .then(() => 
+      setLoading(false)
       )
       .then(() => 
         onApply()
@@ -537,6 +543,9 @@ export default function TestsView(props) {
 
             <div style={{ width: "33%", display: "inline-block" }}>
               {
+                loading ? (
+                              <CircularProgress />
+                            ) : 
                 <Button
                   variant="contained"
                   style={{ marginTop: "12px", width: "160px" }}
