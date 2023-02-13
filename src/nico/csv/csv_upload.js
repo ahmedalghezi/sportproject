@@ -9,7 +9,7 @@ import React, { useState, useEffect } from 'react';
     const [testspage, setTestsPage] = useState([]);
     const [fields, setFields] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
-    const pageSize = 2;
+    const pageSize = 10;
 
     const testdata = [
         { testId: 1, testName: "Math Test" },
@@ -57,9 +57,9 @@ import React, { useState, useEffect } from 'react';
         <form onSubmit={handleSubmit}>
           {testspage.map(test => (
             <div key={test.testId}>
-              <p>{test.testName}</p>
-              <input
-                type="text"
+              <span  style= {{...{float: "left"},...{width: "150px"}}}>{test.testName}</span>
+              <textarea
+                style= {{...{height: "80px"},...{marginBottom: "20px"},...{width: "150px"}}}
                 onChange={event => handleChange(event, test.testId)}
               />
             </div>
