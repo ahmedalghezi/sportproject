@@ -54,6 +54,8 @@ import TrainerVideo from "./trainer/trainerVideo";
 import Survey from "./nico/survey/survey";
 import SignUpJiz from "./firebase/signup";
 import VideoPlayer from "./temp-data/optionsGenTemp";
+import TestsViewT from "./csvHandler/testViewT";
+import TestFolderList from "./user/testFolderList";
 
 
 
@@ -124,6 +126,9 @@ function Main() {
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
                             <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
+
+                            <Route path='/csv/history2' element={<div className="csv-inner data-view"><TestsViewT/></div>} />
+
                             <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
@@ -136,7 +141,7 @@ function Main() {
                             <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
 
 
-
+                            <Route path='/reg/links' element={<div className="auth-inner"><TestFolderList/></div>} />
 
 
 

@@ -23,7 +23,7 @@ export default class TrainerVideo extends Component {
     render() {
         return (
             <div>
-                <ShareVideo onUpload={this.refresh}/>
+                <ShareVideo uploadDone={this.refresh}/>
                 <br/>
                 <DisplayVideo ref={this.child} />
             </div>

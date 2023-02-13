@@ -25,7 +25,7 @@ const testdata = [
     { id: 8, filename: video3, title: "acht", date: '2000-05-21T10:00:00.000Z'},
     { id: 9, filename: video3, title: "neun", date: '1000-05-21T10:00:00.000Z'},
     //{ id: 6, videourl: video4, title: "sechs", date: '2000-05-23T22:00:00.000Z'},
-  ]
+]
 const vidperpage = 4;
 
 export default class DisplayVideo extends Component {
@@ -48,7 +48,7 @@ export default class DisplayVideo extends Component {
         this.setState({windowWidth: window.innerWidth});
     }
     handleResize = () => this.setState({
-      windowWidth: window.innerWidth
+        windowWidth: window.innerWidth
     });
 
     getTrainers(){
@@ -73,7 +73,7 @@ export default class DisplayVideo extends Component {
     }
 
     getAll(){
-       // this.updateVideoPage(testdata, this.state.currentPage);
+        // this.updateVideoPage(testdata, this.state.currentPage);
         handelTrainer.getVideos().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -85,7 +85,7 @@ export default class DisplayVideo extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                var list = response.data.videoList.sort((a, b) => (a.time > b.time) ? 1 : -1);
+                var list = response.data.videoList.sort((a, b) => (a.time > b.time) ? -1 : 1);
                 this.setState({videoList: list});
                 this.updateVideoPage(list, this.state.currentPage);
             }
@@ -100,24 +100,24 @@ export default class DisplayVideo extends Component {
     updateVideoPage(listofvids, curpage){
         if(!listofvids)
             return;
-      var getvideos = listofvids.slice(curpage * vidperpage, curpage * vidperpage + vidperpage);
-      var ordervid = [];
-      if(this.state.windowWidth > 480){
-        getvideos.forEach(element => {
-          if(!(getvideos.indexOf(element) % 2)){
-            ordervid.push(element);
-          }
-        });
-        getvideos.forEach(element => {
-          console.log(getvideos.indexOf(element));
-          if(getvideos.indexOf(element) % 2){
-            ordervid.push(element);
-          }
-        });
-        this.setState({currentVideos: ordervid});
-      }else{
-        this.setState({currentVideos: getvideos});
-      }
+        var getvideos = listofvids.slice(curpage * vidperpage, curpage * vidperpage + vidperpage);
+        var ordervid = [];
+        if(this.state.windowWidth > 480){
+            getvideos.forEach(element => {
+                if(!(getvideos.indexOf(element) % 2)){
+                    ordervid.push(element);
+                }
+            });
+            getvideos.forEach(element => {
+                console.log(getvideos.indexOf(element));
+                if(getvideos.indexOf(element) % 2){
+                    ordervid.push(element);
+                }
+            });
+            this.setState({currentVideos: ordervid});
+        }else{
+            this.setState({currentVideos: getvideos});
+        }
     }
 
     orderVideos(event) {
@@ -126,25 +126,25 @@ export default class DisplayVideo extends Component {
             sortByTitle = event.target.value ===  "Titel"
             this.setState({sortByTitle:sortByTitle})
         }
-      if(sortByTitle){
-        var list = this.state.videoList.sort((a, b) => (a.title > b.title) ? 1 : -1);
-        this.updateVideoPage(list,this.state.currentPage);
-      }else{
-        var list = this.state.videoList.sort((a, b) => (a.time > b.time) ? 1 : -1);
-        this.updateVideoPage(list,this.state.currentPage);
-      }
+        if(sortByTitle){
+            var list = this.state.videoList.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            this.updateVideoPage(list,this.state.currentPage);
+        }else{
+            var list = this.state.videoList.sort((a, b) => (a.time > b.time) ? 1 : -1);
+            this.updateVideoPage(list,this.state.currentPage);
+        }
     }
     handleButtonClickLeft(event) {
-      if(this.state.currentPage > 0){
-        this.setState({currentPage: this.state.currentPage - 1});
-        this.updateVideoPage(this.state.videoList, this.state.currentPage - 1);
-      }
+        if(this.state.currentPage > 0){
+            this.setState({currentPage: this.state.currentPage - 1});
+            this.updateVideoPage(this.state.videoList, this.state.currentPage - 1);
+        }
     }
     handleButtonClickRight(event) {
-      if(this.state.videoList.length /vidperpage > this.state.currentPage + 1){
-        this.setState({currentPage: this.state.currentPage + 1});
-        this.updateVideoPage(this.state.videoList, this.state.currentPage + 1);
-      }
+        if(this.state.videoList.length /vidperpage > this.state.currentPage + 1){
+            this.setState({currentPage: this.state.currentPage + 1});
+            this.updateVideoPage(this.state.videoList, this.state.currentPage + 1);
+        }
     }
     resize = () => this.forceUpdate()
 
@@ -152,76 +152,76 @@ export default class DisplayVideo extends Component {
     render() {
         require("./uploadFile.css")
 
-      return (
-        <div>
-          <h3>Meine Videos</h3>
-          <div>
-            <label>Liste sortieren nach: </label>
-            <select onChange={this.orderVideos}>
-                <option>Datum</option>
-              <option>Titel</option>
-            </select>
-          </div>
-
-          <div className="gallery">
-            {this.state.currentVideos.map((item, index) => {
-              return (
-                <div>
-                <div className="content-section">
-                    <h1 id="video-title">{item.title}</h1>
-                    {" "}
-                  <div className="video" key={index}>
-                    <div className="video-container" key={index}>
-                        <video width="350" height="200"
-                            className="video"
-                            title={item.title}
-                            progress
-                            controls
-                            src={"https://inprove-sport.info/trainer/streamVideo/"+ item.filename}
-                        />
-                    </div>
-                  </div>
-
-                  </div>
-                </div>
-              );
-            })}
+        return (
             <div>
-              {(this.state.currentVideos.length % 2 === 1) ? (
-                <div >
-                                      <h1 id="video-title"></h1>
-                    {" "}
-                  <div className="video">
-                    <div className="video-container">
-                    </div>
-                  </div>
+                <h3>Meine Videos</h3>
+                <div>
+                    <label>Liste sortieren nach: </label>
+                    <select onChange={this.orderVideos}>
+                        <option>Datum</option>
+                        <option>Titel</option>
+                    </select>
                 </div>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-        <div className="arrows">
-          {
-            (this.state.currentPage > 0)
-            ?         <button onClick={this.handleButtonClickLeft}>        <ArrowBackIosIcon>
 
-            </ArrowBackIosIcon></button>
-            : null
-          }
-          {
-            (this.state.videoList.length /vidperpage > this.state.currentPage + 1)
-            ? <button onClick={this.handleButtonClickRight}>
-            <ArrowForwardIosIcon>
-    
-            </ArrowForwardIosIcon>
-            </button>
-            : null
-          }
-        
-        </div>
-        </div>
-      );
+                <div className="gallery">
+                    {this.state.currentVideos.map((item, index) => {
+                        return (
+                            <div>
+                                <div className="content-section">
+                                    <h1 id="video-title">{item.title}</h1>
+                                    {" "}
+                                    <div className="video" key={index}>
+                                        <div className="video-container" key={index}>
+                                            <video width="350" height="200"
+                                                   className="video"
+                                                   title={item.title}
+                                                   progress
+                                                   controls
+                                                   src={"https://inprove-sport.info/trainer/streamVideo/"+ item.filename}
+                                            />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        );
+                    })}
+                    <div>
+                        {(this.state.currentVideos.length % 2 === 1) ? (
+                            <div >
+                                <h1 id="video-title"></h1>
+                                {" "}
+                                <div className="video">
+                                    <div className="video-container">
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            ""
+                        )}
+                    </div>
+                </div>
+                <div className="arrows">
+                    {
+                        (this.state.currentPage > 0)
+                            ?         <button onClick={this.handleButtonClickLeft}>        <ArrowBackIosIcon>
+
+                            </ArrowBackIosIcon></button>
+                            : null
+                    }
+                    {
+                        (this.state.videoList.length /vidperpage > this.state.currentPage + 1)
+                            ? <button onClick={this.handleButtonClickRight}>
+                                <ArrowForwardIosIcon>
+
+                                </ArrowForwardIosIcon>
+                            </button>
+                            : null
+                    }
+
+                </div>
+            </div>
+        );
     }
 
 
