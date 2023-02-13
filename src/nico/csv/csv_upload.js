@@ -57,9 +57,9 @@ import React, { useState, useEffect } from 'react';
         <form onSubmit={handleSubmit}>
           {testspage.map(test => (
             <div key={test.testId}>
-              <span  style= {{...{float: "left"},...{width: "150px"}}}>{test.testName}</span>
+              <span  style= {{...{float: "left"},...{width: "80px"}}}>{test.testName}</span>
               <textarea
-                style= {{...{height: "80px"},...{marginBottom: "20px"},...{width: "150px"}}}
+                style= {{...{height: "80px"},...{marginBottom: "20px"},...{width: "220px"}}}
                 onChange={event => handleChange(event, test.testId)}
               />
             </div>
