@@ -6,9 +6,10 @@ import React, { useState, useEffect } from 'react';
 
   const MetaUpload = () => {
     const [tests, setTests] = useState([]);
+    const [testspage, setTestsPage] = useState([]);
     const [fields, setFields] = useState({});
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 10;
+    const [currentPage, setCurrentPage] = useState(0);
+    const pageSize = 2;
 
     const testdata = [
         { testId: 1, testName: "Math Test" },
@@ -19,13 +20,21 @@ import React, { useState, useEffect } from 'react';
     ];
   
     useEffect(() => {
-      // make a request to get the list of tests
-      console.log("fg")
-      setTests(testdata);
-      fetch(`https://api.example.com/tests?page=${currentPage}&pageSize=${pageSize}`)
-        .then(response => response.json())
-        .then(data => setTests(data));
-    }, [currentPage]);
+      const fetchData = async () => {
+        try {
+          const response = await fetch("your-server-url");
+          const data = await response.json();
+          setTests(data);
+          setTestsPage(data.slice(0, pageSize));
+        } catch (error) {
+          setTests(testdata);
+          setTestsPage(testdata.slice(0, pageSize));
+          console.error(error);
+        }
+      };
+  
+      fetchData();
+    }, []);
   
     const handleChange = (event, testId) => {
       setFields({ ...fields, [testId]: event.target.value });
@@ -38,18 +47,15 @@ import React, { useState, useEffect } from 'react';
   
     const handlePageChange = page => {
       setCurrentPage(page);
+      setTestsPage(tests.slice(page * pageSize, page * pageSize + pageSize));
     };
-  
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(tests.length / pageSize); i++) {
-      pageNumbers.push(i);
-    }
+
   
     return (
       <div>
         <h3>Meta data upload</h3>
         <form onSubmit={handleSubmit}>
-          {tests.map(test => (
+          {testspage.map(test => (
             <div key={test.testId}>
               <p>{test.testName}</p>
               <input
@@ -60,16 +66,13 @@ import React, { useState, useEffect } from 'react';
           ))}
           <button type="submit">Submit</button>
         </form>
-        <div>
-          {pageNumbers.map(number => (
-            <span
-              key={number}
-              style={{ cursor: 'pointer' }}
-              onClick={() => handlePageChange(number)}
-            >
-              {number}
-            </span>
-          ))}
+          <div>
+          {currentPage > 0 && (
+            <button onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
+          )}
+          {tests.length > currentPage * pageSize + pageSize && (
+            <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
+          )}
         </div>
       </div>
     );
