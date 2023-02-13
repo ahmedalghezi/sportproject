@@ -56,15 +56,15 @@ import React, { useState, useEffect } from 'react';
         <h3>Meta data upload</h3>
         <form onSubmit={handleSubmit}>
           {testspage.map(test => (
-            <div key={test.testId}>
-              <span  style= {{...{float: "left"},...{width: "80px"}}}>{test.testName}</span>
-              <textarea
-                style= {{...{height: "80px"},...{marginBottom: "20px"},...{width: "220px"}}}
-                onChange={event => handleChange(event, test.testId)}
-              />
-            </div>
+              <div key={test.testId}>
+                <span  style= {{...{float: 'left'},...{width: "80px"},...{marginLeft: "230px"}}}>{test.testName}</span>
+                <textarea
+                  style= {{...{height: "80px"},...{marginBottom: "20px"},...{width: "350px"},...{marginLeft: "100px"}}}
+                  onChange={event => handleChange(event, test.testId)}
+                />
+              </div>
           ))}
-          <button type="submit">Submit</button>
+          <button style= {{...{float: 'right'}}} type="submit">Submit</button>
         </form>
           <div>
           {currentPage > 0 && (
