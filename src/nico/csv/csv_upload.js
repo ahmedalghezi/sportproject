@@ -2,6 +2,7 @@
 By Nicolas Schulz
  */
 import React, { useState, useEffect } from 'react';
+import PostCSVData from "../../DB/postCSV";
 
 
   const MetaUpload = () => {
@@ -9,7 +10,7 @@ import React, { useState, useEffect } from 'react';
     const [testspage, setTestsPage] = useState([]);
     const [fields, setFields] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
-    const pageSize = 10;
+    const pageSize = 2;
 
     const testdata = [
         { testId: 1, testName: "Math Test" },
@@ -43,6 +44,19 @@ import React, { useState, useEffect } from 'react';
     const handleSubmit = event => {
       event.preventDefault();
       // send fields data to the backend along with the test ID
+      PostCSVData.sendMeta(fields).then(response => {
+        if (response.data.res === "error")
+            alert("Es ist ein Fehler aufgetreten.");
+        if(response.data.res === "no")
+            window.location.href = window.location.origin+"/reg/sign-in";
+        if(response.data.res === "ok"){
+          
+        }
+      }).catch(e => {
+          console.log(e);
+          alert("Es ist ein Fehler aufgetreten.");
+      });
+
     };
   
     const handlePageChange = page => {
