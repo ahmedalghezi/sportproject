@@ -10,7 +10,8 @@ import PostCSVData from "../../DB/postCSV";
     const [testspage, setTestsPage] = useState([]);
     const [fields, setFields] = useState({});
     const [currentPage, setCurrentPage] = useState(0);
-    const pageSize = 2;
+    const pageSize = 10;
+    const [sendRequest, setSendRequest] = useState(true);
 
     const testdata = [
         { testId: 1, testName: "Math Test" },
@@ -21,21 +22,24 @@ import PostCSVData from "../../DB/postCSV";
     ];
   
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch("your-server-url");
-          const data = await response.json();
-          setTests(data);
-          setTestsPage(data.slice(0, pageSize));
-        } catch (error) {
-          setTests(testdata);
-          setTestsPage(testdata.slice(0, pageSize));
-          console.error(error);
-        }
-      };
-  
-      fetchData();
-    }, []);
+      if(sendRequest){
+        fetchData();
+        setSendRequest(false);
+      }
+    }, [sendRequest]);
+
+    const fetchData = async () => {
+      try {
+        const response = await fetch("your-server-url");
+        const data = await response.json();
+        setTests(data);
+        setTestsPage(data.slice(0, pageSize));
+      } catch (error) {
+        setTests(testdata);
+        setTestsPage(testdata.slice(0, pageSize));
+        console.error(error);
+      }
+    };
   
     const handleChange = (event, testId) => {
       setFields({ ...fields, [testId]: event.target.value });
@@ -50,7 +54,11 @@ import PostCSVData from "../../DB/postCSV";
         if(response.data.res === "no")
             window.location.href = window.location.origin+"/reg/sign-in";
         if(response.data.res === "ok"){
-          
+            alert("Meta Daten wurden hochgeladen.")
+            setSendRequest(true);
+            //reset page and fields
+            setCurrentPage(0);
+            setFields({});
         }
       }).catch(e => {
           console.log(e);
