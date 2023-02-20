@@ -36,6 +36,7 @@ export default class EditCoach extends Component {
         this.handleDisguisedLogin = this.handleDisguisedLogin.bind(this);
         this.getTrainers = this.getTrainers.bind(this);
         this.makeCoach = this.makeCoach.bind(this);
+        this.makeCompetence = this.makeCompetence.bind(this);
         this.downloadCoach = this.downloadCoach.bind(this);
     }
 
@@ -75,6 +76,26 @@ export default class EditCoach extends Component {
             }
             if (response.data.res === "ok") {
                 alert("Trainer korrekt erstellt!");
+                this.setState({email: ''});
+                this.getTrainers();
+                return;
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
+    }
+
+    makeCompetence(event) {
+        event.preventDefault();
+        HandelTrainer.makeCompetence({email: this.state.email}).then(response => {
+            if (response.data.res === "error") {
+                alert("Es ist ein Fehler aufgetreten!");
+                return;
+            }
+            if (response.data.res === "ok") {
+                alert("Kompetenz-teammitglied korrekt erstellt!");
                 this.setState({email: ''});
                 this.getTrainers();
                 return;
@@ -169,8 +190,11 @@ export default class EditCoach extends Component {
                     <input type="email" className="form-control" placeholder="Email eingeben " name="email"
                            onChange={this.handleChange}/>
                 </div>
-                <button onClick={this.makeCoach} className="btn btn-secondary btn-block" disabled={false}>erstelle
+                <button style= {{...{display: 'inline'},...{width: "150px"}}} onClick={this.makeCoach} className="btn btn-secondary btn-block" disabled={false}>erstelle
                     Trainer*in
+                </button>
+                <button style= {{...{display: 'inline'},...{width: "150px"},...{marginLeft: "20px"}}} onClick={this.makeCompetence} className="btn btn-secondary btn-block" disabled={false}>erstelle
+                Kompetenz-teammitglied
                 </button>
 
                 <br></br><br></br>
