@@ -89,7 +89,7 @@ export default class EditCoach extends Component {
 
     makeCompetence(event) {
         event.preventDefault();
-        HandelTrainer.makeCompetence({email: this.state.email}).then(response => {
+        HandelTrainer.makeCoach({email: this.state.email, competence: "true"}).then(response => {
             if (response.data.res === "error") {
                 alert("Es ist ein Fehler aufgetreten!");
                 return;
