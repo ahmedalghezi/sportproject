@@ -59,6 +59,28 @@ function AthleteControl(props) {
         navigate("/user/profile");
     }
 
+    const deleteUser = () => {
+        if (window.confirm("Are you sure you want to delete this item?")) {
+            PostSignup.deleteMyProfile().then(response => {
+                if (response.data.res === "error") {
+                    const arr = ["connection error"];
+                    return;
+                }
+                if (response.data.res === "error") {
+                    alert("Bitte erst anmelden.");
+                    return;
+                }
+                if (response.data.res === "ok") {
+                    alert("Delete successful.")
+                }
+    
+            }).catch(e => {
+                console.log(e);
+                alert("Es ist ein Fehler aufgetreten!");
+            });
+        }
+    }
+
     const scrollToTop = () =>{
         setTimeout(function(){
             document.body.scrollTo(0, 0);
@@ -155,6 +177,10 @@ function AthleteControl(props) {
         </div>
         <div hidden={!showShowProfile || !disguised}>
             <button onClick={goToProfile}>Go to his profile</button>
+        </div>
+
+        <div hidden={!showShowProfile || !disguised}>
+            <button onClick={deleteUser}>Delete User</button>
         </div>
 
         <AthletesGrid {...props} navigate={navigate} uploadReport={uploadReport}  uploadConsent={uploadConsent}
