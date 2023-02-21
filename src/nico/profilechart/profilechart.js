@@ -12,11 +12,12 @@ const testdata = [
 ]
 const ref =    [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}];
 
+const titel = "Profile Chart"
 export default class ProfileChart extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {arrtest: [], ref: []};
+        this.state = {arrtest: [], ref: [], title: ""};
         this.getAll = this.getAll.bind(this);
     }
 
@@ -27,7 +28,7 @@ export default class ProfileChart extends Component {
     }
     getAll(){
         //need to add empty object for space
-        this.setState({ref: ref, arrtest: testdata});
+        this.setState({ref: ref, arrtest: testdata, title: titel });
         handelTrainer.getVideos().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -82,7 +83,7 @@ export default class ProfileChart extends Component {
                         },
                     
                 ]}
-                layout={ { title: "Profile Chart", yaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false}}
+                layout={ { title: this.state.title, yaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false}}
                 />
                 
             </div>
