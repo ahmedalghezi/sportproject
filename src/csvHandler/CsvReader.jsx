@@ -46,6 +46,9 @@ export default function  CsvReader(){
     const [selectedStudyID, setSelectedStudyID] = useState();
 
 
+    const [spaces, setSpaces] = useState([]);
+
+
 
     const processCSV = (str, delim=';') => {
         const headers = str.slice(0,str.indexOf('\n')).split(delim);
@@ -72,6 +75,7 @@ export default function  CsvReader(){
         //TODO find better way
         if(disciplinesList.length == 0){
             getDisplines();
+            getSpaces();
             //getApprovedStudies();
         }
     });
@@ -336,6 +340,16 @@ export default function  CsvReader(){
     }
 
 
+    function getSpaces() {
+        PostCSVData.getSpaces()
+            .then(response => {
+                setSpaces(response.data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
     return(
         <div>
             <form id='csv-form'>
@@ -371,19 +385,11 @@ export default function  CsvReader(){
                         <td>
                             <div className="form-group">
                                 <label>Data Space</label>
-                                <br></br>
-                                <select onChange={handleSpace}  name="space">
-                                    <option value="">Please select</option>
-                                    <option value="performance">Performance data</option>
-                                    <option value="blood">Blood samples</option>
-                                    <option value="dna">DNA</option>
-                                    <option value="bacterial">Bacterial</option>
-                                    <option value="cognition">Cognition</option>
-                                    <option value="body measurements">Body measurements </option>
-                                    <option value="Einschätzungen">Einschätzungen</option>
-                                    <option value="sociology">Sociology</option>
-                                    <option value="zyklus">Zyklus</option>
-                                    <option value="other">Other</option>
+                                <br />
+                                <select onChange={handleSpace} name="space">
+                                    {spaces.map((space, index) => (
+                                        <option key={index} value={space.value}>{space.label}</option>
+                                    ))}
                                 </select>
                             </div>
 

@@ -75,6 +75,10 @@ export default class PostCSVData {
         return http.post("/csv/deleteSelectedRow", data);
     }
 
+    static getSpaces() {
+        return http.get("/csv/getSpaces");
+    }
+
 
     /**
      * loads 10 tests to fill their metadata fields
