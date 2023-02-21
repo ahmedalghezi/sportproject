@@ -381,6 +381,8 @@ export default function  CsvReader(){
                                     <option value="cognition">Cognition</option>
                                     <option value="body measurements">Body measurements </option>
                                     <option value="Einschätzungen">Einschätzungen</option>
+                                    <option value="sociology">Sociology</option>
+                                    <option value="zyklus">Zyklus</option>
                                     <option value="other">Other</option>
                                 </select>
                             </div>

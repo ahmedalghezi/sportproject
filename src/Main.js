@@ -56,6 +56,8 @@ import SignUpJiz from "./firebase/signup";
 import VideoPlayer from "./temp-data/optionsGenTemp";
 import TestsViewT from "./csvHandler/testViewT";
 import TestFolderList from "./user/testFolderList";
+//import MetaUpload from "./nico/csv/csv_upload";
+import MetaUpload from "./csvHandler/metaData";
 
 
 
@@ -158,6 +160,10 @@ function Main() {
                             <Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />
 
                             <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
+
+
+                            <Route path='/csv/uploadMeta' element={<div className="csv-inner data-view"><MetaUpload/></div>} />
+
 
 
 
