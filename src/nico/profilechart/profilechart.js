@@ -10,13 +10,13 @@ const testdata = [
     {value: 27.5, label: "Sprunghöhe - 09.21"},
     {value: 29.9, label: "Sprunghöhe - 06.22"},
 ]
-const ref =    [{value: 40, label: "Referenzwert(cm)"}];
+const ref =    [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}];
 
 export default class ProfileChart extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {arrtest: []};
+        this.state = {arrtest: [], ref: []};
         this.getAll = this.getAll.bind(this);
     }
 
@@ -26,7 +26,8 @@ export default class ProfileChart extends Component {
 
     }
     getAll(){
-        this.setState({arrtest: [...testdata,...ref]})
+        //need to add empty object for space
+        this.setState({ref: ref, arrtest: testdata});
         handelTrainer.getVideos().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -59,7 +60,7 @@ export default class ProfileChart extends Component {
 
         return (
             <div style= {{...{textAlign: 'center'}}}>
-                                <Plot
+            <Plot
                 data={[
                     {
                     x: this.state.arrtest.map(el => el.value),
@@ -67,11 +68,21 @@ export default class ProfileChart extends Component {
                     type: 'bar',
                     orientation: 'h',
                     mode: 'lines+markers',
-                    marker: {color: 'blue'},
+                    marker: {color: '#862A16'},
+                    text: this.state.arrtest.map(el => el.value),
                     },
+                    {
+                        x: this.state.ref.map(el => el.value),
+                        y: this.state.ref.map(el => el.label),
+                        type: 'bar',
+                        orientation: 'h',
+                        mode: 'lines+markers',
+                        marker: {color: '#862A16'},
+                        text: this.state.ref.map(el => el.value),
+                        },
                     
                 ]}
-                layout={ { title: "Profile Chart", yaxis: { automargin: true}} }
+                layout={ { title: "Profile Chart", yaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false}}
                 />
                 
             </div>
