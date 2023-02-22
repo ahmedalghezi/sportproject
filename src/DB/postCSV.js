@@ -74,4 +74,28 @@ export default class PostCSVData {
     static deleteCSVRow(data) {
         return http.post("/csv/deleteSelectedRow", data);
     }
+
+    static getSpaces() {
+        return http.get("/csv/getSpaces");
+    }
+
+
+    /**
+     * loads 10 tests to fill their metadata fields
+     * @param data {discipline:"xxx",space:"xxx"}
+     * @returns {res:"ok"} , {res:"no"} or {res:"error"}
+     */
+    static getMetadata(data) {
+        return http.post("/csv/getMetadata", data);
+    }
+
+
+    /**
+     * Sets the description of metadata in the DB
+     * @param data   {tests:[{testId:"xx", desc:"xxx"} , .... ]}
+     * @returns {res:"ok"} , {res:"no"} or {res:"error"}
+     */
+    static setMetadata(data) {
+        return http.post("/csv/setMetadata", data);
+    }
 }

@@ -105,6 +105,8 @@ export default class PostSignup {
         return http.post("/reg/passwordLinkClicked" , param);
     }
 
+
+
     static uploadConsent(data){
         //return axios.post("https://inprove-sport.info:3000"+"/files/sendFileToAthlete", data)
         return axios.post("https://inprove-sport.info"+"/files/sendConsent", data)/*, {
@@ -119,7 +121,6 @@ export default class PostSignup {
     static uploadVideo(data, options){
         return axios.post("https://inprove-sport.info"+"/files/saveVideo", data, options);
     }
-
 
 
 

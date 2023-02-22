@@ -29,7 +29,8 @@ class SignUpC extends Component {
       captchaToken:'',
       tempReg:false,
       askAgain:false,
-      working:false
+      working:false,
+      key:""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,6 +40,7 @@ class SignUpC extends Component {
     this.getDisciplines();
     this.setState({adminReg:this.props.adminReg});
     this.setState({tempReg:this.props.tempReg});
+    this.setState({key:this.props.key});
     if(this.props.tempReg){
       this.setRandomPassword();
     }
@@ -309,7 +311,7 @@ class SignUpC extends Component {
               onChange={this.handleChange}
               defaultChecked={this.state.readTerms}
             />{" "}
-           Ich habe die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die 
+           Ich habe die <a target="_blank" rel="noopener noreferrer" href={"https://inprove-sport.info/privacy_policy_inprove.pdf"}>Datenschutzbestimmungen und die
           Bedingungen für die Datenspeicherung und -nutzung</a> gelesen und akzeptiere sie.
           </label>
         </div>
@@ -358,6 +360,7 @@ function SignUp(props) {
   const [signUpData, setSignUpData] = useState({});
 
   const st = searchParams.get("admiregxn");
+  const idf = searchParams.get("idf");
   let tempParam = searchParams.get("temreg");
   let isTemp = false;
   if(tempParam)
@@ -401,7 +404,7 @@ function SignUp(props) {
     </div>;
   }
   else
-    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp}/>;
+    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp} key={idf}/>;
 }
 
 export default SignUp;
