@@ -3,6 +3,7 @@ By Nicolas Schulz
  */
 import React, { useState, useEffect } from 'react';
 import PostCSVData from "../../DB/postCSV";
+import PostSignup from '../../DB/postSignup';
 
 
   const MetaUpload = () => {
@@ -12,6 +13,10 @@ import PostCSVData from "../../DB/postCSV";
     const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 10;
     const [sendRequest, setSendRequest] = useState(true);
+    const [discipline, setDiscipline] = useState("");
+    const [space, setSpace] = useState("");
+    const [spaces, setSpaces] = useState([]);
+    const [disciplinesList, setDisciplinesList] = useState([]);
 
     const testdata = [
         { testId: 1, testName: "Math Test" },
@@ -25,21 +30,50 @@ import PostCSVData from "../../DB/postCSV";
       if(sendRequest){
         fetchData();
         setSendRequest(false);
+        getDisplines();
+        getSpaces();
       }
     }, [sendRequest]);
 
     const fetchData = async () => {
       try {
-        const response = await fetch("your-server-url");
+        const response = await fetch(PostCSVData.getMetadata({discipline:"xxx",space:"xxx"}));
         const data = await response.json();
         setTests(data);
         setTestsPage(data.slice(0, pageSize));
       } catch (error) {
         setTests(testdata);
         setTestsPage(testdata.slice(0, pageSize));
-        console.error(error);
       }
     };
+
+    const getDisplines = () => {
+      PostSignup.getAllDisciplines().then(response => {
+          if(response.data.res === "error") {
+              alert("Error getting disciplines from server");
+              return;
+          }
+          else if(response.data.res && response.data.res.length > 0){
+              setDisciplinesList(response.data.res);
+              setDiscipline(response.data.res[0]);
+          }
+
+      }).catch(e => {
+          console.log(e);
+          alert("some error has happened");
+      });
+    }
+
+    function getSpaces() {
+      PostCSVData.getSpaces()
+          .then(response => {
+              setSpaces(response.data.data);
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    }
+
   
     const handleChange = (event, testId) => {
       setFields({ ...fields, [testId]: event.target.value });
@@ -48,7 +82,7 @@ import PostCSVData from "../../DB/postCSV";
     const handleSubmit = event => {
       event.preventDefault();
       // send fields data to the backend along with the test ID
-      PostCSVData.sendMeta(fields).then(response => {
+      PostCSVData.setMetadata(fields).then(response => {
         if (response.data.res === "error")
             alert("Es ist ein Fehler aufgetreten.");
         if(response.data.res === "no")
@@ -72,10 +106,45 @@ import PostCSVData from "../../DB/postCSV";
       setTestsPage(tests.slice(page * pageSize, page * pageSize + pageSize));
     };
 
+    const handleSpace =  (event) =>{
+      event.preventDefault();
+      setSpace(event.target.value);
+    }
+
+  
+    const  handleDispSele = (event) =>{
+      event.preventDefault();
+      setDiscipline(event.target.value);
+    }
+
   
     return (
       <div>
         <h3>Meta data upload</h3>
+        <td>
+                            <div className="form-group">
+                                <label>Data Space</label>
+                                <br />
+                                <select onChange={handleSpace} name="space">
+                                    {spaces.map((space, index) => (
+                                        <option key={index} value={space.value}>{space.label}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                        </td>
+                        <td>     </td>
+                        <td>
+                            <div className="form-group">
+                                <label>Discipline</label>
+                                <br></br>
+                                <select onChange={handleDispSele}  name="discipline">
+                                    {disciplinesList.map((item) => (
+                                        <option key={item}>{item}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </td>
         <form onSubmit={handleSubmit}>
           {testspage.map(test => (
               <div key={test.testId}>
