@@ -8,10 +8,7 @@ import PostSignup from '../../DB/postSignup';
 
   const MetaUpload = () => {
     const [tests, setTests] = useState([]);
-    const [testspage, setTestsPage] = useState([]);
     const [fields, setFields] = useState({});
-    const [currentPage, setCurrentPage] = useState(0);
-    const pageSize = 10;
     const [sendRequest, setSendRequest] = useState(true);
     const [discipline, setDiscipline] = useState("");
     const [space, setSpace] = useState("");
@@ -37,13 +34,11 @@ import PostSignup from '../../DB/postSignup';
 
     const fetchData = async () => {
       try {
-        const response = await fetch(PostCSVData.getMetadata({discipline:"xxx",space:"xxx"}));
+        const response = await fetch(PostCSVData.getMetadata({discipline:discipline,space:space}));
         const data = await response.json();
         setTests(data);
-        setTestsPage(data.slice(0, pageSize));
       } catch (error) {
-        setTests(testdata);
-        setTestsPage(testdata.slice(0, pageSize));
+        alert("something went wrong")
       }
     };
 
@@ -91,7 +86,6 @@ import PostSignup from '../../DB/postSignup';
             alert("Meta Daten wurden hochgeladen.")
             setSendRequest(true);
             //reset page and fields
-            setCurrentPage(0);
             setFields({});
         }
       }).catch(e => {
@@ -101,20 +95,18 @@ import PostSignup from '../../DB/postSignup';
 
     };
   
-    const handlePageChange = page => {
-      setCurrentPage(page);
-      setTestsPage(tests.slice(page * pageSize, page * pageSize + pageSize));
-    };
 
     const handleSpace =  (event) =>{
       event.preventDefault();
       setSpace(event.target.value);
+      setSendRequest(true);
     }
 
   
     const  handleDispSele = (event) =>{
       event.preventDefault();
       setDiscipline(event.target.value);
+      setSendRequest(true);
     }
 
   
@@ -146,7 +138,7 @@ import PostSignup from '../../DB/postSignup';
                             </div>
                         </td>
         <form onSubmit={handleSubmit}>
-          {testspage.map(test => (
+          {tests.map(test => (
               <div key={test.testId}>
                 <span  style= {{...{float: 'left'},...{width: "80px"},...{marginLeft: "230px"}}}>{test.testName}</span>
                 <textarea
@@ -157,14 +149,6 @@ import PostSignup from '../../DB/postSignup';
           ))}
           <button style= {{...{float: 'right'}}} type="submit">Submit</button>
         </form>
-          <div>
-          {currentPage > 0 && (
-            <button onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
-          )}
-          {tests.length > currentPage * pageSize + pageSize && (
-            <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
-          )}
-        </div>
       </div>
     );
   };
