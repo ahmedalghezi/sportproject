@@ -7,13 +7,6 @@ import handelTrainer from "../../DB/handelTrainer";
 import ProfileChart from "./profilechart";
 import { Grid } from "@mui/material";
 
-const testdata = [
-    {value: 27.5, label: "Sprunghöhe - 09.21"},
-    {value: 29.9, label: "Sprunghöhe - 06.22"},
-]
-const refer =    [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}];
-
-const titel = "Profile Chart 1"
 
 const charts = [
     {data: [
@@ -37,22 +30,20 @@ export default class ProfileGrid extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {charts: []};
         this.getAll = this.getAll.bind(this);
     }
 
 
     componentDidMount() {
         this.getAll();
-        console.log(charts[0])
     }
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-        handelTrainer.getVideos().then(response => {
+        handelTrainer.getCharts({athleteID: 0}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
-                this.setState({videoList: arr});
                 return;
             }
             if(response.data.res === "no"){
@@ -60,9 +51,7 @@ export default class ProfileGrid extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                var list = response.data.videoList.sort((a, b) => (a.time > b.time) ? -1 : 1);
-                this.setState({videoList: list});
-                this.updateVideoPage(list, this.state.currentPage);
+                this.setState({charts: response.data})
             }
 
         }).catch(e => {
