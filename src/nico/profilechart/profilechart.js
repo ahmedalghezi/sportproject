@@ -38,7 +38,7 @@ export default class ProfileChart extends Component {
                         },
                     
                 ]}
-                layout={ {height: 600, autosize: false, title: title, yaxis: { automargin: true}, xaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false}}
+                layout={ {height: 600, autosize: false, title: title, yaxis: { automargin: true}, xaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false, margin:{r: 200}}}
                 />
                 
             </div>
