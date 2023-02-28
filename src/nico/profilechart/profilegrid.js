@@ -12,6 +12,8 @@ const charts = [
     {data: [
     {value: 27.5, label: "Sprunghöhe - 09.21"},
     {value: 29.9, label: "Sprunghöhe - 06.22"},
+    {value: 27.5, label: "Sprunghöhe - 09.23"},
+    {value: 29.9, label: "Sprunghöhe - 06.24"},
 ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
 titel: "Profile Chart 2" },
 {data: [
@@ -41,7 +43,7 @@ export default class ProfileGrid extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-        handelTrainer.getCharts({athleteID: 0}).then(response => {
+        handelTrainer.addToGroup({athleteID: 0}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
@@ -73,7 +75,7 @@ export default class ProfileGrid extends Component {
                 <h3>Stat page</h3>
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     {charts.map(function(d, idx){
-                    return (<Grid item xs={6}><ProfileChart arrtest={d.data} refer={d.refer} title={d.titel}/></Grid>)
+                    return (<Grid item xs={6}><div style= {{...{height: '350px'}}}><ProfileChart arrtest={d.data} refer={d.refer} title={d.titel}/></div></Grid>)
                 })}
                 </Grid>
             </div>
