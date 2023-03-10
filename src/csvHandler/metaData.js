@@ -1,104 +1,252 @@
-/*
-By Nicolas Schulz
- */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import PostCSVData from "../DB/postCSV";
+import PostSignup from "../DB/postSignup";
+import {Alert} from "@mui/material";
 
-
-const MetaUpload = (props) => {
+function MeasurementComponent(props) {
     const [tests, setTests] = useState([]);
-    const [testspage, setTestsPage] = useState([]);
-    const [fields, setFields] = useState({});
-    const [currentPage, setCurrentPage] = useState(0);
-    const pageSize = 10;
-    const [sendRequest, setSendRequest] = useState(true);
+    const [descriptions, setDescriptions] = useState([]);
 
-    const testdata = [
-        { testId: 1, testName: "Math Test" },
-        { testId: 2, testName: "English Test" },
-        { testId: 3, testName: "Science Test" },
-        { testId: 4, testName: "History Test" },
-        { testId: 5, testName: "Geography Test" }
-    ];
+    const [spaces, setSpaces] = useState([]);
+    const [space, setSpace] = useState("");
 
-    useEffect(() => {
-        if(sendRequest){
-            fetchData();
-            setSendRequest(false);
-        }
-    }, [sendRequest]);
+    const [disciplinesList, setDisciplinesList] = useState([]);
+    const [discipline, setDiscipline] = useState("");
 
-    const fetchData = async () => {
-        try {
-            const response = await fetch("https://inprove-sport.info/csv/getMetadata?space="+props.space + "&discipline="+props.discipline);
-            const {data} = await response.json();
-            setTests(data);
-            setTestsPage(data.slice(0, pageSize));
-        } catch (error) {
-            setTests(testdata);
-            setTestsPage(testdata.slice(0, pageSize));
-            console.error(error);
-        }
-    };
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const handleChange = (event, testId) => {
-        setFields({ ...fields, [testId]: event.target.value });
-    };
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
 
-    const handleSubmit = event => {
+
+    function getSpaces() {
+        PostCSVData.getSpaces()
+            .then(response => {
+                setSpaces(response.data.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+
+    const  handleDispSele = (event) =>{
         event.preventDefault();
-        // send fields data to the backend along with the test ID
-        PostCSVData.sendMeta(fields).then(response => {
-            if (response.data.res === "error")
-                alert("Es ist ein Fehler aufgetreten.");
-            if(response.data.res === "no")
-                window.location.href = window.location.origin+"/reg/sign-in";
-            if(response.data.res === "ok"){
-                alert("Meta Daten wurden hochgeladen.")
-                setSendRequest(true);
-                //reset page and fields
-                setCurrentPage(0);
-                setFields({});
+        setDiscipline(event.target.value);
+        setSuccess(false);
+        setError(false);
+    }
+
+    const getDisplines = () => {
+        PostSignup.getAllDisciplines().then(response => {
+            if(response.data.res === "error") {
+                showError("Error getting disciplines from server");
+                return;
             }
+            else if(response.data.res && response.data.res.length > 0){
+                setDisciplinesList(response.data.res);
+                setDiscipline(response.data.res[0]);
+            }
+
         }).catch(e => {
             console.log(e);
-            alert("Es ist ein Fehler aufgetreten.");
+            showError("some error has happened");
         });
+    }
 
-    };
 
-    const handlePageChange = page => {
-        setCurrentPage(page);
-        setTestsPage(tests.slice(page * pageSize, page * pageSize + pageSize));
-    };
 
+    const showError = (msg) =>{
+        setError(true);
+        setErrorMsg(msg);
+    }
+
+
+    const showSuccess = (msg) =>{
+        setSuccess(true);
+        setSuccessMsg(msg);
+    }
+
+
+
+    const handleSpace =  (event) =>{
+        event.preventDefault();
+        setSpace(event.target.value);
+        setSuccess(false);
+        setError(false);
+    }
+
+    async function fetchTests() {
+        if(discipline === "" || space === ""){
+            showError("Please select space and discipline");
+            return;
+        }
+        setTests([]);
+        setDescriptions([]);
+        try {
+            const response = await axios.post(
+                "https://inprove-sport.info/csv/getMetadata",
+                {
+                    discipline: discipline,
+                    space: space,
+                }
+            );
+            if (response.data.res === "ok") {
+                if(response.data.data.length ==0){
+                    showSuccess("No more tests for you to fill in this space and discipline. Please try to select another space or discipline");
+                    return;
+                }
+                setTests(response.data.data);
+                setDescriptions(new Array(response.data.data.length).fill(""));
+            } else {
+                console.error("Error fetching tests: ", response.data.res);
+            }
+        } catch (error) {
+            console.error("Error fetching tests: ", error);
+        }
+    }
+    // Fetch tests from the server on component mount
+    useEffect(() => {
+        getDisplines();
+        getSpaces();
+    }, [props.discipline, props.space]);
+
+
+    function checkTestDesc() {
+        for(let i = 0 ; i < descriptions.length ; i++){
+            if(!descriptions[i]  || descriptions[i] === "" )
+                return false;
+        }
+        return true;
+    }
+    // Handle form submission
+    async function handleSubmit(event) {
+        event.preventDefault();
+        if(!descriptions || descriptions.length == 0){
+            return;
+        }
+        if(!checkTestDesc()){
+            showError("Please fill all fields");
+            return;
+        }
+        try {
+            const response = await axios.post(
+                "https://inprove-sport.info/csv/setMetadata",
+                {
+                    tests: tests.map((test, index) => ({
+                        testId: test.testid,
+                        desc: descriptions[index],
+                    })),
+                }
+            );
+            if (response.data.res === "ok") {
+                showSuccess("Descriptions sent successfully");
+                // Reload tests from the server
+                fetchTests();
+            } else {
+                console.error("Error setting descriptions: ", response.data.res);
+            }
+        } catch (error) {
+            console.error("Error setting descriptions: ", error);
+        }
+    }
+
+    /*if (tests.length === 0) {
+        return <div>No tests received from database</div>;
+    }*/
 
     return (
+
+
         <div>
-            <h3>Meta data upload</h3>
-            <form onSubmit={handleSubmit}>
-                {testspage.map(test => (
-                    <div key={test.testId}>
-                        <span  style= {{...{float: 'left'},...{width: "80px"},...{marginLeft: "230px"}}}>{test.testName}</span>
-                        <textarea
-                            style= {{...{height: "80px"},...{marginBottom: "20px"},...{width: "350px"},...{marginLeft: "100px"}}}
-                            onChange={event => handleChange(event, test.testId)}
+            <p>Here you may upload the metadata or the description of each test. Please select the space and discipline then click on  "Get Tests".
+                When you fill the description, click submit to send them to the database. More tests (if any) are loaded next automatically for you. </p>
+            <table>
+                <tr>
+                    <td width="20px">
+                    </td>
+                    <td>
+                        <div className="form-group">
+                            <label>Data Space</label>
+                            <br />
+                            <select onChange={handleSpace} name="space">
+                                {spaces.map((space, index) => (
+                                    <option key={index} value={space.value}>{space.label}</option>
+                                ))}
+                            </select>
+                        </div>
+
+                    </td>
+                    <td>     </td>
+                    <td>
+                        <div className="form-group">
+                            <label>Discipline</label>
+                            <br></br>
+                            <select onChange={handleDispSele}  name="discipline">
+                                {disciplinesList.map((item) => (
+                                    <option key={item}>{item}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </td>
+
+                    <td width={20}></td>
+                    <td>
+
+
+                    </td>
+
+                    <td width={20}></td>
+
+
+
+                    <td>
+                        <br></br>
+                        <button
+                            className="btn btn-primary btn-block paddingBtn"
+                            onClick={(e) => {
+                               fetchTests();
+                            }}
+                        >
+                            Get Tests
+                        </button>
+
+                    </td>
+
+
+
+
+                </tr>
+            </table>
+            <Alert severity="success" hidden={!success}>{successMsg}</Alert>
+            <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
+
+
+        <form onSubmit={handleSubmit}>
+            {tests.map((test, index) => (
+                <div key={test.testid}>
+                    <label>
+                        {test.testname}
+                    </label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            value={descriptions[index]}
+                            onChange={(event) => {
+                                const newDescriptions = [...descriptions];
+                                newDescriptions[index] = event.target.value;
+                                setDescriptions(newDescriptions);
+                            }}
                         />
-                    </div>
-                ))}
-                <button style= {{...{float: 'right'}}} type="submit">Submit</button>
-            </form>
-            <div>
-                {currentPage > 0 && (
-                    <button onClick={() => handlePageChange(currentPage - 1)}>Previous</button>
-                )}
-                {tests.length > currentPage * pageSize + pageSize && (
-                    <button onClick={() => handlePageChange(currentPage + 1)}>Next</button>
-                )}
-            </div>
+
+                </div>
+            ))}
+            <button type="submit">Submit</button>
+        </form>
+
         </div>
     );
-};
-
-export default MetaUpload;
-
+}
+export default MeasurementComponent;

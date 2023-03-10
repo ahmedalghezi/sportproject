@@ -135,6 +135,7 @@ const signInWithCode = (confirmationResult,phone) => {
     confirmationResult.confirm(code).then((result) => {
         // User signed in successfully.
         const user = result.user;
+        const uid = user.uid;
         this.setState({working:false});
         sendDataToReactNativeApp(phone);
         return;

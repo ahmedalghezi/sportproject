@@ -40,7 +40,7 @@ class SignUpC extends Component {
     this.getDisciplines();
     this.setState({adminReg:this.props.adminReg});
     this.setState({tempReg:this.props.tempReg});
-    this.setState({key:this.props.key});
+    this.setState({key:this.props.idf});
     if(this.props.tempReg){
       this.setRandomPassword();
     }
@@ -187,8 +187,8 @@ class SignUpC extends Component {
     event.preventDefault();
     if(this.state.working)
       return;
-    this.setState({working:true});
     if (!this.checkInput(this.state)) return;
+    this.setState({working:true});
     PostSignup.setSignUP(this.state)
       .then((response) => {
         this.setState({working:false});
@@ -391,10 +391,10 @@ function SignUp(props) {
     return <div>
       <div hidden={showStudies || showWelcome}>
         <SignUpC {...props} navigate={navigate} tempReg={isTemp} showStudies={setShowStudies} showWelcome={handleShowWelcome}
-                 setEmail={setEmail} setDiscipline={setDiscipline} />
+                 setEmail={setEmail} setDiscipline={setDiscipline} idf={idf}/>
       </div>
       <div hidden={!showStudies}>
-        <ApproveTestsCNew {...props} navigate={navigate} signUpData={signUpData} showStudies={setShowStudies} onSent={onSentF} email={email} discipline={discipline}/>
+        <ApproveTestsCNew {...props} navigate={navigate} signUpData={signUpData} showStudies={setShowStudies} onSent={onSentF} email={email} discipline={discipline} idf={idf}/>
       </div>
 
       <div hidden={!showWelcome}>
@@ -404,7 +404,7 @@ function SignUp(props) {
     </div>;
   }
   else
-    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp} key={idf}/>;
+    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp} idf={idf}/>;
 }
 
 export default SignUp;

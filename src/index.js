@@ -1,18 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-//import Main from './register/MainReg';
 //import reportWebVitals from './reportWebVitals';
 
 
 import { BrowserRouter } from "react-router-dom";
 import Main from "./Main";
+//import Main from "./register/MainReg";
 
 
 if (process.env.NODE_ENV === 'production') {
-    //console.log = () => {}
-    //console.error = () => {}
-    //console.debug = () => {}
+    /*console.log = () => {}
+    console.error = () => {}
+    console.debug = () => {}*/
 }
 
 
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-        <Main />
+        <Main/>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")

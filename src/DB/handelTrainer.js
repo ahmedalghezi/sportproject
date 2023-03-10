@@ -58,6 +58,11 @@ export default class HandelTrainer{
         return http.post("/trainer/makeTrainer",data);
     }
 
+
+    static makeCompetence(data) {
+        return http.post("/trainer/makeCompetence",data);
+    }
+
     static deleteTest(data) {
         return http.post("/trainer/deleteTest",data);
     }
@@ -129,5 +134,12 @@ export default class HandelTrainer{
     static sendVideoTitle(data){
         return http.post("/trainer/updateVideoTitle",data);
     }
+
+
+
+    static disguisedTrainerLogin(data) {
+        return http.post("/reg/trainerDisguisedLogin",data);
+    }
+
 
 }

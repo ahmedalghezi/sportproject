@@ -6,6 +6,7 @@ import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
 import logo from '../../loading-gif.gif'
+import LoggedHandler from "../../DB/loggedHandler";
 
 const testdata = [
     {
@@ -80,7 +81,7 @@ export default class ShareVideo extends Component {
         const data = new FormData();
         data.append('file', this.state.selectedFile);
         this.setState({uploading:true});
-        PostSignup.uploadVideo(data).then(response => {
+        LoggedHandler.uploadVideo(data).then(response => {
             this.setState({uploading:false});
             console.log(response.data.res);
             if (response.data.res === "error")

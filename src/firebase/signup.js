@@ -24,17 +24,39 @@ class SignUpC extends Component {
       code:"",
       confirmationResult:"",
       showCapcha:false,
-      ID:""
+      ID:"",
+      callerName:"",
+      noCountryCodePhone:"",
+      fullPhone:""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+
+
+
   componentDidMount() {
+    if(this.props.productPhone){
+      this.setState({callerName:"registerProduct"});
+      this.setState({phone:this.props.productPhone});
+      let c = this.props.productPhone;
+      if (c.startsWith("+964")) {
+        c = c.substring(4);
+      }else if  (c.startsWith("00964")) {
+        c = c.replace("00964","");
+      }
+      this.setState({noCountryCodePhone:c});
+    }
+    /*
     window.addEventListener("message", message => {
       if(message.data.native)
         this.setState({ID:message.data.ID});
-    });
+        if(message.data.caller)
+          this.setState({callerName:message.data.caller});
+        if(message.data.phone)
+          this.setState({phone:message.data.phone});
+    });*/
 
     this.props.onHideNav(true);
    // document.documentElement.dir = "rtl";
@@ -58,7 +80,9 @@ class SignUpC extends Component {
     const target = event.target;
     let value = target.value;
     const name = target.name;
+    let originalValue = value;
     if(name === "phone"){
+      this.setState({noCountryCodePhone:originalValue})
       value = this.a2e(value);
       if(value === "999")
         value = "9990564977";
@@ -109,7 +133,11 @@ class SignUpC extends Component {
     this.setState({showCapcha:true});
     window.recaptchaVerifier = new RecaptchaVerifier('cont_cap_id', {}, auth);
     const appVerifier = window.recaptchaVerifier;
-    const phoneNumber = this.state.phone;
+    let phoneNumber = this.state.phone;
+    if(!phoneNumber.startsWith("+964") && !phoneNumber.startsWith("00964")){
+      phoneNumber = "+964"+phoneNumber;
+    }
+    this.setState({fullPhone:phoneNumber});
     if(debug)
       alert("pereparing to sign in with phone");
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
@@ -146,11 +174,9 @@ class SignUpC extends Component {
           if (response.data.res === "error")
             alert("حصل خطأ ... رمز س91");
           else if (response.data.res === "duplicate key")
-            alert("Diese Email-Adresse ist bereits registriert.");
-          //this.props.history.push('./AfterReg');
+            alert("This phone is already registered");
           else {
             sendDataToReactNativeApp(this.state.phone+"code:"+response.data.code);
-            //this.props.navigate("/reg/regSuc");
           }
         })
         .catch((e) => {
@@ -162,12 +188,32 @@ class SignUpC extends Component {
   }
 
 
+  informProductServer = (userID) =>{
+    PostJizdanSignup.setPhoneOwnership({phone:this.state.fullPhone,name:this.state.name,userID:userID})
+        .then((response) => {
+          this.setState({working:false});
+          if (response.data.res === "error")
+            alert("حصل خطأ ... رمز س91");
+          else {
+            //alert("react:"+this.state.fullPhone+"code:"+response.data.code);
+            sendDataToReactNativeApp(this.state.fullPhone+"code:"+response.data.code);
+          }
+        })
+        .catch((e) => {
+          this.setState({working:false});
+          console.log(e);
+          alert("حصل خطأ ما");
+          sendDataToReactNativeApp(this.state.fullPhone);
+        });
+  }
+
+
 
 
 
   handleSubmit(event) {
     event.preventDefault();
-    if (!this.checkInput(this.state))
+    if (this.state.callerName != "registerProduct" && !this.checkInput(this.state))
       return;
     if(this.state.working)
       return;
@@ -195,7 +241,7 @@ class SignUpC extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>التسجيل</h3>
-        <div className="form-group">
+        <div className="form-group" hidden={this.state.callerName === "registerProduct"}>
           <label className={"float-end"}>الاسم</label>
           <input
             type="text"
@@ -215,7 +261,7 @@ class SignUpC extends Component {
           <div className="input-group-prepend">
             <span className="input-group-text">+964</span>
           </div>
-          <input type="phone" placeholder="Mobile phone" className="form-control" id="phone"  name="phone"  onChange={this.handleChange}/>
+          <input type="phone" placeholder="Mobile phone" className="form-control" id="phone"  name="phone"  onChange={this.handleChange} value={this.state.noCountryCodePhone}/>
         </div>
 
 
@@ -257,7 +303,7 @@ class SignUpC extends Component {
         ></div>
 
         <button type="submit" className="btn btn-primary btn-block" disabled={this.state.working}>
-          سجل
+          أرسل
         </button>
 
       </form>
@@ -274,8 +320,9 @@ function SignUpJiz(props) {
   const [discipline, setDiscipline] = useState("");
   const [signUpData, setSignUpData] = useState({});
 
-  const st = searchParams.get("admiregxn");
+  const phone = searchParams.get("phone");
   let tempParam = searchParams.get("temreg");
+  let extra = searchParams.get("idf");
   let isTemp = false;
   if(tempParam)
     isTemp = true;
@@ -304,7 +351,7 @@ function SignUpJiz(props) {
     props.onHideNav(true);
   }
 
-    return <SignUpC {...props} navigate={navigate} onHideNav={onHideNav}/>;
+    return <SignUpC {...props} navigate={navigate} onHideNav={onHideNav} productPhone={phone} extra={extra}/>;
 }
 
 
@@ -322,9 +369,15 @@ const signInWithCode= (code,confirmationResult,ref)  =>{
     ref.setState({working:false});
     // User signed in successfully.
     const user = result.user;
-    alert("تم التسجيل");
+    if(ref.state.callerName && ref.state.callerName === "registerProduct") {
+      alert("تم التسجيل");
+      ref.informProductServer(user.uid);
+      return;
+    }
+
+    if(!ref.state.callerName || ref.state.callerName === "registerTransfer")
+        alert("تم تأكيد الرقم");
     ref.informServer(user.uid);
-    // ...
   }).catch((error) => {
     ref.setState({working:false});
     alert( "error in code "+error)

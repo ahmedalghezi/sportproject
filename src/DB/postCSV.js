@@ -95,7 +95,11 @@ export default class PostCSVData {
      * @param data   {tests:[{testId:"xx", desc:"xxx"} , .... ]}
      * @returns {res:"ok"} , {res:"no"} or {res:"error"}
      */
-    static setMetadata(data) {
+    static sendMeta(data) {
         return http.post("/csv/setMetadata", data);
+    }
+
+    static getCharts(){
+        return http.get("/csv/getCharts");
     }
 }

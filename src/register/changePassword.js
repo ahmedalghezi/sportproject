@@ -9,6 +9,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 import AlertDialog from "../utli/alertDialog";
 import {Alert} from "@mui/material";
 import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
+import LoggedHandler from "../DB/loggedHandler";
 
 class ChangePasswordC extends Component {
 
@@ -27,7 +28,7 @@ class ChangePasswordC extends Component {
         const emailP = this.props.searchParams.get("email");
         const isTemp = tempPass != null && tempPass != "";
         if (isTemp)
-            PostSignup.passwordChangeLinkClicked({email: emailP, temp: tempPass}).then(response => {
+            LoggedHandler.passwordChangeLinkClicked({email: emailP, temp: tempPass}).then(response => {
                 if(response.data.res === "wrong_pass")
                     alert("Error: the link is either wrong or expired");
 
@@ -56,7 +57,7 @@ class ChangePasswordC extends Component {
         event.preventDefault();
         if(!this.checkPassword(this.state.newPassword))
             return;
-        PostSignup.changePassword(this.state).then(response => {
+        LoggedHandler.changePassword(this.state).then(response => {
             if (response.data.res === "error")
                 alert("some error has happened");
             if (response.data.res === "wrong" && !this.state.isTemp)

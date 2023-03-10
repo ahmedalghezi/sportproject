@@ -9,18 +9,15 @@ import { Routes, Route, } from "react-router-dom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import AfterReg from "./AfterReg";
-import UpdateProfile from "./UpdateProfile";
 import SignOut from "./sign-out";
 import ForgetPassword from "./forgetPassword";
 import Footer from "./footer";
-import ChangePassword from "./changePassword";
 import UploadConsent from "./UploadConsent";
 import AcceptTerms from "./acceptTerms";
 import ApproveTests from "./approveTests";
 import EmailConfirmed from "./emailConfirmed";
 import WelcomeReg from "./WelcomeReg";
 import NavBarMobile from "./navBarMobile";
-
 
 
 
@@ -52,13 +49,11 @@ function Main() {
                             <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
                             <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
                             <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
-                            <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
                             <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
                             <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
                             <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
-                            <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />
 
                         </Routes>
                 </div>

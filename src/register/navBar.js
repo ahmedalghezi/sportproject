@@ -91,11 +91,6 @@ export default class NavBar extends Component {
 
 
 
-                <li className="nav-item" hidden={!this.state.showSignUp}>
-                  <Link className="nav-link" to={"/reg/sign-up"}>
-                    Registrieren
-                  </Link>
-                </li>
 
                 <li className="nav-item" hidden={true ||   this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer ||this.state.showTrainer}>
                   <Link className="nav-link" to={"/reg/uploadConsent"}>
@@ -163,6 +158,17 @@ export default class NavBar extends Component {
                     Manage Athlete
                   </Link>
                 </li>
+
+
+                <li
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <Link className="nav-link" to={"/csv/metabase"}>
+                    Metabase
+                  </Link>
+                </li>
+
 
 
 

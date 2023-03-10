@@ -11,7 +11,7 @@ export class MyProfile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isCoachAdmin: false, isAdmin: false};
+        this.state = {isCoachAdmin: false, isAdmin: false, isTrainer:false};
         this.updateProfile = this.updateProfile.bind(this);
     }
 
@@ -29,6 +29,8 @@ export class MyProfile extends Component {
                     this.setState({isAdmin: true});
                 if (response.data.role === "trainerAdmin")
                     this.setState({isCoachAdmin: true});
+                if (response.data.role === "trainer")
+                    this.setState({isTrainer: true});
             }
 
         }).catch(e => {
