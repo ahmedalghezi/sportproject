@@ -146,24 +146,24 @@ class LimeControl extends Component {
         });
     }
 
-    handleOpenReg = (event) =>{
-        event.preventDefault();
-        PostSignup.openReg({"mins_reg":this.state.mins_reg}).then(response => {
-            if(response.data.res === "ok"){
-                alert("Registration is open for the given time");
-            }
-            if(response.data.res === "error") {
-                alert("some error has happened, code lim_gz165");
-            }
-            if(response.data.res === "no") {
-                alert("error: not logged in");
-            }
-
-
-        }).catch(e => {
-            console.log(e);
-        });
-    }
+    // handleOpenReg = (event) =>{
+    //     event.preventDefault();
+    //     PostSignup.openReg({"mins_reg":this.state.mins_reg}).then(response => {
+    //         if(response.data.res === "ok"){
+    //             alert("Registration is open for the given time");
+    //         }
+    //         if(response.data.res === "error") {
+    //             alert("some error has happened, code lim_gz165");
+    //         }
+    //         if(response.data.res === "no") {
+    //             alert("error: not logged in");
+    //         }
+    //
+    //
+    //     }).catch(e => {
+    //         console.log(e);
+    //     });
+    // }
 
 
     handleDispSele = (event) =>{
@@ -233,13 +233,7 @@ class LimeControl extends Component {
                     <button className="btn btn-primary btn-block" onClick={this.handleAdd}>Add participants</button>
                     <button className="btn btn-primary btn-block paddingBtn" onClick={this.handleRemove}>Remove participants</button>
                 </div>
-                <br/> <br/> ----<br/>
-                <p>Registration is closed by default. You may open it for the given minutes </p>
-                <div className="form-group">
-                    <input onChange={this.handleChange} type="number" className="form-control" placeholder="Minutes to open registration"
-                           name="mins_reg" value={this.state.mins_reg}/>
-                    <button className="btn btn-primary btn-block" onClick={this.handleOpenReg}>Open registration</button>
-                </div>
+                <br/>
             </form>
         );
     }

@@ -10,7 +10,9 @@ import PostSignup from "../../DB/postSignup";
 
 
 const convertToCsv = (arr) => {
-    let testsData = arr['athletes']
+    let testsData = arr['athletes'];
+    if(!testsData)
+        return null;
     const keys = Object.keys(testsData[0]);
     const replacer = (_key, value) => value === null ? '' : value;
     const processRow = row => keys.map(key => JSON.stringify(row[key], replacer)).join(',');
@@ -133,7 +135,7 @@ export default class EditCoach extends Component {
             alert("Bitte Trainer*in auswählen.");
             return;
         }
-        PostSignup.disguisedTrainerLogin({email: this.state.selectedTrainer}).then(response => {
+        HandelTrainer.disguisedTrainerLogin({email: this.state.selectedTrainer}).then(response => {
             if (response.data.res === "ok") {
                 //this.props.navigate('/trainer/addAthletes');
                 window.location.href = window.location.origin + "/trainer/addAthletes";
@@ -148,14 +150,20 @@ export default class EditCoach extends Component {
 
     downloadCoach(event) {
         event.preventDefault();
+       // var csv = convertToCsv(testdata);
+       // download(csv, "history.csv", "text/csv");
         if (this.state.selectedTrainer === '') {
             alert("Bitte Trainer*in auswählen.");
             return;
         }
         HandelTrainer.readHistoryAdmin({trainerID: this.state.selectedTrainerID}).then(response => {
             if (response.data.res === "ok") {
+                //this.downloadCSVFromJson('history.csv', response.data)
                 var csv = convertToCsv(response.data);
-                download(csv, "history.csv", "text/csv");
+                if(csv)
+                    download(csv, "history_trainer_"+this.state.selectedTrainerID+".csv", "text/csv");
+                else
+                    alert("empty dataset");
             } else {
                 alert("Es ist ein Fehler aufgetreten!");
             }

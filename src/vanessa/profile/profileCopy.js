@@ -1,5 +1,5 @@
 /*
-Vanessa Meyer 
+Vanessa Meyer
 Ahmed Al-Ghezi
 */
 
@@ -10,7 +10,7 @@ import LinkList from "../../user/LinkList";
 
 //Profile Template
 
-class TestProfileCopyC extends Component {
+class Profile2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -67,11 +67,10 @@ class TestProfileCopyC extends Component {
           return;
         } else if (
           response.data.files &&
-          response.data.links &&
           response.data.res === "ok"
         ) {
-          this.setState({ filesList: response.data.files });
-          this.setState({ links: response.data.links });
+          //this.setState({ filesList: response.data.files });
+          this.setState({ links: response.data.files });
         }
         if (response.data.empty) {
           this.setState({ showEmptyMsg: true });
@@ -235,4 +234,4 @@ class TestProfileCopyC extends Component {
   }
 }
 
-export default TestProfileCopyC;
+export default Profile2;
