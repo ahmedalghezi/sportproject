@@ -13,6 +13,7 @@ import {Alert} from "@mui/material";
 import DataTable from "react-data-table-component";
 
 import './tableStyle.css';
+import LoggedHandler from "../DB/loggedHandler";
 
 
 
@@ -233,7 +234,7 @@ export default function DisplayStudyAccept() {
 
 
     const getStudyResult = () => {
-        PostSignup.getStudyResult({"discipline": discipline, "key": key}).then(response => {
+        LoggedHandler.getStudyResult({"discipline": discipline, "key": key}).then(response => {
             if (response.data.res === "no") {
                 showError("Not authorize to access the data");
                 return;

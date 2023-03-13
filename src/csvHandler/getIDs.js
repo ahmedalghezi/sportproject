@@ -14,6 +14,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import {Alert} from "@mui/material";
 import DataTable from "react-data-table-component";
 import {useNavigate} from "react-router-dom";
+import LoggedHandler from "../DB/loggedHandler";
 
 //import '../register/style.css';
 
@@ -150,7 +151,7 @@ export default function  GetIDS(){
     }
 
     const getIdsFromServer = () => {
-      PostSignup.getAthletesID({"discipline":discipline,"key":key}).then(response => {
+      LoggedHandler.getAthletesID({"discipline":discipline,"key":key}).then(response => {
           console.log(response.data);
           if(response.data.res === "no"){
               showError("Not logged in!");

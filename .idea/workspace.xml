@@ -5,10 +5,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/DB/loggedHandler.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/profilechart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/profilegrid.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/user/profile_org.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/handelTrainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/handelTrainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/postSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/displayStudyAccept.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/metaData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/metaData.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/postJizdanSignup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/firebase/signup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/signup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/downloadCoachData/editCoach.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/MainReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/MainReg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/UpdateProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UpdateProfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trainer/editCoach.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/editCoach.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/LinkList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/LinkList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vanessa/profile/profileCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/profile/profileCopy.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +233,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/register&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/user&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -214,11 +247,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/user" />
       <recent name="$PROJECT_DIR$/src/register" />
       <recent name="$PROJECT_DIR$/src/register/admin" />
       <recent name="$PROJECT_DIR$/src/firebase" />
       <recent name="$PROJECT_DIR$/src/lime" />
-      <recent name="$PROJECT_DIR$/src/register/trainer" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/temp-data" />
@@ -372,14 +405,11 @@
       <workItem from="1673011132225" duration="1916000" />
       <workItem from="1673195139967" duration="60452000" />
       <workItem from="1674210892788" duration="87781000" />
-      <workItem from="1676815884918" duration="10746000" />
-    </task>
-    <task id="LOCAL-00017" summary="Coach interface v1.01">
-      <created>1652263167887</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1652263167887</updated>
+      <workItem from="1676815884918" duration="24190000" />
+      <workItem from="1677147687524" duration="9306000" />
+      <workItem from="1677397294949" duration="25417000" />
+      <workItem from="1677520350210" duration="24117000" />
+      <workItem from="1678136960389" duration="7781000" />
     </task>
     <task id="LOCAL-00018" summary="Minor changes by adding trainer history function">
       <created>1652691955018</created>
@@ -717,7 +747,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676986593990</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Add support for metadata">
+      <created>1676988650777</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1676988650777</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TimeTrackingManager">

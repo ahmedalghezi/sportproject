@@ -17,8 +17,7 @@ import AddToMyTests from "./trainer/addToMyTests";
 import AddAthlete from "./trainer/addAthlete";
 import NavBar from "./register/navBar";
 import SignOut from "./register/sign-out";
-//import EditCoach from "./trainer/editCoach";
-import EditCoach from "./nico/downloadCoachData/editCoach";
+import EditCoach from "./trainer/editCoach";
 import CsvReader from "./csvHandler/CsvReader";
 import GetIDS from "./csvHandler/getIDs";
 import ForgetPassword from "./register/forgetPassword";
@@ -58,6 +57,10 @@ import TestsViewT from "./csvHandler/testViewT";
 import TestFolderList from "./user/testFolderList";
 //import MetaUpload from "./nico/csv/csv_upload";
 import MetaUpload from "./csvHandler/metaData";
+import ControlMetabase from "./register/admin/controllMetabase";
+import ProfileGrid from "./nico/profilechart/profilegrid";
+//import Profile2 from "./vanessa/profile/profileCopy";
+
 
 
 
@@ -163,7 +166,9 @@ function Main() {
 
 
                             <Route path='/csv/uploadMeta' element={<div className="csv-inner data-view"><MetaUpload/></div>} />
+                            <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
 
+                            <Route path='/reg/reports' element={<div className="wide-inner"><ProfileGrid/></div>} />
 
 
 
@@ -173,7 +178,9 @@ function Main() {
                         </Routes>
                 </div>
                 <div><p></p></div>
-                <Footer hidden={hideNav}/>
+                <div hidden={hideNav}>
+                    <Footer/>
+                </div>
 
             </div>
     );

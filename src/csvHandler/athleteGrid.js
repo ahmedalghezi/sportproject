@@ -13,6 +13,7 @@ import {Alert} from "@mui/material";
 import DataTable from "react-data-table-component";
 
 import './tableStyle.css';
+import LoggedHandler from "../DB/loggedHandler";
 
 
 
@@ -144,7 +145,7 @@ export default function AthletesGrid(props) {
 
 
     const getAthlete = (event) => {
-        PostSignup.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
+        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
             console.log(response.data);
             if (response.data.res === "no") {
                 showError("Not authorize to access the data");

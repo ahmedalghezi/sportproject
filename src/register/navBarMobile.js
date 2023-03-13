@@ -6,7 +6,7 @@ import React, { Component } from "react";
 import PostSignup from "../DB/postSignup";
 import { Link } from "react-router-dom";
 import image from "../images/inprove_logo-400x103.png";
-import Footer from "./footer";
+
 
 
 import Container from 'react-bootstrap/Container';
@@ -98,12 +98,6 @@ export default class NavBarMobile extends Component {
 
 
 
-                  <li className="nav-item" hidden={!this.state.showSignUp}>
-                    <Link className="nav-link" to={"/reg/sign-up"}>
-                      Registrieren
-                    </Link>
-                  </li>
-
                   <li className="nav-item" hidden={true ||   this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer ||this.state.showTrainer}>
                     <Link className="nav-link" to={"/reg/uploadConsent"}>
                       Einwilligungserklärung hochladen
@@ -172,6 +166,15 @@ export default class NavBarMobile extends Component {
                   </li>
 
 
+
+                  <li
+                      className="nav-item"
+                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                  >
+                    <Link className="nav-link" to={"/csv/metabase"}>
+                      Metabase
+                    </Link>
+                  </li>
 
 
 

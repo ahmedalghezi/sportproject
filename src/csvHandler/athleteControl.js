@@ -17,6 +17,7 @@ import AthletesGrid from "./athleteGrid";
 import UploadConsent from "../register/UploadConsent";
 
 import AdminUploadFile from "../register/admin/adminFileUpload";
+import HandelTrainer from "../DB/handelTrainer";
 
 
 
@@ -96,7 +97,7 @@ function AthleteControl(props) {
 
 
     const handleDisguisedLogin = (ID) =>{
-        PostSignup.disguisedTrainerLogin({ID:ID}).then(response => {
+        HandelTrainer.disguisedTrainerLogin({ID:ID}).then(response => {
             if(response.data.res === "ok"){
                 setDisguised(true);
                 setDisguisedID(ID);

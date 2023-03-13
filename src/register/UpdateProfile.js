@@ -9,6 +9,7 @@ import PostSignup from '../DB/postSignup';
 import {useNavigate} from 'react-router-dom';
 import AlertDialog from "../utli/alertDialog";
 import SignUp from "./SignUp";
+import LoggedHandler from "../DB/loggedHandler";
 
 class UpdateProfileC extends Component {
 
@@ -42,7 +43,7 @@ class UpdateProfileC extends Component {
 
 
     getProfileData() {
-        PostSignup.getSignUpData().then(response => {
+        LoggedHandler.getSignUpData().then(response => {
             //console.log(response.data);
             //navigate("./AfterReg");
             //this.transitionTo('/');
@@ -118,7 +119,7 @@ class UpdateProfileC extends Component {
         event.preventDefault();
          if(!this.checkInput(this.state))
              return;
-        PostSignup.updateProfile(this.state).then(response => {
+        LoggedHandler.updateProfile(this.state).then(response => {
             if (response.data.res === "error")
                 alert("some error has happened");
             else
@@ -131,7 +132,7 @@ class UpdateProfileC extends Component {
 
 
     performDelete = () =>{
-        PostSignup.deleteMyProfile().then(response => {
+        LoggedHandler.deleteMyProfile().then(response => {
             if (response.data.res === "error")
                 alert("some error has happened");
             if (response.data.res === "no")

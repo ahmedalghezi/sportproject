@@ -369,8 +369,56 @@ export default function  CsvReader(){
 
 
 
+                    <br></br>
+
+
 
                 <table>
+
+                    <tr>
+                        <td>
+                        <button
+                            className="btn btn-outline-primary btn-block "
+                            onClick={(e) => {
+                                e.preventDefault();
+                                setSuccess(false);
+                                setError(false);
+                                //const navigate = useNavigate();
+                                //this.props.navigate('/csv/stats');
+                                window.location.href = "https://inprove-sport.info/csv/stats";
+                            }}
+                        >
+                            Upload stats
+                        </button>
+                        </td>
+
+                        <td width={0}></td>
+
+
+
+
+
+                        <td>
+
+                            <button
+                                className="btn btn-outline-primary btn-block"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setSuccess(false);
+                                    setError(false);
+                                    window.location.href = "https://inprove-sport.info/csv/uploadMeta";
+                                }}
+                            >
+                                Upload Descriptions
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr><td><br/></td></tr>
+
+
                     <tr>
                         <td>
                             <label>Data date</label><br></br>
@@ -438,28 +486,6 @@ export default function  CsvReader(){
                                 }}
                             >
                                 Submit
-                            </button>
-
-                        </td>
-
-                        <td width={20}></td>
-
-
-
-                        <td>
-                            <br></br>
-                            <button
-                                className="btn btn-primary btn-block paddingBtn"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setSuccess(false);
-                                    setError(false);
-                                    //const navigate = useNavigate();
-                                    //this.props.navigate('/csv/stats');
-                                    window.location.href = "https://inprove-sport.info/csv/stats";
-                                }}
-                            >
-                                Upload stat
                             </button>
 
                         </td>

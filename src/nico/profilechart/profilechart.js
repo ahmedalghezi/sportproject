@@ -16,31 +16,31 @@ export default class ProfileChart extends Component {
         const { arrtest, refer, title } = this.props;
         return (
             <div style= {{...{textAlign: 'center'}}}>
-            <Plot
-                data={[
-                    {
-                    x: arrtest.map(el => el.value),
-                    y: arrtest.map(el => el.label),
-                    type: 'bar',
-                    orientation: 'h',
-                    mode: 'lines+markers',
-                    marker: {color: '#862A16'},
-                    text: arrtest.map(el => el.value),
-                    },
-                    {
-                        x: refer.map(el => el.value),
-                        y: refer.map(el => el.label),
-                        type: 'bar',
-                        orientation: 'h',
-                        mode: 'lines+markers',
-                        marker: {color: '#862A16'},
-                        text: refer.map(el => el.value),
+                <Plot
+                    data={[
+                        {
+                            x: arrtest.map(el => el.value),
+                            y: arrtest.map(el => el.label),
+                            type: 'bar',
+                            orientation: 'h',
+                            mode: 'lines+markers',
+                            marker: {color: '#862A16'},
+                            text: arrtest.map(el => el.value),
                         },
-                    
-                ]}
-                layout={ {height: 600, autosize: false, title: title, yaxis: { automargin: true}, xaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false, margin:{r: 200}}}
+                        {
+                            x: refer.map(el => el.value),
+                            y: refer.map(el => el.label),
+                            type: 'bar',
+                            orientation: 'h',
+                            mode: 'lines+markers',
+                            marker: {color: '#862A16'},
+                            text: refer.map(el => el.value),
+                        },
+
+                    ]}
+                    layout={ {height: 600, autosize: false, title: title, yaxis: { automargin: true}, xaxis: { automargin: true}, grid: {rows: 2, columns: 1}, showlegend: false}}
                 />
-                
+
             </div>
         );
     }
