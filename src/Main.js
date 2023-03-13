@@ -55,11 +55,11 @@ import SignUpJiz from "./firebase/signup";
 import VideoPlayer from "./temp-data/optionsGenTemp";
 import TestsViewT from "./csvHandler/testViewT";
 import TestFolderList from "./user/testFolderList";
-//import MetaUpload from "./nico/csv/csv_upload";
+
 import MetaUpload from "./csvHandler/metaData";
 import ControlMetabase from "./register/admin/controllMetabase";
 import ProfileGrid from "./nico/profilechart/profilegrid";
-//import Profile2 from "./vanessa/profile/profileCopy";
+
 
 
 

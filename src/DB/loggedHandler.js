@@ -29,4 +29,17 @@ export default class LoggedHandler{
         return http.post("/reg/openRegis",data);
     }
 
+    static passwordChangeLinkClicked(param) {
+        return http.post("/reg/passwordLinkClicked",param);
+    }
+
+
+
+    static changePassword(data) {
+        return http.post("/reg/changePassword",data);
+    }
+
+    static getStudyResult(data) {
+        return http.post("/reg/displayStudiesResultB",data);
+    }
 }

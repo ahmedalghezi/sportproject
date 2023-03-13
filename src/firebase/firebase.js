@@ -15,11 +15,12 @@ const firebaseConfig = {
 
 };
 
-const app = initializeApp(firebaseConfig);
-console.log("initilaze firebase");
-const analytics = getAnalytics(app);
 
-function getApp() {
+
+async function getApp() {
+    const app = await initializeApp(firebaseConfig);
+    console.log("initilaze firebase");
+    const analytics = getAnalytics(app);
     return app;
 }
 export default getApp;
