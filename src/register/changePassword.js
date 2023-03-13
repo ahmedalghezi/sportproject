@@ -31,7 +31,6 @@ class ChangePasswordC extends Component {
             LoggedHandler.passwordChangeLinkClicked({email: emailP, temp: tempPass}).then(response => {
                 if(response.data.res === "wrong_pass")
                     alert("Error: the link is either wrong or expired");
-
             }).catch(e => {
                 console.log(e);
                 alert("some error has happened");

@@ -18,6 +18,7 @@ import ApproveTests from "./approveTests";
 import EmailConfirmed from "./emailConfirmed";
 import WelcomeReg from "./WelcomeReg";
 import NavBarMobile from "./navBarMobile";
+import ChangePassword from "./changePassword";
 
 
 
@@ -54,6 +55,9 @@ function Main() {
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
                             <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
+                            <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
+
+
 
                         </Routes>
                 </div>
