@@ -7,6 +7,7 @@ import handelTrainer from "../../DB/handelTrainer";
 import ProfileChart from "./profilechart";
 import { Grid } from "@mui/material";
 import AbstractModalHeader from "react-bootstrap/esm/AbstractModalHeader";
+import PostCSVData from "../../DB/postCSV";
 
 
 const charts = [
@@ -49,6 +50,7 @@ export default class ChartCreator extends Component {
         this.newLine = this.newLine.bind(this);
         this.delChart = this.delChart.bind(this);
         this.delLine = this.delLine.bind(this);
+        this.uploadChart = this.uploadChart.bind(this);
     }
 
 
@@ -146,6 +148,29 @@ export default class ChartCreator extends Component {
         const temp = this.state.selchart;
         temp.data = filteredChart
         this.setState({selchart: temp});
+    }
+
+    uploadChart(){
+        this.state.charts.forEach(item =>
+            PostCSVData.uploadCharts({ chart: item })
+            .then((response) => {
+              if (response.data.res === "error")
+                alert("some error has happened. code dowcsv187");
+              if (response.data.res === "no")
+                window.location.href =
+                  window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
+              if (response.data.res === "ok") {
+      
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+              alert("some error has happened..code dowcsv195");
+            }) 
+          );
+          alert("Charts uploaded");
+          this.setState({selchart: {}});
+          this.setState({charts: {}});
     }
 
 
@@ -282,7 +307,15 @@ export default class ChartCreator extends Component {
                             );
                     })}
                 </Grid>
-                
+                {
+                    Object.keys(this.state.charts).length !== 0
+                    ?
+                    <form onSubmit={this.uploadChart}>
+                    <button style= {{...{float: 'right'}}} type="submit">Submit</button>
+                    </form>
+                    :
+                    null
+                }
             </div>
         );
     }
