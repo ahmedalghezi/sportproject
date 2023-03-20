@@ -60,8 +60,8 @@ import MetaUpload from "./csvHandler/metaData";
 import ControlMetabase from "./register/admin/controllMetabase";
 import ProfileGrid from "./nico/profilechart/profilegrid";
 
-
-
+import ProfileC from './vanessa/profile/profileCopy';
+import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
 
 
 function Main() {
@@ -102,6 +102,7 @@ function Main() {
 
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
+                            <Route path='/vanessa/profile' element={<div className="csv-inner"><ProfileC/></div>} />
 
                             <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
 
@@ -138,6 +139,7 @@ function Main() {
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
                             <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
+                            <Route path='/vanessa/athleteFileUpload' element={<div className="auth-inner"><AthleteFileUpload/></div>} />
                             <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><TestsViewCopy/></div>} />
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
