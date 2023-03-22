@@ -15,75 +15,22 @@ class ProfileC extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filesList: [
-        {
-          folder1: [
-            { name: "File 1", url: "https://example.com/folder1/file1" },
-            { name: "File 2", url: "https://example.com/folder1/file2" },
-            { name: "File 3", url: "https://example.com/folder1/file3" },
-          ],
-        },
-        {
-          folder2: [
-            { name: "File 1", url: "https://example.com/folder2/file1" },
-            { name: "File 2", url: "https://example.com/folder2/file2" },
-          ],
-        },
-      ],
-      surveyList: [
-        {
-          title: "Zu meinen Fragebögen 1",
-          link: "https://example.com/folder2/file1",
-        },
-        {
-          title: "Zu meinen Fragebögen 2",
-          link: "https://example.com/folder2/file2",
-        },
-      ],
+      filesList: [],
+      surveyList: [],
       emptyMsg: "",
       showEmptyMsg: false,
       hideSurvey: false,
       admin: false,
       role: "",
       isTrainer: false,
-      links: [
-        {
-          folder1: [
-            { name: "File 1", url: "https://example.com/folder1/file1" },
-            { name: "File 2", url: "https://example.com/folder1/file2" },
-            { name: "File 3", url: "https://example.com/folder1/file3" },
-            { name: "File 1", url: "https://example.com/folder1/file1" },
-            { name: "File 2", url: "https://example.com/folder1/file2" },
-            { name: "File 3", url: "https://example.com/folder1/file3" },
-            { name: "File 1", url: "https://example.com/folder1/file1" },
-            { name: "File 2", url: "https://example.com/folder1/file2" },
-            { name: "File 3", url: "https://example.com/folder1/file3" },
-            { name: "File 1", url: "https://example.com/folder1/file1" },
-            { name: "File 2", url: "https://example.com/folder1/file2" },
-            { name: "File 3", url: "https://example.com/folder1/file3" },
-            { name: "File 1", url: "https://example.com/folder1/file1" },
-            { name: "File 2", url: "https://example.com/folder1/file2" },
-            { name: "File 3", url: "https://example.com/folder1/file3" },
-          ],
-        },
-        {
-          folder2: [
-            { name: "File 1", url: "https://example.com/folder2/file1" },
-            { name: "File 2", url: "https://example.com/folder2/file2" },
-          ],
-        },
-        {
-          folder3: [
-            { name: "File 1", url: "https://example.com/folder3/file1" },
-          ],
-        },
-      ],
+      links: [],
       hideAllMsgs: true,
     };
   }
 
   componentDidMount() {
     this.getFiles();
+    this.getMyOwnFiles();
     this.getSurveys();
   }
 
@@ -138,6 +85,40 @@ class ProfileC extends Component {
         alert("Es ist ein Fehler aufgetreten. Code Pro55");
       });
   };
+  // added by Vanessa
+  getMyOwnFiles = () => {
+    PostCSVData.getMyOwnFiles()
+      .then((response) => {
+        if (response.data.res === "error") {
+          alert("Es ist ein Fehler aufgetreten. Code pro 30");
+          return;
+        } else if (response.data.filesP && response.data.res === "ok") {
+          //this.setState({ filesList: response.data.files });
+          this.setState({ filesList: response.data.filesP });
+          if (response.data.admin) {
+            this.setState({ admin: true });
+          }
+          this.setState({ role: response.data.role });
+          this.setState({ isTrainer: response.data.role === "trainer" });
+        }
+        if (response.data.empty) {
+          this.setState({ showEmptyMsg: true });
+        }
+        if (response.data.hideAllMsgs) {
+          this.setState({ hideAllMsgs: true });
+        } else this.setState({ hideAllMsgs: false });
+        if (response.data.res === "no") {
+          window.location.href =
+            window.location.origin + "/reg/sign-in?org=$user$profile";
+          return;
+          //xxx alert("Bitte melde Dich an.");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten. Code Pro39");
+      });
+  };
 
   handleFileClick = (event) => {
     event.preventDefault();
@@ -147,6 +128,38 @@ class ProfileC extends Component {
     }
     window.location.href =
       "https://inprove-sport.info/" + "files/viewMyFiles/" + event.target.name;
+  };
+  // added by Vanessa
+  handleMyFileClick = (event) => {
+    event.preventDefault();
+    if (event.target.name.startsWith("deletevftr5")) {
+      this.deleteMyFile(event.target.name.replace("deletevftr5", ""));
+      return;
+    }
+    window.location.href =
+      "https://inprove-sport.info/" +
+      "files/viewMyOwnFiles/" +
+      event.target.name;
+  };
+  // added by Vanessa
+  deleteMyFile = (fileName) => {
+    PostCSVData.deleteMyFile({ fileName: fileName })
+      .then((response) => {
+        if (response.data.res === "error") {
+          alert("Es ist ein Fehler aufgetreten. Code pro 79");
+          return;
+        } else if (response.data.res === "ok") {
+          alert("Datei gelöscht");
+          this.getMyOwnFiles();
+        }
+        if (response.data.res === "no") {
+          alert("Bitte melde Dich an.");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        alert("Es ist ein Fehler aufgetreten. Code Pro93");
+      });
   };
 
   deleteFile = (fileName) => {
@@ -305,7 +318,7 @@ class ProfileC extends Component {
                   <LinkList
                     links={this.state.filesList}
                     admin={this.state.admin}
-                    onDeleteFile={this.deleteFile}
+                    onDeleteFile={this.deleteMyFile}
                   />
                 </div>
               </Collapsible>
@@ -318,3 +331,75 @@ class ProfileC extends Component {
 }
 
 export default ProfileC;
+
+/*
+// testdata 
+
+this.state = {
+      filesList: [
+        {
+          folder1: [
+            { name: "File 1", url: "https://example.com/folder1/file1" },
+            { name: "File 2", url: "https://example.com/folder1/file2" },
+            { name: "File 3", url: "https://example.com/folder1/file3" },
+          ],
+        },
+        {
+          folder2: [
+            { name: "File 1", url: "https://example.com/folder2/file1" },
+            { name: "File 2", url: "https://example.com/folder2/file2" },
+          ],
+        },
+      ],
+      surveyList: [
+        {
+          title: "Zu meinen Fragebögen 1",
+          link: "https://example.com/folder2/file1",
+        },
+        {
+          title: "Zu meinen Fragebögen 2",
+          link: "https://example.com/folder2/file2",
+        },
+      ],
+      emptyMsg: "",
+      showEmptyMsg: false,
+      hideSurvey: false,
+      admin: false,
+      role: "",
+      isTrainer: false,
+      links: [
+        {
+          folder1: [
+            { name: "File 1", url: "https://example.com/folder1/file1" },
+            { name: "File 2", url: "https://example.com/folder1/file2" },
+            { name: "File 3", url: "https://example.com/folder1/file3" },
+            { name: "File 1", url: "https://example.com/folder1/file1" },
+            { name: "File 2", url: "https://example.com/folder1/file2" },
+            { name: "File 3", url: "https://example.com/folder1/file3" },
+            { name: "File 1", url: "https://example.com/folder1/file1" },
+            { name: "File 2", url: "https://example.com/folder1/file2" },
+            { name: "File 3", url: "https://example.com/folder1/file3" },
+            { name: "File 1", url: "https://example.com/folder1/file1" },
+            { name: "File 2", url: "https://example.com/folder1/file2" },
+            { name: "File 3", url: "https://example.com/folder1/file3" },
+            { name: "File 1", url: "https://example.com/folder1/file1" },
+            { name: "File 2", url: "https://example.com/folder1/file2" },
+            { name: "File 3", url: "https://example.com/folder1/file3" },
+          ],
+        },
+        {
+          folder2: [
+            { name: "File 1", url: "https://example.com/folder2/file1" },
+            { name: "File 2", url: "https://example.com/folder2/file2" },
+          ],
+        },
+        {
+          folder3: [
+            { name: "File 1", url: "https://example.com/folder3/file1" },
+          ],
+        },
+      ],
+      hideAllMsgs: true,
+    };
+
+*/

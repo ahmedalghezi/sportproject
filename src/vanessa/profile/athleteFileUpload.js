@@ -2,7 +2,6 @@
 By Ahmed Al-Ghezi, Vanessa Meyer
  */
 
-
 import React, { Component } from "react";
 
 import "../../register/style.css";
@@ -23,20 +22,20 @@ class UploadFileC extends Component {
       success: false,
       error: false,
       file: null,
-      ID: "",
-      key: "",
+      //ID: "",
+      //key: "",
       title: "",
-      /* folder: "", */
+      folder: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.ID) this.setState({ ID: this.props.ID });
-    if (this.props.key) {
+    //if (this.props.ID) this.setState({ ID: this.props.ID });
+    /* if (this.props.key) {
       this.setState({ key: this.props.key });
-    }
+    } */
   }
 
   handleChange(event) {
@@ -54,30 +53,30 @@ class UploadFileC extends Component {
       alert("please select a file");
       return false;
     }
-    if (this.state.ID === "" && !this.props.ID) {
+    /* if (this.state.ID === "" && !this.props.ID) {
       alert("please select an athlete ID");
       return false;
-    }
+    } */
     if (this.state.title === "") {
       alert("please give file tilte");
       return false;
     }
-    /* if (this.state.folder === "") {
+    if (this.state.folder === "") {
       alert("please give a foldername");
       return false;
-    } */
+    }
     return true;
   }
 
   saveFileName = (fileName) => {
-    let IDa = this.props.ID;
-    if (!IDa) IDa = this.state.ID;
-    PostCSVData.saveFileNameToAthlete({
+    /* let IDa = this.props.ID;
+    if (!IDa) IDa = this.state.ID; */
+    PostCSVData.saveMyFileName({
       fileName: fileName,
-      ID: IDa,
+      //ID: IDa,
       title: this.state.title,
-     /*  folder: this.state.folder, */
-      key: this.state.key,
+      folder: this.state.folder,
+      //key: this.state.key,
     })
       .then((response) => {
         console.log(response.data.res);
@@ -102,7 +101,7 @@ class UploadFileC extends Component {
     const data = new FormData();
     data.append("file", this.state.file);
 
-    PostCSVData.uploadToAthlete(data)
+    PostCSVData.myFileUpload(data)
       .then((response) => {
         console.log(response.data.res);
         if (response.data.res === "error")
@@ -131,18 +130,7 @@ class UploadFileC extends Component {
       <div>
         <h3>Dateien hochladen</h3>
         <form id="uploadConsent" onSubmit={this.handleSubmit}>
-          <div className="form-group" hidden={this.props.key}>
-            <label>Key</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="key"
-              name="key"
-              onChange={this.handleChange}
-            />
-          </div>
-
-          <br />
+          
           <div className="form-group">
             <label>Title</label>
             <input
@@ -153,22 +141,17 @@ class UploadFileC extends Component {
               onChange={this.handleChange}
             />
           </div>
-         
-          <div className="form-group" hidden={this.props.ID}>
-            <label>Athlete ID</label>
+          <div className="form-group">
+            <label>Foldername</label>
             <input
-              type="number"
+              type="text"
               className="form-control"
-              placeholder="ID"
-              name="ID"
+              placeholder="folder"
+              name="folder"
               onChange={this.handleChange}
-              value={this.state.ID}
             />
           </div>
-          <br />
-          <div hidden={!this.props.ID}>
-            <p>To Athlete ID: {this.props.ID}</p>
-          </div>
+        
 
           <input
             type="file"
@@ -198,17 +181,34 @@ function AthleteFileUpload(props) {
 }
 
 export default AthleteFileUpload;
-
-
 /*
- <div className="form-group">
-            <label>Foldername</label>
+<div className="form-group" hidden={this.props.key}>
+            <label>Key</label>
             <input
               type="text"
               className="form-control"
-              placeholder="folder"
-              name="folder"
+              placeholder="key"
+              name="key"
               onChange={this.handleChange}
             />
+          </div>
+
+          <br />
+*/
+/*
+  <div className="form-group" hidden={this.props.ID}>
+            <label>Athlete ID</label>
+            <input
+              type="number"
+              className="form-control"
+              placeholder="ID"
+              name="ID"
+              onChange={this.handleChange}
+              value={this.state.ID}
+            />
+          </div>
+          <br />
+          <div hidden={!this.props.ID}>
+            <p>To Athlete ID: {this.props.ID}</p>
           </div>
 */
