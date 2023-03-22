@@ -53,6 +53,26 @@ export default class PostCSVData {
     }
 
 
+    //  ##### general file upload Vanessa #####
+    static getMyOwnFiles(){
+        return http.get("/files/getMyOwnFilesLinks");
+    }
+
+
+    static myFileUpload(data) {
+        return axios.post("https://inprove-sport.info"+"/files/sendMyFile", data);
+    }
+
+    static saveMyFileName(param) {
+        return http.post("/files/saveMyFileName", param);
+    }
+    static deleteMyFile(param) {
+        return http.post("/files/deleteMyFile", param);
+    }
+    //  ##### general file upload - END Vanessa #####
+
+
+
     /**
      *
      * @param data= {}
