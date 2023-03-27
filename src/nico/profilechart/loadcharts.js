@@ -37,7 +37,7 @@ export default class ProfileFeat extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {features: [], loaded: false, selspace: "", DisciplinesList: [], Discipline: "", selfeat: "", spacelist:[], featlist:[]};
+        this.state = {loaded: false, selspace: "", DisciplinesList: [], Discipline: "", selfeat: "", spacelist:[], featlist:[]};
         this.getAll = this.getAll.bind(this);
         this.ChangeSpace = this.ChangeSpace.bind(this);
         this.ChangeFeat = this.ChangeFeat.bind(this);
@@ -52,18 +52,17 @@ export default class ProfileFeat extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-      this.setState({features: feat});
       PostCSVData.getSpaces().then(response => {
-            if(response.data.res === "error") {
+            if(response.data.data.res === "error") {
                 const arr = ["connection error"];
                 return;
             }
-            if(response.data.res === "no"){
+            if(response.data.data.res === "no"){
                 alert("Bitte erst anmelden.");
                 return;
             }
-            if(response.data.res === "ok") {
-                this.setState({spacelist: response.data})
+            if(response.data.data.res === "ok") {
+                this.setState({spacelist: response.data.data})
             }
 
         }).catch(e => {
