@@ -55,7 +55,7 @@ export default class ChartCreator extends Component {
 
 
     componentDidMount() {
-        //this.setState({charts: charts});
+        this.setState({charts: charts});
     }
     
     
@@ -297,8 +297,17 @@ export default class ChartCreator extends Component {
               />
                 </label>
                             </div>
+                            
                 }
-                
+                {
+                    Object.keys(this.state.charts).length !== 0
+                    ?
+                    <form onSubmit={this.uploadChart}>
+                    <button style= {{...{float: 'right'},...{zIndex: 1}}} type="submit">Submit</button>
+                    </form>
+                    :
+                    null
+                }
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 {
                     this.state.charts.map((item, index) => {
@@ -307,15 +316,7 @@ export default class ChartCreator extends Component {
                             );
                     })}
                 </Grid>
-                {
-                    Object.keys(this.state.charts).length !== 0
-                    ?
-                    <form onSubmit={this.uploadChart}>
-                    <button style= {{...{float: 'right'}}} type="submit">Submit</button>
-                    </form>
-                    :
-                    null
-                }
+                
             </div>
         );
     }
