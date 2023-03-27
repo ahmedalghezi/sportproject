@@ -53,21 +53,10 @@ export default class ProfileFeat extends Component {
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
       PostCSVData.getSpaces().then(response => {
-            if(response.data.data.res === "error") {
-                const arr = ["connection error"];
-                return;
-            }
-            if(response.data.data.res === "no"){
-                alert("Bitte erst anmelden.");
-                return;
-            }
-            if(response.data.data.res === "ok") {
-                this.setState({spacelist: response.data.data})
-            }
-
-        }).catch(e => {
-            console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
+            this.setState({spacelist: response.data.data});
+        })
+        .catch(error => {
+            console.log(error);
         });
         PostSignup.getAllDisciplines().then(response => {
             if(response.data.res === "error") {
