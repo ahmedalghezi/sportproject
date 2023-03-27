@@ -102,6 +102,23 @@ export default class ProfileFeat extends Component {
 
     createChart(){
         //request to get charts
+        PostCSVData.getCharts().then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.setState({charts: response.data.charts, loaded: true})
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
     }
 
 
