@@ -51,7 +51,7 @@ export default class ProfileFeat extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-        this.setState({features: feat});
+        //this.setState({features: feat});
       PostCSVData.getFeatures().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
