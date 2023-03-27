@@ -63,7 +63,7 @@ export default class ProfileFeat extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({spacelist: response.data.data})
+                this.setState({spacelist: response.data})
             }
 
         }).catch(e => {
