@@ -8,6 +8,7 @@ import ProfileChart from "./profilechart";
 import { Grid } from "@mui/material";
 import PostCSVData from "../../DB/postCSV";
 import PostSignup from "../../DB/postSignup";
+import http from "../../DB/httpCommon";
 
 
 const charts = [
@@ -36,7 +37,7 @@ export default class ProfileFeat extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {features: [], loaded: false, selspace: {}, DisciplinesList: [], Discipline: "", featID: 0};
+        this.state = {features: [], loaded: false, selspace: "", DisciplinesList: [], Discipline: "", selfeat: "", spacelist:[], featlist:[]};
         this.getAll = this.getAll.bind(this);
         this.ChangeSpace = this.ChangeSpace.bind(this);
         this.ChangeFeat = this.ChangeFeat.bind(this);
@@ -51,8 +52,8 @@ export default class ProfileFeat extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-        //this.setState({features: feat});
-      PostCSVData.getFeatures().then(response => {
+      this.setState({features: feat});
+      PostCSVData.getSpaces().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
@@ -62,7 +63,7 @@ export default class ProfileFeat extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({features: response.data})
+                this.setState({spacelist: response.data.data})
             }
 
         }).catch(e => {
@@ -85,15 +86,29 @@ export default class ProfileFeat extends Component {
     }
 
     ChangeSpace(event){
-        const filtered = this.state.features.filter(obj => {
-            return obj.space === event.target.value;
+        this.setState({selspace: event.target.value})
+        http.get("/csv/getAllTests/"+ event.target.value).then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                this.setState({featlist: response.data.data})
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
         });
-        this.setState({selspace: filtered[0]})
         document.getElementById("feat").selectedIndex = 0;
     }
 
     ChangeFeat(event){
-        this.setState({featID: event.target.value})
+        this.setState({selfeat: event.target.value})
     }
 
     ChangeDisc(event){
@@ -137,24 +152,23 @@ export default class ProfileFeat extends Component {
                 </select>
                 <select id="space" name="space" onChange={this.ChangeSpace} defaultValue={'DEFAULT'}>
                         <option value="DEFAULT" disabled>Change space</option>
-                        {this.state.features.map((option) => (
-                        <option value={option.space} name={option.space} key={option.space}
-                            >{option.space}</option>
+                        {this.state.spacelist.map((space,index) => (
+                        <option key={index} value={space.value}>{space.label}</option>
                          ))}
                 </select>
                 {
-                    Object.keys(this.state.selspace).length === 0
+                    Object.keys(this.state.featlist).length === 0
                     ? null
                     : <select id="feat" name="feat" onChange={this.ChangeFeat} defaultValue={'DEFAULT'}>
                     <option value="DEFAULT" disabled>Change feature</option>
-                    {this.state.selspace.features.map((option) => (
-                    <option value={option.ID} name={option.name} key={option.ID}
-                        >{option.name}</option>
+                    {this.state.featlist.map((feat,index) => (
+                    <option value={feat.testid} name={feat.testname} key={feat.testid}
+                        >{feat.testname}</option>
                      ))}
             </select>
                 }
                 {
-                    Object.keys(this.state.Discipline).length !== 0
+                    Object.keys(this.state.selfeat).length !== 0
                     ?
                     <form onSubmit={this.createChart}>
                     <button style= {{...{float: 'right'},...{zIndex: 1}}} type="submit">Submit</button>
