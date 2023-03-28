@@ -85,7 +85,7 @@ export default class ProfileFeat extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({featlist: response.data.data})
+                this.setState({featlist: response.data.data.shift()})
             }
 
         }).catch(e => {
@@ -156,11 +156,11 @@ export default class ProfileFeat extends Component {
             </select>
                 }
                 {
-                    Object.keys(this.state.selfeat).length !== 0
+                    Object.keys(this.state.Discipline).length !== 0 && Object.keys(this.state.selspace).length !== 0
                     ?
-                    <form onSubmit={this.createChart}>
-                    <button style= {{...{float: 'right'},...{zIndex: 1}}} type="submit">Submit</button>
-                    </form>
+
+                    <button style= {{...{float: 'right'},...{zIndex: 1}}} onClick={this.createChart}>Create chart</button>
+
                     :
                     null
                 }
