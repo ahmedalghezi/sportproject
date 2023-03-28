@@ -88,13 +88,14 @@ export default class CreateCharts extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({featlist: response.data.data.shift()})
+                this.setState({featlist: response.data.data})
             }
 
         }).catch(e => {
             console.log(e);
             alert("Es ist ein Fehler aufgetreten!");
         });
+        this.setState({selfeat: ""})
         document.getElementById("feat").selectedIndex = 0;
     }
 
