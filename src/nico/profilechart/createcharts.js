@@ -37,7 +37,7 @@ export default class CreateCharts extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {selspace: "", DisciplinesList: [], Discipline: "", selfeat: "", spacelist:[], featlist:[], title:"", seltype:"", ref: 0, type:""};
+        this.state = {selspace: "", DisciplinesList: [], Discipline: "", selfeat: "", spacelist:[], featlist:[], title:"", seltype:"", ref: 0, type:"", data: []};
         this.getAll = this.getAll.bind(this);
         this.ChangeSpace = this.ChangeSpace.bind(this);
         this.ChangeFeat = this.ChangeFeat.bind(this);
@@ -109,7 +109,27 @@ export default class CreateCharts extends Component {
 
     createChart(){
         //request to create charts
-        
+        let chartobj = {
+            data: this.state.data,
+            refer: this.state.ref,
+            titel: this.state.title,
+        }
+        PostCSVData.createCharts({chart: chartobj}).then(response => {
+            if(response.data.res === "error") {
+                alert("Error creating charts");
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                alert("Charts created");
+            }
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
     }
 
     changeTitel(event){
