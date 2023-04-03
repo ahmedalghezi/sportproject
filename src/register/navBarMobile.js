@@ -202,6 +202,13 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
+
+                  <li className="nav-item" hidden={!this.state.showTrainer && !this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/trainer/videos"}>
+                      Videos
+                    </Link>
+                  </li>
+
                   <li className="nav-item" hidden={true || !this.state.showTrainer && !this.state.showAdmin && !this.state.showAdminTrainer}>
                     <Link className="nav-link" to={"/trainer/VideoUpload/uploadFile"}>
                       Upload videos

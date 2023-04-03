@@ -42,4 +42,8 @@ export default class LoggedHandler{
     static getStudyResult(data) {
         return http.post("/reg/displayStudiesResultB",data);
     }
+
+    static changeEmail(data) {
+        return http.post("/reg/changeEmail",data);
+    }
 }

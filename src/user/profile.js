@@ -23,7 +23,8 @@ class Profile extends Component {
       role:"",
       isTrainer:false,
       links: [],
-      hideAllMsgs:true
+      hideAllMsgs:true,
+      isCompetence:false,
     };
   }
 
@@ -49,6 +50,7 @@ class Profile extends Component {
             }
             this.setState({role:response.data.role});
             this.setState({isTrainer:response.data.role === "trainer"})
+            this.setState({isCompetence:response.data.role === "competence"})
           }
           if (response.data.empty) {
             this.setState({ showEmptyMsg: true });
@@ -164,7 +166,7 @@ class Profile extends Component {
                 Mit sportlichen Grüßen,<br></br> Dein in:prove Team
               </p>
             </div>
-              <div hidden={this.state.showEmptyMsg || this.state.isTrainer}>
+              <div hidden={this.state.showEmptyMsg || this.state.isTrainer || this.state.isCompetence}>
               <p>Hallo!</p>
               <p>
                 Hier in der Projektdatenbank findest Du die Rückmeldungen Deiner
@@ -209,6 +211,25 @@ class Profile extends Component {
                 Mit sportlichen Grüßen,<br></br> Dein in:prove Team
               </p>
             </div>
+
+
+
+
+              <div hidden={!this.state.isCompetence}>
+                <p>Liebes Kompetenzteammitglied,</p>
+                <p>
+                  hier in der Datenbank findest Du alle relevanten Projektinformationen und die Protokolle der Kompetenzteamtreffen. Bitte beachte, dass Du diese Daten nicht weiterleiten darfst.<br></br>
+                  Solltest Du Probleme oder Fragen bezüglich der Datenbank oder der Daten haben, melde Dich gerne jederzeit bei uns. Du erreichst uns unter fragen@inprove.info.
+                </p>
+
+                <p>
+                  Mit sportlichen Grüßen,<br></br> Dein in:prove Team
+                </p>
+              </div>
+
+
+
+
             </div>
 
 

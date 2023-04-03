@@ -8,7 +8,7 @@ import React, {Component} from "react";
 import '../register/style.css';
 import HandelTrainer from "../DB/handelTrainer";
 
-export default class Sheet extends Component {
+export default class TrainerSheet extends Component {
 
 
     constructor(props) {
@@ -39,7 +39,7 @@ export default class Sheet extends Component {
     }
 
     checkInput(data) {
-        if (data.quality === -1 || data.as_planned === '') {
+        if ((data.quality === -1 && data.as_planned) || data.as_planned === '') {
             alert("Bitte alle Werte eingeben!")
             return false;
         }
@@ -73,10 +73,20 @@ export default class Sheet extends Component {
         if (!this.checkInput(this.state))
             return;
 
+        let comment = this.state.comments.replace(";"," - ");
+        comment = comment.replace(","," - ");
+
         const data = {quality:this.state.quality , planned:this.state.planned, achieved:this.state.achieved,
-            athlete_id:this.state.athletes, test_id:this.state.tests, comments:this.state.comments,
+            athlete_id:this.state.athletes, test_id:this.state.tests, comments:comment,
             start_time:this.state.start_time, end_time:this.state.end_time , as_planned:this.state.as_planned,
-        date:this.state.date};
+            date:this.state.date};
+
+        data.planned = -1;
+        if(!data.planned){
+            data.achieved = 0;
+            data.quality = 0;
+        }
+
         HandelTrainer.postTestResults(data).then(response => {
             if (response.data.res === "error")
                 alert("Es ist ein Fehler aufgetreten!");
@@ -246,13 +256,23 @@ export default class Sheet extends Component {
         event.target.classList.remove("btn-outline-info")
         event.target.classList.add("btn-info");
 
-        if(event.target.name === "yes")
+        if(event.target.name === "yes") {
             this.setState({as_planned: true});
+        }
 
-        if(event.target.name === "no")
+        if(event.target.name === "no") {
             this.setState({as_planned: false});
+        }
 
         event.preventDefault();
+    }
+
+    setMesurments = (status) =>{
+        if(!status){
+            this.setState({quality:-1});
+            this.setState({achieved:-1});
+            this.clearPrevEvents();
+        }
     }
 
 
@@ -282,13 +302,13 @@ export default class Sheet extends Component {
             this.state.preEvArr['testList'].target.classList.remove("active");
         }
         event.target.classList.add("active");
-       // this.state.preEvArr['testList'] = event;
+        // this.state.preEvArr['testList'] = event;
 
         const arr = this.state.preEvArr;
         arr['testList'] = event;
         this.setState({preEvArr:arr});
 
-       // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
+        // this.setState({tests:{"id":event.target.name, "title":event.target.text}});
         this.setState({tests:event.target.name});
 
         if(this.state.athletes)
@@ -350,15 +370,15 @@ export default class Sheet extends Component {
                 <table className={"fullTable"}>
                     <tr>
                         <td>
-                <label>Startzeit</label>
-                <div><input className="timeInputWidth" type="time" id="start_time" name="start_time" min="1" max="200" onChange={this.handleChange} value={this.state.start_time}/></div>
+                            <label>Startzeit</label>
+                            <div><input className="timeInputWidth" type="time" id="start_time" name="start_time" min="1" max="200" onChange={this.handleChange} value={this.state.start_time}/></div>
                         </td>
                         <td width="25px">
                         </td>
                         <td>
-                <label>Endzeit</label><br></br>
-                <div><input className="timeInputWidth" type="time" id="end_time" name="end_time" min="1" max="200" onChange={this.handleChange} value={this.state.end_time}/></div>
-                            </td>
+                            <label>Endzeit</label><br></br>
+                            <div><input className="timeInputWidth" type="time" id="end_time" name="end_time" min="1" max="200" onChange={this.handleChange} value={this.state.end_time}/></div>
+                        </td>
 
                         <td width="25px">
                         </td>
@@ -367,7 +387,7 @@ export default class Sheet extends Component {
                             <div><input className="col-xs-2" type="date" id="date" name="date" min="1" max="200" onChange={this.handleChange} value={this.state.date}/></div>
                         </td>
 
-                        </tr>
+                    </tr>
                 </table>
 
 
@@ -393,7 +413,7 @@ export default class Sheet extends Component {
                                             ? (<a name={option.ID} key={option.ID}
                                                   onClick={this.handleAthListClick}>{option.name}</a>)
                                             : (<s><a name={option.ID} key={option.ID}
-                                                  onClick={this.handleAthListClick}>{option.name}</a></s>)
+                                                     onClick={this.handleAthListClick}>{option.name}</a></s>)
                                     ))}
                                 </div>
                             </td>
@@ -419,7 +439,7 @@ export default class Sheet extends Component {
 
 
                 <div className="form-group">
-                    <label>Dauer und Inhalte wie geplant?</label><br></br>
+                    <label>Am Training teilgenommen?</label><br></br>
                     <button name="yes" className="btn btn-outline-info paddingBtn" onClick={this.handleAsPlanned}>Ja</button>
                     <button name="no" className="btn btn-outline-info paddingBtn" onClick={this.handleAsPlanned}>Nein
                     </button>
@@ -439,7 +459,7 @@ export default class Sheet extends Component {
 
 
 
-                <div className="form-group">
+                <div className="form-group" hidden={!this.state.as_planned}>
                     <label>Qualitätsskala</label><br></br>
                     <button name="1" className="btn btn-outline-info" onClick={this.handleQualityClick}>1</button>
                     <button name="2" className="btn btn-outline-info" onClick={this.handleQualityClick}>2</button>
@@ -449,7 +469,7 @@ export default class Sheet extends Component {
                     <button name="6" className="btn btn-outline-info" onClick={this.handleQualityClick}>6</button>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group" hidden={true}>
                     <label>Geplante Intensität</label><br></br>
                     <button name="1" className="btn btn-outline-info" onClick={this.handlePlannedClick}>1</button>
                     <button name="2" className="btn btn-outline-info" onClick={this.handlePlannedClick}>2</button>
@@ -459,8 +479,8 @@ export default class Sheet extends Component {
                     <button name="6" className="btn btn-outline-info" onClick={this.handlePlannedClick}>6</button>
                 </div>
 
-                <div className="form-group">
-                    <label>Erreichte Intensität</label><br></br>
+                <div className="form-group" hidden={!this.state.as_planned}>
+                    <label>Intensitätsskala</label><br></br>
                     <button name="1" className="btn btn-outline-info" onClick={this.handleAchievedClick}>1</button>
                     <button name="2" className="btn btn-outline-info" onClick={this.handleAchievedClick}>2</button>
                     <button name="3" className="btn btn-outline-info" onClick={this.handleAchievedClick}>3</button>

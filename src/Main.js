@@ -59,6 +59,12 @@ import TestFolderList from "./user/testFolderList";
 import MetaUpload from "./csvHandler/metaData";
 import ControlMetabase from "./register/admin/controllMetabase";
 import ProfileGrid from "./nico/profilechart/profilegrid";
+import ChartCreator from "./nico/profilechart/chart_creator";
+import ProfileChart from "./nico/profilechart/profilechart";
+import ChangeEmail from "./register/admin/changeEmail";
+import ProfileFeat from "./nico/profilechart/loadcharts";
+import CreateCharts from "./nico/profilechart/createcharts";
+
 
 import ProfileC from './vanessa/profile/profileCopy';
 import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
@@ -126,6 +132,9 @@ function Main() {
                             <Route path='nico/sharevideo' element={<div className="auth-inner"><ShareVideo/></div>} />
                             <Route path='nico/creategroup' element={<div className="auth-inner"><CreateGroup/></div>} />*/}
 
+                            <Route path='/reg/nico/createChart' element={<div className="wide-inner"><CreateCharts/></div>} />
+                            <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
+                            <Route path='/reg/nico/ProfileGrid' element={<div className="wide-inner"><ProfileGrid/></div>} />
 
 
 
@@ -171,6 +180,10 @@ function Main() {
                             <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
 
                             <Route path='/reg/reports' element={<div className="wide-inner"><ProfileGrid/></div>} />
+                            <Route path='/reg/loadCharts' element={<div className="wide-inner"><ProfileFeat/></div>} />
+
+                            <Route path='/reg/changeEmail' element={<div className="auth-inner"><ChangeEmail/></div>} />
+
 
 
 
