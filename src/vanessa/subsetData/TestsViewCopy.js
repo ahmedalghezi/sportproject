@@ -275,7 +275,7 @@ export default function TestsViewCopy(props) {
   const onApply = () => {
     // with testdata
 
-    if (discipline || space) {
+    /* if (discipline || space) {
       let featureNames = [];
 
       let testdata = data.filter((el) => el["space"] === space);
@@ -288,41 +288,42 @@ export default function TestsViewCopy(props) {
       setLeft(featureNames);
     } else {
       alert("Select discipline or space.");
-    }
+    } */
  //#### backend ####
-    /*
-    postCSV
-      .getFeatures(discipline, space)
-      .then((response) => {
-        if (response.data.res === "error") {
-          alert("Es ist ein Fehler aufgetreten.");
-        }
-        if (response.data.res === "no") {
-          alert("Bitte wähle eine Disziplin und Space.");
-        }
-        if (response.data.res === "ok") {
-         if (discipline || space) {
-      let featureNames = [];
-      let data = response["data"]["arr"];
-      let testdata = data.filter(el => el['space'] === space);
-      
-      testdata[0].features.forEach((item) => {
-        featureNames.push(`${item.ID} - ${item.name}`);
-        
-        
-      });
-      setLeft(featureNames);
-      
-    } else {
-      alert("Select discipline or space.");
-    }
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-        alert("Es ist ein Fehler aufgetreten.");
-      });*/
-  };
+    
+ postCSV
+ .getFeatures({"discipline" : discipline, "space" : space})
+ .then((response) => {
+   if (response.data.res === "error") {
+     alert("Es ist ein Fehler aufgetreten.");
+   }
+   if (response.data.res === "no") {
+     alert("Bitte wähle eine Disziplin und Space.");
+   }
+   if (response.data.res === "ok") {
+    if (discipline || space) {
+ let featureNames = [];
+ let data = response["data"]["arr"];
+ let testdata = data.filter(el => el['space'] === space);
+ testdata = testdata.filter(el => el['discipline' === discipline]);
+ 
+ testdata[0].features.forEach((item) => {
+   featureNames.push(`${item.ID} - ${item.name}`);
+   
+   
+ });
+ setLeft(featureNames);
+ 
+} else {
+ alert("Select discipline or space.");
+}
+   }
+ })
+ .catch((e) => {
+   console.log(e);
+   alert("Es ist ein Fehler aufgetreten.");
+ });
+};
 
   //show data of selected features (right list of transferlist) to use for subset table
   const showData = () => {
