@@ -3,14 +3,14 @@ By Ahmed Al-Ghezi
  */
 
 import React, { Component } from "react";
-import "./style.css";
-import PostSignup from "../DB/postSignup";
+import "../../register/style.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import LoggedHandler from "../../DB/loggedHandler";
 
 class LoginC extends Component {
   constructor(props) {
     super(props);
-    this.state = { email: "", password: "",captchaToken:"" };
+    this.state = { emailCurrent: "", emailNew: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,7 +18,7 @@ class LoginC extends Component {
 
     componentDidMount() {
         //alert("System is under maintenance until today 6:00 pm");
-        this.iniReCapcha();
+        //this.iniReCapcha();
     }
 
     iniReCapcha = () =>{
@@ -50,47 +50,22 @@ class LoginC extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-      PostSignup.login(this.state)
+      LoggedHandler.changeEmail(this.state)
       .then((response) => {
         if (response.data.res === "error")
-          alert("Es ist ein Fehler aufgetreten.");
-        else if (response.data.res === "wrong")
-          alert("Username oder Passwort falsch!");
-        else {
-          if (this.props.searchParams.get("org") != null)
-            this.props.navigate(
-              this.props.searchParams.get("org").replaceAll("$", "/")
-            );
-          else if (
-            response.data.role &&
-            PostSignup.isTrainer(response.data.role)
-          )
-            window.location.href =
-                window.location.origin+"/trainer/sheet";
-          else if (
-            response.data.role &&
-            PostSignup.isAdminTrainer(response.data.role)
-          )
-            window.location.href =
-                window.location.origin+"/trainer/createTest";
-          else
-              forwardAthlete(response);
-
+          alert("Es ist ein Fehler aufgetreten. Error code chan57");
+        else if (response.data.res === "ok"){
+            alert("Email changed !");
         }
-        this.iniReCapcha();
       })
       .catch((e) => {
         console.log(e);
         alert("Es ist ein Fehler aufgetreten.");
-        this.iniReCapcha();
       });
   }
 
 
-    handlePasswordForget = (event) =>{
-        event.preventDefault();
-        this.props.navigate("/reg/forgetPassword");
-    }
+
 
   render() {
     return (
@@ -119,19 +94,6 @@ class LoginC extends Component {
               />
           </div>
 
-
-        <div className="form-group">
-          <div className="custom-control custom-checkbox">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              id="customCheck1"
-            />
-            <label className="custom-control-label" htmlFor="customCheck1">
-              Send him the new credential email
-            </label>
-          </div>
-        </div>
         <button type="submit" className="btn btn-primary btn-block">
           Change
         </button>

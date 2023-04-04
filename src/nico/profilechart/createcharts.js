@@ -55,12 +55,12 @@ export default class CreateCharts extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-      PostCSVData.getSpaces().then(response => {
+        PostCSVData.getSpaces().then(response => {
             this.setState({spacelist: response.data.data});
         })
-        .catch(error => {
-            console.log(error);
-        });
+            .catch(error => {
+                console.log(error);
+            });
         PostSignup.getAllDisciplines().then(response => {
             if(response.data.res === "error") {
                 alert("Error getting disciplines from server");
@@ -69,7 +69,7 @@ export default class CreateCharts extends Component {
             else if(response.data.res && response.data.res.length > 0){
                 this.setState({Discipline: response.data.res[0], DisciplinesList: response.data.res})
             }
-  
+
         }).catch(e => {
             console.log(e);
             alert("some error has happened");
@@ -139,7 +139,7 @@ export default class CreateCharts extends Component {
     changeRef(event){
         this.setState({ref: event.target.value});
     }
-    
+
     changePlot(event){
         this.setState({type: event.target.value});
     }
@@ -152,70 +152,70 @@ export default class CreateCharts extends Component {
             <div>
                 <h3>Stat page</h3>
                 <select id="disc" name="disc" onChange={this.ChangeDisc} defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Change discipline</option>
-                        {this.state.DisciplinesList.map((option) => (
+                    <option value="DEFAULT" disabled>Change discipline</option>
+                    {this.state.DisciplinesList.map((option) => (
                         <option value={option} name={option} key={option}
-                            >{option}</option>
-                         ))}
+                        >{option}</option>
+                    ))}
                 </select>
                 <select id="space" name="space" onChange={this.ChangeSpace} defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Change space</option>
-                        {this.state.spacelist.map((space,index) => (
+                    <option value="DEFAULT" disabled>Change space</option>
+                    {this.state.spacelist.map((space,index) => (
                         <option key={index} value={space.value}>{space.label}</option>
-                         ))}
+                    ))}
                 </select>
                 {
                     Object.keys(this.state.featlist).length === 0
-                    ? null
-                    : <select id="feat" name="feat" onChange={this.ChangeFeat} defaultValue={'DEFAULT'}>
-                    <option value="DEFAULT" disabled>Change feature</option>
-                    {this.state.featlist.map((feat,index) => (
-                    <option value={feat.testid} name={feat.testname} key={feat.testid}
-                        >{feat.testname}</option>
-                     ))}
-            </select>
+                        ? null
+                        : <select id="feat" name="feat" onChange={this.ChangeFeat} defaultValue={'DEFAULT'}>
+                            <option value="DEFAULT" disabled>Change feature</option>
+                            {this.state.featlist.map((feat,index) => (
+                                <option value={feat.testid} name={feat.testname} key={feat.testid}
+                                >{feat.testname}</option>
+                            ))}
+                        </select>
                 }
                 {
                     Object.keys(this.state.Discipline).length !== 0 && Object.keys(this.state.selspace).length !== 0
-                    ?
+                        ?
 
-                    <button style= {{...{float: 'right'},...{zIndex: 1}}} onClick={this.createChart}>Create chart</button>
+                        <button style= {{...{float: 'right'},...{zIndex: 1}}} onClick={this.createChart}>Create chart</button>
 
-                    :
-                    null
+                        :
+                        null
                 }
                 <div>
                     <span>Titel:</span>
-                        <label className="select-file">
-                                        <input
-                                        type="text"
-                                        id="titelfield"
-                                        onChange={this.changeTitel}
-                                        value={this.state.title}
-                                    />
-                        </label>
-                    </div>
-                    <div>
+                    <label className="select-file">
+                        <input
+                            type="text"
+                            id="titelfield"
+                            onChange={this.changeTitel}
+                            value={this.state.title}
+                        />
+                    </label>
+                </div>
+                <div>
                     <span>Referenzwert:</span>
-                        <label className="select-file">
-                                        <input
-                                        type="number"
-                                        min="0"
-                                        id="reffield"
-                                        onChange={this.changeRef}
-                                        value={this.state.ref}
-                                    />
-                        </label>
-                    </div>
-                    <div>
+                    <label className="select-file">
+                        <input
+                            type="number"
+                            min="0"
+                            id="reffield"
+                            onChange={this.changeRef}
+                            value={this.state.ref}
+                        />
+                    </label>
+                </div>
+                <div>
                     <select id="dia" name="dia" onChange={this.changePlot} defaultValue={'DEFAULT'}>
-                    <option value="DEFAULT" disabled>Chart type</option>
-                    <option value="bar" name="Balkendiagramm" key="bar"
+                        <option value="DEFAULT" disabled>Chart type</option>
+                        <option value="bar" name="Balkendiagramm" key="bar"
                         >Balkendiagramm</option>
-                    <option value="scatter" name="Streudiagramm" key="scatter"
+                        <option value="scatter" name="Streudiagramm" key="scatter"
                         >Streudiagramm</option>
                     </select>
-                    </div>
+                </div>
             </div>
         );
     }

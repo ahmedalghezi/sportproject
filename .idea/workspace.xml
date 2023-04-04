@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/chart_creator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/createcharts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/loadcharts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DB/loggedHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/loggedHandler.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/firebase/firebase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/firebase/firebase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/MainReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/MainReg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/changePassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/changePassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/admin/changeEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/changeEmail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/sheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,28 +204,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/user&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/trainer",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/trainer" />
       <recent name="$PROJECT_DIR$/src/user" />
       <recent name="$PROJECT_DIR$/src/register" />
       <recent name="$PROJECT_DIR$/src/register/admin" />
       <recent name="$PROJECT_DIR$/src/firebase" />
-      <recent name="$PROJECT_DIR$/src/lime" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/temp-data" />
@@ -378,14 +383,10 @@
       <workItem from="1677147687524" duration="9306000" />
       <workItem from="1677397294949" duration="25417000" />
       <workItem from="1677520350210" duration="24117000" />
-      <workItem from="1678136960389" duration="14491000" />
-    </task>
-    <task id="LOCAL-00019" summary="Minor changes">
-      <created>1652723052014</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1652723052015</updated>
+      <workItem from="1678136960389" duration="19154000" />
+      <workItem from="1678802191558" duration="21715000" />
+      <workItem from="1680003113318" duration="3456000" />
+      <workItem from="1680036614623" duration="3285000" />
     </task>
     <task id="LOCAL-00020" summary="More functions added to the trainer admin panels. Dealing with warnings.">
       <created>1652873979194</created>
@@ -723,7 +724,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678433021310</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="minor fix">
+      <created>1678711799678</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1678711799678</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -834,7 +842,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Version2, adding getIDs" />
     <MESSAGE value="Finalizing the signup form" />
     <MESSAGE value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
     <MESSAGE value="adding bot check" />
@@ -859,7 +866,8 @@
     <MESSAGE value="Fix issues with upload and download" />
     <MESSAGE value="Add support for  file structured in folders" />
     <MESSAGE value="Add support for metadata" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add support for metadata" />
+    <MESSAGE value="minor fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -887,7 +895,6 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/DB/postSignup.js</url>
           <line>35</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>

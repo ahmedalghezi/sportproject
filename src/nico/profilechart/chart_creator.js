@@ -12,25 +12,25 @@ import PostCSVData from "../../DB/postCSV";
 
 const charts = [
     {data: [
-    {value: 27.5, label: "Sprunghöhe - 09.21"},
-    {value: 29.9, label: "Sprunghöhe - 06.22"},
-    {value: 27.5, label: "Sprunghöhe - 09.23"},
-    {value: 29.9, label: "Sprunghöhe - 06.24"},
-], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
-titel: "Profile Chart 1" ,
-color: "yellow"},
-{data: [
-    {value: 27.5, label: "Sprunghöhe - 09.21"},
-    {value: 29.9, label: "Sprunghöhe - 06.22"},
-], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
-titel: "Profile Chart 2" ,
-color: "green"},
-{data: [
-    {value: 27.5, label: "Sprunghöhe - 09.21"},
-    {value: 29.9, label: "Sprunghöhe - 06.22"},
-], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
-titel: "Profile Chart 3" ,
-color: "red"},
+            {value: 27.5, label: "Sprunghöhe - 09.21"},
+            {value: 29.9, label: "Sprunghöhe - 06.22"},
+            {value: 27.5, label: "Sprunghöhe - 09.23"},
+            {value: 29.9, label: "Sprunghöhe - 06.24"},
+        ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
+        titel: "Profile Chart 1" ,
+        color: "yellow"},
+    {data: [
+            {value: 27.5, label: "Sprunghöhe - 09.21"},
+            {value: 29.9, label: "Sprunghöhe - 06.22"},
+        ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
+        titel: "Profile Chart 2" ,
+        color: "green"},
+    {data: [
+            {value: 27.5, label: "Sprunghöhe - 09.21"},
+            {value: 29.9, label: "Sprunghöhe - 06.22"},
+        ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
+        titel: "Profile Chart 3" ,
+        color: "red"},
 ];
 
 export default class ChartCreator extends Component {
@@ -57,8 +57,8 @@ export default class ChartCreator extends Component {
     componentDidMount() {
         this.setState({charts: charts});
     }
-    
-    
+
+
 
     drawIndicator(obj){
         let col = obj.color;
@@ -79,9 +79,9 @@ export default class ChartCreator extends Component {
     newChart(){
         let newobj = {data: [
 
-        ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
-        titel: "New Chart" ,
-        color: "green"}
+            ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
+            titel: "New Chart" ,
+            color: "green"}
         let curcharts = this.state.charts
         curcharts.push(newobj);
         this.setState({charts: curcharts});
@@ -153,24 +153,24 @@ export default class ChartCreator extends Component {
     uploadChart(){
         this.state.charts.forEach(item =>
             PostCSVData.uploadCharts({ chart: item })
-            .then((response) => {
-              if (response.data.res === "error")
-                alert("some error has happened. code dowcsv187");
-              if (response.data.res === "no")
-                window.location.href =
-                  window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
-              if (response.data.res === "ok") {
-      
-              }
-            })
-            .catch((e) => {
-              console.log(e);
-              alert("some error has happened..code dowcsv195");
-            }) 
-          );
-          alert("Charts uploaded");
-          this.setState({selchart: {}});
-          this.setState({charts: {}});
+                .then((response) => {
+                    if (response.data.res === "error")
+                        alert("some error has happened. code dowcsv187");
+                    if (response.data.res === "no")
+                        window.location.href =
+                            window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
+                    if (response.data.res === "ok") {
+
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                    alert("some error has happened..code dowcsv195");
+                })
+        );
+        alert("Charts uploaded");
+        this.setState({selchart: {}});
+        this.setState({charts: {}});
     }
 
 
@@ -181,142 +181,142 @@ export default class ChartCreator extends Component {
             <div className="profile-stat-container">
                 <h3>Chart Creator</h3>
                 <select id="charts" name="charts" onChange={this.Changechart} defaultValue={'DEFAULT'}>
-                        <option value="DEFAULT" disabled>Change chart</option>
-                        {this.state.charts.map((option) => (
+                    <option value="DEFAULT" disabled>Change chart</option>
+                    {this.state.charts.map((option) => (
                         <option value={option.titel} name={option.titel} key={option.titel}
-                            >{option.titel}</option>
-                         ))}
+                        >{option.titel}</option>
+                    ))}
                 </select>
                 <label className="select-file">
-                <input
-                type="button"
-                value="New Chart"
-                onClick={this.newChart}
-              />
+                    <input
+                        type="button"
+                        value="New Chart"
+                        onClick={this.newChart}
+                    />
                 </label>
                 <label className="select-file">
-                <input
-                type="button"
-                value="Delete Chart"
-                onClick={this.delChart}
-              />
+                    <input
+                        type="button"
+                        value="Delete Chart"
+                        onClick={this.delChart}
+                    />
                 </label>
                 {
                     Object.keys(this.state.selchart).length === 0
-                    ? null
-                    : <div>
-                        <label className="select-file">
-                                        <input
-                                        type="text"
-                                        id="titelfield"
-                                        onChange={this.changeTitel}
-                                        value={this.state.selchart.titel}
-                                    />
-                        </label>
-                    </div>
+                        ? null
+                        : <div>
+                            <label className="select-file">
+                                <input
+                                    type="text"
+                                    id="titelfield"
+                                    onChange={this.changeTitel}
+                                    value={this.state.selchart.titel}
+                                />
+                            </label>
+                        </div>
                 }
                 {
                     Object.keys(this.state.selchart).length === 0
-                    ? null
-                    : <div>
-                    <label className="select-file">
-                                    <input
+                        ? null
+                        : <div>
+                            <label className="select-file">
+                                <input
                                     type="text"
                                     id="reflab"
                                     onChange={this.changeRefLabel}
                                     value={this.state.selchart.refer[1].label}
                                 />
-                    </label>
-                    <label className="select-file">
-                                    <input
+                            </label>
+                            <label className="select-file">
+                                <input
                                     type="text"
                                     id="refval"
                                     onChange={this.changeRefValue}
                                     value={this.state.selchart.refer[1].value}
                                 />
-                    </label>
-                    </div>
+                            </label>
+                        </div>
                 }
                 {
                     Object.keys(this.state.selchart).length === 0
-                    ? null
-                    : <div>
-                    <select id="charts" name="charts" onChange={this.Changecolor}>
-                        <option value="green">green</option>
-                        <option value="yellow">yellow</option>
-                        <option value="red">red</option>
-                </select>
-                    </div>
+                        ? null
+                        : <div>
+                            <select id="charts" name="charts" onChange={this.Changecolor}>
+                                <option value="green">green</option>
+                                <option value="yellow">yellow</option>
+                                <option value="red">red</option>
+                            </select>
+                        </div>
                 }
                 {
                     Object.keys(this.state.selchart).length === 0
-                    ? null
-                    :
-                    this.state.selchart.data.map((item, index) => {
-                    return (
-                        <div>
-                            <label className="select-file">
-                                            <input
+                        ? null
+                        :
+                        this.state.selchart.data.map((item, index) => {
+                            return (
+                                <div>
+                                    <label className="select-file">
+                                        <input
                                             type="text"
                                             id={"label " + String(index)}
                                             onChange={this.changeLabel}
                                             value={item.label}
                                         />
-                            </label>
-                            <label className="select-file">
-                                            <input
+                                    </label>
+                                    <label className="select-file">
+                                        <input
                                             type="text"
                                             id={"value " + String(index)}
                                             onChange={this.changeValue}
                                             value={item.value}
                                         />
-                            </label>
-                            
-                            <label className="select-file">
-                            <input
-                            type="button"
-                            value="Delete Line"
-                            id={"button " + String(index)}
-                            onClick={this.delLine}
-                        />
-                            </label>
-                            </div>
+                                    </label>
+
+                                    <label className="select-file">
+                                        <input
+                                            type="button"
+                                            value="Delete Line"
+                                            id={"button " + String(index)}
+                                            onClick={this.delLine}
+                                        />
+                                    </label>
+                                </div>
                             );
-                    })
+                        })
                 }
                 {
                     Object.keys(this.state.selchart).length === 0
-                    ? null
-                    :
-                    <div>
-                                         <label className="select-file">
-                <input
-                type="button"
-                value="Add line"
-                onClick={this.newLine}
-              />
-                </label>
-                            </div>
-                            
+                        ? null
+                        :
+                        <div>
+                            <label className="select-file">
+                                <input
+                                    type="button"
+                                    value="Add line"
+                                    onClick={this.newLine}
+                                />
+                            </label>
+                        </div>
+
                 }
                 {
                     Object.keys(this.state.charts).length !== 0
-                    ?
-                    <form onSubmit={this.uploadChart}>
-                    <button style= {{...{float: 'right'},...{zIndex: 1}}} type="submit">Submit</button>
-                    </form>
-                    :
-                    null
+                        ?
+                        <form onSubmit={this.uploadChart}>
+                            <button style= {{...{float: 'right'},...{zIndex: 1}}} type="submit">Submit</button>
+                        </form>
+                        :
+                        null
                 }
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                {
-                    this.state.charts.map((item, index) => {
-                    return (
-                            <Grid item xs={6}><div style= {{...{position: "relative"}}}><svg style= {{...{position: "absolute",...{zIndex: "1"}}, ...{height: "500px"}, ...{width: "600px"}}}>{this.drawIndicator(item)}</svg></div><div style= {{...{height: '350px'}}}><ProfileChart arrtest={item.data} refer={item.refer} title={item.titel}/></div></Grid>
+                    {
+                        this.state.charts.map((item, index) => {
+                            return (
+                                <Grid item xs={6}><div style= {{...{position: "relative"}}}><svg style= {{...{position: "absolute",...{zIndex: "1"}}, ...{height: "500px"}, ...{width: "600px"}}}>{this.drawIndicator(item)}</svg></div><div style= {{...{height: '350px'}}}><ProfileChart arrtest={item.data} refer={item.refer} title={item.titel}/></div></Grid>
                             );
-                    })}
+                        })}
                 </Grid>
-                
+
             </div>
         );
     }
