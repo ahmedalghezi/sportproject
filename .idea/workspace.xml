@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/chart_creator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/createcharts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nico/profilechart/loadcharts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/loggedHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/loggedHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/changeEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/changeEmail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/sheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/approveTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/approveTests.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -386,14 +379,7 @@
       <workItem from="1678136960389" duration="19154000" />
       <workItem from="1678802191558" duration="21715000" />
       <workItem from="1680003113318" duration="3456000" />
-      <workItem from="1680036614623" duration="3285000" />
-    </task>
-    <task id="LOCAL-00020" summary="More functions added to the trainer admin panels. Dealing with warnings.">
-      <created>1652873979194</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1652873979194</updated>
+      <workItem from="1680036614623" duration="16246000" />
     </task>
     <task id="LOCAL-00021" summary="Version2">
       <created>1654104685629</created>
@@ -731,7 +717,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678711799678</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="minor fix">
+      <created>1680514601428</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1680514601428</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
