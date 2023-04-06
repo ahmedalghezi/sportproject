@@ -17,6 +17,9 @@ padding-left: 0;
 
 
 }
+.list-one ul {
+  padding-left: 0;
+}
 .list-two{
     margin-right: 30px;
     padding-left: 0;
@@ -95,6 +98,7 @@ padding-left: 0;
     margin-right: 0px;
     margin-left: 0px;
     margin-top: 0%;
+    padding-left: 0;
   } 
   @media only screen and (max-width: 600px) {
     #collaps-beside{
