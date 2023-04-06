@@ -40,14 +40,15 @@ padding-left: 0;
     font-size: x-large;
     cursor: pointer;
     width: 200px;
-    
+    overflow-y: auto; /*TODO*/
+    overflow-x: auto; /*TODO*/
   }
   
   .collapcontent {
     padding: 0.3rem;
     background-color: white;
     font-size: medium; 
-    
+    /*transition: max-height 0.2s ease-out;  TODO */
   }
   .collapsible li label {
     color: black;
@@ -81,7 +82,9 @@ padding-left: 0;
   .collapsible .content-parent {
    height: 0px;
    overflow: hidden;
-   transition: height ease 0.4s; 
+   /* transition: height ease 0.4s; */ 
+   overflow-y: auto; /*TODO*/
+   overflow-x: auto; /*TODO*/
   }
   
   /* ### collapsible end ### */
