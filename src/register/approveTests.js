@@ -114,8 +114,10 @@ class ApproveTests extends Component {
                     alert("Es ist ein Fehler aufgetreten.");
                 else if (this.props.onSent)
                     this.props.onSent(this.getApproveRes());
-                else
-                    alert("Changes saved successfully");
+                else {
+                    alert("Änderungen erfolgreich gespeichert");
+                    window.location.href = window.location.origin+"/user/profile";
+                }
             })
             .catch((e) => {
                 console.log(e);
