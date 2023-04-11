@@ -1,0 +1,31 @@
+.Cog-App {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.nodes-number-inputbox {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+  padding: 0 25px
+}
+
+.nodes-number-inputbox .label{
+  margin: 10px auto;
+  font-size: 20px;display: inline-block;
+}
+
+.nodes-number-inputbox .input{
+  max-width: 240px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+h1{
+  text-align: center;
+  margin-bottom: 50px;
+}
