@@ -31,7 +31,11 @@ function CogApp() {
         </div>
       <div className="nodes-number-inputbox">
         <span className="label">Number of nodes:</span>
-        <TextField className="input" type="number" value={numberOfNodes} onChange={(e) => {
+        <TextField className="input" type="number"     InputProps={{
+        inputProps: { 
+            max: 100, min: 3 
+        }
+    }} value={numberOfNodes} onChange={(e) => {
           setNumberOfNodes(Number(e.target.value))
         }}/>
       </div>
