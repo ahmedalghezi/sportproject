@@ -24,7 +24,8 @@ class ProfileC extends Component {
       role: "",
       isTrainer: false,
       links: [],
-      hideAllMsgs: true,
+      hideAllMsgs: true, 
+      
     };
   }
 
@@ -287,8 +288,7 @@ class ProfileC extends Component {
 
           <div id="collaps-beside">
             <div className="list-one" hidden={this.state.hideSurvey}>
-              <Collapsible label="Meine Umfragen">
-                <div className="collapcontent">
+              <h4>Meine Umfragen</h4>
                   <ul>
                     <ul>
                       {this.state.surveyList.map((item) => (
@@ -298,30 +298,29 @@ class ProfileC extends Component {
                       ))}
                     </ul>
                   </ul>
-                </div>
-              </Collapsible>
+                
             </div>
             <div className="list-two">
-              <Collapsible label="Meine Dateien">
-                <div className="collapcontent">
+              
+                <h4>Meine Dateien</h4>
                   <LinkList
                     links={this.state.links}
                     admin={this.state.admin}
                     onDeleteFile={this.deleteFile}
                   />
-                </div>
-              </Collapsible>
+                
+              
             </div>
             <div className="list-three">
-              <Collapsible label="Uploads">
-                <div className="collapcontent">
+               <h4>Uploads</h4>
+                
                   <LinkList
                     links={this.state.filesList}
                     admin={this.state.admin}
                     onDeleteFile={this.deleteMyFile}
                   />
-                </div>
-              </Collapsible>
+                
+              
             </div>
           </div>
         </div>
@@ -402,4 +401,8 @@ this.state = {
       hideAllMsgs: true,
     };
 
+*/
+
+/*
+{"res":"ok","filesP":[{"Hochgeladene Dateien":[{"url":"1680778409473_testdoc.pdf","name":"testfile","admin":false},{"url":"1680699208083_Programming Test.pdf","name":"tete","admin":false},{"url":"1680698541607_Programming Test.pdf","name":"tete","admin":false}]}],"hideAllMsgs":false,"files":[{"athlete_id":"20","file_name":"1680778409473_testdoc.pdf","time":"2023-04-06 10:53:29.814555+00","title":"testfile","folder_name":"Hochgeladene Dateien","is_mine":true,"admin":false},{"athlete_id":"20","file_name":"1680699208083_Programming Test.pdf","time":"2023-04-05 12:53:28.592056+00","title":"tete","folder_name":"Hochgeladene Dateien","is_mine":true,"admin":false},{"athlete_id":"20","file_name":"1680698541607_Programming Test.pdf","time":"2023-04-05 12:43:44.923024+00","title":"tete","folder_name":"Hochgeladene Dateien","is_mine":true,"admin":false}],"admin":false,"empty":false,"role":"trainerAdmin"}
 */

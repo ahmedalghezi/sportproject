@@ -34,7 +34,7 @@ export default class PostCSVData {
 
 
     static getMyFiles(){
-        return http.get("/files/getMyFilesLinks");
+        return http.get("/files/getMyFilesLinks/not_mine");
     }
     static getMySurveys(){
         return http.get("/files/getMySurveyLinks");
@@ -55,12 +55,13 @@ export default class PostCSVData {
 
     //  ##### general file upload Vanessa #####
     static getMyOwnFiles(){
-        return http.get("/files/getMyOwnFilesLinks");
+        return http.get("/files/getMyFilesLinks/mine");
     }
 
 
     static myFileUpload(data) {
-        return axios.post("https://inprove-sport.info"+"/files/sendMyFile", data);
+        data.mine = true;
+        return axios.post("https://inprove-sport.info"+"/files/sendFileToAthlete", data);
     }
 
     static saveMyFileName(param) {

@@ -22,10 +22,7 @@ class UploadFileC extends Component {
       success: false,
       error: false,
       file: null,
-      //ID: "",
-      //key: "",
       title: "",
-      folder: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -61,10 +58,7 @@ class UploadFileC extends Component {
       alert("please give file tilte");
       return false;
     }
-    if (this.state.folder === "") {
-      alert("please give a foldername");
-      return false;
-    }
+
     return true;
   }
 
@@ -75,7 +69,7 @@ class UploadFileC extends Component {
       fileName: fileName,
       //ID: IDa,
       title: this.state.title,
-      folder: this.state.folder,
+
       //key: this.state.key,
     })
       .then((response) => {
@@ -87,6 +81,18 @@ class UploadFileC extends Component {
         if (response.data.res === "ok") {
           alert("File uploaded successfully");
           if (this.props.onUpload) this.props.onUpload();
+          this.setState({
+            file: null,
+            title: "",
+            success: false,
+            error: false,
+          });
+          const form = document.getElementById("uploadConsent");
+          const inputs = form.querySelectorAll("input");
+          inputs.forEach((input) => {
+            if (input.name === "title") input.value = "";
+            if (input.type === "file") input.value = null;
+          });
         }
       })
       .catch((e) => {
@@ -130,7 +136,6 @@ class UploadFileC extends Component {
       <div>
         <h3>Dateien hochladen</h3>
         <form id="uploadConsent" onSubmit={this.handleSubmit}>
-          
           <div className="form-group">
             <label>Title</label>
             <input
@@ -141,17 +146,6 @@ class UploadFileC extends Component {
               onChange={this.handleChange}
             />
           </div>
-          <div className="form-group">
-            <label>Foldername</label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="folder"
-              name="folder"
-              onChange={this.handleChange}
-            />
-          </div>
-        
 
           <input
             type="file"
