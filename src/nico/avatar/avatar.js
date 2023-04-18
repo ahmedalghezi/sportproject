@@ -188,7 +188,6 @@ export default class Avatar extends Component {
 
       return (
         <div>
-          <h3>Athlet:In</h3>
           <div className="avatargallery" id="avatargallery" style= {{...{columnGap: this.setColumnGap().gap + 'px'}}}>
           <div className="avatar-inner">
                     <div className="avatar-line-container">

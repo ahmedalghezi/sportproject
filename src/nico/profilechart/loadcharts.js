@@ -44,6 +44,7 @@ export default class LoadCharts extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
+        this.setState({charts: charts});
         PostCSVData.getCharts().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
