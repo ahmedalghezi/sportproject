@@ -13,6 +13,7 @@ class LoginC extends Component {
     this.state = { emailCurrent: "", emailNew: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleVerify = this.handleVerify.bind(this);
   }
 
 
@@ -40,7 +41,7 @@ class LoginC extends Component {
 
   handleChange(event) {
     const target = event.target;
-    let value = target.value;
+    let value = target.value.trim();
     const name = target.name;
     this.setState({
       [name]: value,
@@ -63,6 +64,33 @@ class LoginC extends Component {
         alert("Es ist ein Fehler aufgetreten.");
       });
   }
+
+
+    handleVerify(event) {
+        event.preventDefault();
+
+        if(this.state.emailCurrent === ""){
+            alert("please set a current email to verify!");
+            return;
+        }
+        if(this.state.emailNew !== ""){
+            alert("please clear the 'new email' field in order to verify the 'current email' field !");
+            return;
+        }
+
+        LoggedHandler.verifyChangeEmail(this.state)
+            .then((response) => {
+                if (response.data.res === "error")
+                    alert("Es ist ein Fehler aufgetreten. Error code chan74: "+response.data.msg);
+                else if (response.data.res === "ok"){
+                    alert("everything is ok!");
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+                alert("Es ist ein Fehler aufgetreten. Error code chane81");
+            });
+    }
 
 
 
@@ -97,6 +125,13 @@ class LoginC extends Component {
         <button type="submit" className="btn btn-primary btn-block">
           Change
         </button>
+            <br/>
+
+          <button  className="btn btn-primary btn-block" onClick={this.handleVerify}>
+              Verify the current email
+          </button>
+
+
 
       </form>
     );

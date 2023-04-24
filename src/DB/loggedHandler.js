@@ -46,4 +46,11 @@ export default class LoggedHandler{
     static changeEmail(data) {
         return http.post("/reg/changeEmail",data);
     }
+
+
+    static verifyChangeEmail(data) {
+        return http.post("/reg/verifyEmailChange",data);
+    }
+
+
 }

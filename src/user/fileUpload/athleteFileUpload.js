@@ -5,14 +5,8 @@ By Ahmed Al-Ghezi, Vanessa Meyer
 import React, { Component } from "react";
 
 import "../../register/style.css";
-import PostSignup from "../../DB/postSignup";
 import { useNavigate } from "react-router-dom";
-import AlertDialog from "../../utli/alertDialog";
-import SignUp from "../../register/SignUp";
-import { processArr } from "../../csvHandler/processCSV";
-import Sheet from "../../csvHandler/xlsSheet/XlsSheet";
 import { Alert } from "@mui/material";
-import axios from "axios";
 import PostCSVData from "../../DB/postCSV";
 
 class UploadFileC extends Component {
