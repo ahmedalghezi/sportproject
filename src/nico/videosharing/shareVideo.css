@@ -1,0 +1,18 @@
+.shareVideobar .progress-bar{
+    animation: progress-bar 1s linear forwards;
+}
+.shareVideobar .progress{
+    float: left;
+    margin-right: 5%;
+    width: 85%;
+    margin-top: 10px;
+}
+  
+@keyframes progress-bar{
+    from { width: 0%; }
+    to { width: var(--to-width); }
+}
+.shareVideobar{
+    width: 100%;
+    height: 18px;
+}

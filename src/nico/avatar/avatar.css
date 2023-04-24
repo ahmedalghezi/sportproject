@@ -80,7 +80,7 @@ h3 {
   height: 50%;
 }
 
-.content-section {
+.avatar-content-section {
   width: 250px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -90,7 +90,7 @@ h3 {
   margin-bottom: 40px;
 }
 
-#video-title {
+#avatar-title {
   font-size: large;
   font-weight: lighter;
   margin-top: 10;
@@ -100,7 +100,7 @@ h3 {
   color: black;
 }
 
-.gallery {
+.avatargallery {
   -webkit-column-count: 3;
   -moz-column-count: 3;
   column-count: 3;
@@ -109,10 +109,12 @@ h3 {
   column-width: 33%;
   padding: 0.8rem;
   margin: 10px;
-  column-gap: 300px;
   background-color:rgb(235, 235, 235);
+  column-gap: 320px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
 }
-.gallery .video {
+.avatargallery .video {
   -webkit-transition: all 350ms ease;
   transition: all 350ms ease;
   cursor: pointer;
@@ -120,15 +122,10 @@ h3 {
 
 }
 
-.gallery .video:hover {
-  transform: scale(0.98);
-}
-.content-section:hover{
-  transform: scale(0.98);
-}
+
 
 @media screen {
-  .gallery {
+  .avatargallery {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
@@ -136,7 +133,7 @@ h3 {
 }
 /*
 @media (max-width: 991px) {
-  .gallery {
+  .avatargallery {
     -webkit-column-count: 2;
     -moz-column-count: 2;
     column-count: 2;
@@ -144,7 +141,7 @@ h3 {
 }
 */
 @media (max-width: 480px) {
-  .gallery {
+  .avatargallery {
     -webkit-column-count: 1;
     -moz-column-count: 1;
     column-count: 1;
@@ -154,25 +151,36 @@ h3 {
     padding: 0px;
   }
   .csv-inner {
-    width: 450px;
+    width: 400px;
     margin-top: 10px;
     padding: 10px 10px 10px 10px;
   }
+  .avatar-icon{
+    display: none !important;
+  }
+  .avatar-inner{
+    display: none;
+  }
+  .avatar-content-section{
+    margin: 0 auto;
+    margin-bottom: 40px;
+  }
 }
-.text-field{
+.avatar-text-field{
   background-color: white;
   border-radius: 30px;
   display: block;
   padding-left: 10px;
   margin-bottom: 10px;
   padding: 20px;
+  word-wrap:break-word;
 }
 
-.center .progress-bar{
+.avatar-center .progress-bar{
   animation: progress-bar 5s linear forwards;
   border-radius: 30px;
 }
-.center .progress{
+.avatar-center .progress{
   border-radius: 30px;
   background-color: black;
   height: 30px;
@@ -185,39 +193,36 @@ h3 {
   to { width: var(--to-width); }
 }
 
-.red{
+.avatar-red{
   margin-left: 10px;
   margin-top: 7px;
   color: white;
   overflow: auto;
 }
-.red{
+.avatar-red{
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-.red::-webkit-scrollbar{
+.avatar-red::-webkit-scrollbar{
   display: none;
 }
-.center{
+.avatar-center{
   margin-left: 20px;
   margin-top: 10px;
 }
-.all-content{
+.avatar-all-content{
   padding-left: 10px;
+  break-inside: avoid;
+  position: relative;
 }
 
-.CdDD1g{
-  width: 10%;
-  transform: scaleZ(-1);
-  transform: rotateY(180deg);
-  margin: auto;
-  display: block;
-}
-.icon{
+.avatar-icon{
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translate(0, -350%);
+  padding-top: 230px;
+  padding-bottom: 230px;
+  height: 100%;
 }
 
 #circle {
@@ -228,4 +233,19 @@ h3 {
   border-radius: 100px;
   background: gray;
   transform: scaleZ(-2);
+  background: url(./runner.png) no-repeat center center fixed;
+  background-size: 80px;
+  background-color: rgb(218, 210, 210);
+  transform: rotateY(180deg);
+}
+.avatar-line-container{
+  position: absolute;
+}
+.avatar-inner{
+  position: relative; 
+  height: auto;
+}
+
+.avatar-svg{
+  z-index: -1;
 }

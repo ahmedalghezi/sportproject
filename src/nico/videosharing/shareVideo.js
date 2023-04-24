@@ -27,6 +27,19 @@ const testdata = [
 
     }];
 
+    //progress bar
+    const options = {
+        onUploadProgress: (progressEvent) => {
+          const { loaded, total } = progressEvent;
+          let percent = Math.floor((loaded * 100) / total);
+          console.log(loaded + "bytes of " + total + " bytes | " + percent + "%");
+          if (percent < 100) {
+            this.setState({ progress: percent });
+          } else {
+            this.setState({viewprogress: false, progress: 0})
+          }
+        },
+      };
 
 
 
@@ -74,6 +87,7 @@ export default class ShareVideo extends Component {
     }
 
 
+
     handleSubmit = (event) => {
         event.preventDefault();
         if(this.state.selectedFile === '')
@@ -101,6 +115,7 @@ export default class ShareVideo extends Component {
 
 
     render() {
+          require("./shareVideo.css")
         return (
             <form>
                 <h3>Video teilen</h3>

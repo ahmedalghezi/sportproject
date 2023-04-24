@@ -7,6 +7,8 @@ import handelTrainer from "../../DB/handelTrainer";
 import ProfileChart from "./profilechart";
 import { Grid } from "@mui/material";
 import PostCSVData from "../../DB/postCSV";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 
 const charts = [
@@ -16,7 +18,7 @@ const charts = [
             {value: 27.5, label: "Sprunghöhe - 09.23"},
             {value: 29.9, label: "Sprunghöhe - 06.24"},
         ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
-        titel: "Profile Chart 2" },
+        titel: "Profile Chart 1" },
     {data: [
             {value: 27.5, label: "Sprunghöhe - 09.21"},
             {value: 29.9, label: "Sprunghöhe - 06.22"},
@@ -26,15 +28,17 @@ const charts = [
             {value: 27.5, label: "Sprunghöhe - 09.21"},
             {value: 29.9, label: "Sprunghöhe - 06.22"},
         ], refer: [{value: 0, label: ""}, {value: 40, label: "Referenzwert(cm)"}],
-        titel: "Profile Chart 2" }
+        titel: "Profile Chart 3" }
 ];
 
-export default class ProfileGrid extends Component {
+export default class LoadCharts extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {charts: []};
+        this.state = {charts: [], currentIndex: 0};
         this.getAll = this.getAll.bind(this);
+        this.handleNext = this.handleNext.bind(this);
+        this.handlePrev = this.handlePrev.bind(this);
     }
 
 
@@ -44,7 +48,8 @@ export default class ProfileGrid extends Component {
     getAll(){
         //need to add empty object for space
         //this.setState({ref: ref, arrtest: testdata, title: titel });
-      PostCSVData.getCharts().then(response => {
+        this.setState({charts: charts});
+        PostCSVData.getCharts().then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
                 return;
@@ -63,6 +68,16 @@ export default class ProfileGrid extends Component {
         });
     }
 
+    handleNext(){
+        var x = this.state.currentIndex + 1
+        this.setState({currentIndex: x})
+    }
+
+    handlePrev(){
+        var x = this.state.currentIndex - 1
+        this.setState({currentIndex: x})
+    }
+
 
 
 
@@ -74,11 +89,17 @@ export default class ProfileGrid extends Component {
         return (
             <div>
                 <h3>Stat page</h3>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-                    {this.state.charts.map(function(d, idx){
-                        return (<Grid item xs={6}><div style= {{...{height: '350px'}}}><ProfileChart arrtest={d.data} refer={d.refer} title={d.titel}/></div></Grid>)
-                    })}
-                </Grid>
+                {
+                    this.state.currentIndex < this.state.charts.length - 1
+                    ? <button style= {{...{float: "right"}}} onClick={this.handleNext}><NavigateNextIcon/></button>
+                    : null
+                }
+                {
+                    this.state.currentIndex > 0
+                    ? <button style= {{...{float: "right"}}} onClick={this.handlePrev}><NavigateBeforeIcon/></button>
+                    : null
+                }
+                <ProfileChart arrtest={charts[this.state.currentIndex].data} refer={charts[this.state.currentIndex].refer} title={charts[this.state.currentIndex].titel}/>
             </div>
         );
     }

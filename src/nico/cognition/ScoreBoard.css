@@ -1,0 +1,23 @@
+.ScoreBoard {
+    background: rgba(161, 206, 234, 0.937);
+    height: 200px;
+    width: 30%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 12px 36px;
+    
+}
+
+.ScoreBoard .sb_row {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 6px 0;
+}
+
+.ScoreBoard .sb_row div:first-child {
+    min-width: 180px;
+    text-align: left;
+}

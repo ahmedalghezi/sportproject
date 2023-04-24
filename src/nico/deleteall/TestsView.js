@@ -1,7 +1,6 @@
 import React from "react";
-import CustomTable from "../utli/components/CustomTable";
+import CustomTable from "../../utli/components/CustomTable";
 import axios from "axios";
-import { CircularProgress } from '@mui/material';
 import {
   Button,
   FormControl,
@@ -14,8 +13,8 @@ import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
-import {germanDatePresentation, usDatePresentation} from "../utli/dataConversion";
-import PostCSVData from "../DB/postCSV";
+import { germanDatePresentation } from "../../utli/dataConversion";
+import PostCSVData from "../../DB/postCSV";
 import ReactJson from "react-json-view";
 
 
@@ -39,8 +38,8 @@ async function getTests(fromDate, toDate) {
       },
     })
     .get("/csvapi/get_slice/" + fromDate + "/" + toDate);
-
-
+    
+    
 }
 
 // utils
@@ -49,9 +48,9 @@ const getColLabelsFromData = (data) => {
   data.forEach((test) => {
 
     labels = labels.concat(Object.keys(test["json_record"]));
-
+    
   });
-  // add date to position 1
+  // add date to position 1 
   labels.splice(1,0,"date");
   return labels;
 };
@@ -197,7 +196,6 @@ export default function TestsView(props) {
   const [indexArr, setIndexArr] = React.useState([]);
   const [showJson,setShowJson] = React.useState(false);
   const [formatText, setFormatText] = React.useState("Show JSON");
-  const [loading, setLoading] = React.useState(false);
 
 
   //added for filtering gender
@@ -207,12 +205,12 @@ export default function TestsView(props) {
   const onApply = () => {
     setJsonRecords([]);
       getTests(
-          usDatePresentation(fromDate),
-          usDatePresentation(toDate)
+      germanDatePresentation(fromDate),
+      germanDatePresentation(toDate)
     ).then((res) => {
-
-      let testsData = res["data"]["arr"];
-
+      
+      let testsData = res["data"]["arr"];  
+      
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
@@ -224,7 +222,7 @@ export default function TestsView(props) {
       if (space) {
         testsData = testsData.filter((el) => el["space"] === space);
       }
-      //also filter for gender
+      //also filter for gender 
       if(gender){
         testsData = testsData.filter(el => el['gender'] === gender);
       }
@@ -239,12 +237,12 @@ export default function TestsView(props) {
         objEntries.splice(1,0, ["date", newDateStr]);
         let newJson = Object.fromEntries(objEntries);
         return newJson;
-
+       
       }));
       //setJsonRecords(testsData.map((t) => t["json_record"]));
       setIndexArr(testsData.map((tt) => tt["id"]));
       setColLabels(getColLabelsFromData(testsData));
-      });
+      });  
   };
 
   const onReset = () => {
@@ -257,18 +255,18 @@ export default function TestsView(props) {
         getTests(
         germanDatePresentation(fromDate),
         germanDatePresentation(toDate)
-      ).then((res) => {
-        let testsData = res["data"]["arr"];
-
+      ).then((res) => { 
+        let testsData = res["data"]["arr"]; 
+        
         setAllDisciplines(
           Array.from(new Set(testsData.map((el) => el.discipline)))
         );
         setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
         setFilteredTests(testsData);
-        setJsonRecords(testsData.map((t) => t["json_record"]));
-
+        setJsonRecords(testsData.map((t) => t["json_record"])); 
+      
         setColLabels(getColLabelsFromData(testsData));
-        });
+        });  
     }
   };
 
@@ -324,7 +322,7 @@ export default function TestsView(props) {
 
   const onDelete = () => {
     //ask before deletion
-    if (selectedRowIndex === null || !jsonRecords) return;
+    if (!selectedRowIndex || !jsonRecords) return;
     setSelectedRowIndex(null);
     const id = indexArr[selectedRowIndex];
     PostCSVData.deleteCSVRow({ rowID: id })
@@ -348,38 +346,25 @@ export default function TestsView(props) {
   const onDeleteall = () => {
     //ask before deletion
     setFilteredTests([]);
-    setLoading(true);
-    let success = 0;
-    let promises = [];
     filteredTests.forEach(item =>
-      promises.push(
-        PostCSVData.deleteCSVRow({ rowID: item.id })
-        .then((response) => {
-          if (response.data.res === "error")
-            alert("some error has happened. code dowcsv187");
-          if (response.data.res === "no")
-            window.location.href =
-              window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
-          if (response.data.res === "ok") {
-              success++;
-          }
-        })
-      )
+      PostCSVData.deleteCSVRow({ rowID: item.id })
+      .then((response) => {
+        if (response.data.res === "error")
+          alert("some error has happened. code dowcsv187");
+        if (response.data.res === "no")
+          window.location.href =
+            window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
+        if (response.data.res === "ok") {
+
+        }
+      })
       .catch((e) => {
         console.log(e);
         alert("some error has happened..code dowcsv195");
       }) 
     );
-    Promise.all(promises)
-      .then(() => 
-        alert(String(success) + " rows moved to deletion bin..")
-      )
-      .then(() => 
-      setLoading(false)
-      )
-      .then(() => 
-        onApply()
-      );
+    alert("Rows moved to deletion bin..");
+    onApply();
   };
 
   const onDatesChange = () => {
@@ -408,9 +393,9 @@ export default function TestsView(props) {
         germanDatePresentation(fromDate),
         germanDatePresentation(toDate)
       ).then((res) => {
-        const testsData = res["data"]["arr"];
-
-
+        const testsData = res["data"]["arr"];  
+        
+        
         setAllDisciplines(
           Array.from(new Set(testsData.map((el) => el.discipline)))
         );
@@ -422,7 +407,7 @@ export default function TestsView(props) {
         if (!allSpaces.includes(space)) {
           setSpace(false);
         }
-        });
+        });  
     }
   };
 
@@ -432,15 +417,15 @@ export default function TestsView(props) {
       germanDatePresentation(fromDate),
       germanDatePresentation(toDate)
     ).then((res) => {
-      const testsData = res["data"]["arr"];
-
-
+      const testsData = res["data"]["arr"];  
+      
+      
       setAllDisciplines(
         Array.from(new Set(testsData.map((el) => el.discipline)))
       );
       setAllSpaces(Array.from(new Set(testsData.map((el) => el.space))));
       setIsFirstRender(false);
-      });
+      });  
   }
   let testHeadCells = Array.from(new Set(colLabels));
   testHeadCells = testHeadCells.map((headCell) => {
@@ -485,7 +470,7 @@ export default function TestsView(props) {
             (event) => setGender(event.target.value)
           )}
           <div style={{ marginBottom: "12px", width: "100%" }}>
-            <div style={{ width: "33%", display: "inline-block" }}>
+            <div style={{ width: "25%", display: "inline-block" }}>
               {
                 <Button
                   variant="contained"
@@ -515,7 +500,7 @@ export default function TestsView(props) {
                 </Button>
               }
             </div>
-            <div style={{ width: "33%", display: "inline-block" }}>
+            <div style={{ width: "25%", display: "inline-block" }}>
               {
                 <Button
                   variant="contained"
@@ -528,7 +513,7 @@ export default function TestsView(props) {
               }
             </div>
 
-            <div style={{ width: "33%", display: "inline-block" }}>
+            <div style={{ width: "25%", display: "inline-block" }}>
               {
                 <Button
                   variant="contained"
@@ -541,14 +526,11 @@ export default function TestsView(props) {
               }
             </div>
 
-            <div style={{ width: "33%", display: "inline-block" }}>
+            <div style={{ width: "25%", display: "inline-block" }}>
               {
-                loading ? (
-                              <CircularProgress />
-                            ) : 
                 <Button
                   variant="contained"
-                  style={{ marginTop: "12px", width: "160px" }}
+                  style={{ marginTop: "12px", width: "140px" }}
                   onClick={() => { if (window.confirm('Are you sure you wish to delete all rows?')) onDeleteall() } }
                   disabled={filteredTests.length === 0}
                 >

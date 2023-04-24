@@ -12,13 +12,13 @@ import HandelTrainer from "../../DB/handelTrainer";
 const tableCellStyle = {width: '25%', paddingBottom: '8px'};
 
 async function getEvaluations () {
-    return await axios.create({
-        baseURL: "https://inprove-sport.info",
-        json: true,
-        headers: {
-            "Content-type": "application/json"
-        },
-    }).post("/trainer/getHistory", {});
+  return await axios.create({
+      baseURL: "https://inprove-sport.info",
+      json: true,
+      headers: {
+        "Content-type": "application/json"
+      },
+   }).post("/trainer/getHistory", {});
 }
 
 export default function EvaluationsView() {

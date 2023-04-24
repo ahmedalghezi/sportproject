@@ -72,12 +72,6 @@ export default class PostSignup {
     }
 
 
-
-
-
-
-
-
     static requestDell(data){
         return http.post("/reg/request_dell",data);
     }
