@@ -16,7 +16,7 @@ import Avatar from "../avatar/avatar";
 import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
 import { ShowChart } from "@mui/icons-material";
 import Modal from '@mui/material/Modal';
-import LoadCharts from "../profilechart/loadcharts";
+import LoadCharts from "../profilechart/profile_charts";
 import graphimage from "./graph.png"
 import avaimg from "./avatar.png"
 
@@ -26,8 +26,8 @@ const diastyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 1300,
-  height: 800,
+  width: 1000,
+  height: 500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -49,6 +49,20 @@ const avatarstyle = {
   overflowY: 'auto',
 };
 
+const standardstyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 500,
+  height: 500,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  overflowY: 'auto',
+};
+
 class TestProfileC extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +74,10 @@ class TestProfileC extends Component {
       hideSurvey:false,
       showPopupav: false,
       showPopupdia: false,
+      showInfo: false,
+      showSurvey: false,
+      showFiles: false,
+      showReports: false,
     };
   }
 
@@ -121,9 +139,29 @@ class TestProfileC extends Component {
     this.setState({showPopupdia: true})
   }
 
+  handlePopupOpenfile = (event) => {
+    this.setState({showFiles: true})
+  }
+
+  handlePopupOpenReports = (event) => {
+    this.setState({showReports: true})
+  }
+
+  handlePopupOpenInfo = (event) => {
+    this.setState({showInfo: true})
+  }
+
+  handlePopupOpenSurvey = (event) => {
+    this.setState({showSurvey: true})
+  }
+
   handlePopupClose = (event) => {
-    this.setState({showPopupav: false})
-    this.setState({showPopupdia: false})
+    this.setState({showPopupav: false});
+    this.setState({showPopupdia: false});
+    this.setState({showFiles: false});
+    this.setState({showInfo: false});
+    this.setState({showReports: false});
+    this.setState({showSurvey: false});
   }
 
   handleFileClick = (event) => {
@@ -170,10 +208,10 @@ class TestProfileC extends Component {
       <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="Dein Profil" subtitle="Willkommen bei in:prove!" />
+        <Header title="Mein Profil" subtitle="Willkommen bei in:prove!" />
         <Box>
           <Button
-            //onClick={this.handlePopupOpen}
+            onClick={this.handlePopupOpenInfo}
             sx={{
               backgroundColor: "#3e4396",
               color: "#e0e0e0",
@@ -209,6 +247,88 @@ class TestProfileC extends Component {
             <LoadCharts/>
           </Box>
         </Modal>
+
+        <Modal
+          open={this.state.showInfo}
+          onClose={this.handlePopupClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={standardstyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              Willkommen bei in:prove!
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <p>Hallo,</p><p>willkommen im Projektportal des in:prove Projektes.</p><p>Aktuell können wir
+              Deine Ergebnisse noch nicht für den Abruf bereitstellen.
+              Wir geben Dir Bescheid, sobald Du diese im Projektportal abrufen kannst.</p>
+              <p>Mit sportlichen Grüßen,<br></br> Dein in:prove Team</p>
+        </Typography>
+          </Box>
+        </Modal>
+
+        <Modal
+          open={this.state.showSurvey}
+          onClose={this.handlePopupClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={standardstyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              Meine Umfragen
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <ul>
+                  <ul>
+                    {this.state.surveyList.map((item) => (
+                        <li key={item.title}>
+                          <a href={item.link}>{item.title}</a></li>
+                    ))}
+                  </ul>
+                </ul>
+        </Typography>
+          </Box>
+        </Modal>
+
+        <Modal
+          open={this.state.showReports}
+          onClose={this.handlePopupClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={standardstyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              Meine Berichte
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          Beschreibung
+        </Typography>
+          </Box>
+        </Modal>
+
+        <Modal
+          open={this.state.showFiles}
+          onClose={this.handlePopupClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={standardstyle}>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+              Meine Dateien
+        </Typography>
+        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <ul>
+                  {this.state.filesList.map((item) => (
+                      <li key={item.file_name} onClick={this.handleFileClick}>
+                        <a hidden={!item.admin} name={"deletevftr5"+item.file_name} href={"#" + item.file_name}>(delete) </a>
+                        <a name={item.file_name} href={"#" + item.file_name}>{item.title}</a>
+                      </li>
+                  ))}
+                </ul>
+        </Typography>
+          </Box>
+        </Modal>
+
         </Box>
       </Box>
       {/* GRID & CHARTS */}
@@ -225,6 +345,7 @@ class TestProfileC extends Component {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          onClick={this.handlePopupOpenSurvey}
         >
           <Typography
         variant="h5"
@@ -243,6 +364,7 @@ class TestProfileC extends Component {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          onClick={this.handlePopupOpenReports}
         >
                     <Typography
         variant="h5"
@@ -262,6 +384,7 @@ class TestProfileC extends Component {
           display="flex"
           alignItems="center"
           justifyContent="center"
+          onClick={this.handlePopupOpenfile}
         >
                     <Typography
         variant="h5"
@@ -347,7 +470,7 @@ class TestProfileC extends Component {
         
 
       
-      
+      {/*
         <div id="beside">
           <div className="profile-name" hidden={true}>
             <div>
@@ -403,6 +526,7 @@ class TestProfileC extends Component {
 
           </div>
         </div>
+                  */}
         </Box>
     );
   }
