@@ -67,7 +67,9 @@ import CreateCharts from "./nico/profilechart/createcharts";
 
 
 import ProfileC from './vanessa/profile/profileCopy';
-import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
+//import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
+
+import AthleteFileUpload from './user/fileUpload/athleteFileUpload';
 
 
 function Main() {
@@ -148,7 +150,7 @@ function Main() {
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
                             <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
-                            <Route path='/csv/vanessa/athleteFileUpload' element={<div className="auth-inner"><AthleteFileUpload/></div>} />
+                            <Route path='/csv/athleteFileUpload' element={<div className="auth-inner"><AthleteFileUpload/></div>} />
                             <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><TestsViewCopy/></div>} />
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />

@@ -104,6 +104,15 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
+
+                  <li className="nav-item" hidden={this.state.showSignIn || this.state.showAdmin || this.state.showAdminTrainer}>
+                    <Link className="nav-link" to={"/csv/athleteFileUpload"}>
+                      Datei Hochladen
+                    </Link>
+                  </li>
+
+
+
                   <li
                       className="nav-item"
                       hidden={!this.state.showAdminTrainer && !this.state.showAdmin}

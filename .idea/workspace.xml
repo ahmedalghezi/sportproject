@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="adding the general upload function" />
+    <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/user/fileUpload/fileUpload_to_delete.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/loggedHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/loggedHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/admin/changeEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/changeEmail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vanessa/profile/athleteFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/profile/athleteFileUpload.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -195,7 +208,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/trainer",
+    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/user/fileUpload",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -209,11 +222,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/trainer" />
+      <recent name="$PROJECT_DIR$/src/user/fileUpload" />
       <recent name="$PROJECT_DIR$/src/user" />
+      <recent name="$PROJECT_DIR$/src/trainer" />
       <recent name="$PROJECT_DIR$/src/register" />
       <recent name="$PROJECT_DIR$/src/register/admin" />
-      <recent name="$PROJECT_DIR$/src/firebase" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/temp-data" />
@@ -374,14 +387,7 @@
       <workItem from="1678136960389" duration="19154000" />
       <workItem from="1678802191558" duration="21715000" />
       <workItem from="1680003113318" duration="3456000" />
-      <workItem from="1680036614623" duration="16606000" />
-    </task>
-    <task id="LOCAL-00022" summary="Version2, change to connection url">
-      <created>1654157309555</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1654157309556</updated>
+      <workItem from="1680036614623" duration="31201000" />
     </task>
     <task id="LOCAL-00023" summary="Version2, navBar changes">
       <created>1654252246624</created>
@@ -719,7 +725,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680702980903</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="adding the general upload function">
+      <created>1680703366598</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1680703366598</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
