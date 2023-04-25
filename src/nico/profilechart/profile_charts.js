@@ -92,12 +92,12 @@ export default class LoadCharts extends Component {
                 {
                     this.state.currentIndex < this.state.charts.length - 1
                     ? <button style= {{...{float: "right"}}} onClick={this.handleNext}><NavigateNextIcon/></button>
-                    : null
+                    : <button style= {{...{float: "right"}}} disabled><NavigateNextIcon/></button>
                 }
                 {
                     this.state.currentIndex > 0
                     ? <button style= {{...{float: "right"}}} onClick={this.handlePrev}><NavigateBeforeIcon/></button>
-                    : null
+                    : <button style= {{...{float: "right"}}} disabled><NavigateBeforeIcon/></button>
                 }
                 <ProfileChart arrtest={charts[this.state.currentIndex].data} refer={charts[this.state.currentIndex].refer} title={charts[this.state.currentIndex].titel}/>
             </div>
