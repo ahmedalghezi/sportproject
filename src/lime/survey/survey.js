@@ -16,27 +16,14 @@ import { saveAs } from 'file-saver';
 
 
 const testdata = [
-    { videoID: 1, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_1.mp4"},
-    { videoID: 2, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_2.mp4"},
-    { videoID: 3, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_3.mp4"},
-    { videoID: 4, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_4.mp4"},
-    { videoID: 5, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_5.mp4"},
-    { videoID: 6, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_6.mp4"},
-    { videoID: 7, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_7.mp4"},
-    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_8.mp4"},
-    { videoID: 9, url: "https://inprove-sport.info:8080/videos/dvv/Angriff_9.mp4"},
-    { videoID: 10, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_1.mp4"},
-    { videoID: 11, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_2.mp4"},
-    { videoID: 12, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_3.mp4"},
-    { videoID: 13, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_4.mp4"},
-    { videoID: 14, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_5.mp4"},
-    { videoID: 15, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_6.mp4"},
-    { videoID: 16, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_7.mp4"},
-    { videoID: 17, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_8.mp4"},
-    { videoID: 18, url: "https://inprove-sport.info:8080/videos/dvv/Abwehr_9.mp4"},
-    { videoID: 19, url: "https://inprove-sport.info:8080/videos/dvv/Beste_Option.mp4"},
-    { videoID: 20, url: "https://inprove-sport.info:8080/videos/dvv/Test_Trial_1.mp4"},
-    { videoID: 21, url: "https://inprove-sport.info:8080/videos/dvv/Test_Trial_2.mp4"},
+    { videoID: 1, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%201.mp4"},
+    { videoID: 2, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%202.mp4"},
+    { videoID: 3, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%203.mp4"},
+    { videoID: 4, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%204.mp4"},
+    { videoID: 5, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%201.mp4"},
+    { videoID: 6, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%202.mp4"},
+    { videoID: 7, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%203.mp4"},
+    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},
 ]
 
 
@@ -106,10 +93,13 @@ export default class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {testList: [], athlete:'', numberofquestions: 83, answeredquestions: 0, counter:0, seconds: 15, answersList:[], audioList:[], currentVideoID: 1};
+        this.state = {testList: [], athlete:'', answersList:[], audioList:[], questionbutton: false, questioncheckbox: false, shvideo: false, questionnumber: 0, intro: true, betwquestion: false, hquest: false, trialquestions: 3};
         this.getTests = this.getTests.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
+        this.introButton = this.introButton.bind(this);
+        this.betweenQuestion = this.betweenQuestion.bind(this);
+        this.halfquestion = this.halfquestion.bind(this);
         this.showVideo = this.showVideo.bind(this);
         this.questionwithbutton = this.questionwithbutton.bind(this);
         this.questionwithcheckbox = this.questionwithcheckbox.bind(this);
@@ -156,23 +146,75 @@ export default class Survey extends Component {
         }else{
             var q1 = document.querySelector('input[name="firstquestion"]:checked').value.slice(-1)-1;
             var q2 = document.querySelector('input[name="secondquestion"]:checked').value.slice(-1)-1;
+            var next = this.state.questionnumber + 1
+            console.log(this.state.questionnumber % (this.state.testList.length/2) === 2);
+            if(this.state.questionnumber % (this.state.testList.length/2) === (this.state.trialquestions - 1)){
+                this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next        
+                });
+            }else{
+                this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next           
+                });
+            }
+            
+            /*
             this.setState((prevState, props) => ({
-                answeredquestions: prevState.counter + 1
+                questionnumber: prevState.questionnumber + 1,
+                questioncheckbox: false,
+                questionbutton: true,
+                answersList: [...this.state.answersList, ...{videoID: this.state.questionnumber, answers: [q1,q2]}]
             }));
-            this.setState((prevState, props) => ({
-                counter: prevState.counter + 1
-            }));
-            this.setState((prevState, props) => ({
-                currentVideoID: prevState.currentVideoID + 1
-            }));
-            this.setState({ answersList: [...this.state.answersList, ...{videoID: this.state.currentVideoID, answers: [q1,q2]}]});
+            */
         }
     }
-    handleFirstButtonClick(event){
-        this.setState((prevState, props) => ({
-            counter: prevState.counter + 1
-        }));
+    introButton(event){
+        this.setState({questionbutton: true, intro: false, betwquestion: false});
     }
+
+    handleFirstButtonClick(event){
+        this.setState({shvideo: true, questionbutton: false});
+    }
+    betweenQuestion(){
+        var string;
+        if(this.state.questionnumber < (this.state.testList.length/2)){
+            string = "Angriffs"
+        }else{
+            string = "Abwehr"
+        }
+        return(
+<div>
+    <div className=" question-title-container  bg-primary-survey col-xs-12 ">
+                        <div className=" question-text ">
+                        <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
+                           <p><span className="span_question">Die Übungsdurchgänge sind nun beendet. Falls du noch Fragen hast, wende dich bitte jetzt an den Versuchsleiter bzw. die Versuchsleiterin.</span></p>
+                          <p><span className="span_question">Klicke auf <strong>WEITER</strong>, um mit der Präsentation der {string}-Sequenzen zu starten.</span></p>
+                        </div>
+                          </div>
+                                              </div>
+                                          <div className="weiter">
+                                      <button className="weiterButton"onClick={this.introButton}>Weiter</button>
+                     </div>
+                            </div>
+        );
+    }
+
+    halfquestion(){
+        return(
+            <div>
+            <div className=" question-title-container  bg-primary-survey col-xs-12 ">
+                <div className=" question-text ">
+                    <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
+                        <p><span className="span_question">Sehr gut! Du hast die erste Hälfte der Befragung absolviert. Es werden im Folgenden keine Angriffs-Sequenzen mehr präsentiert, sondern ausschließlich Sequenzen aus der <strong>ABWEHR</strong>-Perspektive.</span></p>
+                        <p><span className="span_question">Klicke auf <strong>WEITER</strong>, um mit den Übungsdurchgängen zu starten.</span></p>
+                    </div>
+                </div>
+            </div>
+            <div className="weiter">
+                <button className="weiterButton"onClick={this.introButton}>Weiter</button>
+            </div>
+        </div>
+        );
+    }
+
     onVideoEnd(){
         (async () => {
             var blob = await Audiostop();
@@ -204,24 +246,38 @@ export default class Survey extends Component {
                 alert("Es ist ein Fehler aufgetreten!");
             });
         })()
-        this.setState((prevState, props) => ({
-            counter: prevState.counter + 1
-        }));
+        this.setState({questioncheckbox: true, shvideo: false});
     }
     showVideo(id){
-        var obj = this.state.testList.filter(obj => {
-            return obj.videoID === id
-        })
+        console.log(this.state.testList[this.state.questionnumber].url);
         return(
             <div className="survey-video-container">
 
-              <VideoPlayer src={obj[0].url} onEnded={this.onVideoEnd}  onPlay={Audiostart} ></VideoPlayer>
+              <VideoPlayer src={this.state.testList[this.state.questionnumber].url} onEnded={this.onVideoEnd}  onPlay={Audiostart} ></VideoPlayer>
                  </div>
         );
     }
 
 
-    questionwithbutton(string, string2){
+    questionwithbutton(){
+        var string;
+        var string2;
+        if(this.state.questionnumber < (this.state.testList.length/2)){
+             if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){
+                string = "Übungsdurchgang: " + (this.state.questionnumber % (this.state.testList.length/2) + 1);
+             }else{
+                string = "Angriffs-Sequenz: " + (this.state.questionnumber % (this.state.testList.length/2) - (this.state.trialquestions-1));
+             }
+             string2 = "stellenden Spieler";
+        }else{
+            if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){               
+                string = "Übungsdurchgang: " + (this.state.questionnumber % (this.state.testList.length/2) + 1);
+            }else{
+               string = "Abwehr-Sequenz: " + (this.state.questionnumber % (this.state.testList.length/2) - (this.state.trialquestions-1));             
+            }
+            string2 = "Mittelblocker";
+        }
+        
         return(
             <div>
                 <div className=" question-title-container  bg-primary-survey col-xs-12 ">
@@ -557,6 +613,8 @@ export default class Survey extends Component {
         );
     }
     uploadSurvey(){
+        //download csv
+        
         HandelCognition.postTestRes( {arr:this.state.audioList}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -567,9 +625,9 @@ export default class Survey extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState((prevState, props) => ({
-                    counter: prevState.counter + 1
-                }));
+                return(
+                    <div>Upload erfolgreich. Vielen Dank für die Teilnahme an dieser Studie!</div>
+                );
             }
 
         }).catch(e => {
@@ -585,310 +643,67 @@ export default class Survey extends Component {
             <div>
 
                 <div className="progressWrapper">
-                    <div className="progress" style= {{...{width: "100%"}}}><div className="progress-bar" role="progressbar" style= {{...{width: this.state.answeredquestions/this.state.numberofquestions * 100 +"%", "--to-width": this.state.answeredquestions/this.state.numberofquestions * 100 + "%"}}} aria-valuenow={String(this.state.answeredquestions/this.state.numberofquestions * 100 +"%")} aria-valuemin="0" aria-valuemax="100"></div>{Math.ceil(this.state.answeredquestions/this.state.numberofquestions * 100) +"%"}</div>
+                    <div className="progress" style= {{...{width: "100%"}}}><div className="progress-bar" role="progressbar" style= {{...{width: this.state.questionnumber/this.state.testList.length * 100 +"%", "--to-width": this.state.questionnumber/this.state.testList.length * 100 + "%"}}} aria-valuenow={String(this.state.questionnumber/this.state.testList.length * 100 +"%")} aria-valuemin="0" aria-valuemax="100"></div>{Math.ceil(this.state.questionnumber/this.state.testList.length * 100) +"%"}</div>
                 </div>
                 {
-                    (this.state.counter === 0)
+                    (this.state.intro)
                         ?
                         <div>
-                            <h3>Optionengenerierungsparadigma DVV</h3>
-                            <p className="p_title"><strong>Optionengenerierungsparadigma</strong></p>
-                            <p className="p_title"><strong>DVV</strong></p>
+                            <h3>Optionengenerierungs-Test DVV</h3>
                             <div className=" survey-welcome  h4 text-primary">
-                                <p><span  className="p_text">In dieser Studie geht es darum herauszufinden, wie du als Volleyballer Entscheidungen auf dem Platz triffst. Hierfür ist eine hohe Konzentration erforderlich, um zu untersuchen wie DU im Spiel entscheidest.&nbsp;</span></p>
+                                <p><span  className="p_text">In dieser Studie geht es darum herauszufinden, wie du als Volleyballer Entscheidungen auf dem Platz triffst. Hierfür ist eine hohe Konzentration erforderlich, um zu untersuchen wie DU im Spiel entscheidest. <br></br><br></br>
 
-                                <p><span className="p_text">Dafür werden dir im weiteren Verlauf kurze Videosequenzen aus Volleyballspielen gezeigt. Wir bitten dich während einer Angriffs-Sequenz die Rolle des stellenden Spielers und in einer Abwehr-Sequenz die Rolle des Mittelblockers einzunehmen. Zunächst werden zwei Beispielsequenzen gezeigt, um ein Gefühl für die Aufgabe zu bekommen. Im Anschluss werden dann zuerst die Angriffs-Sequenzen und dann die Abwehr-Sequenzen präsentiert.</span></p>
+Dafür werden dir im weiteren Verlauf kurze Videosequenzen aus Volleyballspielen gezeigt. Wir bitten dich während einer Angriffs-Sequenz die Rolle des stellenden Spielers und in einer Abwehr-Sequenz die Rolle des Mittelblockers einzunehmen. Zunächst werden drei Beispielsequenzen gezeigt, um ein Gefühl für die Aufgabe zu bekommen. Im Anschluss werden dann zuerst die Angriffs-Sequenzen und dann die Abwehr-Sequenzen präsentiert.<br></br>
+Wenn das Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Du sollst dich dann in den stellenden Spieler (Angriff) oder Mittelblocker (Abwehr) hineinversetzen und entscheiden, welche angemessene Optionen du siehst.
+<br></br><br></br>
+Das heißt, wenn die Szene stoppt ist es deine Aufgabe, wie auf dem Platz, so schnell wie möglich zu entscheiden wie du jetzt handelst.
+<br></br><br></br>
+Die Optionen die du siehst, sollst du dazu direkt in das Mikrofon sprechen. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit sobald das Video stoppt.<br></br>
+Danach wirst du gebeten die Optionen welche du genannt hast zu bewerten. Hierbei sollst du angeben welches deine beste Option ist, indem du diese erneut ins Mikrofon sprichst.
+<br></br><br></br>
+Im Anschluss folgt dann eine persönliche Einschätzung zur von dir genannten besten Option.
+Wenn du noch Fragen hast, kannst du dich jetzt an den Versuchsleiter oder die Versuchsleiterin wenden. 
+<br></br><br></br>
+Wenn du bereit bist, kannst du mit den Übungsvideos beginnen.
+Klicke auf <strong>WEITER </strong> um mit den Übungsvideos zu starten.</span></p>
 
-                                <p><span className="p_text">Wenn das Video stoppt bleibt das letzte Bild als Standbild der letzten Spielsituation für 10 Sekunden stehen. Du sollst dich dann in den stellenden Spieler (Angriff) oder Mittelblocker (Abwehr) hineinversetzen und entscheiden, welche angemessene Optionen du siehst.</span></p>
-
-                                <p><span className="p_text">Das heißt, wenn die Szene stoppt ist es deine Aufgabe, wie auf dem Platz, so schnell wie möglich zu entscheiden wie du jetzt handelst.</span></p>
-
-                                <p><span className="p_text">Die Optionen die du siehst, sollst du dazu direkt in das Mikrofon sprechen. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit sobald das Video stoppt.</span></p>
-
-                                <p><span className="p_text">Danach wirst du gebeten die Optionen welche du genannt hast zu bewerten. Hierbei sollst du angeben welches deine beste Option ist, indem du diese erneut ins Mikrofon sprichst.</span></p>
-
-                                <p><span className="p_text">Im Anschluss folgt dann eine persönliche Einschätzung zur von dir genannten besten Option.</span></p>
-
-                                <p><span className="p_text">Wenn du noch Fragen hast, kannst du dich jetzt an den Versuchsleiter oder die Versuchsleiterin wenden.&nbsp;</span></p>
-
-                                <p>&nbsp;</p>
-
-                                <p><span className="p_text">Wenn du bereit bist, kannst du mit den Übungsvideos beginnen.</span></p>
-
-                                <p><span className="p_text">Klicke auf <strong>WEITER </strong>um mit den Übungsvideos zu starten.</span></p>
+                               
 
                                 <p className="p_title"><span className="p_text">Viel Spaß!</span></p>
                             </div>
                             <div className=" number-of-questions   text-muted">
                                 <div className=" question-count-text ">
 
-                                    In dieser Umfrage sind {this.state.numberofquestions} Fragen enthalten.
+                                    In dieser Umfrage sind {this.state.testList.length} Fragen enthalten.
                                 </div>
                             </div>
                             <div className="weiter">
-                                <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
+                                <button className="weiterButton"onClick={this.introButton}>Weiter</button>
                             </div>
                         </div>
-                        : (this.state.counter === 1)
+                        : (this.state.questionnumber === this.state.testList.length)
                             ?
-                            this.questionwithbutton("Übungsdurchgang 1:","stellenden Spieler")
+                            this.uploadSurvey()
+                        : (this.state.shvideo)
+                            ?
+                            this.showVideo(this.state.questionnumber)
                             //danach Frage 10 Sekunden
-                            : (this.state.counter === 2)
-                                ?
-                                this.showVideo(20)
-                                : (this.state.counter === 3)
-                                    ? this.showVideo(19)
-                                    : (this.state.counter === 4)
-                                        ?
-                                        this.questionwithcheckbox()
-                                        : (this.state.counter === 5)
-                                            ?
-                                            this.questionwithbutton("Übungsdurchgang 2:","stellenden Spieler")
-                                            : (this.state.counter === 6)
-                                                ?
-                                                this.showVideo(21)
-                                                : (this.state.counter === 7)
-                                                    ? (this.showVideo(19))
-                                                    : (this.state.counter === 8)
-                                                        ?
-                                                        this.questionwithcheckbox()
-                                                        : (this.state.counter === 9)
-                                                            ?
-                                                            <div>
-                                                                <div className=" question-title-container  bg-primary-survey col-xs-12 ">
-                                                                    <div className=" question-text ">
-                                                                        <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
-                                                                            <p><span className="span_question">Die Übungsdurchgänge sind nun beendet. Falls du noch Fragen hast, wende dich bitte jetzt an den Versuchsleiter bzw. die Versuchsleiterin.</span></p>
-                                                                            <p><span className="span_question">Klicke auf <strong>WEITER</strong>, um mit der Präsentation der Angriffs-Sequenzen zu starten.</span></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="weiter">
-                                                                    <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
-                                                                </div>
-                                                            </div>
-                                                            : (this.state.counter === 10)
-                                                                ?
-                                                                this.questionwithbutton("Angriffs-Sequenz 1:","stellenden Spieler")
-                                                                : (this.state.counter === 11)
-                                                                    ?
-                                                                    this.showVideo(1)
-                                                                    : (this.state.counter === 12)
-                                                                        ? this.showVideo(19)
-                                                                        : (this.state.counter === 13)
-                                                                            ?
-                                                                            this.questionwithcheckbox()
-                                                                            : (this.state.counter === 14)
-                                                                                ?
-                                                                                this.questionwithbutton("Angriffs-Sequenz 2:","stellenden Spieler")
-
-                                                                                : (this.state.counter === 15)
-                                                                                    ?
-                                                                                    this.showVideo(2)
-                                                                                    : (this.state.counter === 16)
-                                                                                        ? this.showVideo(19)
-                                                                                        : (this.state.counter === 17)
-                                                                                            ?
-                                                                                            this.questionwithcheckbox()
-                                                                                            : (this.state.counter === 18)
-                                                                                                ?
-                                                                                                this.questionwithbutton("Angriffs-Sequenz 3:","stellenden Spieler")
-
-                                                                                                : (this.state.counter === 19)
-                                                                                                    ?
-                                                                                                    this.showVideo(3)
-                                                                                                    : (this.state.counter === 20)
-                                                                                                        ? this.showVideo(19)
-                                                                                                        : (this.state.counter === 21)
-                                                                                                            ?
-                                                                                                            this.questionwithcheckbox()
-                                                                                                            : (this.state.counter === 22)
-                                                                                                                ?
-                                                                                                                this.questionwithbutton("Angriffs-Sequenz 4:","stellenden Spieler")
-                                                                                                                : (this.state.counter === 23)
-                                                                                                                    ?
-                                                                                                                    this.showVideo(4)
-                                                                                                                    : (this.state.counter === 24)
-                                                                                                                        ?
-                                                                                                                        this.showVideo(19)
-                                                                                                                        : (this.state.counter === 25)
-                                                                                                                            ?
-                                                                                                                            this.questionwithcheckbox()
-                                                                                                                            : (this.state.counter === 26)
-                                                                                                                                ?
-                                                                                                                                this.questionwithbutton("Angriffs-Sequenz 5:","stellenden Spieler")
-
-                                                                                                                                : (this.state.counter === 27)
-                                                                                                                                    ?
-                                                                                                                                    this.showVideo(5)
-                                                                                                                                    : (this.state.counter === 28)
-                                                                                                                                        ?
-                                                                                                                                        this.showVideo(19)
-                                                                                                                                        : (this.state.counter === 29)
-                                                                                                                                            ?
-                                                                                                                                            this.questionwithcheckbox()
-                                                                                                                                            : (this.state.counter === 30)
-                                                                                                                                                ? this.questionwithbutton("Angriffs-Sequenz 6:","stellenden Spieler")
-                                                                                                                                                : (this.state.counter === 31)
-                                                                                                                                                    ?
-                                                                                                                                                    this.showVideo(6)
-                                                                                                                                                    : (this.state.counter === 32)
-                                                                                                                                                        ?
-                                                                                                                                                        this.showVideo(19)
-                                                                                                                                                        : (this.state.counter === 33)
-                                                                                                                                                            ?
-                                                                                                                                                            this.questionwithcheckbox()
-                                                                                                                                                            : (this.state.counter === 34)
-                                                                                                                                                                ? this.questionwithbutton("Angriffs-Sequenz 7:","stellenden Spieler")
-                                                                                                                                                                : (this.state.counter === 35)
-                                                                                                                                                                    ?
-                                                                                                                                                                    this.showVideo(7)
-                                                                                                                                                                    : (this.state.counter === 36)
-                                                                                                                                                                        ?
-                                                                                                                                                                        this.showVideo(19)
-                                                                                                                                                                        : (this.state.counter === 37)
-                                                                                                                                                                            ?
-                                                                                                                                                                            this.questionwithcheckbox()
-                                                                                                                                                                            : (this.state.counter === 38)
-                                                                                                                                                                                ? this.questionwithbutton("Angriffs-Sequenz 8:","stellenden Spieler")
-
-                                                                                                                                                                                : (this.state.counter === 39)
-                                                                                                                                                                                    ?
+                        : (this.state.questioncheckbox)
+                            ?
+                            this.questionwithcheckbox()
+                        :(this.state.questionbutton)
+                            ?
+                            this.questionwithbutton()           
+                        : (this.state.betwquestion)
+                            ?
+                            this.betweenQuestion()
+                        : null
+                        
+                                
+                                                            
+                                                                                                                                                                                                                      ?
                                                                                                                                                                                     this.showVideo(8)
-                                                                                                                                                                                    : (this.state.counter === 40)
-                                                                                                                                                                                        ?
-                                                                                                                                                                                        this.showVideo(19)
-                                                                                                                                                                                        : (this.state.counter === 41)
-                                                                                                                                                                                            ?
-                                                                                                                                                                                            this.questionwithcheckbox()
-                                                                                                                                                                                            : (this.state.counter === 42)
-                                                                                                                                                                                                ? this.questionwithbutton("Angriffs-Sequenz 9:","stellenden Spieler")
-
-                                                                                                                                                                                                : (this.state.counter === 43)
-                                                                                                                                                                                                    ?
-                                                                                                                                                                                                    this.showVideo(9)
-                                                                                                                                                                                                    : (this.state.counter === 44)
-                                                                                                                                                                                                        ?
-                                                                                                                                                                                                        this.showVideo(19)
-                                                                                                                                                                                                        : (this.state.counter === 45)
-                                                                                                                                                                                                            ?
-                                                                                                                                                                                                            this.questionwithcheckbox()
-                                                                                                                                                                                                            : (this.state.counter === 46)
-                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                <div>
-                                                                                                                                                                                                                    <div className=" question-title-container  bg-primary-survey col-xs-12 ">
-                                                                                                                                                                                                                        <div className=" question-text ">
-                                                                                                                                                                                                                            <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
-                                                                                                                                                                                                                                <p><span className="span_question">Sehr gut! Du hast die erste Hälfte der Befragung absolviert. Es werden im Folgenden keine Angriffs-Sequenzen mehr präsentiert, sondern ausschließlich Sequenzen aus der <strong>ABWEHR</strong>-Perspektive.</span></p>
-                                                                                                                                                                                                                                <p><span className="span_question">Bitte beachte, dass es <strong>KEINE</strong> Übungsdurchgänge geben wird.</span></p>
-                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                    <div className="weiter">
-                                                                                                                                                                                                                        <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
-                                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                                </div>
-                                                                                                                                                                                                                : (this.state.counter === 47)
-                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 1:","Mittelblocker")
-                                                                                                                                                                                                                    : (this.state.counter === 48)
-                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                        this.showVideo(10)
-                                                                                                                                                                                                                        : (this.state.counter === 49)
-                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                            : (this.state.counter === 50)
-                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                : (this.state.counter === 51)
-                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 2:","Mittelblocker")
-                                                                                                                                                                                                                                    : (this.state.counter === 52)
-                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                        this.showVideo(11)
-                                                                                                                                                                                                                                        : (this.state.counter === 53)
-                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                            : (this.state.counter === 54)
-                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                : (this.state.counter === 55)
-                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 3:","Mittelblocker")
-
-                                                                                                                                                                                                                                                    : (this.state.counter === 56)
-                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                        this.showVideo(12)
-                                                                                                                                                                                                                                                        : (this.state.counter === 57)
-                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                            : (this.state.counter === 58)
-                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                                : (this.state.counter === 59)
-                                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 4:","Mittelblocker")
-                                                                                                                                                                                                                                                                    : (this.state.counter === 60)
-                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                        this.showVideo(13)
-                                                                                                                                                                                                                                                                        : (this.state.counter === 61)
-                                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                                            : (this.state.counter === 62)
-                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                                                : (this.state.counter === 63)
-                                                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 5:","Mittelblocker")
-
-                                                                                                                                                                                                                                                                                    : (this.state.counter === 64)
-                                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                                        this.showVideo(14)
-                                                                                                                                                                                                                                                                                        : (this.state.counter === 65)
-                                                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                                                            : (this.state.counter === 66)
-                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                                                                : (this.state.counter === 67)
-                                                                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 6:","Mittelblocker")
-                                                                                                                                                                                                                                                                                                    : (this.state.counter === 68)
-                                                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                                                        this.showVideo(15)
-                                                                                                                                                                                                                                                                                                        : (this.state.counter === 69)
-                                                                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                                                                            : (this.state.counter === 70)
-                                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                                                                                : (this.state.counter === 71)
-                                                                                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 7:","Mittelblocker")
-                                                                                                                                                                                                                                                                                                                    : (this.state.counter === 72)
-                                                                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                                                                        this.showVideo(16)
-                                                                                                                                                                                                                                                                                                                        : (this.state.counter === 72)
-                                                                                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                                                                                            : (this.state.counter === 73)
-                                                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                                                                                                : (this.state.counter === 74)
-                                                                                                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 8:","Mittelblocker")
-                                                                                                                                                                                                                                                                                                                                    : (this.state.counter === 75)
-                                                                                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                                                                                        this.showVideo(17)
-                                                                                                                                                                                                                                                                                                                                        : (this.state.counter === 76)
-                                                                                                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                                                                                                            : (this.state.counter === 77)
-                                                                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                                                                this.questionwithcheckbox()
-                                                                                                                                                                                                                                                                                                                                                : (this.state.counter === 78)
-                                                                                                                                                                                                                                                                                                                                                    ? this.questionwithbutton("Abwehr-Sequenz 9:","Mittelblocker")
-                                                                                                                                                                                                                                                                                                                                                    : (this.state.counter === 79)
-                                                                                                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                                                                                                        this.showVideo(18)
-                                                                                                                                                                                                                                                                                                                                                        : (this.state.counter === 80)
-                                                                                                                                                                                                                                                                                                                                                            ?
-                                                                                                                                                                                                                                                                                                                                                            this.showVideo(19)
-                                                                                                                                                                                                                                                                                                                                                            : (this.state.counter === 81)
-                                                                                                                                                                                                                                                                                                                                                                ?
-                                                                                                                                                                                                                                                                                                                                                                this.questionwithcheckbox()
+                                                                                           
                                                                                                                                                                                                                                                                                                                                                                 : (this.state.counter === 82)
                                                                                                                                                                                                                                                                                                                                                                     ?
                                                                                                                                                                                                                                                                                                                                                                     this.uploadSurvey()
