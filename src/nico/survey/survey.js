@@ -86,7 +86,7 @@ const saveFile = async (blob) => {
     a.download = 'my-file.mp3';
     a.href = blob.audioUrl;
     a.addEventListener('click', (e) => {
-      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+        setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
     });
     a.click();
 };

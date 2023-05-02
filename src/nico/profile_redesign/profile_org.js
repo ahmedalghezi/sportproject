@@ -64,7 +64,7 @@ const standardstyle = {
   overflowY: 'auto',
 };
 
-class TestProfileC extends Component {
+class TestProfileC2 extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,7 +87,7 @@ class TestProfileC extends Component {
     };
   }
 
-  
+
 
   componentDidMount() {
     this.getFiles();
@@ -367,7 +367,7 @@ class TestProfileC extends Component {
                 </p>
               </div>
             </div>
-      
+
         </Typography>
           </Box>
         </Modal>
@@ -529,7 +529,7 @@ class TestProfileC extends Component {
                 sx={{ color: "#535ac8", fontSize: "36px" }}
               />
           </Box>
-          <Box           
+          <Box
           alignItems="center"
           justifyContent="center"
           display="flex "
@@ -561,9 +561,9 @@ class TestProfileC extends Component {
           <ShowChart
                 sx={{ color: "#535ac8", fontSize: "36px" }}
               />
-          
+
           </Box>
-          <Box           
+          <Box
           alignItems="center"
           justifyContent="center"
           display="flex "
@@ -573,9 +573,9 @@ class TestProfileC extends Component {
         </Box>
         </Box>
 
-        
 
-      
+
+
       {/*
         <div id="beside">
           <div className="profile-name" hidden={true}>
@@ -639,5 +639,5 @@ class TestProfileC extends Component {
 
 }
 
-export default TestProfileC;
+export default TestProfileC2;
 
