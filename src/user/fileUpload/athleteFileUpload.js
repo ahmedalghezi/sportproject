@@ -71,9 +71,9 @@ class UploadFileC extends Component {
         if (response.data.res === "error") alert("some error has happened");
         if (response.data.res === "no")
           window.location.href =
-            window.location.origin + "/reg/sign-in?org=$reg$uploadConsent";
+            window.location.origin + "/reg/sign-in?org=$csv$athleteFileUpload";
         if (response.data.res === "ok") {
-          alert("File uploaded successfully");
+          alert("Datei erfolgreich hochgeladen");
           if (this.props.onUpload) this.props.onUpload();
           this.setState({
             file: null,
@@ -108,7 +108,7 @@ class UploadFileC extends Component {
           alert("some error has happened. code 84");
         if (response.data.res === "no")
           window.location.href =
-            window.location.origin + "/reg/sign-in?org=$reg$uploadConsent";
+            window.location.origin + "/reg/sign-in?org=$csv$athleteFileUpload";
         if (response.data.res === "ok") {
           this.saveFileName(response.data.filename);
         }

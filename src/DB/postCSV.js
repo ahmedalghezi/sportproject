@@ -68,7 +68,7 @@ export default class PostCSVData {
         return http.post("/files/saveMyFileName", param);
     }
     static deleteMyFile(param) {
-        return http.post("/files/deleteMyFile", param);
+        return http.post("/files/deleteFile", param);
     }
     //  ##### general file upload - END Vanessa #####
 

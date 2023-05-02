@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/user/fileUpload/fileUpload_to_delete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lime/survey/videoPlayer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/nico/survey/videoPlayer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/loggedHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/loggedHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/changeEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/changeEmail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user/profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user/profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/fileUpload/fileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vanessa/profile/athleteFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/profile/athleteFileUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/profile_redesign/profile_org.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/profile_redesign/profile_org.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/nico/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/survey/survey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +208,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/user/fileUpload",
+    "last_opened_file_path": "/Users/apple/WebstormProjects/coach_input_fi/src/lime",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -222,11 +222,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/lime" />
       <recent name="$PROJECT_DIR$/src/user/fileUpload" />
       <recent name="$PROJECT_DIR$/src/user" />
       <recent name="$PROJECT_DIR$/src/trainer" />
       <recent name="$PROJECT_DIR$/src/register" />
-      <recent name="$PROJECT_DIR$/src/register/admin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/temp-data" />
@@ -387,14 +387,7 @@
       <workItem from="1678136960389" duration="19154000" />
       <workItem from="1678802191558" duration="21715000" />
       <workItem from="1680003113318" duration="3456000" />
-      <workItem from="1680036614623" duration="31201000" />
-    </task>
-    <task id="LOCAL-00023" summary="Version2, navBar changes">
-      <created>1654252246624</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1654252246624</updated>
+      <workItem from="1680036614623" duration="58290000" />
     </task>
     <task id="LOCAL-00024" summary="Version2, adding getIDs">
       <created>1655803661487</created>
@@ -732,7 +725,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680703366598</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="updating the profile by adding uploaded files">
+      <created>1682337521971</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1682337521971</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -843,7 +843,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Adding change and forget password. Changes to the coach interface: admin delete training tests." />
     <MESSAGE value="adding bot check" />
     <MESSAGE value="adding support for proxy. fixing some signup bugs" />
     <MESSAGE value="Committing testing version of csv upload" />
@@ -868,7 +867,8 @@
     <MESSAGE value="Add support for metadata" />
     <MESSAGE value="minor fix" />
     <MESSAGE value="adding the general upload function" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding the general upload function" />
+    <MESSAGE value="updating the profile by adding uploaded files" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating the profile by adding uploaded files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

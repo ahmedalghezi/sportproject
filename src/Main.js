@@ -36,6 +36,7 @@ import ApproveTests from "./register/approveTests";
 import EmailConfirmed from "./register/emailConfirmed";
 import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
+import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
 import AdminFileUpload from "./register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
@@ -50,7 +51,8 @@ import CreateGroup from "./nico/videosharing/createGroup";
 import DisplayVideo from "./nico/videosharing/displayVideo";
 import TestsViewCopy from "./vanessa/subsetData/TestsViewCopy";
 import TrainerVideo from "./trainer/trainerVideo";
-import Survey from "./nico/survey/survey";
+//import Survey from "./nico/survey/survey";
+import Survey from "./lime/survey/survey";
 import SignUpJiz from "./firebase/signup";
 import VideoPlayer from "./temp-data/optionsGenTemp";
 import TestsViewT from "./csvHandler/testViewT";
@@ -58,7 +60,7 @@ import TestFolderList from "./user/testFolderList";
 
 import MetaUpload from "./csvHandler/metaData";
 import ControlMetabase from "./register/admin/controllMetabase";
-import ProfileGrid from "./nico/profilechart/profilegrid";
+
 import ChartCreator from "./nico/profilechart/chart_creator";
 import ProfileChart from "./nico/profilechart/profilechart";
 import ChangeEmail from "./register/admin/changeEmail";
@@ -70,6 +72,8 @@ import ProfileC from './vanessa/profile/profileCopy';
 //import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
 
 import AthleteFileUpload from './user/fileUpload/athleteFileUpload';
+import {DownloadSubset} from "./csvHandler/t_download_sub";
+import Recorder from "./temp-data/recorder";
 
 
 function Main() {
@@ -136,7 +140,10 @@ function Main() {
 
                             <Route path='/reg/nico/createChart' element={<div className="wide-inner"><CreateCharts/></div>} />
                             <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
-                            <Route path='/reg/nico/ProfileGrid' element={<div className="wide-inner"><ProfileGrid/></div>} />
+
+                            <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
+
+                            <Route path='/csv/DownloadSubset_t' element={<div className="wide-inner"><DownloadSubset/></div>} />
 
 
 
@@ -171,6 +178,7 @@ function Main() {
 
 
                             <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey/></div>} />
+                            <Route path='/trainer/cognition/recoT' element={<div className="wide-inner data-view"><Recorder/></div>} />
 
 
                             <Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />
@@ -181,7 +189,7 @@ function Main() {
                             <Route path='/csv/uploadMeta' element={<div className="csv-inner data-view"><MetaUpload/></div>} />
                             <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
 
-                            <Route path='/reg/reports' element={<div className="wide-inner"><ProfileGrid/></div>} />
+
                             <Route path='/reg/loadCharts' element={<div className="wide-inner"><ProfileFeat/></div>} />
 
                             <Route path='/reg/changeEmail' element={<div className="auth-inner"><ChangeEmail/></div>} />

@@ -10,6 +10,9 @@ import PostSignup from "../../DB/handelCognition";
 import CoachInputDataService from "../../DB/rw"
 import './survey.css'
 import HandelCognition from "../../DB/handelCognition";
+import VideoPlayer from "./videoPlayer";
+
+import { saveAs } from 'file-saver';
 
 
 const testdata = [
@@ -35,10 +38,14 @@ const testdata = [
     { videoID: 20, url: "https://inprove-sport.info:8080/videos/dvv/Test_Trial_1.mp4"},
     { videoID: 21, url: "https://inprove-sport.info:8080/videos/dvv/Test_Trial_2.mp4"},
 ]
+
+
+
 const recordAudio = () =>
     new Promise(async resolve => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const mediaRecorder = new MediaRecorder(stream);
+
         const audioChunks = [];
 
         mediaRecorder.addEventListener("dataavailable", event => {
@@ -51,14 +58,21 @@ const recordAudio = () =>
             new Promise(resolve => {
                 mediaRecorder.addEventListener("stop", () => {
                     const audioBlob = new Blob(audioChunks);
+                    //sendToServer(audioBlob);
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
                     const play = () => audio.play();
+                    saveAs(audioBlob, 'recorded-audio.mp4');
                     resolve({ audioBlob, audioUrl, play });
+
                 });
 
                 mediaRecorder.stop();
             });
+
+
+
+
 
         resolve({ start, stop });
     });
@@ -72,33 +86,21 @@ const Audiostart = async () => {
 const Audiostop = async () => {
     const audio = await recorder.stop();
     return await audio
-    //save audio
+    //save audioh
     //URL.revokeObjectURL(url)
 };
 
-
-var download = function (content, fileName, mimeType) {
-    var a = document.createElement("a");
-    mimeType = mimeType || "application/octet-stream";
-
-    if (navigator.msSaveBlob) {
-        // IE10
-        navigator.msSaveBlob(
-            content,
-            fileName
-        );
-    } else if (URL && "download" in a) {
-        a.href = URL.createObjectURL(
-            new Blob([content], {
-                type: mimeType,
-            })
-        );
-        a.setAttribute("download", fileName);
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
+const saveFile = async (blob) => {
+    const a = document.createElement('a');
+    a.download = 'my-file.mp3';
+    a.href = blob.audioUrl;
+    a.addEventListener('click', (e) => {
+      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+    });
+    a.click();
 };
+
+
 
 export default class Survey extends Component {
 
@@ -122,6 +124,10 @@ export default class Survey extends Component {
     }
 
 
+
+    sendToServer(){
+        //xxxx
+    }
 
     getTests(){
         this.setState({testList: testdata})
@@ -170,17 +176,20 @@ export default class Survey extends Component {
     onVideoEnd(){
         (async () => {
             var blob = await Audiostop();
-            download(blob,"test.mp4","audio/mpeg");
-            const data = new FormData();
+            var fd = new FormData();
+           //saveFile(blob);
+            //blob.play();
+            //fd.append('fname', 'file');
+            var wavfromblob = new File([blob], "incomingaudioclip.wav");
+            fd.append('file', blob.audioBlob);
 
-            var myBlob = new Blob(["This is my blob content"], {type : "text/plain"});
-            data.append('file', myBlob);
-            HandelCognition.uploadRecordFiles(data).then(response => {
+            //blob.play();
+            HandelCognition.uploadRecordFiles(fd).then(response => {
                 if(response.data.res === "error") {
-                    alert("error code surve151");
+                    const arr = ["connection error"];
                     return;
                 }
-                if(response.data.res === "no"){
+                if(response.data.res === "error"){
                     alert("Bitte erst anmelden.");
                     return;
                 }
@@ -205,8 +214,9 @@ export default class Survey extends Component {
         })
         return(
             <div className="survey-video-container">
-                <video controls="controls" onPlay={Audiostart} onEnded={this.onVideoEnd} autoPlay="autoplay" controlsList="nodownload" height="630" src={obj[0].url}> </video>
-            </div>
+
+              <VideoPlayer src={obj[0].url} onEnded={this.onVideoEnd}  onPlay={Audiostart} ></VideoPlayer>
+                 </div>
         );
     }
 
@@ -419,6 +429,10 @@ export default class Survey extends Component {
                                         </th>
 
                                         <th className="answer-text">
+                                            4
+                                        </th>
+
+                                        <th className="answer-text">
                                             5
                                         </th>
 
@@ -474,6 +488,16 @@ export default class Survey extends Component {
                                             <input type="radio" name="secondquestion" value="AO04" id="answer188727X119X2615SQ001-AO04"></input>
                                             <label for="answer188727X119X2615SQ001-AO04" className="ls-label-xs-visibility">
                                                 3
+                                            </label>
+                                        </td>
+
+
+                                        <td className="answer_cell_AO04 answer-item radio-item">
+                                            <input type="radio" name="secondquestion" value="AO04"
+                                                   id="answer188727X119X2615SQ001-AO04"></input>
+                                            <label htmlFor="answer188727X119X2615SQ001-AO04"
+                                                   className="ls-label-xs-visibility">
+                                                4
                                             </label>
                                         </td>
 
