@@ -23,7 +23,7 @@ const testdata = [
     { videoID: 5, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%201.mp4"},
     { videoID: 6, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%202.mp4"},
     { videoID: 7, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%203.mp4"},
-    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},
+    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},   
 ]
 
 
@@ -147,12 +147,13 @@ export default class Survey extends Component {
             var q1 = document.querySelector('input[name="firstquestion"]:checked').value.slice(-1)-1;
             var q2 = document.querySelector('input[name="secondquestion"]:checked').value.slice(-1)-1;
             var next = this.state.questionnumber + 1
-            console.log(this.state.questionnumber % (this.state.testList.length/2) === 2);
+            var newanswers = this.state.answersList
+            newanswers.push({videoID: this.state.questionnumber, answers: [q1,q2]})
             if(this.state.questionnumber % (this.state.testList.length/2) === (this.state.trialquestions - 1)){
-                this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next        
+                this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next, answersList: newanswers        
                 });
             }else{
-                this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next           
+                this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next, answersList: newanswers         
                 });
             }
             
@@ -249,7 +250,6 @@ export default class Survey extends Component {
         this.setState({questioncheckbox: true, shvideo: false});
     }
     showVideo(id){
-        console.log(this.state.testList[this.state.questionnumber].url);
         return(
             <div className="survey-video-container">
 
@@ -614,7 +614,20 @@ export default class Survey extends Component {
     }
     uploadSurvey(){
         //download csv
-        
+        const headers = Object.keys(this.state.answersList[0]);
+        const csv = [
+            headers.join(','),
+            ...this.state.answersList.map(row => headers.map(header => row[header]).join(','))
+          ].join('\n');
+        const csvblob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(csvblob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'answers.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
         HandelCognition.postTestRes( {arr:this.state.audioList}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
