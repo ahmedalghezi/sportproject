@@ -14,7 +14,7 @@ import VideoPlayer from "./videoPlayer";
 
 import { saveAs } from 'file-saver';
 
-
+/*
 const testdata = [
     { videoID: 1, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%201.mp4"},
     { videoID: 2, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%202.mp4"},
@@ -25,8 +25,7 @@ const testdata = [
     { videoID: 7, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%203.mp4"},
     { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},   
 ]
-
-
+*/
 
 const recordAudio = () =>
     new Promise(async resolve => {
@@ -120,7 +119,7 @@ export default class Survey extends Component {
     }
 
     getTests(){
-        this.setState({testList: testdata})
+        /*
         HandelCognition.getTests({id: 0}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -138,6 +137,8 @@ export default class Survey extends Component {
             console.log(e);
             alert("Es ist ein Fehler aufgetreten!");
         });
+        */
+        this.setState({testList: this.props.testData})
     }
 
     handleButtonClick(event){
@@ -651,7 +652,8 @@ export default class Survey extends Component {
 
     render() {
         require("./survey.css")
-
+        const { athleteID } = this.props
+        const { testData } = this.props
         return (
             <div>
 
