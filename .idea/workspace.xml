@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lime/survey/videoPlayer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/nico/survey/videoPlayer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DB/postCSV.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/DB/postCSV.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/profile_redesign/profile_org.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/profile_redesign/profile_org.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/survey/survey.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -387,14 +377,7 @@
       <workItem from="1678136960389" duration="19154000" />
       <workItem from="1678802191558" duration="21715000" />
       <workItem from="1680003113318" duration="3456000" />
-      <workItem from="1680036614623" duration="58290000" />
-    </task>
-    <task id="LOCAL-00024" summary="Version2, adding getIDs">
-      <created>1655803661487</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1655803661487</updated>
+      <workItem from="1680036614623" duration="59707000" />
     </task>
     <task id="LOCAL-00025" summary="Version2, adding getIDs">
       <created>1655804329943</created>
@@ -732,7 +715,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682337521971</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="Adding cognition test v1">
+      <created>1683009782498</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1683009782498</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -843,7 +833,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding bot check" />
     <MESSAGE value="adding support for proxy. fixing some signup bugs" />
     <MESSAGE value="Committing testing version of csv upload" />
     <MESSAGE value="Updating todos for the studies approves" />
@@ -868,7 +857,8 @@
     <MESSAGE value="minor fix" />
     <MESSAGE value="adding the general upload function" />
     <MESSAGE value="updating the profile by adding uploaded files" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating the profile by adding uploaded files" />
+    <MESSAGE value="Adding cognition test v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding cognition test v1" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -72,8 +72,8 @@ import ProfileC from './vanessa/profile/profileCopy';
 //import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
 
 import AthleteFileUpload from './user/fileUpload/athleteFileUpload';
-import {DownloadSubset} from "./csvHandler/t_download_sub";
-import Recorder from "./temp-data/recorder";
+//import {DownloadSubset} from "./csvHandler/t_download_sub";
+
 
 
 function Main() {
@@ -143,7 +143,7 @@ function Main() {
 
                             <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
 
-                            <Route path='/csv/DownloadSubset_t' element={<div className="wide-inner"><DownloadSubset/></div>} />
+
 
 
 
@@ -178,7 +178,7 @@ function Main() {
 
 
                             <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey/></div>} />
-                            <Route path='/trainer/cognition/recoT' element={<div className="wide-inner data-view"><Recorder/></div>} />
+
 
 
                             <Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />
