@@ -214,6 +214,39 @@ class TestProfileC2 extends Component {
     window.location.href = "https://inprove-sport.info/" + "files/viewMyFiles/" + event.target.name;
   };
 
+  // added by Vanessa
+  handleMyFileClick = (event) => {
+    event.preventDefault();
+    if (event.target.name.startsWith("deletevftr5")) {
+      this.deleteMyFile(event.target.name.replace("deletevftr5", ""));
+      return;
+    }
+    window.location.href =
+        "https://inprove-sport.info/" +
+        "files/viewMyOwnFiles/" +
+        event.target.name;
+  };
+  
+  deleteMyFile = (fileName) => {
+    PostCSVData.deleteMyFile({ fileName: fileName })
+        .then((response) => {
+          if (response.data.res === "error") {
+            alert("Es ist ein Fehler aufgetreten. Code pro 79");
+            return;
+          } else if (response.data.res === "ok") {
+            alert("Datei gelöscht");
+            this.getMyOwnFiles();
+          }
+          if (response.data.res === "no") {
+            alert("Bitte melde Dich an.");
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          alert("Es ist ein Fehler aufgetreten. Code Pro93");
+        });
+  };
+
   deleteFile(fileName) {
     PostCSVData.deleteFile({"fileName":fileName}).then((response) => {
       if (response.data.res === "error") {
