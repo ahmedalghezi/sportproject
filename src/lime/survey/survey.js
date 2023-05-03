@@ -92,7 +92,7 @@ export default class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {testList: [], athlete:'', answersList:[], audioList:[], questionbutton: false, questioncheckbox: false, shvideo: false, questionnumber: 0, intro: true, betwquestion: false, hquest: false, trialquestions: 3};
+        this.state = {testList: [], athlete:'', answersList:[], audioList:[], questionbutton: false, questioncheckbox: false, shvideo: false, questionnumber: 0, intro: true, betwquestion: false, hquest: false, trialquestions: 1};
         this.getTests = this.getTests.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
@@ -150,8 +150,13 @@ export default class Survey extends Component {
             var next = this.state.questionnumber + 1
             var newanswers = this.state.answersList
             newanswers.push({videoID: this.state.questionnumber, answers: [q1,q2]})
+            console.log(this.state.questionnumber)
+            console.log(this.state.testList.length/2)
             if(this.state.questionnumber % (this.state.testList.length/2) === (this.state.trialquestions - 1)){
                 this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next, answersList: newanswers        
+                });
+            }else if(this.state.questionnumber + 1 === (Math.ceil(this.state.testList.length/2))){
+                this.setState({questioncheckbox: false, hquest: true, questionnumber: next, answersList: newanswers        
                 });
             }else{
                 this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next, answersList: newanswers         
@@ -169,7 +174,7 @@ export default class Survey extends Component {
         }
     }
     introButton(event){
-        this.setState({questionbutton: true, intro: false, betwquestion: false});
+        this.setState({questionbutton: true, intro: false, betwquestion: false, hquest: false});
     }
 
     handleFirstButtonClick(event){
@@ -286,7 +291,7 @@ export default class Survey extends Component {
                         <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
                             <p><span className="span_question"><u>{string}</u></span></p>
                             <p><span className="span_question">Welches sind angemessene Handlungen für den {string2}, um einen Punkt zu erzielen?</span></p>
-                            <p><span className="span_question">Du hast 10 Sekunden Zeit sobald das Video anhält.</span></p>
+                            <p><span className="span_question">Nenne die angemessenen Handlungen sobald das Video anhält.</span></p>
                         </div>
                     </div>
                 </div>
@@ -629,6 +634,9 @@ export default class Survey extends Component {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        return(
+            <div>Vielen Dank. Du hast den Test erfolgreich beendet!</div>
+        );
         HandelCognition.postTestRes( {arr:this.state.audioList}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -639,9 +647,6 @@ export default class Survey extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                return(
-                    <div>Upload erfolgreich. Vielen Dank für die Teilnahme an dieser Studie!</div>
-                );
             }
 
         }).catch(e => {
@@ -699,6 +704,9 @@ Klicke auf <strong>WEITER </strong> um mit den Übungsvideos zu starten.</span><
                         : (this.state.questionnumber === this.state.testList.length)
                             ?
                             this.uploadSurvey()
+                        : (this.state.hquest)
+                            ?
+                            this.halfquestion()
                         : (this.state.shvideo)
                             ?
                             this.showVideo(this.state.questionnumber)
