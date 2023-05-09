@@ -92,7 +92,7 @@ export default class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {testList: [], athlete:'', answersList:[], audioList:[], questionbutton: false, questioncheckbox: false, shvideo: false, questionnumber: 0, intro: true, betwquestion: false, hquest: false, trialquestions: 1};
+        this.state = {testList: [], athlete:'', answersList:[], audioList:[], questionbutton: false, questioncheckbox: false, shvideo: false, questionnumber: 0, intro: true, betwquestion: false, hquest: false, trialquestions: 3};
         this.getTests = this.getTests.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
@@ -207,11 +207,11 @@ export default class Survey extends Component {
     halfquestion(){
         return(
             <div>
-            <div className=" question-title-container  bg-primary-survey col-xs-12 ">
+            <div className=" survey-welcome  h4 text-primary ">
                 <div className=" question-text ">
                     <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
-                        <p><span className="span_question">Sehr gut! Du hast die erste Hälfte der Befragung absolviert. Es werden im Folgenden keine Angriffs-Sequenzen mehr präsentiert, sondern ausschließlich Sequenzen aus der <strong>ABWEHR</strong>-Perspektive.</span></p>
-                        <p><span className="span_question">Klicke auf <strong>WEITER</strong>, um mit den Übungsdurchgängen zu starten.</span></p>
+                        <p><span className="p_text">Sehr gut! Du hast die erste Hälfte der Befragung absolviert. Es werden im Folgenden keine Angriffs-Sequenzen mehr präsentiert, sondern ausschließlich Sequenzen aus der <strong>ABWEHR</strong>-Perspektive.</span></p>
+                        <p><span className="p_text">Klicke auf <strong>WEITER</strong>, um mit den Übungsdurchgängen zu starten.</span></p>
                     </div>
                 </div>
             </div>
