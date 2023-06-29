@@ -14,7 +14,7 @@ class Footer extends Component {
           </div>{" "}
           <div className="ldi">
             <p>
-              © <span className="numbers">2022</span>&nbsp;in:prove
+              © <span className="numbers">2023</span>&nbsp;in:prove
               <br />
               <a href="https://www.inprove.info/datenschutz/">
                 Daten­schutz

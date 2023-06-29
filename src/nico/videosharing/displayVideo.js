@@ -6,33 +6,19 @@ import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
 import CoachInputDataService from "../../DB/rw"
-import video1 from "./videos/testvideo.mp4";
-import video2 from "./videos/testvideo2.mp4";
-import video3 from "./videos/testvideo3.mp4";
-import video4 from "./videos/testvideo4.mp4";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import handelTrainer from "../../DB/handelTrainer";
 
-const testdata = [
-    { id: 1, filename: video1, title: "eins", date: '2021-05-23T22:00:00.000Z' },
-    { id: 2, filename: video2, title: "zwei", date: '2022-05-23T22:00:00.000Z'},
-    { id: 3, filename: video3, title: "drei", date: '2022-02-22T10:00:00.000Z'},
-    { id: 4, filename: video4, title: "vier", date: '2020-05-23T22:00:00.000Z'},
-    { id: 5, filename: video3, title: "fünf", date: '2010-04-21T10:00:00.000Z'},
-    { id: 6, filename: video3, title: "sechst", date: '2022-06-22T10:00:00.000Z'},
-    { id: 7, filename: video4, title: "sieben", date: '2019-05-23T22:00:00.000Z'},
-    { id: 8, filename: video3, title: "acht", date: '2000-05-21T10:00:00.000Z'},
-    { id: 9, filename: video3, title: "neun", date: '1000-05-21T10:00:00.000Z'},
-    //{ id: 6, videourl: video4, title: "sechs", date: '2000-05-23T22:00:00.000Z'},
-]
+
 const vidperpage = 4;
 
 export default class DisplayVideo extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {trainersList:[], videoList:[], currentVideos:[], currentPage: 0, windowWidth: undefined,sortByTitle:false};
+        this.state = {folders: [],
+            selectedFolder: 'all',trainersList:[], videoList:[], currentVideos:[], currentPage: 0, windowWidth: undefined,sortByTitle:false};
         this.getTrainers = this.getTrainers.bind(this);
         this.getAll = this.getAll.bind(this);
         this.orderVideos = this.orderVideos.bind(this);
@@ -46,6 +32,7 @@ export default class DisplayVideo extends Component {
         this.getAll();
         window.addEventListener('resize', this.handleResize);
         this.setState({windowWidth: window.innerWidth});
+        this.fetchFolders();
     }
     handleResize = () => this.setState({
         windowWidth: window.innerWidth
@@ -120,20 +107,30 @@ export default class DisplayVideo extends Component {
         }
     }
 
-    orderVideos(event) {
-        let sortByTitle = this.state.sortByTitle;
+    setOrderVideoChang = (event) =>{
         if(event){
-            sortByTitle = event.target.value ===  "Titel"
+            let sortByTitle = event.target.value ===  "Titel";
             this.setState({sortByTitle:sortByTitle})
+            this.orderVideos(sortByTitle);
         }
+    }
+
+    orderVideos(sortByTitle, selectedFolder) {
+        let vlist = this.state.videoList;
+        if(!selectedFolder)
+            selectedFolder = this.state.selectedFolder;
+        if(selectedFolder != "all")
+            vlist = this.filterByFolder(selectedFolder,vlist);
         if(sortByTitle){
-            var list = this.state.videoList.sort((a, b) => (a.title > b.title) ? 1 : -1);
+            var list = vlist.sort((a, b) => (a.title > b.title) ? 1 : -1);
             this.updateVideoPage(list,this.state.currentPage);
         }else{
-            var list = this.state.videoList.sort((a, b) => (a.time > b.time) ? 1 : -1);
+            var list = vlist.sort((a, b) => (a.time > b.time) ? 1 : -1);
             this.updateVideoPage(list,this.state.currentPage);
         }
     }
+
+
     handleButtonClickLeft(event) {
         if(this.state.currentPage > 0){
             this.setState({currentPage: this.state.currentPage - 1});
@@ -148,6 +145,49 @@ export default class DisplayVideo extends Component {
     }
     resize = () => this.forceUpdate()
 
+    fetchFolders = () => {
+        // Replace this URL with the URL of your actual endpoint
+        const url = 'https://inprove-sport.info/files/videoTrainerFolders';
+
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                this.setState({ folders: data });
+                this.setState({
+                    folders: data,
+                    selectedFolder: data.length > 0 ? data[0].folder_name : ''  // set first folder as default
+                });
+            })
+            .catch((error) => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
+    }
+
+
+    handleSelectChange = (event) => {
+        this.setState({ selectedFolder: event.target.value });
+        this.orderVideos(this.state.sortByTitle , event.target.value);
+    };
+
+
+
+    filterByFolder = (folderName, videoList) => {
+        let setItBack = false
+        if(!videoList) {
+            videoList = this.state.currentVideos;
+            setItBack = true;
+        }
+        videoList = videoList.filter(video => video.folder_name === folderName);
+        if(setItBack)
+            this.setState({currentVideos:videoList});
+        return videoList;
+    }
+
 
     render() {
         require("./uploadFile.css")
@@ -155,6 +195,19 @@ export default class DisplayVideo extends Component {
         return (
             <div>
                 <h3>Meine Videos</h3>
+
+                <div>
+                    <label>Filter videos by folder: </label>
+                    <select id="folderSelect" value={this.state.selectedFolder} onChange={this.handleSelectChange}>
+                        <option value="all">Alle Ordner</option>
+                        {this.state.folders.map((folder, index) => (
+                            <option key={index} value={folder.folder_name}>
+                                {folder.folder_name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 <div>
                     <label>Liste sortieren nach: </label>
                     <select onChange={this.orderVideos}>
@@ -223,6 +276,7 @@ export default class DisplayVideo extends Component {
             </div>
         );
     }
+
 
 
 }

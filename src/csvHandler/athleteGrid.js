@@ -69,15 +69,19 @@ export default function AthletesGrid(props) {
     }
 
 
-    function createRow(ID,name,lastAccessTime){
+    function createRow(ID,name,lastAccessTime, hasConsent){
         const obj = [];
         obj[0]= ID;
         obj[1]= name;
         obj[2]= "Upload report";
         obj[3] = "Upload consent";
         obj[4] = "Show profile";
-        obj[5] = "Show consent";
-        obj[6] = lastAccessTime;
+        obj[5] = "";
+        if(hasConsent)
+            obj[5] = "Show consent";
+        obj[6] = "lock";
+        obj[7] = lastAccessTime;
+
         return obj;
     }
 
@@ -85,14 +89,45 @@ export default function AthletesGrid(props) {
         //event.preventDefault();
         const action = event.target.name.split("-")[0];
         const selectedID = event.target.name.split("-")[1];
+        let name = "";
+        if( event.target.name.split("-").length > 2)
+            name = event.target.name.split("-")[2];
         if(action === "Upload report")
-            props.uploadReport(selectedID);
+            props.uploadReport(selectedID, name);
         if(action === "Upload consent")
             props.uploadConsent(selectedID);
         if(action === "Show profile")
             props.showProfile(selectedID);
         if(action === "Show consent" && props.showConsent)
             props.showConsent(selectedID);
+        if(action === "lock")
+            warnThenLock(selectedID);
+    }
+
+
+    const lockAccount = async (selectedID) => {
+        try {
+            const response = await fetch('https://inprove-sport.info/reg/lockAccount', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id: selectedID}) // Assuming the ID should be in the body of the request
+            });
+
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            submitAll();
+            alert('The account has been successfully locked.');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to lock the account. Please try again.');
+        }
+    };
+
+    const warnThenLock = (selectedID) => {
+        if(window.confirm("This will deactivate the chosen account. Continue?")) {
+            lockAccount(selectedID);
+        }
     }
 
 
@@ -106,7 +141,8 @@ export default function AthletesGrid(props) {
                 lastAccessTime = arr[i].last_access;
                 lastAccessTime = lastAccessTime.split("T")[0];
             }
-            const row = createRow(arr[i].ID, name, lastAccessTime);
+            const hasConsent = arr[i].hasConsent;
+            const row = createRow(arr[i].ID, name, lastAccessTime, hasConsent);
             actionArr.push(row);
         }
         let header = [];
@@ -250,7 +286,7 @@ export default function AthletesGrid(props) {
                     {actionArray.map((row) => (
                         <tr>
                             {row.map((item) => (
-                            <td><a href="#" name={item+"-"+row[0]} onClick={onAction}>{item}</a></td>
+                            <td><a href="#" name={item+"-"+row[0]+"-"+row[1]} onClick={onAction}>{item}</a></td>
                             ))}
                         </tr>
                     ))}

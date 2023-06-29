@@ -1,7 +1,7 @@
 /*
 By Ahmed Al-Ghezi
  */
-//TODO Do not show again after login if consent is already uploaded. 
+//TODO Do not show again after login if consent is already uploaded.
 import React, {Component} from "react";
 
 import './style.css';
@@ -21,7 +21,8 @@ class UploadConsentC extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success:false, error:false, file:null ,showHeader:true};
+            success:false, error:false, file:null ,showHeader:true, downloadUrl: null,
+            fileName: null};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -190,6 +191,10 @@ class UploadConsentC extends Component {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+
+            this.setState({ downloadUrl: a.href, fileName: fileName });
+
+
         }
     };
 
@@ -216,7 +221,17 @@ class UploadConsentC extends Component {
 
                 </form>
 
+                <div>
+                    {this.state.downloadUrl && (
+                        <a href={this.state.downloadUrl} download={this.state.fileName}>
+                            Der Download soll automatisch starten. Wenn nicht, Du kannst hier klicken, um Deine Datei herunterzuladen.
+                        </a>
+                    )}
+                </div>
+
             </div>
+
+
         );
 
     }

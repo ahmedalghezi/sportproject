@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 //import ReactPlayer from "react-player";
 //import "./uploadFile.css";
-import video1 from "./videos/testvideo.mp4";
-import video2 from "./videos/testvideo2.mp4";
-import video3 from "./videos/testvideo3.mp4";
-import video4 from "./videos/testvideo4.mp4";
 
   /* ### TODOs ###
    backend instead of example videofiles (here, just as illustration of gallery)
@@ -13,10 +9,10 @@ import video4 from "./videos/testvideo4.mp4";
 class MyVideosC extends Component {
   state = {
     data: [
-      { id: 1, videourl: video1, title: "video1" },
-      { id: 2, videourl: video2, title: "video2" },
-      { id: 3, videourl: video3, title: "video3" },
-      { id: 4, videourl: video4, title: "video4" },
+      { id: 1, videourl: "", title: "video1" },
+      { id: 2, videourl: "", title: "video2" },
+      { id: 3, videourl: "", title: "video3" },
+      { id: 4, videourl: "", title: "video4" },
     ],
   };
 
@@ -32,7 +28,7 @@ class MyVideosC extends Component {
             <option>Datum</option>
           </select>
         </div>
-        
+
         <div className="gallery">
           {this.state.data.map((item, index) => {
             return (

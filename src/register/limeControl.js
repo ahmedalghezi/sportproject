@@ -12,7 +12,7 @@ import PostSignup from "../DB/postSignup";
 
 
 
-class LimeControl extends Component {
+class LimeControl_t extends Component {
 
     constructor(props) {
         super(props);
@@ -25,7 +25,11 @@ class LimeControl extends Component {
             disciplinesList:[],
             approvedStudies:[],
             selectedStudyID:'',
-            mins_reg:60
+            mins_reg:60,
+            gender: 'M',
+            min_age: 13,
+            max_age: 99,
+            role: 'all',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleAdd = this.handleAdd.bind(this);
@@ -99,7 +103,7 @@ class LimeControl extends Component {
                 return;
             }
             else if(response.data.res === "ok") {
-                let msg =  " participants removed";
+                let msg =  " All participants are removed";
                 this.setState({participants_added:msg});
                 setTimeout(function(){
                     this.setState({participants_added:""});
@@ -124,14 +128,14 @@ class LimeControl extends Component {
             console.log(response);
             if(response.data.res === "error")
                 return;
-                //alert("some error has happened");
+            //alert("some error has happened");
             if(response.data.res === "no"){
                 //alert("Please sign in to continue");
                 window.location.href = window.location.origin+"/reg/sign-in?org=$lime$control";
                 return;
             }
             else {
-                let msg = response.data.insert+ " participants added";
+                let msg = +response.data.insert+ " new participants added";
                 if(response.data.exist > 0)
                     msg = msg + ", "+response.data.exist+ " skipped (already exist) ";
                 this.setState({participants_added:msg});
@@ -183,31 +187,31 @@ class LimeControl extends Component {
 
                 <table>
                     <tr>
-                    <td>
-                    <div className="form-group">
-                        <label>Discipline</label>
-                        <br></br>
-                        <select onChange={this.handleDispSele}  name="discipline">
-                            {this.state.disciplinesList.map((item) => (
-                                <option key={item}>{item}</option>
-                            ))}
-                        </select>
-                    </div>
+                        <td>
+                            <div className="form-group">
+                                <label>Discipline</label>
+                                <br></br>
+                                <select onChange={this.handleDispSele}  name="discipline">
+                                    {this.state.disciplinesList.map((item) => (
+                                        <option key={item}>{item}</option>
+                                    ))}
+                                </select>
+                            </div>
 
-                    </td>
+                        </td>
 
-                    <td width="20px">     </td>
-                    <td>
-                        <div className="form-group" hidden={true}>
-                            <label>Approved data category</label>
-                            <br></br>
-                            <select onChange={this.handleStudySele}  name="approved_studies">
-                                {this.state.approvedStudies.map((item) => (
-                                    <option key={item.ID}>{item.title}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </td>
+                        <td width="20px">     </td>
+                        <td>
+                            <div className="form-group" hidden={true}>
+                                <label>Approved data category</label>
+                                <br></br>
+                                <select onChange={this.handleStudySele}  name="approved_studies">
+                                    {this.state.approvedStudies.map((item) => (
+                                        <option key={item.ID}>{item.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </td>
 
                     </tr>
 
@@ -222,6 +226,40 @@ class LimeControl extends Component {
                            name="surveyNumber"/>
                 </div>
                 <p></p>
+
+
+                <div className="form-group">
+                    <label>Gender</label>
+                    <select onChange={this.handleChange} name="gender">
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Minimum Age</label>
+                    <input onChange={this.handleChange} type="number" className="form-control" placeholder="Enter minimum age" name="min_age" defaultValue={13} />
+                </div>
+
+                <div className="form-group">
+                    <label>Maximum Age</label>
+                    <input onChange={this.handleChange} type="number" className="form-control" placeholder="Enter maximum age" name="max_age" defaultValue={99} />
+                </div>
+
+                <div className="form-group">
+                    <label>Role</label>
+                    <select onChange={this.handleChange} name="role" defaultValue="all">
+                        <option value="athlete">Athlete</option>
+                        <option value="trainer">Coach</option>
+                        <option value="competence">Competence Team</option>
+                        <option value="all">All</option>
+                    </select>
+                </div>
+
+
+
+
+
 
 
                 <div>
@@ -239,4 +277,4 @@ class LimeControl extends Component {
     }
 }
 
-export default LimeControl;
+export default LimeControl_t;

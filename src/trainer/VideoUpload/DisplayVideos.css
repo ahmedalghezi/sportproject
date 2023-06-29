@@ -1,0 +1,23 @@
+.display-videos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .display-videos {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+.delete-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

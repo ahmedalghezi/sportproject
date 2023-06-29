@@ -45,23 +45,17 @@ import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
 
 
-import {ShareSharp} from "@mui/icons-material";
 import ShareVideo from "./nico/videosharing/shareVideo";
 import CreateGroup from "./nico/videosharing/createGroup";
 import DisplayVideo from "./nico/videosharing/displayVideo";
-import TestsViewCopy from "./vanessa/subsetData/TestsViewCopy";
 import TrainerVideo from "./trainer/trainerVideo";
-//import Survey from "./nico/survey/survey";
-import Survey from "./lime/survey/survey";
 import SignUpJiz from "./firebase/signup";
 import VideoPlayer from "./temp-data/optionsGenTemp";
 import TestsViewT from "./csvHandler/testViewT";
 import TestFolderList from "./user/testFolderList";
 
-import MetaUpload from "./csvHandler/metaData";
 import ControlMetabase from "./register/admin/controllMetabase";
 
-import ChartCreator from "./nico/profilechart/chart_creator";
 import ProfileChart from "./nico/profilechart/profilechart";
 import ChangeEmail from "./register/admin/changeEmail";
 import ProfileFeat from "./nico/profilechart/loadcharts";
@@ -69,10 +63,19 @@ import CreateCharts from "./nico/profilechart/createcharts";
 
 
 import ProfileC from './vanessa/profile/profileCopy';
-//import AthleteFileUpload from './vanessa/profile/athleteFileUpload';
 
-import AthleteFileUpload from './user/fileUpload/athleteFileUpload';
-//import {DownloadSubset} from "./csvHandler/t_download_sub";
+import AthleteFileUpload from './user/fileUpload/athleteFileUpload_org';
+import AthleteFileUpload_new from './user/fileUpload/athleteFileUpload';
+import Survey_Component from "./lime/survey/component_survey";
+
+import {DownloadSubset} from "./csvHandler/downloadSubset";
+import EditTest from "./csvHandler/metadata/EditTest";
+import ShareVideo2 from "./trainer/VideoUpload/shareVideo2";
+import ShareVideo3 from "./trainer/VideoUpload/shareVideo3";
+import DisplayVideos2 from "./trainer/VideoUpload/displayVideo2";
+import GeneralFileUpload from "./user/fileUpload/athleteFileUpload2";
+import AthleteFilesTable from "./user/MyFiles";
+import EditSquad from "./register/admin/editSquad";
 
 
 
@@ -119,6 +122,8 @@ function Main() {
                             <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
 
                             <Route path='/lime/control' element={<div className="auth-inner"><LimeControl/></div>} />
+
+
                             <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />
                             <Route path='/trainer/sheet' element={<div className="auth-inner"><TrainerSheet/></div>} />
                             <Route path='/trainer/createTest' element={<div className="auth-inner"><CreateTest/></div>} />
@@ -157,8 +162,8 @@ function Main() {
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
                             <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
-                            <Route path='/csv/athleteFileUpload' element={<div className="auth-inner"><AthleteFileUpload/></div>} />
-                            <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><TestsViewCopy/></div>} />
+                            <Route path='/csv/athleteFileUpload' element={<div className="auth-inner"><GeneralFileUpload/></div>} />
+                            <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><DownloadSubset/></div>} />
 
                             <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
                             <Route path='/trainer/nico/myhistory' element={<div className="csv-inner data-view"><EvaluationsView2/></div>} />
@@ -176,8 +181,7 @@ function Main() {
                             <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />
                             <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
 
-
-                            <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey/></div>} />
+                            <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey_Component/></div>} />
 
 
 
@@ -186,16 +190,30 @@ function Main() {
                             <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
 
 
-                            <Route path='/csv/uploadMeta' element={<div className="csv-inner data-view"><MetaUpload/></div>} />
+                            <Route path='/csv/uploadMeta' element={<div className="csv-inner data-view"><EditTest/></div>} />
                             <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
 
 
                             <Route path='/reg/loadCharts' element={<div className="wide-inner"><ProfileFeat/></div>} />
-
                             <Route path='/reg/changeEmail' element={<div className="auth-inner"><ChangeEmail/></div>} />
 
 
+                            <Route path='/csv/meta/edit' element={<div className="wide-inner"><EditTest/></div>} />
 
+                            <Route path='/trainer/upload2' element={<div className="auth-inner data-view"><ShareVideo2/></div>} />
+
+                            <Route path='/reg/newUpload' element={<div className="auth-inner data-view"><AthleteFileUpload_new/></div>} />
+
+                            <Route path='/reg/newUpload3' element={<div className="auth-inner data-view"><ShareVideo3/></div>} />
+                            <Route path='/reg/diplayVideos2' element={<div className="wide-inner"><DisplayVideos2/></div>} />
+                            <Route path='/reg/newUpload4' element={<div className="wide-inner"><GeneralFileUpload/></div>} />
+
+                            <Route path='/reg/newTable' element={<div className="wide-inner"><AthleteFilesTable/></div>} />
+
+
+
+
+                            <Route path='/csv/squadEditor' element={<div className="wide-inner"><EditSquad/></div>} />
 
 
 

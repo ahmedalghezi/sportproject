@@ -73,6 +73,16 @@ const getFilterFunction = (
 ) => {
   return (
     <div>
+      <button
+          className="btn btn-outline-primary btn-block"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = "https://inprove-sport.info/csv/downloadCsv";
+          }}
+      >
+        Move to "download subset of data" page
+      </button>
+      <br/>
       <div style={{ marginTop: "18px", padding: 0 }}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Stack spacing={3} style={{ width: "33%", display: "inline-block" }}>
@@ -351,36 +361,31 @@ export default function TestsView(props) {
     setLoading(true);
     let success = 0;
     let promises = [];
-    filteredTests.forEach(item =>
+    filteredTests.forEach(item => {
       promises.push(
-        PostCSVData.deleteCSVRow({ rowID: item.id })
-        .then((response) => {
-          if (response.data.res === "error")
-            alert("some error has happened. code dowcsv187");
-          if (response.data.res === "no")
-            window.location.href =
-              window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
-          if (response.data.res === "ok") {
-              success++;
-          }
-        })
-      )
-      .catch((e) => {
-        console.log(e);
-        alert("some error has happened..code dowcsv195");
-      }) 
-    );
-    Promise.all(promises)
-      .then(() => 
-        alert(String(success) + " rows moved to deletion bin..")
-      )
-      .then(() => 
-      setLoading(false)
-      )
-      .then(() => 
-        onApply()
+          PostCSVData.deleteCSVRow({ rowID: item.id })
+              .then((response) => {
+                if (response.data.res === "error")
+                  alert("some error has happened. code dowcsv187");
+                if (response.data.res === "no")
+                  window.location.href =
+                      window.location.origin + "/reg/sign-in?org=$csv$downloadCsv";
+                if (response.data.res === "ok") {
+                  success++;
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+                alert("some error has happened..code dowcsv195");
+              })
       );
+    });
+    Promise.all(promises)
+        .then(() => alert(String(success) + " rows moved to deletion bin.."))
+        .then(() => setLoading(false))
+        .then(() => onApply());
   };
+
 
   const onDatesChange = () => {
     const from = germanDatePresentation(fromDate)
@@ -452,7 +457,7 @@ export default function TestsView(props) {
   }
 
   function switchShowJson(){
-    if(showJson)
+    if(!showJson)
       setFormatText("Show Tabular");
     else
       setFormatText("Show JSON");
@@ -545,7 +550,7 @@ export default function TestsView(props) {
               {
                 loading ? (
                               <CircularProgress />
-                            ) : 
+                            ) :
                 <Button
                   variant="contained"
                   style={{ marginTop: "12px", width: "160px" }}

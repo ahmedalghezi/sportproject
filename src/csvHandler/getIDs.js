@@ -37,6 +37,14 @@ export default function  GetIDS(){
             name: 'ID',
             selector: row => row.ID,
         },
+        {
+            name: 'email',
+            selector: row => row.email,
+        },
+        {
+            name: 'age',
+            selector: row => row.age,
+        },
     ];
 
 
@@ -164,7 +172,7 @@ export default function  GetIDS(){
           }
 
           if(response.data.res === "ok"){
-              const header = ["name","discipline","ID"];
+              const header = ["name","discipline","ID","age","email"];
               const columns = header.map(c => ({
                   name: c,
                   selector: c,
@@ -243,6 +251,19 @@ export default function  GetIDS(){
         setKey(event.target.value);
         event.preventDefault();
     }
+
+    const headerStyles = {
+        headCells: {
+            style: {
+                paddingLeft: '8px', // override the cell padding for head cells
+                paddingRight: '8px',
+                wordBreak: 'break-all',
+                whiteSpace: 'pre-wrap',
+                maxWidth: '300px',
+                overflow: 'visible',
+            },
+        },
+    };
 
     return(
         <div>
@@ -324,6 +345,19 @@ export default function  GetIDS(){
                     </button>
 
 
+                <button
+                    className="btn btn-primary btn-block paddingBtn"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setSuccess(false);
+                        setError(false);
+                        navigate("/csv/squadEditor");
+                    }}
+                >
+                     Squads
+                </button>
+
+
 
 
                 <br/>
@@ -342,6 +376,7 @@ export default function  GetIDS(){
                 highlightOnHover
                 columns={xlsColumns}
                 data={objDataList}
+                customStyles={headerStyles}
             />
         </div>
     );

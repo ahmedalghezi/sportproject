@@ -82,7 +82,7 @@ export default class TrainerSheet extends Component {
             date:this.state.date};
 
         data.planned = -1;
-        if(!data.planned){
+        if(!data.as_planned){
             data.achieved = 0;
             data.quality = 0;
         }

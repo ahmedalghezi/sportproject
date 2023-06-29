@@ -17,9 +17,14 @@ class UploadFileC extends Component {
       error: false,
       file: null,
       title: "",
+      folders: [],
+      selectedFolder: "",
+      newFolderName: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +32,26 @@ class UploadFileC extends Component {
     /* if (this.props.key) {
       this.setState({ key: this.props.key });
     } */
+    this.loadFolders();
+  }
+
+  loadFolders = () =>{
+    const url = 'https://inprove-sport.info/files/athlete_folders';
+    fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            folders: data,
+          });
+        })
+        .catch((error) => {
+          console.error('There has been a problem with your fetch operation:', error);
+        });
   }
 
   handleChange(event) {
@@ -49,8 +74,8 @@ class UploadFileC extends Component {
       return false;
     } */
     if (this.state.title === "") {
-      alert("please give file tilte");
-      return false;
+      //alert("please give file tilte");
+      //return false;
     }
 
     return true;
@@ -63,7 +88,8 @@ class UploadFileC extends Component {
       fileName: fileName,
       //ID: IDa,
       title: this.state.title,
-
+      selectedFolder: this.state.selectedFolder,
+      newFolderName: this.state.newFolderName
       //key: this.state.key,
     })
       .then((response) => {
@@ -80,6 +106,7 @@ class UploadFileC extends Component {
             title: "",
             success: false,
             error: false,
+            newFolderName:""
           });
           const form = document.getElementById("uploadConsent");
           const inputs = form.querySelectorAll("input");
@@ -87,6 +114,7 @@ class UploadFileC extends Component {
             if (input.name === "title") input.value = "";
             if (input.type === "file") input.value = null;
           });
+          this.loadFolders();
         }
       })
       .catch((e) => {
@@ -109,7 +137,7 @@ class UploadFileC extends Component {
         if (response.data.res === "no")
           window.location.href =
             window.location.origin + "/reg/sign-in?org=$csv$athleteFileUpload";
-        if (response.data.res === "ok") {
+        if (response.data.res === "ok" && response.data.filename) {
           this.saveFileName(response.data.filename);
         }
       })
@@ -123,7 +151,22 @@ class UploadFileC extends Component {
     event.preventDefault();
     console.log(event.target.files[0]);
     this.setState({ file: event.target.files[0] });
+    let fileName = event.target.files[0].name;
+    if(this.state.title === "")
+      this.setState({title:fileName});
   };
+
+
+
+
+  handleSelectChange(e) {
+    this.setState({ selectedFolder: e.target.value });
+  }
+
+  handleInputChange(e) {
+    this.setState({ newFolderName: e.target.value });
+  }
+
 
   render() {
     return (
@@ -131,11 +174,13 @@ class UploadFileC extends Component {
         <h3>Dateien hochladen</h3>
         <form id="uploadConsent" onSubmit={this.handleSubmit}>
           <div className="form-group">
+            <label htmlFor="folderTitle">Gib deiner Datei einen Titel (optional):</label>
             <input
               type="text"
               className="form-control"
-              placeholder="title"
+              placeholder="Title"
               name="title"
+              value={this.state.title}
               onChange={this.handleChange}
             />
           </div>
@@ -145,7 +190,29 @@ class UploadFileC extends Component {
             accept=".pdf,.png,.jpg,.jpeg,.gif,.xls"
             onChange={this.handleFileUpload}
           />
-          <br />
+          <br/><br/>
+          Du kannst Deine Datei einem Ordner zuweisen:
+          <br/>
+          <label htmlFor="folderSelect">Wähle einen Ordner:</label>
+          <select value={this.state.selectedFolder} onChange={this.handleSelectChange}>
+            {this.state.folders.map((folder, index) => (
+                <option key={index} value={folder.folder_name}>
+                  {folder.folder_name}
+                </option>
+            ))}
+            <option value="new">Neuen Ordner erstellen...</option>
+          </select>
+          {this.state.selectedFolder === "new" && (
+              <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Neuer Ordnername"
+                  value={this.state.newFolderName}
+                  onChange={this.handleInputChange}
+              />
+          )}
+
+
           <br />
           <button type={"submit"} className="btn btn-primary btn-block">
             hochladen
@@ -162,12 +229,12 @@ class UploadFileC extends Component {
   }
 }
 
-function AthleteFileUpload(props) {
+function AthleteFileUpload_new(props) {
   let navigate = useNavigate();
   return <UploadFileC {...props} navigate={navigate} />;
 }
 
-export default AthleteFileUpload;
+export default AthleteFileUpload_new;
 /*
 <div className="form-group" hidden={this.props.key}>
             <label>Key</label>

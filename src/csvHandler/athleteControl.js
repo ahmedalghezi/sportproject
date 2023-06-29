@@ -29,12 +29,13 @@ function AthleteControl(props) {
         setShowUploadReport(false);
         setShowUploadConsent(false);
     }
-    const uploadReport = (ID) =>{
+    const uploadReport = (ID, name) =>{
         scrollToTop();
         setMsg("");
         setShowUploadConsent(false);
         setShowProfile(false);
         setAthleteID(ID);
+        setAthleteName(name)
         setShowUploadReport(true);
     }
     const uploadConsent = (ID) =>{
@@ -54,10 +55,14 @@ function AthleteControl(props) {
         setShowProfile(true);
         setAthleteID(ID);
         //navigate("");
-        navigate("/user/profile");
+        //navigate("/user/profile");
+       // window.location.href = window.location.origin+"/user/profile";
+        window.open( window.location.origin+"/user/profile", '_blank').focus();
     }
     const goToProfile = () => {
-        navigate("/user/profile");
+        //navigate("/user/profile");
+        //window.location.href = window.location.origin+"/user/profile";
+        window.open( window.location.origin+"/user/profile", '_blank').focus();
     }
 
     const deleteUser = () => {
@@ -74,7 +79,7 @@ function AthleteControl(props) {
                 if (response.data.res === "ok") {
                     alert("Delete successful.")
                 }
-    
+
             }).catch(e => {
                 console.log(e);
                 alert("Es ist ein Fehler aufgetreten!");
@@ -144,14 +149,18 @@ function AthleteControl(props) {
     }
 
     const showConsent = (ID) => {
-        window.location.href = "https://inprove-sport.info/" + "files/viewMyFiles/" +ID;
+        window.location.href = "https://inprove-sport.info/" + "files/viewConsent/" +ID;
+        //window.location.href = "https://inprove-sport.info/" + "files/viewMyFiles/" +ID;
         //window.location.href = "https://inprove-sport.info:3000/" + "files/viewConsent/" +ID;
     }
+
+
 
 
     const [showUploadReport, setShowUploadReport] = useState(false);
     const [showShowProfile, setShowProfile] = useState(false);
     const [athleteID, setAthleteID] = useState("");
+    const [athleteName, setAthleteName] = useState("");
     const [showUploadConsent, setShowUploadConsent] = useState(false);
     const [disguised, setDisguised] = useState(false);
     const [disguisedID, setDisguisedID] = useState("");
@@ -170,7 +179,7 @@ function AthleteControl(props) {
 
 
         <div hidden={!showUploadReport}>
-            <AdminUploadFile ID ={athleteID} onUpload={hideAll}/>
+            <AdminUploadFile ID ={athleteID}  athleteName={athleteName} onUpload={hideAll}/>
         </div>
 
         <div hidden={!showUploadConsent || !disguised}>
@@ -185,7 +194,7 @@ function AthleteControl(props) {
         </div>
 
         <AthletesGrid {...props} navigate={navigate} uploadReport={uploadReport}  uploadConsent={uploadConsent}
-                         showProfile={showProfileFunc} showConsent={showConsent}/>
+                         showProfile={showProfileFunc} showConsent={showConsent} />
 
 
     </div>);

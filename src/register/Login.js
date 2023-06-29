@@ -77,9 +77,10 @@ class LoginC extends Component {
           alert("Username oder Passwort falsch!");
         else {
           if (this.props.searchParams.get("org") != null)
-            this.props.navigate(
+              window.location.href = window.location.origin+this.props.searchParams.get("org").replaceAll("$", "/");
+            /*this.props.navigate(
               this.props.searchParams.get("org").replaceAll("$", "/")
-            );
+            );*/
           else if (
             response.data.role &&
             PostSignup.isTrainer(response.data.role)

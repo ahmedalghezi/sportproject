@@ -218,8 +218,21 @@ export default function  CsvReader(){
         setSuccessMsg(msg);
     }
 
+    function removeEmptyObjects(arr) {
+        return arr.filter(item => {
+            // Object.values will return an array of the object's values.
+            // The some method will return true if at least one element in this array is not empty.
+            return Object.values(item).some(value => value.trim() !== '');
+        });
+    }
+
     const sendTestsInitial= () =>{
-        const obj = {dataArr:objDataList, date:date , discipline:discipline,space:space};
+
+        //remove empty vals from the array
+        //console.log(objDataList);
+        let objDataListPorc = objDataList; //removeEmptyObjects(objDataList);
+      //  console.log(objDataListPorc);
+        const obj = {dataArr:objDataListPorc, date:date , discipline:discipline,space:space};
         PostCSVData.sendTestsInitial(obj).then(response => {
             console.log(response.data);
             if(response.data.res === "no"){

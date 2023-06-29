@@ -176,7 +176,7 @@ class UploadFileC extends Component {
           </div>
           <br />
           <div hidden={!this.props.ID}>
-            <p>To Athlete ID: {this.props.ID}</p>
+            <p><b>To Athlete ID: {this.props.ID}, name: {this.props.athleteName}</b></p>
           </div>
 
           <input

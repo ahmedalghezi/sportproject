@@ -8,6 +8,7 @@ import PostSignup from "../../DB/postSignup";
 import logo from '../../loading-gif.gif'
 import LoggedHandler from "../../DB/loggedHandler";
 
+
 const testdata = [
     {
       name: "Hans",
