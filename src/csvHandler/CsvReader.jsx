@@ -168,10 +168,10 @@ export default function  CsvReader(){
     }
 
     const checkInput = () =>{
-        if(discipline == ""){
+        /*if(discipline == ""){
             showError("please select discipline");
             return false;
-        }
+        }*/
         if(space === ""){
             showError("please select space");
             return false;
@@ -457,7 +457,7 @@ export default function  CsvReader(){
                         </td>
                         <td>     </td>
                         <td>
-                            <div className="form-group">
+                            <div className="form-group" hidden={true}>
                                 <label>Discipline</label>
                                 <br></br>
                                 <select onChange={handleDispSele}  name="discipline">

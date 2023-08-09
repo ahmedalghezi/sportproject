@@ -86,7 +86,8 @@ class SignUpC extends Component {
         } else {
           this.setState({ disciplinesList: response.data.res });
           this.setState({ discipline: response.data.res[0] });
-          this.props.setDiscipline(response.data.res[0]);
+          if(this.props.setDiscipline)
+            this.props.setDiscipline(response.data.res[0]);
         }
       })
       .catch((e) => {
@@ -102,8 +103,8 @@ class SignUpC extends Component {
     if (name === "readTerms") value = target.checked;
     if (name === "parentAccept") value = target.checked;
     if(name === "askAgain") value = target.checked;
-    if(name == "email") this.props.setEmail(value);
-    if(name == "discipline") this.props.setDiscipline(value);
+    if( this.props.setEmail && name == "email") this.props.setEmail(value);
+    if(this.props.setDiscipline && name == "discipline") this.props.setDiscipline(value);
     this.setState({
       [name]: value,
     });
@@ -200,7 +201,8 @@ class SignUpC extends Component {
         else {
           if(!this.state.askAgain)
             //this.props.showStudies(true);
-            this.props.showWelcome(true,this.state);
+            if(this.props.showWelcome)
+              this.props.showWelcome(true,this.state);
           else{
             alert("Registration is successful! " +
                 "When you click on the link sent to your email, you'd be asked again to accept the terms and conditions. " +

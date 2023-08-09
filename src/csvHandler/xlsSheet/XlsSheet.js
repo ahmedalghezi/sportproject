@@ -5,11 +5,15 @@ By Ahmed Al-Ghezi
 import React, { useState } from 'react';
 import * as XLSX from 'xlsx';
 import DataTable from 'react-data-table-component';
+import {Switch} from "@mui/material";
+import JsonView from 'react-json-view';
 
 function Sheet(props) {
 
     //const [columns, setColumns] = useState([]);
     //const [data, setData] = useState([]);
+    const [viewAsJson, setViewAsJson] = useState(false);  // This is the switch state
+
     const columns = props.headers;
     const data = props.matrix;
     // process CSV data
@@ -91,18 +95,63 @@ function Sheet(props) {
         reader.readAsBinaryString(file);
     }
 
-    return (
+   /* return (
 
         <div>
             <input type="file"  accept=".csv,.xlsx,.xls" onChange={handleFileUpload}/>
-            <DataTable
-                pagination
-                highlightOnHover
-                columns={columns}
-                data={data}
-            />
+            { columns && data &&
+                <DataTable
+                    pagination
+                    highlightOnHover
+                    columns={columns}
+                    data={data}
+                />
+            }
+
+        </div>
+    );*/
+    const onSwitchChange = (event) => {
+        console.log("Switch state:", event.target.checked); // This line is for debugging
+        //setViewAsJson(checked);
+        setViewAsJson(event.target.checked);
+    };
+
+    const renderDataView = () => {
+        if (viewAsJson) {
+            // render as JSON
+            return (
+                <div>
+                    <h6>JSON View</h6>
+                    <JsonView src={data} />
+                </div>
+            );
+        } else {
+            // render as table
+            return (
+                <div>
+                    <h6>Table View</h6>
+                    <DataTable
+                        pagination
+                        highlightOnHover
+                        columns={columns}
+                        data={data}
+                    />
+                </div>
+            );
+        }
+    };
+
+    return (
+        <div>
+            <input type="file"  accept=".csv,.xlsx,.xls" onChange={handleFileUpload}/>
+            <p>If the table is not showing correctly, please use the JSON view to preview your data </p>
+            <Switch checkedChildren="JSON" unCheckedChildren="Table" onChange={onSwitchChange} />
+            { columns && data && renderDataView()}
         </div>
     );
+
+
+
 }
 
 export default Sheet;

@@ -5,48 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/img/check-mark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/img/cross-mark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/editSquad.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/DisplayVideos.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/displayVideo2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/shareVideo2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/shareVideo3.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/user/MyFiles.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload_org.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utli/paperList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/TestsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/displayVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/nico/videosharing/shareVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/videos/testvideo.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/videos/testvideo2.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/videos/testvideo3.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/nico/videosharing/videos/testvideo4.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/UploadConsent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/UploadConsent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/limeControl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/limeControl.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/VideoUpload/myVideos.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/VideoUpload/myVideos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo2.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo3.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/VideoUpload/videos/testvideo4.mp4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/sheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/sheet.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/trainer/trainerVideo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/trainer/trainerVideo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/user/fileUpload/athleteFileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/vanessa/subsetData/TestsViewCopy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -421,14 +389,7 @@
       <workItem from="1684070708026" duration="62868000" />
       <workItem from="1685439552199" duration="4031000" />
       <workItem from="1685456349869" duration="47454000" />
-      <workItem from="1687704020666" duration="2001000" />
-    </task>
-    <task id="LOCAL-00026" summary="Version2, adding getIDs">
-      <created>1655804356398</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1655804356398</updated>
+      <workItem from="1687704020666" duration="31187000" />
     </task>
     <task id="LOCAL-00027" summary="Finalizing the signup form">
       <created>1657530094520</created>
@@ -766,7 +727,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683021476825</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="Version 2">
+      <created>1688036250736</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1688036250738</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -877,7 +845,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="adding support for proxy. fixing some signup bugs" />
     <MESSAGE value="Committing testing version of csv upload" />
     <MESSAGE value="Updating todos for the studies approves" />
     <MESSAGE value="finalize studies approves" />
@@ -902,7 +869,8 @@
     <MESSAGE value="adding the general upload function" />
     <MESSAGE value="updating the profile by adding uploaded files" />
     <MESSAGE value="Adding cognition test v1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adding cognition test v1" />
+    <MESSAGE value="Version 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -911,11 +879,6 @@
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
           <line>294</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
-          <line>132</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/register/Login.js</url>

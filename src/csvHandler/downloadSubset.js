@@ -10,7 +10,7 @@ import React from "react";
 import CustomTable from "../utli/components/CustomTable";
 import postCSV from "../DB/postCSV";
 import PostSignup from "../DB/postSignup";
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 
 import {
     Button,
@@ -21,10 +21,10 @@ import {
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers";
-import { germanDatePresentation } from "../utli/dataConversion";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
+import {DesktopDatePicker} from "@mui/x-date-pickers";
+import {germanDatePresentation} from "../utli/dataConversion";
 
 import Grid from "@mui/material/Grid";
 import List from "@mui/material/List";
@@ -69,32 +69,32 @@ const getFilterFunction = (
             </button>
             <br/><br/>
             <h5>Here you may download subset of the in:prove data, across the available spaces</h5>
-            <h5 style={{ color: 'red' }}>Important: synchronize the data in Metabase before downloading!</h5>
-            <div style={{ marginTop: "18px", padding: 0 }} hidden={true}>
+            <h5 style={{color: 'red'}}>Important: synchronize the data in Metabase before downloading!</h5>
+            <div style={{marginTop: "18px", padding: 0}} hidden={true}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <Stack spacing={3} style={{ width: "33%", display: "inline-block" }}>
+                    <Stack spacing={3} style={{width: "33%", display: "inline-block"}}>
                         <DesktopDatePicker
                             label="From Date"
                             value={fromDate}
                             onChange={setFromDate}
-                            style={{ width: "240px" }}
+                            style={{width: "240px"}}
                             renderInput={(params) => (
                                 <TextField
-                                    style={{ width: "240px" }}
+                                    style={{width: "240px"}}
                                     size="small"
                                     {...params}
                                 />
                             )}
                         />
                     </Stack>
-                    <Stack spacing={3} style={{ width: "33%", display: "inline-block" }}>
+                    <Stack spacing={3} style={{width: "33%", display: "inline-block"}}>
                         <DesktopDatePicker
                             label="To Date"
                             value={toDate}
                             onChange={setToDate}
                             renderInput={(params) => (
                                 <TextField
-                                    style={{ width: "240px" }}
+                                    style={{width: "240px"}}
                                     size="small"
                                     {...params}
                                 />
@@ -103,11 +103,12 @@ const getFilterFunction = (
                     </Stack>
                 </LocalizationProvider>
             </div>
-            <div style={{ padding: "8px 0" }}>Available spaces:</div>
-            <div style={{ padding: 0 }}>
+            <div style={{padding: "8px 0"}}>Available spaces:</div>
+            <div style={{padding: 0}}>
                 <FormControl
                     size="small"
-                    style={{ width: "33%", display: "inline-block" }}
+                    style={{width: "33%", display: "inline-block"}}
+                    hidden={true}
                 >
                     <InputLabel id="demo-select-small">Discipline</InputLabel>
                     <Select
@@ -116,7 +117,7 @@ const getFilterFunction = (
                         value={discipline}
                         label={"Discipline"}
                         onChange={setDiscipline}
-                        style={{ width: "240px" }}
+                        style={{width: "240px"}}
                         disabled={true}
                     >
                         <MenuItem value={false}>No selection.</MenuItem>
@@ -132,7 +133,7 @@ const getFilterFunction = (
                 </FormControl>
                 <FormControl
                     size="small"
-                    style={{ width: "33%", display: "inline-block" }}
+                    style={{width: "33%", display: "inline-block"}}
                 >
                     <InputLabel id="demo-select-small">Space</InputLabel>
                     <Select
@@ -141,7 +142,7 @@ const getFilterFunction = (
                         value={space}
                         label={"Space"}
                         onChange={setSpace}
-                        style={{ width: "240px" }}
+                        style={{width: "240px"}}
                     >
                         <MenuItem value={false}>No selection.</MenuItem>
                         {allSpaces &&
@@ -160,7 +161,7 @@ const getFilterFunction = (
 };
 
 
-export  function DownloadSubset() {
+export function DownloadSubset() {
     const [subset, setSubset] = React.useState([]);
     const [space, setSpace] = React.useState(false);
     const [discipline, setDiscipline] = React.useState(false);
@@ -182,10 +183,14 @@ export  function DownloadSubset() {
     const [checkedLeft, setCheckedLeft] = React.useState([]);
     const [checkedRight, setCheckedRight] = React.useState([]);
 
-    const [count,setCount] = React.useState(0);
+    const [count, setCount] = React.useState(0);
     const [selectedFormat, setSelectedFormat] = React.useState('semicolonSeparated');
 
-    const [selectedMeasurment,setSelectedMeasurment] = React.useState("1");
+    const [selectedMeasurment, setSelectedMeasurment] = React.useState("1");
+
+    const [selectedFraction, setSelectedFraction] = React.useState("comma");
+
+    const [ageRequired, setAgeRequired] = React.useState("ageNotRequired");
 
 
     const clearCheckedRight = () => {
@@ -195,7 +200,6 @@ export  function DownloadSubset() {
     const clearCheckedLeft = () => {
         setCheckedLeft([]);
     }
-
 
 
     const handleAllRight = () => {
@@ -208,16 +212,16 @@ export  function DownloadSubset() {
 
     const moveCheckedLeft = () => {
         const t_checkedRight = checkedRight;
-        setRight(removeDuplicates(t_checkedRight,right));
+        setRight(removeDuplicates(t_checkedRight, right));
         clearCheckedRight();
     }
 
     const moveCheckedRight = () => {
-        setRight(mergeWithoutDuplicates(checkedLeft,right));
+        setRight(mergeWithoutDuplicates(checkedLeft, right));
         clearCheckedLeft();
     }
 
-    function removeDuplicates(arrReadID,arrWirte) {
+    function removeDuplicates(arrReadID, arrWirte) {
         const IDset = new Set(arrReadID.map(obj => obj));
         return arrWirte.filter(obj => !IDset.has(obj.testid));
     }
@@ -227,7 +231,9 @@ export  function DownloadSubset() {
         arrCheckedID.forEach(objID => {
             if (!checkedRightIds.has(objID)) {
                 let fullObj;
-                left.forEach(obj => {if(obj.testid === objID) fullObj = obj});
+                left.forEach(obj => {
+                    if (obj.testid === objID) fullObj = obj
+                });
                 arrR.push(fullObj);
             }
 
@@ -241,24 +247,22 @@ export  function DownloadSubset() {
     };
 
 
-
     const handleDownload = async () => {
         let testIds = right.map(item => item.testid);
         try {
-            let obj = { test_ids: testIds, filling:selectedValue};
+            let obj = {test_ids: testIds, filling: selectedValue, ageRequired: ageRequired};
 
             const response = await axios.post('https://inprove-sport.info/csv/downloadSubsetCsv', obj);
             let result = response.data.data;
             let restOfRows = result.slice(1);
-            restOfRows.sort(function(a, b) {
+            restOfRows.sort(function (a, b) {
                 return a[0] - b[0];
             });
 
-            if(selectedValue === "selectCertainPoint"){
+            if (selectedValue === "selectCertainPoint") {
                 restOfRows = sliceRes(restOfRows, selectedMeasurment);
             }
             result = [result[0]].concat(restOfRows);
-
 
 
             exportToCSV(result);
@@ -270,9 +274,8 @@ export  function DownloadSubset() {
     };
 
 
-
     const sliceRes = (result, selectedMeasurment) => {
-        result = result.filter(function(value, index, self) {
+        result = result.filter(function (value, index, self) {
             // Only keep the item if the previous item's first element is not the same
             return index === 0 || value[0] !== self[index - 1][0];
         });
@@ -282,22 +285,58 @@ export  function DownloadSubset() {
 
     function exportToCSV(data, fileName = 'export.csv') {
         let sepr = ";";
-        if(selectedFormat === "commaSeparated")
+        if (selectedFormat === "commaSeparated") {
+            if (selectedFraction === "comma") {
+                alert("Error: you have selected comma seperated file and comma for floating numbers which could create non seperated cols. ")
+                return;
+            }
             sepr = ',';
-        else
-            data = data.map(row => row.map(item => typeof item === 'number' ? item.toString().replace('.', ',') : item));
+        }
+
+        //else
+        //  data = data.map(row => row.map(item => typeof item === 'number' ? item.toString().replace('.', ',') : item));
+
+        data = processMatrix(data);
 
         const csvContent = data.map(row => row.join(sepr)).join('\n');
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const blob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
         saveAs(blob, fileName);
     }
+
+
+    function processMatrix(matrix) {
+        return matrix.map(row =>
+            row.map(value => {
+                if (typeof value === 'string') {
+                    // Handle dates
+                    if (value.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/)) {
+                        return value.substring(0, 10);
+                    }
+                    if (selectedFraction === "dot")
+                        return value;
+                    // Handle float strings
+                    if (!isNaN(value) && value.includes('.')) {
+                        return value.replace('.', ',');
+                    }
+                } else if (typeof value === 'number') {
+                    // Handle float numbers
+                    let strValue = value.toString();
+                    if (strValue.includes('.')) {
+                        return strValue.replace('.', ',');
+                    }
+                }
+                return value;
+            })
+        );
+    }
+
 
     function convertDataToCSV(data) {
         // Extract unique test names from data
         const testNames = Array.from(
             new Set(
                 data
-                    .flatMap(({ tests }) => tests.map(({ test_name }) => test_name))
+                    .flatMap(({tests}) => tests.map(({test_name}) => test_name))
             )
         );
 
@@ -305,10 +344,10 @@ export  function DownloadSubset() {
         const csvHeader = ['athlete', ...testNames.flatMap(test => [`${test} value`, `${test} time`])].join(',') + '\n';
 
         // Generate CSV rows
-        const csvRows = data.map(({ athlete, tests }) => {
-            const athleteTests = tests.reduce((acc, { test_name, test_value, time }) => {
+        const csvRows = data.map(({athlete, tests}) => {
+            const athleteTests = tests.reduce((acc, {test_name, test_value, time}) => {
                 const datePart = time.split('T')[0]; // Keep only the date part
-                acc[test_name] = { value: test_value, time: datePart };
+                acc[test_name] = {value: test_value, time: datePart};
                 return acc;
             }, {});
 
@@ -322,8 +361,6 @@ export  function DownloadSubset() {
 
         return csvHeader + csvRows;
     }
-
-
 
 
     // get all disciplines for drop down
@@ -349,7 +386,7 @@ export  function DownloadSubset() {
         PostCSVData.getSpaces()
             .then(response => {
                 let a = [];
-                for(let i = 0 ; i < response.data.data.length ; i ++){
+                for (let i = 0; i < response.data.data.length; i++) {
                     a.push(response.data.data[i].value)
                 }
                 setAllSpaces(a);
@@ -360,17 +397,15 @@ export  function DownloadSubset() {
     };
 
 
-
-
     const handleToggleLeft = (value) => () => {
-        setCount(count+1);
+        setCount(count + 1);
         const currentIndex = checkedLeft.indexOf(value.testid);
-        if(currentIndex === -1){
+        if (currentIndex === -1) {
             const arr = checkedLeft;
             arr.push(value.testid);
             setCheckedLeft(arr);
             return;
-        }else{
+        } else {
             setCheckedLeft(checkedLeft.filter(item => item !== value.testid));
             return;
         }
@@ -378,21 +413,21 @@ export  function DownloadSubset() {
 
 
     const handleToggleRight = (value) => () => {
-        setCount(count-1);
+        setCount(count - 1);
         const currentIndex = checkedRight.indexOf(value.testid);
-        if(currentIndex === -1){
+        if (currentIndex === -1) {
             const arr = checkedRight;
             arr.push(value.testid);
             setCheckedRight(arr);
             return;
-        }else{
+        } else {
             setCheckedRight(checkedRight.filter(item => item !== value.testid));
             return;
         }
     };
 
     const customListLeft = (items) => (
-        <Paper sx={{ width: 200, height: 230, overflow: "auto" }}>
+        <Paper sx={{width: 200, height: 230, overflow: "auto"}}>
             <List dense component="div" role="list">
                 {items.map((value) => {
                     const labelId = `transfer-list-item-${value.testid}-label`;
@@ -402,7 +437,7 @@ export  function DownloadSubset() {
                             key={value}
                             role="listitem"
                             button
-                            onClick = {handleToggleLeft(value)}
+                            onClick={handleToggleLeft(value)}
                         >
                             <ListItemIcon>
                                 <Checkbox
@@ -414,20 +449,18 @@ export  function DownloadSubset() {
                                     }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={`${value.testname}`} />
+                            <ListItemText id={labelId} primary={`${value.testname}`}/>
                         </ListItem>
                     );
                 })}
-                <ListItem />
+                <ListItem/>
             </List>
         </Paper>
     );
 
 
-
-
     const customListRight = (items) => (
-        <Paper sx={{ width: 200, height: 230, overflow: "auto" }}>
+        <Paper sx={{width: 200, height: 230, overflow: "auto"}}>
             <List dense component="div" role="list">
                 {items.map((value) => {
                     const labelId = `transfer-list-item-${value.testid}-label`;
@@ -437,7 +470,7 @@ export  function DownloadSubset() {
                             key={value}
                             role="listitem"
                             button
-                            onClick = {handleToggleRight(value)}
+                            onClick={handleToggleRight(value)}
                         >
                             <ListItemIcon>
                                 <Checkbox
@@ -449,11 +482,11 @@ export  function DownloadSubset() {
                                     }}
                                 />
                             </ListItemIcon>
-                            <ListItemText id={labelId} primary={`${value.testname}`} />
+                            <ListItemText id={labelId} primary={`${value.testname}`}/>
                         </ListItem>
                     );
                 })}
-                <ListItem />
+                <ListItem/>
             </List>
         </Paper>
     );
@@ -464,7 +497,7 @@ export  function DownloadSubset() {
     const onApply = () => {
         setLeft([]);
         postCSV
-            .getFeatures({"discipline" : discipline, "space" : space})
+            .getFeatures({"discipline": discipline, "space": space})
             .then((response) => {
                 if (response.data.res === "error") {
                     alert("Es ist ein Fehler aufgetreten.");
@@ -576,10 +609,8 @@ export  function DownloadSubset() {
     }
     let testHeadCells = Array.from(new Set(right));
     testHeadCells = testHeadCells.map((headCell) => {
-        return { id: headCell, label: `${headCell}`, tableView: true };
+        return {id: headCell, label: `${headCell}`, tableView: true};
     });
-
-
 
 
     const handleFillingOptionChange = (event) => {
@@ -591,9 +622,19 @@ export  function DownloadSubset() {
         setSelectedFormat(event.target.value);
     };
 
+    const handleFractionChange = (event) => {
+        setSelectedFraction(event.target.value);
+    };
+
     const handleCeratinMeasrmentSelect = (event) => {
         setSelectedMeasurment(event.target.value);
     };
+
+    const handleAgeChange = (event) => {
+        setAgeRequired(event.target.value);
+    };
+
+
     return (
         <>
             <div className="view-header">
@@ -616,18 +657,18 @@ export  function DownloadSubset() {
                             onDatesChange();
                         }
                     )}
-                    <div style={{ width: "33%", display: "inline-block" }}>
+                    <div style={{width: "33%", display: "inline-block"}}>
                         {
                             <Button
                                 variant="contained"
-                                style={{ marginTop: "12px", width: "120px" }}
+                                style={{marginTop: "12px", width: "120px"}}
                                 onClick={onApply}
                             >
                                 Apply
                             </Button>
                         }
                     </div>
-                    <div style={{ padding: "8px 0" }}>Select features:</div>
+                    <div style={{padding: "8px 0"}}>Select features:</div>
                     <div>
                         <Grid
                             container
@@ -640,7 +681,7 @@ export  function DownloadSubset() {
                             <Grid item>
                                 <Grid container direction="column" alignItems="center">
                                     <Button
-                                        sx={{ my: 0.5 }}
+                                        sx={{my: 0.5}}
                                         variant="outlined"
                                         size="small"
                                         onClick={handleAllRight}
@@ -650,7 +691,7 @@ export  function DownloadSubset() {
                                         ≫
                                     </Button>
                                     <Button
-                                        sx={{ my: 0.5 }}
+                                        sx={{my: 0.5}}
                                         variant="outlined"
                                         size="small"
                                         onClick={moveCheckedRight}
@@ -660,7 +701,7 @@ export  function DownloadSubset() {
                                         &gt;
                                     </Button>
                                     <Button
-                                        sx={{ my: 0.5 }}
+                                        sx={{my: 0.5}}
                                         variant="outlined"
                                         size="small"
                                         onClick={moveCheckedLeft}
@@ -670,7 +711,7 @@ export  function DownloadSubset() {
                                         &lt;
                                     </Button>
                                     <Button
-                                        sx={{ my: 0.5 }}
+                                        sx={{my: 0.5}}
                                         variant="outlined"
                                         size="small"
                                         onClick={handleAllLeft}
@@ -724,13 +765,14 @@ export  function DownloadSubset() {
                                 <select value={selectedMeasurment} onChange={handleCeratinMeasrmentSelect}>
                                     <option value="1">1st</option>
                                 </select>
-                                 measurement
+                                measurement
                             </label>
                         </div>
 
                         <br/><br/>
+                    </div>
 
-
+                    <div>
                         File Format Options:<br/>
                         <div>
                             <label>
@@ -754,13 +796,71 @@ export  function DownloadSubset() {
                                 CSV: semicolon separated file (;)
                             </label>
                         </div>
+
+
+                        <br/><br/>
+
+
+                        Floating numbers options:<br/>
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="comma"
+                                    checked={selectedFraction === 'comma'}
+                                    onChange={handleFractionChange}
+                                />
+                                Use (,)
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="dot"
+                                    checked={selectedFraction === 'dot'}
+                                    onChange={handleFractionChange}
+                                />
+                                Use (.)
+                            </label>
+                        </div>
                     </div>
 
 
+                    <br/><br/>
+                    <div>
+                        Include age column:<br/>
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="ageNotRequired"
+                                    checked={ageRequired === 'ageNotRequired'}
+                                    onChange={handleAgeChange}
+                                />
+                                No
+                            </label>
+                        </div>
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="ageRequired"
+                                    checked={ageRequired === 'ageRequired'}
+                                    onChange={handleAgeChange}
+                                />
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Note: gender column is included with numerical values: male = 0 , female = 1</p>
+                    </div>
 
 
-                    <div style={{ marginBottom: "12px", width: "100%" }}>
-                        <div style={{ width: "33%", display: "inline-block" }}>
+                    <div style={{marginBottom: "12px", width: "100%"}}>
+                        <div style={{width: "33%", display: "inline-block"}}>
                             {
                                 <Button
                                     hidden={true}
@@ -776,12 +876,12 @@ export  function DownloadSubset() {
                                 </Button>
                             }
                         </div>
-                        <div style={{ width: "33%", display: "inline-block" }}>
+                        <div style={{width: "33%", display: "inline-block"}}>
                             {
                                 <Button
                                     hidden={true}
                                     variant="contained"
-                                    style={{ marginTop: "12px", width: "160px" }}
+                                    style={{marginTop: "12px", width: "160px"}}
                                     onClick={onReset}
                                     disabled={
                                         !discipline &&
@@ -794,11 +894,11 @@ export  function DownloadSubset() {
                                 </Button>
                             }
                         </div>
-                        <div style={{ width: "33%", display: "inline-block" }}>
+                        <div style={{width: "33%", display: "inline-block"}}>
                             {
                                 <Button
                                     variant="contained"
-                                    style={{ marginTop: "12px", width: "120px" }}
+                                    style={{marginTop: "12px", width: "120px"}}
                                     onClick={handleDownload}
                                     disabled={right.length === 0}
                                 >

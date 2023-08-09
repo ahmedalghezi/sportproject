@@ -65,6 +65,7 @@ function ControlMetabase() {
                             {link}
                         </a>
                     </p>
+
                 </div>
             )}
             {syncStatus === 'error' && (
