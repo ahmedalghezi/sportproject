@@ -39,7 +39,8 @@ import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
 import AdminFileUpload from "./register/admin/adminFileUpload";
-import AthleteControl from "./csvHandler/athleteControl";
+// import AthleteControl from "./csvHandler/athleteControl";
+import AthleteControl from "./csvHandler/athleteControlTest";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
@@ -77,6 +78,7 @@ import GeneralFileUpload from "./user/fileUpload/athleteFileUpload2";
 import AthleteFilesTable from "./user/MyFiles";
 import EditSquad from "./register/admin/editSquad";
 
+import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
 
 
 function Main() {
@@ -169,7 +171,7 @@ function Main() {
                             <Route path='/trainer/nico/myhistory' element={<div className="csv-inner data-view"><EvaluationsView2/></div>} />
 
                             <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
-
+                            <Route path='/super/uploadReport' element={<div className="csv-inner data-view"><AthleteReportsUpload/></div>} />
 
                             <Route path='/reg/links' element={<div className="auth-inner"><TestFolderList/></div>} />
 

@@ -1,11 +1,12 @@
 {
-  "name": "in:prove",
+  "name": "inprove",
   "version": "3.1.0",
   "private": true,
   "homepage": "http://inprove-sport.info/reg",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@material-ui/core": "^4.12.4",
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@mui/icons-material": "^5.10.3",
     "@mui/material": "^5.6.0",
@@ -21,6 +22,7 @@
     "firebase": "^9.15.0",
     "moment": "^2.29.4",
     "pdf-lib": "^1.17.1",
+    "plotly.js": "^2.25.2",
     "rc-collapse": "^3.5.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.5.0",

@@ -19,6 +19,8 @@ import UploadConsent from "../register/UploadConsent";
 import AdminUploadFile from "../register/admin/adminFileUpload";
 import HandelTrainer from "../DB/handelTrainer";
 
+// import AthleteReportsUpload from "../prerna/fileUpload/fileUpload";
+
 
 
 
@@ -156,6 +158,7 @@ function AthleteControl(props) {
 
 
 
+    // const [showAthleteReportsUpload, setShowAthleteReportsUpload] = useState(false);
 
     const [showUploadReport, setShowUploadReport] = useState(false);
     const [showShowProfile, setShowProfile] = useState(false);
@@ -165,6 +168,11 @@ function AthleteControl(props) {
     const [disguised, setDisguised] = useState(false);
     const [disguisedID, setDisguisedID] = useState("");
     const [msg, setMsg] = useState("");
+
+    // const toggleUploadReport = () => {
+    //     setShowAthleteReportsUpload(!showAthleteReportsUpload);
+    // }
+    
 
     return(
     <div>

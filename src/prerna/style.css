@@ -1,0 +1,21 @@
+.input-label {
+    margin-bottom: 5px; /* Add spacing between label and input */
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column; /* Place the input below the label */
+}
+
+.file-input {
+    display: none; /* Hide the default file input */
+  }
+  
+  .file-input-label {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+  }
