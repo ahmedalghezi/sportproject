@@ -1,83 +1,68 @@
+// With profile page styling 
 import React, { Component } from 'react';
 
 
 const json_data = {
-    "sections": [
-      {
-        "section_name": "section1",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
-          {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
-          {"test_title": "t3", "ser": [{"value": "17,4", "color": "yellow"}, {"value": "61", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section2",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "8,5", "color": "yellow"}, {"value": "65", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section3",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "6,6", "color": "red"}, {"value": "8", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "9,6", "color": "yellow"}, {"value": "70", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section4",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "7,7", "color": "red"}, {"value": "9", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "10,7", "color": "yellow"}, {"value": "75", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section5",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section7",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section8",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t3", "ser": [{"value": "8,8", "color": "green"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t4", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section9",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-        ]
-      },
-      {
-        "section_name": "section6",
-        "testsArr": [
-          {"test_title": "   t1testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "   t2testtestetstet ", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
-          {"test_title": "   t3testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "   t4testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "   t5testtestetstet ", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
-          {"test_title": "   t6testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "   t7testtestetstet ", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-        ]
-      }
-    ]
-  };
+  "sections": [
+    {
+      "section_name": "section1",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
+        {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
+        {"test_title": "t3", "ser": [{"value": "17,4", "color": "yellow"}, {"value": "61", "color": "green"}]}
+      ]
+    },
+    {
+      "section_name": "section2",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "8,5", "color": "yellow"}, {"value": "65", "color": "green"}]}
+      ]
+    },
+    {
+      "section_name": "section3",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "6,6", "color": "red"}, {"value": "8", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "9,6", "color": "yellow"}, {"value": "70", "color": "green"}]}
+      ]
+    },
+    {
+      "section_name": "section4",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "7,7", "color": "red"}, {"value": "9", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "10,7", "color": "yellow"}, {"value": "75", "color": "green"}]}
+      ]
+    },
+    {
+      "section_name": "section5",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
+      ]
+    },
+    {
+      "section_name": "section7",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "yellow"}]},
+        {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
+      ]
+    },
+    {
+      "section_name": "section6",
+      "testsArr": [
+        {"test_title": "t1testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t2testtestetstet", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
+        {"test_title": "t3testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "80", "color": "yellow"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t4testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t5testtestetstet", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
+        {"test_title": "t6testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t7testtestetstet", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "yellow"},{"value": "100", "color": "green"}]}
+      ]
+    }
+  ]
+};
 
 
 export default class AthleteProfile extends Component {

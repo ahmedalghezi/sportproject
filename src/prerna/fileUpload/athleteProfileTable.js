@@ -45,22 +45,6 @@ const json_data = {
     {
       "section_name": "section7",
       "testsArr": [
-        {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-        {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-      ]
-    },
-    {
-      "section_name": "section8",
-      "testsArr": [
-        {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-        {"test_title": "t3", "ser": [{"value": "8,8", "color": "green"}, {"value": "10", "color": "green"}]},
-        {"test_title": "t4", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
-        {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]}
-      ]
-    },
-    {
-      "section_name": "section9",
-      "testsArr": [
         {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "yellow"}]},
         {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
       ]
@@ -68,13 +52,13 @@ const json_data = {
     {
       "section_name": "section6",
       "testsArr": [
-        {"test_title": "   t1testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-        {"test_title": "   t2testtestetstet ", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
-        {"test_title": "   t3testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "80", "color": "yellow"}, {"value": "10", "color": "green"}]},
-        {"test_title": "   t4testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-        {"test_title": "   t5testtestetstet ", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
-        {"test_title": "   t6testtestetstet ", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-        {"test_title": "   t7testtestetstet ", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "yellow"},{"value": "100", "color": "green"}]}
+        {"test_title": "t1testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t2testtestetstet", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
+        {"test_title": "t3testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "80", "color": "yellow"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t4testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t5testtestetstet", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}]},
+        {"test_title": "t6testtestetstet", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t7testtestetstet", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "yellow"},{"value": "100", "color": "green"}]}
       ]
     }
   ]
