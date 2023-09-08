@@ -203,7 +203,7 @@ export default class AthleteProfile extends Component {
 
   
   setBoundingSVG() {
-    return { width: 1000, height: 800 };  // Sample dimensions
+    return { width: 1000, height: 800 };
   }
 
   setColumnGap(){
@@ -217,8 +217,8 @@ export default class AthleteProfile extends Component {
   }
 
   computeTableWidth(section) {
-    const TEST_TITLE_WIDTH = 100; // or whatever value you consider
-    const SER_ITEM_WIDTH = 50;   // or whatever value you consider
+    const TEST_TITLE_WIDTH = 100; 
+    const SER_ITEM_WIDTH = 50;
 
     const totalSerItems = section.testsArr[0].ser.length;
     return TEST_TITLE_WIDTH + (totalSerItems * SER_ITEM_WIDTH) + 'px';
@@ -228,7 +228,7 @@ export default class AthleteProfile extends Component {
     const gal = this.setBoundingSVG();
     const sections = this.state.data.sections;
     const expandedSection = this.state.expandedSection;
-    const MAX_TABLE_HEIGHT = 150; // Adjust this value to your desired maximum height
+    const MAX_TABLE_HEIGHT = 150;
 
     return (
         <div style={{ ...gal, position: 'relative', backgroundColor: 'lightgrey', width:'100%',height: '100%',overflowY: 'auto'}}>

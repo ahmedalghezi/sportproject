@@ -84,7 +84,7 @@ const json_data = {
 
 export default class AthleteProfileTable extends Component {
     static defaultProps = {
-        data: json_data // Assuming you have imported `json_data` from somewhere.
+        data: json_data
     };
 
     constructor(props) {
@@ -99,20 +99,20 @@ export default class AthleteProfileTable extends Component {
     };
 
     computeTableWidth(section) {
-        const TEST_TITLE_WIDTH = 100; // Adjust as needed
-        const SER_ITEM_WIDTH = 50;   // Adjust as needed
+        const TEST_TITLE_WIDTH = 100; 
+        const SER_ITEM_WIDTH = 50;  
 
         const totalSerItems = section.testsArr[0].ser.length;
         return TEST_TITLE_WIDTH + (totalSerItems * SER_ITEM_WIDTH) + 'px';
     }
 
     render() {
-      const sections = this.props.data.sections; // Notice change to this.props instead of this.state
+      const sections = this.props.data.sections;
   
       return (
           <div style={{ width: '100%', padding: '20px'}}>
               {sections.map((section, index) => {
-                  // Determine the maximum number of columns for the current section's testArr
+                
                   const maxColumnsForSection = Math.max(...section.testsArr.map(test => test.ser.length));
   
                   return (
@@ -159,7 +159,7 @@ export default class AthleteProfileTable extends Component {
                                                       {s.value}
                                                   </td>
                                               ))}
-                                              {/* Render empty cells for missing data */}
+                                              
                                               {Array.from({ length: maxColumnsForSection - test.ser.length }).map((_, i) => (
                                                   <td 
                                                       key={i + test.ser.length} 
