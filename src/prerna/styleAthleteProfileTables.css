@@ -1,0 +1,22 @@
+
+.red-light {
+    background-color: #c86658; /* A light red */
+}
+
+/* .green {
+    background-color: green;
+} */
+
+.green-light {
+    background-color: #9ec261; /* A light green */
+}
+
+/* .yellow {
+    background-color: rgb(239, 239, 62);
+} */
+
+.yellow-light {
+    background-color: #fae19d; /* A light green */
+}
+
+/* ... and so on for other colors ... */
