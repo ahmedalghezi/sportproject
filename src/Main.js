@@ -39,8 +39,8 @@ import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
 import AdminFileUpload from "./register/admin/adminFileUpload";
-// import AthleteControl from "./csvHandler/athleteControl";
-import AthleteControl from "./csvHandler/athleteControlTest";
+import AthleteControl from "./csvHandler/athleteControl";
+// import AthleteControl from "./csvHandler/athleteControlTest";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
@@ -79,6 +79,8 @@ import AthleteFilesTable from "./user/MyFiles";
 import EditSquad from "./register/admin/editSquad";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
+import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
+import Avatar from './nico/avatar/avatar';
 
 
 function Main() {
@@ -149,7 +151,8 @@ function Main() {
                             <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
 
                             <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
-
+                            <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
+                            <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
 
 
 
