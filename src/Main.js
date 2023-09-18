@@ -154,7 +154,7 @@ function Main() {
                             <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             {/* <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><Avatar/></div>} /> */}
-                            <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
                             
 
 
