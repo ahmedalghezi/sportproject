@@ -12,7 +12,7 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Box , Button, Typography} from "@mui/material";
 import Header from "./Header";
 import InfoIcon from '@mui/icons-material/Info';
-import Avatar from "../avatar/avatar";
+import Avatar from "../../chaithra/avatar/avatarNew";
 import SportsGymnasticsIcon from '@mui/icons-material/SportsGymnastics';
 import { ShowChart } from "@mui/icons-material";
 import Modal from '@mui/material/Modal';

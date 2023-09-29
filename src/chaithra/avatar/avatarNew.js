@@ -11,7 +11,10 @@ import './avatar.css'
 import runner from './runner.png'
 import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
-import AthleteProfileTable from '../../prerna/fileUpload/athleteProfileTable';
+import AthleteProfileTable, { json_data } from '../../prerna/fileUpload/athleteProfileTable';
+
+
+<AthleteProfileTable data={json_data} />
 
 const testdata = [
     { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
@@ -24,7 +27,11 @@ const testdata = [
     { id: 9,title: "Soziologie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
 ];
 
+
+
 export default class Avatar extends Component {
+
+
 
     constructor(props) {
         super(props);
@@ -41,14 +48,21 @@ export default class Avatar extends Component {
         this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
-    handleButtonClick = (section,index) => {
-        const selectedSectionName = section.title;       
-        const sectionData = section    
-        this.setState({
-            selectedSection: selectedSectionName,
-            sectionData:section,
-            selectedItemIndex: index,
-        });         
+
+    handleButtonClick = (section, index) => {
+        const selectedSectionName = section.title;
+        const sectionData = section;
+
+        this.setState(
+            {
+                selectedSection: selectedSectionName,
+                sectionData: section,
+                selectedItemIndex: index,
+            },
+            () => {
+                this.getData();
+            }
+        );
     };
 
     componentDidMount() {
@@ -86,8 +100,8 @@ export default class Avatar extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({videoList: response.data.videoList});
-                //this.setState({avatarlist: json_data.sections});
+                // this.setState({videoList: response.data.videoList});
+                this.setState({avatarlist: json_data.sections});
             }
 
         }).catch(e => {
@@ -258,11 +272,12 @@ export default class Avatar extends Component {
                                         style={{ cursor: 'pointer' }}>
                                          {item.title}
                                     </span>
-
+                                    {this.state.selectedItemIndex === index && (
                                         <div className="table-container">
-                                            <p> {this.state.selectedSection}</p>
-                                                <AthleteProfileTable  selectedSection={this.state.selectedSection} sectionData={this.state.sectionData} />
+                                            
+                                                <AthleteProfileTable  data={json_data} section_name={this.state.selectedSection} sectionData={this.state.sectionData} />
                                         </div>
+                                        )}
                                 </div>
                             </div>
                         );
