@@ -7,12 +7,12 @@ import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
 import CoachInputDataService from "../../DB/rw"
 import { color } from "@mui/system";
-import '../avatar.css'
-import runner from '../runner.png'
+import '../../prerna/avatar.css'
+import runner from './runner.png'
 import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
 import AthleteProfileTable, { json_data } from '../../prerna/fileUpload/athleteProfileTable';
-import ColorBar from "./colorBar";
+import ColorBar from "../../prerna/fileUpload/colorBar";
 
 
 
@@ -229,7 +229,7 @@ export default class Avatar extends Component {
         }
         const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.title))];
 
-        require("../avatar.css");
+        require("../../prerna/avatar.css");
 
         return (
             <div>
@@ -266,7 +266,8 @@ export default class Avatar extends Component {
                     </div>
                     {/* {this.state.avatarlist.map((item, index) => { */}
                     {uniqueTitles.map((title, index) => {
-                    const item = this.state.avatarlist.find(item => item.title === title);
+                    const item = this.state.avatarlist.find((item) => item.title === title);
+
         
                         return (
 
@@ -280,8 +281,9 @@ export default class Avatar extends Component {
                                         onClick={() => this.handleButtonClick(item, index)}
                                         style={{ cursor: 'pointer' }}>
                                          {item.title}
+                                         <ColorBar data={json_data} sectionName={item.title} />
                                     </span>
-                                    <ColorBar data={json_data} section_name={item.title} />
+                                    
                                     {this.state.selectedItemIndex === index && (
                                         <div className="table-container">
                                             
@@ -297,5 +299,4 @@ export default class Avatar extends Component {
         );
     }
 }
-
 

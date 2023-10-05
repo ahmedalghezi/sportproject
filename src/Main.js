@@ -80,7 +80,9 @@ import EditSquad from "./register/admin/editSquad";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
-import Avatar from './prerna/fileUpload/avatar_1';
+//import Avatar from './nico/avatar/avatar';
+import Avatar from './chaithra/avatar/avatarNew';
+// import Avatar from './prerna/fileUpload/avatar_1'
 
 
 function Main() {
@@ -151,9 +153,10 @@ function Main() {
                             <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
 
                             <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
-                            {/* <Route path='/user/ ' element={<div className="wide-inner"><AthleteProfileTable/></div>} /> */}
-                            <Route path='/reg/user/profile' element={<div className="wide-inner"><Avatar/></div>} />
-                            <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable section_name="Blutanalyse"/></div>} />
+                            <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
+                            {/* <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><Avatar/></div>} /> */}
+                            <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            
 
 
 
