@@ -1,6 +1,3 @@
-/*
-By Nicolas Schulz
- */
 
 import React, {Component} from "react";
 import HandelTrainer from "../../DB/handelTrainer";
