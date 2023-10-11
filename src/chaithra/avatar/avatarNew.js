@@ -7,11 +7,16 @@ import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
 import CoachInputDataService from "../../DB/rw"
 import { color } from "@mui/system";
-import './avatar.css'
+import '../../prerna/avatar.css'
 import runner from './runner.png'
 import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
-import AthleteProfileTable from '../../prerna/fileUpload/athleteProfileTable';
+import AthleteProfileTable, { json_data } from '../../prerna/fileUpload/athleteProfileTable';
+import ColorBar from "../../prerna/fileUpload/colorBar";
+
+
+
+<AthleteProfileTable data={json_data} />
 
 const testdata = [
     { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
@@ -24,7 +29,11 @@ const testdata = [
     { id: 9,title: "Soziologie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
 ];
 
+
+
 export default class Avatar extends Component {
+
+
 
     constructor(props) {
         super(props);
@@ -41,14 +50,24 @@ export default class Avatar extends Component {
         this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
+
     handleButtonClick = (section,index) => {
-        const selectedSectionName = section.title;       
-        const sectionData = section    
+
+
+        const selectedSectionName = section.title;
+        // Filter the section data based on the selected section name
+        const sectionData = section
+        // Update the selectedSection and sectionData states
         this.setState({
             selectedSection: selectedSectionName,
             sectionData:section,
             selectedItemIndex: index,
-        });         
+        });
+        // Log the filtered section data
+        console.log("inside the handle button click")
+        console.log(selectedSectionName);
+
+
     };
 
     componentDidMount() {
@@ -86,8 +105,8 @@ export default class Avatar extends Component {
                 return;
             }
             if(response.data.res === "ok") {
-                this.setState({videoList: response.data.videoList});
-                //this.setState({avatarlist: json_data.sections});
+                // this.setState({videoList: response.data.videoList});
+                this.setState({avatarlist: json_data.sections});
             }
 
         }).catch(e => {
@@ -208,7 +227,9 @@ export default class Avatar extends Component {
                 </div>
             );
         }
-        require("./avatar.css");
+        const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.title))];
+
+        require("../../prerna/avatar.css");
 
         return (
             <div>
@@ -243,8 +264,11 @@ export default class Avatar extends Component {
                             </svg>
                         </div>
                     </div>
-                    {this.state.avatarlist.map((item, index) => {
+                    {/* {this.state.avatarlist.map((item, index) => { */}
+                    {uniqueTitles.map((title, index) => {
+                    const item = this.state.avatarlist.find((item) => item.title === title);
 
+        
                         return (
 
                             <div
@@ -257,12 +281,15 @@ export default class Avatar extends Component {
                                         onClick={() => this.handleButtonClick(item, index)}
                                         style={{ cursor: 'pointer' }}>
                                          {item.title}
+                                         <ColorBar data={json_data} sectionName={item.title} />
                                     </span>
-
+                                    
+                                    {this.state.selectedItemIndex === index && (
                                         <div className="table-container">
-                                            <p> {this.state.selectedSection}</p>
-                                                <AthleteProfileTable  selectedSection={this.state.selectedSection} sectionData={this.state.sectionData} />
+                                            
+                                                <AthleteProfileTable  data={json_data} section_name={this.state.selectedSection} sectionData={this.state.sectionData} />
                                         </div>
+                                        )}
                                 </div>
                             </div>
                         );
@@ -272,5 +299,4 @@ export default class Avatar extends Component {
         );
     }
 }
-
 

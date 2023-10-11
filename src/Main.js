@@ -84,6 +84,7 @@ import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
 //import Avatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
+// import Avatar from './prerna/fileUpload/avatar_1'
 
 
 function Main() {
