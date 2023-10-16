@@ -36,6 +36,7 @@ const EditTest = () => {
     };
 
 
+
     const handleChange = (index, field, value) => {
         setTests((prevTests) => {
             const updatedTests = [...prevTests];
@@ -96,6 +97,8 @@ const EditTest = () => {
 
     return (
         <>
+            <p>{"Formula1 means: Green >= MW + SD * 1,5   , Red  <= MW - SD * 1,5 , Yellow everything between"}</p>
+            <p>{"Formula1_r means: Green <= MW + SD * 1,5   , Red  >= MW - SD * 1,5 , Yellow everything between"}</p>
             <label>Space:</label>
             <select value={selectedSpace} onChange={handleSpaceChange}>
                 <option value="">Select a space</option>
@@ -112,6 +115,7 @@ const EditTest = () => {
                     <tr>
                         <th>Test Name</th>
                         <th style={{ width: "500px" }}>Description</th>
+                        <th>Avatar?</th> {/* New Header */}
                         <th style={{ width: "120px" }}>Threshold Type</th>
                         <th style={{ width: "80px" }}>Threshold Male Red</th>
                         <th style={{ width: "80px" }}>Threshold Male Green</th>
@@ -143,13 +147,27 @@ const EditTest = () => {
                             </td>
 
 
+
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    name="avatar"
+                                    checked={test.avatar || false}
+                                    onChange={(e) =>
+                                        handleChange(index, 'avatar', e.target.checked)
+                                    }
+                                />
+                            </td>
+
+
                             <td>
                                 <select value={test.threshold_type} name="threshold_type" style={{ width: "130px" }} onChange={(e) =>
                                     handleChange(index, 'threshold_type', e.target.value)
                                 }>
                                     <option value="">Please select</option>
                                     <option value="static">static</option>
-                                    <option value="formula">formula</option>
+                                    <option value="Formula1">Formula1</option>
+                                    <option value="Formula1">Formula1_r</option>
                                 </select>
                             </td>
 

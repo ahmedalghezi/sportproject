@@ -9,6 +9,8 @@ import Main from "./Main";
 //import MainReg from "./register/MainReg";
 //import Main from "./register/MainReg";
 
+//import Main from "./firebase/Dar/jizdanMain";
+
 
 if (process.env.NODE_ENV === 'production') {
     /*console.log = () => {}

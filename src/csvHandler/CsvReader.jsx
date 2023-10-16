@@ -48,6 +48,8 @@ export default function  CsvReader(){
 
     const [spaces, setSpaces] = useState([]);
 
+    const [includeDateColumn, setIncludeDateColumn] = useState(false);
+
 
 
     const processCSV = (str, delim=';') => {
@@ -178,6 +180,12 @@ export default function  CsvReader(){
         }
         if(!objDataList){
             showError("please select the data file");
+            return false;
+        }
+        if(includeDateColumn){
+            if(headerArray && (headerArray.includes("date") || headerArray.includes("Date")) )
+                return true;
+            showError("No date or Date column found in the data file");
             return false;
         }
         return true;
@@ -435,11 +443,15 @@ export default function  CsvReader(){
                     <tr>
                         <td>
                             <label>Data date</label><br></br>
-                            <div><input className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={(e)=>{
+                            <div><input disabled={includeDateColumn} className="col-xs-4" type="date" id="date" name="date" min="1" max="200" onChange={(e) => {
                                 e.preventDefault();
                                 setDate(e.target.value);
-                            }} value={date}/></div>
-
+                            }} value={date} /></div>
+                            <div>
+                                <input type="checkbox" id="includeDateColumn" onChange={(e) => setIncludeDateColumn(e.target.checked)} />
+                                <label htmlFor="includeDateColumn">Date column included in the file</label>
+                                {includeDateColumn && <div><label>Please include a column called exactly "date" or "Date" and the format as: yyyy-mm-dd</label></div>}
+                            </div>
                         </td>
                         <td width="20px">
                         </td>

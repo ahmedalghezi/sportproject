@@ -199,11 +199,13 @@ class SignUpC extends Component {
           alert("Diese Email-Adresse ist bereits registriert.");
         //this.props.history.push('./AfterReg');
         else {
-          if(!this.state.askAgain)
+          if(!this.state.askAgain) {
             //this.props.showStudies(true);
-            if(this.props.showWelcome)
-              this.props.showWelcome(true,this.state);
+            if (this.props.showWelcome)
+              this.props.showWelcome(true, this.state);
+          }
           else{
+            console.log("reg is successful!")
             alert("Registration is successful! " +
                 "When you click on the link sent to your email, you'd be asked again to accept the terms and conditions. " +
                 "You may refresh the page to register another account");

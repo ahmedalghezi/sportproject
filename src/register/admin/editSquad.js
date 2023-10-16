@@ -15,6 +15,9 @@ function AthleteSquad() {
     const [isLoading, setIsLoading] = useState(false); // State to handle loading
     const [message, setMessage] = useState(''); // State to handle messages from backend
 
+    const [medalCounts, setMedalCounts] = useState({});
+
+
 
     const fetchData = () => {
         if (!key) return; // Don't fetch data if key is empty
@@ -107,6 +110,37 @@ function AthleteSquad() {
     };
 
 
+    const handleMedalChange = (athlete_id, newCount) => {
+        setMedalCounts({
+            ...medalCounts,
+            [athlete_id]: newCount
+        });
+    };
+
+
+
+    const handleAddMedals = (athlete_id) => {
+        // Code to send medalCounts[athlete_id] to backend
+        const medalCount = medalCounts[athlete_id] || 0;
+
+        fetch('https://inprove-sport.info/csv/saveMedals', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers here
+            },
+            body: JSON.stringify({ athlete_id, medalCount }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle response
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error adding medals:', error);
+            });
+    };
+
 
 
 
@@ -135,9 +169,12 @@ function AthleteSquad() {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Squad Details</th>
+                <th>Medals Count</th>
                 <th>Action</th>
             </tr>
             </thead>
+
+
             <tbody>
             {data.map((row, index) => (
                 <tr key={index} style={{ borderBottom: '1px solid #ccc' }}>
@@ -148,7 +185,13 @@ function AthleteSquad() {
                             <p key={index}>{`${new Date(squad.date_from).toLocaleDateString()} - ${squad.squad}`}</p>
                         ))}
                     </td>
-
+                    <td>
+                        <input
+                            type="number"
+                            value={medalCounts[row.athlete_id] || 0}
+                            onChange={(e) => handleMedalChange(row.athlete_id, e.target.value)}
+                        />
+                    </td>{/* Assuming your data contains medals_count */}
                     <td>
                         {addingSquad === row.athlete_id ? (
                             <>
@@ -157,7 +200,7 @@ function AthleteSquad() {
                                     placeholder="Squad"
                                     value={newSquad.squad}
                                     onChange={(e) => setNewSquad({ ...newSquad, squad: e.target.value })}
-                                    list="squad-list" // associate the input field with the datalist
+                                    list="squad-list"
                                 />
                                 <datalist id="squad-list">
                                     {squadList.map((squad, index) => (
@@ -175,12 +218,16 @@ function AthleteSquad() {
                             <>
                                 <button onClick={() => handleAddSquad(row.athlete_id)}>Add Squad</button>
                                 <button onClick={() => handleDelete(row.athlete_id)}>Delete Squads</button>
+                                <button onClick={() => handleAddMedals(row.athlete_id)}>Add Medals</button> {/* Added button */}
                             </>
                         )}
                     </td>
                 </tr>
             ))}
             </tbody>
+
+
+
         </table>
         </di>
     );

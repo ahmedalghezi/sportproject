@@ -41,8 +41,8 @@ import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
 import AdminFileUpload from "./register/admin/adminFileUpload";
-import AthleteControl from "./csvHandler/athleteControl";
-// import AthleteControl from "./csvHandler/athleteControlTest";
+// import AthleteControl from "./csvHandler/athleteControl";
+import AthleteControl from "./csvHandler/athleteControlTest";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
@@ -79,11 +79,18 @@ import DisplayVideos2 from "./trainer/VideoUpload/displayVideo2";
 import GeneralFileUpload from "./user/fileUpload/athleteFileUpload2";
 import AthleteFilesTable from "./user/MyFiles";
 import EditSquad from "./register/admin/editSquad";
+import CorrectDate from "./register/admin/correctDate";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
+import AvatarManger from "./register/admin/avatarManger";
+import SectionAndEntryManager from "./register/admin/avatarManger";
+import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
+import CreateIntervention from "./trainer/intervention/create";
+import TableComponentInt from "./trainer/intervention/actions";
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
 //import Avatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
+//import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
 
 
@@ -158,7 +165,7 @@ function Main() {
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             {/* <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><Avatar/></div>} /> */}
                             <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
-                            
+
 
 
 
@@ -201,7 +208,7 @@ function Main() {
                             <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
 
 
-                            <Route path='/csv/uploadMeta' element={<div className="csv-inner data-view"><EditTest/></div>} />
+                            <Route path='/csv/uploadMeta' element={<div className="wide-inner"><EditTest/></div>} />
                             <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
 
 
@@ -225,6 +232,19 @@ function Main() {
 
 
                             <Route path='/csv/squadEditor' element={<div className="wide-inner"><EditSquad/></div>} />
+                            <Route path='/csv/correctDate' element={<div className="wide-inner"><CorrectDate/></div>} />
+
+
+                            <Route path='/avatar/createSection' element={<div className="wide-inner"><SectionAndEntryManager/></div>} />
+
+                            <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} />
+
+
+                            <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
+                            <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
+
+
+
 
 
 

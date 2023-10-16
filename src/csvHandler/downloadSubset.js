@@ -10,7 +10,7 @@ import React from "react";
 import CustomTable from "../utli/components/CustomTable";
 import postCSV from "../DB/postCSV";
 import PostSignup from "../DB/postSignup";
-import {saveAs} from 'file-saver';
+//
 
 import {
     Button,
@@ -37,6 +37,10 @@ import Paper from "@mui/material/Paper";
 
 import axios from "axios";
 import PostCSVData from "../DB/postCSV";
+
+
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 const defaultDates = {
     from: new Date(2020, 0, 1),
@@ -184,7 +188,7 @@ export function DownloadSubset() {
     const [checkedRight, setCheckedRight] = React.useState([]);
 
     const [count, setCount] = React.useState(0);
-    const [selectedFormat, setSelectedFormat] = React.useState('semicolonSeparated');
+    const [selectedFormat, setSelectedFormat] = React.useState('xls');
 
     const [selectedMeasurment, setSelectedMeasurment] = React.useState("1");
 
@@ -254,18 +258,25 @@ export function DownloadSubset() {
 
             const response = await axios.post('https://inprove-sport.info/csv/downloadSubsetCsv', obj);
             let result = response.data.data;
+
+            if(selectedMeasurment === "avg" && selectedValue === "selectCertainPoint"){
+                result = averageByAthlete(result)
+            }
+
             let restOfRows = result.slice(1);
             restOfRows.sort(function (a, b) {
                 return a[0] - b[0];
             });
 
-            if (selectedValue === "selectCertainPoint") {
+            if (selectedValue === "selectCertainPoint" && selectedMeasurment != "avg") {
                 restOfRows = sliceRes(restOfRows, selectedMeasurment);
             }
             result = [result[0]].concat(restOfRows);
 
-
-            exportToCSV(result);
+            if(selectedFormat === "xls")
+                exportToExcel(result)
+            else
+                exportToCSV(result);
 
         } catch (error) {
             console.error(error);
@@ -281,6 +292,78 @@ export function DownloadSubset() {
         });
         return result;
     };
+
+
+
+    function averageByAthlete(data) {
+        if (!Array.isArray(data) || data.length < 1) {
+            console.error("Invalid data format");
+            return;
+        }
+
+        const athleteSums = {};
+        const athleteCounts = {};
+        const athleteFirstMeasures = {};
+
+        // First row contains headers
+        const headers = data[0].filter(header => header.toLowerCase() !== 'time'); // Remove 'time' from headers
+        const ignoreCols = ['athlete', 'Age', 'Gender', 'discipline'];
+
+        for (let i = 1; i < data.length; i++) {
+            const row = data[i];
+            const athleteId = row[0];
+
+            if (!athleteSums[athleteId]) {
+                athleteSums[athleteId] = {};
+                athleteCounts[athleteId] = {};
+                athleteFirstMeasures[athleteId] = {};
+            }
+
+            for (let j = 0; j < row.length; j++) {
+                const header = data[0][j]; // Original headers
+
+                if (header.toLowerCase() === 'time' || ignoreCols.includes(header)) {
+                    if (ignoreCols.includes(header) && athleteFirstMeasures[athleteId][header] === undefined) {
+                        athleteFirstMeasures[athleteId][header] = row[j];
+                    }
+                    continue;
+                }
+
+                if (!athleteSums[athleteId][header]) {
+                    athleteSums[athleteId][header] = 0;
+                    athleteCounts[athleteId][header] = 0;
+                }
+
+                athleteSums[athleteId][header] += parseFloat(row[j] || 0);
+                athleteCounts[athleteId][header] += 1;
+            }
+        }
+
+        const resultArray = [headers]; // Initialize with filtered headers
+
+        for (const athleteId of Object.keys(athleteSums)) {
+            const newRow = new Array(headers.length).fill(null); // Initialize new row with nulls
+            newRow[0] = athleteId; // First column is the athleteId
+
+            for (const [header, sum] of Object.entries(athleteSums[athleteId])) {
+                const colIndex = headers.indexOf(header);
+                newRow[colIndex] = sum / athleteCounts[athleteId][header];
+            }
+
+            for (const [header, value] of Object.entries(athleteFirstMeasures[athleteId])) {
+                const colIndex = headers.indexOf(header);
+                newRow[colIndex] = value;
+            }
+
+            resultArray.push(newRow);
+        }
+
+        return resultArray;
+    }
+
+
+
+
 
 
     function exportToCSV(data, fileName = 'export.csv') {
@@ -304,6 +387,51 @@ export function DownloadSubset() {
     }
 
 
+
+
+
+    function exportToExcel(data, fileName = 'export.xlsx') {
+        try {
+            data = processMatrix(data);
+            // Generate worksheet
+            const ws = XLSX.utils.aoa_to_sheet(data);
+
+            // Generate workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+            // Write workbook and convert to binary
+            const wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
+
+            // Create Blob
+            const blob = new Blob([s2ab(wbout)], {type: 'application/octet-stream'});
+
+            // Create and click the download link
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            document.body.appendChild(link); // Required for Firefox
+            link.click();
+            document.body.removeChild(link); // Cleanup
+
+        } catch (error) {
+            console.error("Error in exportToExcel:", error);
+        }
+    }
+
+// Convert string to ArrayBuffer
+    function s2ab(s) {
+        const buf = new ArrayBuffer(s.length);
+        const view = new Uint8Array(buf);
+        for (let i = 0; i < s.length; i++) {
+            view[i] = s.charCodeAt(i) & 0xFF;
+        }
+        return buf;
+    }
+
+
+
+
     function processMatrix(matrix) {
         return matrix.map(row =>
             row.map(value => {
@@ -321,7 +449,7 @@ export function DownloadSubset() {
                 } else if (typeof value === 'number') {
                     // Handle float numbers
                     let strValue = value.toString();
-                    if (strValue.includes('.')) {
+                    if (strValue.includes('.') && selectedFraction != "dot") {
                         return strValue.replace('.', ',');
                     }
                 }
@@ -764,6 +892,7 @@ export function DownloadSubset() {
                                 Keep only the
                                 <select value={selectedMeasurment} onChange={handleCeratinMeasrmentSelect}>
                                     <option value="1">1st</option>
+                                    <option value="avg">avg</option>
                                 </select>
                                 measurement
                             </label>
@@ -774,6 +903,20 @@ export function DownloadSubset() {
 
                     <div>
                         File Format Options:<br/>
+
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="xls"
+                                    checked={selectedFormat === 'xls'}
+                                    onChange={handleFormatChange}
+                                />
+                                XLSX : Excel file format
+                            </label>
+                        </div>
+
+
                         <div>
                             <label>
                                 <input

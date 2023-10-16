@@ -5,16 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/firebase/Dar/ScrollingContent.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/firebase/Dar/jizdanMain.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/admin/avatarManger.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/register/admin/correctDate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/trainer/intervention/actions.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/trainer/intervention/create.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/admin/editSquad.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/editSquad.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,11 +235,11 @@
       <recent name="$PROJECT_DIR$/src/user" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/firebase/Dar" />
       <recent name="$PROJECT_DIR$/src/assets/img" />
       <recent name="$PROJECT_DIR$/src/assets" />
       <recent name="$PROJECT_DIR$/src/temp-data" />
       <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$/src/utli" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -284,9 +292,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.build" />
-        <item itemvalue="npm.test" />
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.start (1)" />
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.test" />
       </list>
     </recent_temporary>
   </component>
@@ -389,14 +397,12 @@
       <workItem from="1684070708026" duration="62868000" />
       <workItem from="1685439552199" duration="4031000" />
       <workItem from="1685456349869" duration="47454000" />
-      <workItem from="1687704020666" duration="31187000" />
-    </task>
-    <task id="LOCAL-00027" summary="Finalizing the signup form">
-      <created>1657530094520</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1657530094520</updated>
+      <workItem from="1687704020666" duration="64419000" />
+      <workItem from="1693242719716" duration="15351000" />
+      <workItem from="1693381467678" duration="571000" />
+      <workItem from="1693386172508" duration="51422000" />
+      <workItem from="1696760563476" duration="14555000" />
+      <workItem from="1697458751590" duration="1184000" />
     </task>
     <task id="LOCAL-00028" summary="Adding change and forget password. Changes to the coach interface: admin delete training tests.">
       <created>1659959780169</created>
@@ -734,7 +740,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688036250738</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Version 2.5">
+      <created>1691571374677</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1691571374677</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -845,7 +858,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Committing testing version of csv upload" />
     <MESSAGE value="Updating todos for the studies approves" />
     <MESSAGE value="finalize studies approves" />
     <MESSAGE value="starting profile page + updating signup" />
@@ -870,14 +882,15 @@
     <MESSAGE value="updating the profile by adding uploaded files" />
     <MESSAGE value="Adding cognition test v1" />
     <MESSAGE value="Version 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 2" />
+    <MESSAGE value="Version 2.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 2.5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>294</line>
+          <line>302</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

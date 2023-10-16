@@ -62,32 +62,32 @@ export const json_data = {
       }
     ]
   };
-  
+
   export default class AthleteProfileTable extends Component {
     static defaultProps = {
       data: json_data,
       section_name: ''
     };
-  
+
     constructor(props) {
       super(props);
       this.state = {
         expandedSection: null,
       };
     }
-  
+
     computeTableWidth(section) {
-        const TEST_TITLE_WIDTH = 100; 
-        const SER_ITEM_WIDTH = 50;  
-  
+        const TEST_TITLE_WIDTH = 100;
+        const SER_ITEM_WIDTH = 50;
+
         const totalSerItems = section.testsArr[0].ser.length;
         return TEST_TITLE_WIDTH + (totalSerItems * SER_ITEM_WIDTH) + 'px';
     }
 
-       
+
     render() {
       const { data, section_name} = this.props;
-  
+
       // const colorBarData = data.sections
       //   .filter((section) => section.section_name === section_name)
       //   .map((section) =>
@@ -95,7 +95,7 @@ export const json_data = {
       //   )
       //   .flat();
 
-  
+
       return (
         <div style={{ width: '100%', padding: '20px' }}>
           {/* {this.renderColorBar(colorBarData)} */}
@@ -105,7 +105,7 @@ export const json_data = {
               const maxColumnsForSection = Math.max(
                 ...section.testsArr.map((test) => test.ser.length)
               );
-  
+
               return (
                 <div
                   key={index}
