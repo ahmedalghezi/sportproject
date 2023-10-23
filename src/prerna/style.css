@@ -10,7 +10,16 @@
 .file-input {
     display: none; /* Hide the default file input */
   }
-  
+
+  .input-container {
+    display: flex;
+    align-items: center;
+}
+
+.input-label {
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+
   .file-input-label {
     background-color: #007bff;
     color: white;

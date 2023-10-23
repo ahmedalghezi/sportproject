@@ -25,8 +25,8 @@ export default class AthleteReportsUpload extends Component {
     }
 
     fetchFolders = () => {
-        // Replace this URL with the URL of your actual endpoint
-        const url = 'http://localhost:5000/files/upload';
+        
+        const url = 'https://inprove-sport.info/files/athlete_folders';
 
         fetch(url)
             .then((response) => {
@@ -129,56 +129,19 @@ export default class AthleteReportsUpload extends Component {
         await axios.post('https://inprove-sport.info/files/informUploadDone', {fileCount:successfulUploads});
     }
 
-    // handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const { key, title, selectedFiles, selectedFolder, newFolderName } = this.state;
-
-    //     // Upload each file and update status
-    //     for (const file of selectedFiles) {
-    //         const formData = new FormData();
-    //         formData.append('file', file);
-    //         formData.append('key', key);
-    //         formData.append('title', title);
-    //         formData.append('folderNameS', selectedFolder === "new" ? newFolderName : selectedFolder);
-
-    //         try {
-    //             const response = await axios.post('http://localhost:5000/files/upload', formData, {
-    //                 onUploadProgress: (progressEvent) => {
-    //                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-    //                     this.updateFileStatus(file.name, percentCompleted + '%');
-    //                 },
-    //             });
-
-    //             if (response.data.res === "ok") {
-    //                 this.updateFileStatus(file.name, 'uploaded');
-    //             } else {
-    //                 this.updateFileStatus(file.name, 'error!!! error!!!');
-    //             }
-    //         } catch (error) {
-    //             this.updateFileStatus(file.name, 'error');
-    //         }
-    //     }
-    // }
-
-    // updateFileStatus = (fileName, status) => {
-    //     this.setState(prevState => ({
-    //         fileStatus: prevState.fileStatus.map(item => {
-    //             if (item.name === fileName) {
-    //                 return { ...item, status };
-    //             }
-    //             return item;
-    //         }),
-    //     }));
-    // }
-
     render() {
         const { folders, selectedFolder, key, title, fileStatus } = this.state;
+
+        const { allIDs, allNames } = this.props; // Get the IDs and athleteNames from props
+
+        // console.log(allIDs)
+        // console.log(allNames)
 
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3>Dateien hochladen</h3>
 
-                <div>
+                {/* <div>
                 <label htmlFor="keyInput" className="input-label"> Key </label>
                 <div className="input-field">
                     <input
@@ -189,7 +152,40 @@ export default class AthleteReportsUpload extends Component {
                         required
                     />
                 </div>
+                </div> */}
+
+            <div className="input-container">
+                <label htmlFor="keyInput" className="input-label">
+                Send Report to ID: 
+                </label>
+                <div className="input-field">
+                    <select
+                        id="keyInput"
+                        value={key}
+                        onChange={this.handleKeyChange}
+                        required
+                    >
+                        <option value="">Select Key</option>
+                        {allIDs.length > 0 ? (
+                            allIDs.map((id, index) => (
+                                <option key={id} value={id}>
+                                   {id}, ({allNames[index]})
+                                </option>
+                            ))
+                        ) : (
+                            <option value="">No IDs available</option>
+                        )}
+                    </select>
                 </div>
+            </div>
+
+            {key && (
+                <div className="key-tab">
+                
+                    <p>Athlete ID: {key}</p>
+                </div>
+            )}
+
                 <div>
                     <label htmlFor="titleInput" className='input-label'> Title </label>
                     <div className='input-field'>

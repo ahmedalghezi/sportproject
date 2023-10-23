@@ -42,7 +42,9 @@ import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
 import AdminFileUpload from "./register/admin/adminFileUpload";
 // import AthleteControl from "./csvHandler/athleteControl";
-import AthleteControl from "./csvHandler/athleteControlTest";
+// import AthleteControl from "./csvHandler/athleteControl";
+// import AthleteControl from "./csvHandler/athleteControlTest";
+import AthleteControl from "./prerna/fileUpload/athleteControl";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
