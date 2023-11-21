@@ -1,21 +1,20 @@
-
+/*
+By Prerna
+ */
 import React, {useEffect, useState} from 'react';
-// import {processArr} from "./processCSV";
-import {CSVToArray} from "../../csvHandler/processCSV";
-
-import {processArr} from "../../csvHandler/processCSV";
-import Sheet from "../../csvHandler/xlsSheet/XlsSheet";
-import PostCSVData from "../DB/postCSV";
-// import Sheet from "./xlsSheet/XlsSheet";
-import PostSignup from "../DB/postSignup";
+import {processArr} from "./processCSV";
+import {CSVToArray} from "./processCSV";
+import PostCSVData from "../../DB/postCSV";
+import Sheet from "./xlsSheet/XlsSheet";
+import PostSignup from "../../DB/postSignup";
 import alert from "bootstrap/js/src/alert";
 import MuiAlert from "@material-ui/lab/Alert";
 import {Alert} from "@mui/material";
 import DataTable from "react-data-table-component";
 import {useNavigate} from "react-router-dom";
-import LoggedHandler from "../DB/loggedHandler";
+import LoggedHandler from "../../DB/loggedHandler";
 
-import '../style.css';
+//import '../register/style.css';
 
 
 
@@ -51,6 +50,58 @@ export default function  GetIDS(){
         },
     ];
 
+    const testData = [
+        { name: 'John', discipline: 'Swimming', ID: '123', email: 'john@example.com', age: 25 },
+        { name: 'Alice', discipline: 'Running', ID: '456', email: 'alice@example.com', age: 30 },
+        { name: 'Bob', discipline: 'Cycling', ID: '789', email: 'bob@example.com', age: 28 },
+        { name: 'Emma', discipline: 'Swimming', ID: '234', email: 'emma@example.com', age: 22 },
+        { name: 'Michael', discipline: 'Running', ID: '567', email: 'michael@example.com', age: 35 },
+        { name: 'Sophia', discipline: 'Cycling', ID: '890', email: 'sophia@example.com', age: 29 },
+        { name: 'William', discipline: 'Swimming', ID: '345', email: 'william@example.com', age: 27 },
+        { name: 'Olivia', discipline: 'Running', ID: '678', email: 'olivia@example.com', age: 32 },
+        { name: 'James', discipline: 'Cycling', ID: '901', email: 'james@example.com', age: 31 },
+        { name: 'Charlotte', discipline: 'Swimming', ID: '567', email: 'charlotte@example.com', age: 23 },
+        { name: 'Daniel', discipline: 'Running', ID: '789', email: 'daniel@example.com', age: 27 },
+        { name: 'Ava', discipline: 'Cycling', ID: '234', email: 'ava@example.com', age: 26 },
+        { name: 'Liam', discipline: 'Swimming', ID: '123', email: 'liam@example.com', age: 29 },
+        { name: 'Mia', discipline: 'Running', ID: '456', email: 'mia@example.com', age: 24 },
+        { name: 'Henry', discipline: 'Cycling', ID: '789', email: 'henry@example.com', age: 28 },
+        { name: 'Ella', discipline: 'Swimming', ID: '234', email: 'ella@example.com', age: 31 },
+        { name: 'Alexander', discipline: 'Running', ID: '567', email: 'alexander@example.com', age: 33 },
+        { name: 'Grace', discipline: 'Cycling', ID: '890', email: 'grace@example.com', age: 30 },
+        { name: 'Benjamin', discipline: 'Swimming', ID: '345', email: 'benjamin@example.com', age: 25 },
+        { name: 'Scarlett', discipline: 'Running', ID: '678', email: 'scarlett@example.com', age: 26 },
+        { name: 'Lucas', discipline: 'Cycling', ID: '901', email: 'lucas@example.com', age: 32 },
+        { name: 'Lily', discipline: 'Swimming', ID: '456', email: 'lily@example.com', age: 28 },
+        { name: 'Jackson', discipline: 'Running', ID: '789', email: 'jackson@example.com', age: 27 },
+        { name: 'Chloe', discipline: 'Cycling', ID: '234', email: 'chloe@example.com', age: 29 },
+        { name: 'Henry', discipline: 'Swimming', ID: '123', email: 'henry@example.com', age: 30 },
+        { name: 'Zoe', discipline: 'Running', ID: '456', email: 'zoe@example.com', age: 25 },
+        { name: 'Aiden', discipline: 'Cycling', ID: '789', email: 'aiden@example.com', age: 28 },
+        { name: 'Aria', discipline: 'Swimming', ID: '234', email: 'aria@example.com', age: 31 },
+        { name: 'Sebastian', discipline: 'Running', ID: '567', email: 'sebastian@example.com', age: 33 },
+        { name: 'Nora', discipline: 'Cycling', ID: '890', email: 'nora@example.com', age: 30 },
+        { name: 'Ethan', discipline: 'Swimming', ID: '345', email: 'ethan@example.com', age: 25 },
+        { name: 'Hannah', discipline: 'Running', ID: '678', email: 'hannah@example.com', age: 26 },
+        { name: 'Carter', discipline: 'Cycling', ID: '901', email: 'carter@example.com', age: 32 },
+        { name: 'Grace', discipline: 'Swimming', ID: '456', email: 'grace@example.com', age: 28 },
+        { name: 'Samuel', discipline: 'Running', ID: '789', email: 'samuel@example.com', age: 27 },
+        { name: 'Avery', discipline: 'Cycling', ID: '234', email: 'avery@example.com', age: 29 },
+        { name: 'Henry', discipline: 'Swimming', ID: '131', email: 'henry@example.com', age: 30 },
+        { name: 'Lily', discipline: 'Running', ID: '456', email: 'lily@example.com', age: 25 },
+        { name: 'Owen', discipline: 'Cycling', ID: '789', email: 'owen@example.com', age: 28 },
+        { name: 'Ella', discipline: 'Swimming', ID: '234', email: 'ella@example.com', age: 31 },
+        { name: 'Matthew', discipline: 'Running', ID: '567', email: 'matthew@example.com', age: 33 },
+        { name: 'Violet', discipline: 'Cycling', ID: '890', email: 'violet@example.com', age: 30 },
+        { name: 'Oliver', discipline: 'Swimming', ID: '345', email: 'oliver@example.com', age: 25 },
+        { name: 'Emily', discipline: 'Running', ID: '678', email: 'emily@example.com', age: 26 },
+        { name: 'Liam', discipline: 'Cycling', ID: '901', email: 'liam@example.com', age: 32 },
+        { name: 'Sophia', discipline: 'Swimming', ID: '456', email: 'sophia@example.com', age: 28 },
+        { name: 'Lucas', discipline: 'Running', ID: '789', email: 'lucas@example.com', age: 27 },
+        { name: 'Zoe', discipline: 'Cycling', ID: '234', email: 'zoe@example.com', age: 29 },
+        { name: 'James', discipline: 'Swimming', ID:'111',email: 'James@example.com', age: 39}
+    ]
+    
 
     const [csvFile, setCsvFile] = useState();
     const [csvArray, setCsvArray] = useState([]);
@@ -59,7 +110,8 @@ export default function  GetIDS(){
     const [sendingRes, setSendingRes] = useState([]);
 
     const [xlsColumns, setXlsColumns] = useState(columnsC);
-    const [objDataList, setObjDataList] = useState();
+    // const [objDataList, setObjDataList] = useState();
+    const [objDataList, setObjDataList] = useState(testData); 
     const [checkTestFlag, setCheckTest] = useState(false);
 
     const [checkIDsFlag, setCheckIDs] = useState(false);
@@ -75,7 +127,12 @@ export default function  GetIDS(){
     const [successMsg, setSuccessMsg] = useState("");
     const [key, setKey] = useState("");
 
+
+    const [useTestData, setUseTestData] = useState(false);
     const [sortInfo, setSortInfo] = useState({ column: null, direction: 'asc' });
+
+
+
     const [approvedStudies, setApprovedStudies] = useState([]);
     const [selectedStudyID, setSelectedStudyID] = useState();
 
@@ -101,6 +158,23 @@ export default function  GetIDS(){
         updateDataMatrix(valuesMatrixA,headers);
     }
 
+    const handleSort = (column, sortDirection) => {
+        // Update the sortInfo state with the current column and direction
+        setSortInfo({ column, direction: sortDirection });
+        
+        // Sort the data based on the selected column and direction
+        const sortedData = [...objDataList].sort((a, b) => {
+          if (sortDirection === 'asc') {
+            return a[column].localeCompare(b[column]);
+          } else {
+            return b[column].localeCompare(a[column]);
+          }
+        });
+      
+        // Update the state with the sorted data
+        setObjDataList(sortedData);
+      };
+      
 
     useEffect(() => {
         console.log("starting");
@@ -111,22 +185,6 @@ export default function  GetIDS(){
         }
 
     });
-
-    const handleSort = (column, sortDirection) => {
-        
-        setSortInfo({ column, direction: sortDirection });
-        
-        
-        const sortedData = [...objDataList].sort((a, b) => {
-          if (sortDirection === 'asc') {
-            return a[column].localeCompare(b[column]);
-          } else {
-            return b[column].localeCompare(a[column]);
-          }
-        });
-      
-        setObjDataList(sortedData);
-      };
 
     const getDisplines = () => {
         PostSignup.getAllDisciplines().then(response => {
@@ -285,6 +343,14 @@ export default function  GetIDS(){
         },
     };
 
+    const getData = () => {
+        if (useTestData) {
+          return testData; // Use test data
+        } else {
+          return objDataList; // Use fetched data
+        }
+      };
+
     return(
         <div>
             <h3>Load Basic Athletes Information</h3>
@@ -350,6 +416,19 @@ export default function  GetIDS(){
                     Get Names
                 </button>
 
+                <button
+                        className="btn btn-primary btn-block paddingBtn"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setUseTestData(true);
+                            setSuccess(false);
+                            setError(false);
+                            // Call any other necessary functions here
+                        }}
+                    >
+                        Use Test Data
+                    </button>
+
 
 
                     <button
@@ -391,13 +470,7 @@ export default function  GetIDS(){
 
             </form>
 
-            {/* <DataTable
-                pagination
-                highlightOnHover
-                columns={xlsColumns}
-                data={objDataList}
-                customStyles={headerStyles}
-            /> */}
+            
 
             <DataTable
                 pagination
@@ -406,9 +479,10 @@ export default function  GetIDS(){
                     ...column,
                     onSort: (column, sortDirection) => handleSort(column.selector, sortDirection),
                 }))}
-                data={objDataList}
+                data={getData()}
                 customStyles={headerStyles}
-            />
+                /> 
+
         </div>
     );
 
