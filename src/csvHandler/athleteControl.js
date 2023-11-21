@@ -1,6 +1,4 @@
-/*
-By Ahmed Al-Ghezi
- */
+
 
 import React, {Component, useState} from "react";
 
@@ -16,7 +14,7 @@ import axios from "axios";
 import AthletesGrid from "./athleteGrid";
 import UploadConsent from "../register/UploadConsent";
 
-import AdminUploadFile from "../register/admin/adminFileUpload";
+import UploadFileC from "../register/admin/adminFileUpload";
 import HandelTrainer from "../DB/handelTrainer";
 
 // import AthleteReportsUpload from "../prerna/fileUpload/fileUpload";
@@ -31,13 +29,15 @@ function AthleteControl(props) {
         setShowUploadReport(false);
         setShowUploadConsent(false);
     }
-    const uploadReport = (ID, name) =>{
+    const uploadReport = (allIds, allNames,ID, name) => {
         scrollToTop();
         setMsg("");
         setShowUploadConsent(false);
         setShowProfile(false);
+        setAllIDs(allIds);  
+        setAllNames(allNames); 
         setAthleteID(ID);
-        setAthleteName(name)
+        setAthleteName(name); 
         setShowUploadReport(true);
     }
     const uploadConsent = (ID) =>{
@@ -95,8 +95,7 @@ function AthleteControl(props) {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
-                /* you can also use 'auto' behaviour
-                   in place of 'smooth' */
+               
             });
         }.bind(this),2000);
 
@@ -156,23 +155,19 @@ function AthleteControl(props) {
         //window.location.href = "https://inprove-sport.info:3000/" + "files/viewConsent/" +ID;
     }
 
-
-
-    // const [showAthleteReportsUpload, setShowAthleteReportsUpload] = useState(false);
-
     const [showUploadReport, setShowUploadReport] = useState(false);
     const [showShowProfile, setShowProfile] = useState(false);
     const [athleteID, setAthleteID] = useState("");
     const [athleteName, setAthleteName] = useState("");
+    const [allIDs, setAllIDs] = useState("");
+    const [allNames, setAllNames] = useState("");
     const [showUploadConsent, setShowUploadConsent] = useState(false);
     const [disguised, setDisguised] = useState(false);
     const [disguisedID, setDisguisedID] = useState("");
     const [msg, setMsg] = useState("");
 
-    // const toggleUploadReport = () => {
-    //     setShowAthleteReportsUpload(!showAthleteReportsUpload);
-    // }
-    
+    console.log("All Ids : ", allIDs)
+    console.log("Id: ", athleteID)
 
     return(
     <div>
@@ -187,8 +182,13 @@ function AthleteControl(props) {
 
 
         <div hidden={!showUploadReport}>
-            <AdminUploadFile ID ={athleteID}  athleteName={athleteName} onUpload={hideAll}/>
+            {/* <AthleteReportsUpload allIDs={allIDs} allNames={allNames} onUpload={hideAll} /> */}
+            <UploadFileC allIDs={allIDs} allNames={allNames} ID ={athleteID}  athleteName={athleteName} onUpload={hideAll } showProfile={showProfileFunc}/>
         </div>
+
+        {/* <div hidden={!showUploadReport}>
+            <AdminUploadFile ID ={athleteID}  athleteName={athleteName} onUpload={hideAll}/>
+        </div> */}
 
         <div hidden={!showUploadConsent || !disguised}>
             <UploadConsent ID ={athleteID} uploadDone={uploadDone}/>
@@ -207,7 +207,7 @@ function AthleteControl(props) {
 
     </div>);
 }
-
+ 
 export default AthleteControl;
 
 

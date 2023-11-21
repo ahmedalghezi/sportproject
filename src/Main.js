@@ -40,11 +40,10 @@ import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
-import AdminFileUpload from "./register/admin/adminFileUpload";
-// import AthleteControl from "./csvHandler/athleteControl";
-// import AthleteControl from "./csvHandler/athleteControl";
+import AdminFileUpload from "./prerna/fileUpload/adminFileUpload";
+import AthleteControl from "./csvHandler/athleteControl";
 // import AthleteControl from "./csvHandler/athleteControlTest";
-import AthleteControl from "./prerna/fileUpload/athleteControl";
+// import AthleteControl from "./prerna/fileUpload/athleteControl";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
@@ -131,7 +130,7 @@ function Main() {
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
 
-
+                            
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
                             <Route path='/csv/vanessa/profile' element={<div className="csv-inner"><ProfileC/></div>} />

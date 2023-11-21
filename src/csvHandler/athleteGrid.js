@@ -1,6 +1,4 @@
-/*
-By Ahmed Al-Ghezi
- */
+
 import React, {useEffect, useState} from 'react';
 import {processArr} from "./processCSV";
 import {CSVToArray} from "./processCSV";
@@ -20,7 +18,56 @@ import LoggedHandler from "../DB/loggedHandler";
 //import '../register/style.css';
 
 
-
+// const arr = [
+//     {
+//         "name": "sttest1 test",
+//         "ID": 1,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test1@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "astest3 test",
+//         "ID": 2,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "patest3 test",
+//         "ID": 3,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "xpatest3 test",
+//         "ID": 6,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "mpatest3 test",
+//         "ID": 4,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "lpatest3 test",
+//         "ID": 5,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     }
+// ]
 
 export default function AthletesGrid(props) {
 
@@ -68,6 +115,34 @@ export default function AthletesGrid(props) {
         });
     }
 
+    const getAthlete = (event) => {
+        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
+            console.log(response.data);
+            if (response.data.res === "no") {
+                // processStudyArr(arr);
+                showError("Not authorize to access the data");
+                return;
+            }
+            if (response.data.res === "error") {
+                showError("some error has happened, error code: grid135");
+                return;
+            }
+
+            if (response.data.res === "ok") {
+                const arr = response.data.arr;
+                processStudyArr(arr);
+                return;
+            }
+
+
+        })
+            .catch(e => {
+                console.log(e);
+            });
+
+            // processStudyArr(arr);
+        
+    }
 
     function createRow(ID,name,lastAccessTime, hasConsent){
         const obj = [];
@@ -92,8 +167,19 @@ export default function AthletesGrid(props) {
         let name = "";
         if( event.target.name.split("-").length > 2)
             name = event.target.name.split("-")[2];
-        if(action === "Upload report")
-            props.uploadReport(selectedID, name);
+
+        // if(action === "Upload report")
+        //     props.uploadReport(selectedID, name);
+        
+        if (action === "Upload report") {
+            // Access the actionArray from the component's state
+            const allIDs = actionArray.map(row => row[0]);
+            const allNames = actionArray.map(row => row[1]);
+    
+            // Call the uploadReport function with all IDs and names
+            props.uploadReport(allIDs, allNames,selectedID,name );
+        }
+
         if(action === "Upload consent")
             props.uploadConsent(selectedID);
         if(action === "Show profile")
@@ -178,36 +264,6 @@ export default function AthletesGrid(props) {
 
     }
 
-
-
-    const getAthlete = (event) => {
-        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
-            console.log(response.data);
-            if (response.data.res === "no") {
-                showError("Not authorize to access the data");
-                return;
-            }
-            if (response.data.res === "error") {
-                showError("some error has happened, error code: grid135");
-                return;
-            }
-
-            if (response.data.res === "ok") {
-                const arr = response.data.arr;
-                processStudyArr(arr);
-                return;
-            }
-
-
-        })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-
-
-
     const handleDispSele = (event) => {
         event.preventDefault();
         setDiscipline(event.target.value);
@@ -277,7 +333,9 @@ export default function AthletesGrid(props) {
                 <table className={"styled-table"}>
                     <thead>
                   <tr>
-                      {headerArray.map((colItem) => (
+                      {headerArray.map((colItem) => 
+                    //   {console.log(colItem);
+                      (
                           <td>{colItem}</td>
                       ))}
                   </tr>
