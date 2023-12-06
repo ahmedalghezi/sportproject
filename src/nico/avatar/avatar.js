@@ -20,7 +20,7 @@ const testdata = [
   { id: 9,title: "Soziologie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
 ];
 
-export default class Avatar extends Component {
+export default class OGAvatar extends Component {
 
     constructor(props) {
         super(props);
