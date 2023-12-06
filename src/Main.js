@@ -40,7 +40,7 @@ import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
 
-import AdminFileUpload from "./prerna/fileUpload/adminFileUpload";
+import AdminFileUpload from "../src/register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
 // import AthleteControl from "./csvHandler/athleteControlTest";
 // import AthleteControl from "./prerna/fileUpload/athleteControl";
