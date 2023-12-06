@@ -23,10 +23,10 @@ const testdata = [
     { id: 2,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
     { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
     { id: 4,title: "Soziologie", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
-    { id: 6,title: "Motorik", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
-    { id: 7,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
-    { id: 8,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 9,title: "Soziologie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+    { id: 5,title: "Motoriko", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
+    { id: 6,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
+    { id: 7,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
+    { id: 8,title: "Ziologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
 
 
@@ -37,8 +37,8 @@ export default class Avatar extends Component {
 
     constructor(props) {
         super(props);
-        this.state =  {selectedSection: null, avatarlist: testdata, sectionData: null, selectedItemIndex: null,};
-
+        this.state =  {selectedSection: null, avatarlist: testdata, sectionData: null, selectedItemIndex: null,tableHeight: 0,};
+        this.tableRef = React.createRef();
         this.getData = this.getData.bind(this);
         this.drawhorizontalLines = this.drawhorizontalLines.bind(this);
         this.drawiconLines = this.drawiconLines.bind(this);
@@ -47,45 +47,143 @@ export default class Avatar extends Component {
         this.setColumnGap = this.setColumnGap.bind(this);
         this.drawCircle = this.drawCircle.bind(this);
         this.drawImageIcon = this.drawImageIcon.bind(this);
+        this.calculateTablePosition = this.calculateTablePosition.bind(this);
+        this.handleTableHeight = this.handleTableHeight.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.calculateAvatarListHeight=this.calculateAvatarListHeight.bind(this);
     }
 
 
-    handleButtonClick = (section,index) => {
-
-
+    // handleButtonClick = (section, index) => {
+    //     const selectedSectionName = section.title;
+    //     const tableTopPosition = this.calculateTablePosition(`text${index}`, index);
+    //     console.log("index", index)
+    //     // Check if the clicked table is already expanded
+    //     const isSameIndex = this.state.selectedItemIndex === index;
+    //     const newExpandedIndex = isSameIndex ? null : index;
+    //     console.log("newExpandedIndex", newExpandedIndex)
+    //     this.setState({
+    //         selectedSection: selectedSectionName,
+    //         sectionData: section,
+    //         selectedItemIndex: index,
+    //         tableTopPosition: tableTopPosition,
+    //         expandedTableIndex: newExpandedIndex, // Update the expanded index
+    //     });
+    // };
+    handleButtonClick = (section, index) => {
         const selectedSectionName = section.title;
-        // Filter the section data based on the selected section name
-        const sectionData = section
-        // Update the selectedSection and sectionData states
+        const tableTopPosition = this.calculateTablePosition(`text${index}`, index);
+    
+        // Check if the clicked table is already expanded
+        const isSameIndex = this.state.selectedItemIndex === index;
+        const newSelectedItemIndex = isSameIndex ? null : index;
+    
         this.setState({
             selectedSection: selectedSectionName,
-            sectionData:section,
-            selectedItemIndex: index,
+            sectionData: section,
+            selectedItemIndex: newSelectedItemIndex, // Update the selected item index
+            tableTopPosition: tableTopPosition,
+            expandedTableIndex: isSameIndex ? null : index, // Update the expanded index if needed
         });
-        // Log the filtered section data
-        console.log("inside the handle button click")
-        console.log(selectedSectionName);
-
-
     };
+    
+    
+    
+
+    calculateTablePosition(sectionId, index) {
+        const sectionTitleElement = document.getElementById(sectionId);
+        const container = document.getElementById("avatargallery");
+        const titleRect = sectionTitleElement.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const titleTop = titleRect.top - containerRect.top;
+        const titleBottom = titleRect.bottom - containerRect.top;
+        const containerHeight = containerRect.height;
+        // console.log("titleTop : ", titleTop)
+        // console.log("titleBottom : ", titleBottom)
+        // console.log("containerHeight : ", containerHeight)
+        let tableTop = 0;
+    
+        // Determine the threshold for top and bottom alignment
+        const topThreshold = containerHeight / 4;
+        console.log("topThreshold : ", topThreshold)
+        const bottomThreshold = (3 * containerHeight) / 4;
+        console.log("bottomThreshold : ", bottomThreshold)
+        console.log("length : ", this.state.avatarlist.length )
+        console.log("index : ", index )
+        // Calculate table position based on the section's relative position
+        if (index < 2) {
+            // For the first two sections, maintain the current behavior (aligned to the top)
+            tableTop = (titleBottom-titleTop)/16;
+            // console.log("the height of top tables : ", this.state.tableHeight)
+            
+        } 
+        else if (index >= this.state.avatarlist.length - 2) {
+
+            tableTop = (bottomThreshold - titleBottom) + (titleTop-titleBottom)
+            // tableTop = (titleTop-titleBottom)
+            if(Math.abs(tableTop)> this.state.tableHeight)
+            {
+                tableTop = 0
+            }  
+            // console.log("the height of bottom tables : ", this.state.tableHeight)
+            // console.log("tableTop : ", tableTop)
+        } 
+        else 
+        {   
+            tableTop = (titleTop-titleBottom)
+            // console.log("the height of bottom tables : ", this.state.tableHeight)
+            // if(2*Math.abs(tableTop)> this.state.tableHeight)
+            // {
+            //     tableTop = (titleBottom-titleTop)/2
+            // }  
+            
+        }  
+        // console.log("tableTop : ", tableTop)
+        return tableTop;
+    }
+    
+    
+    // Function to handle table height calculation
+    handleTableHeight = (height) => {
+        if (this.state.tableHeight !== height) {
+            this.setState({ tableHeight: height });
+        }
+    };
+    
 
     componentDidMount() {
         this.getData();
         this.setBoundingSVG();
+        const lastTableIndex = this.state.avatarlist.length - 1;
+        this.handleButtonClick(this.state.avatarlist[lastTableIndex], lastTableIndex);
+
+    }
+        
+    
+
+    componentDidUpdate() {
+        // Check if the tableRef is available and if the state needs an update
+        if (this.tableRef.current && this.state.tableHeight === 0) {
+            const height = this.tableRef.current.getBoundingClientRect().height;
+            // Update the state only if necessary
+            this.setState({ tableHeight: height });
+            // console.log('Table height:', height);
+        }
     }
 
     setBoundingSVG(){
         if(!document.getElementById("avatargallery")){
-            var gal = {height: "600px", width: "600px"}
+            var gal = {height: "1000px", width: "1100px"}
         }else{
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
         }
+        console.log("height : ", gal.height)
+        console.log("width : ", gal.width)
         return {height: gal.height, width: gal.width};
     }
     setColumnGap(){
         if(!document.getElementById("avatargallery")){
-            var columngap = {gap: 300}
+            var columngap = {gap: 20}
         }else{
             var el = document.getElementById("avatargallery").getBoundingClientRect();
             columngap =  {gap: el.width - 535}
@@ -123,7 +221,9 @@ export default class Avatar extends Component {
             x1Position = 0;
             x2Position = 0
             yPosition = 0;
-        }else{
+        }
+        
+        else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
             yPosition = con.y - gal.y + con.height/2 - 10
@@ -146,57 +246,66 @@ export default class Avatar extends Component {
         }else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            var y = con.y - gal.y + con.height/2 - 10
+            var y = con.y - gal.y + con.height/2 -10
             if(con.x - gal.x < gal.width/2){
                 var x = con.x - gal.x + con.width + 20
             }else{
                 var x = con.x - gal.x - 40
             }
-            var pyth = Math.sqrt(Math.pow(x-gal.width/2, 2) + Math.pow(y - gal.height/2, 2))
+            var pyth = Math.sqrt(Math.pow(x-gal.width/2, 2) + Math.pow(y - (gal.height/2-200), 2))
             cxPosition = Math.abs(x-gal.width/2)*82/pyth
-            cyPosition = Math.sqrt(Math.pow(82, 2) - Math.pow(cxPosition, 2))
+            cyPosition = Math.sqrt(Math.pow(82, 2) - Math.pow(cxPosition, 2));
             if(x-gal.width/2 > 0){
                 cxPosition = gal.width/2 +  cxPosition
             }else{
                 cxPosition = gal.width/2 - cxPosition
             }
-            if(y-gal.height/2 > 0){
-                cyPosition = gal.height/2 +  cyPosition
+            if(y-(gal.height/2-200) > 0){
+                cyPosition = gal.height/2-200 +  cyPosition
             }else{
-                cyPosition = gal.height/2 - cyPosition
+                cyPosition = gal.height/2-200 - cyPosition
             }
         }
         return <circle cx={cxPosition} cy={cyPosition} r="10" stroke="gray" fill="gray"/>;
     }
+
     drawiconLines(element, index) {
         var x1Position = 0;
         var x2Position = 0;
         var yPosition = 0;
         var relativey = 0;
-        if(element === null){
+        
+        // Check if the element is available and if it's the initial load
+        if (element === null && this.state.selectedItemIndex !== index) {
+            // Set initial positions for elements that aren't selected or loaded yet
             x1Position = 0;
-            x2Position = 0
+            x2Position = 0;
             yPosition = 0;
             relativey = 0;
-        }else{
+        } else {
+            // Calculate positions based on bounding rectangles
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            yPosition = con.y - gal.y + con.height/2 - 10
-            if(con.x - gal.x < gal.width/2){
+            yPosition = con.y - gal.y + con.height / 2 - 10;
+    
+            if (con.x - gal.x < gal.width / 2) {
                 x2Position = con.x - gal.x + con.width + 20;
-            }else{
+            } else {
                 x2Position = con.x - gal.x - 40;
             }
-            x1Position = gal.width/2;
-            relativey = gal.height/2;
+            
+            x1Position = gal.width / 2;
+            relativey = gal.height / 2 - 200;
         }
-        return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black"/>;
+        
+        return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black" />;
     }
+    
     drawCircle(r, stroke, fill){
         if(document.getElementById("avatargallery")){
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
             var x = gal.width/2;
-            var y = gal.height/2;
+            var y = gal.height/2-200;
         }else{
             var x = 0;
             var y = 0;
@@ -207,7 +316,7 @@ export default class Avatar extends Component {
         if(document.getElementById("avatargallery")){
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
             var x = gal.width/2 - 60;
-            var y = gal.height/2 - 60;
+            var y = gal.height/2 - 260;
         }else{
             var x = 0;
             var y = 0;
@@ -215,12 +324,25 @@ export default class Avatar extends Component {
         return <image x={x} y={y} width="120" height="120" href={runner}></image>;
 
     }
+
+    calculateAvatarListHeight() {
+        const avatarItems = document.querySelectorAll('.avatar-all-content'); // Select all avatar items
+        let totalHeight = 0;
+    
+        avatarItems.forEach((item) => {
+            // Get the height of each avatar item and add it to the total height
+            totalHeight += item.getBoundingClientRect().height;
+        });
+        console.log("totalHeight",totalHeight)
+        return totalHeight;
+    }
+    
     render() {
         const { isBoxClicked } = this.state;
         if (!this.state.avatarlist || this.state.avatarlist.length === 0) {
             return (
                 <div>
-                    <div className="avatargallery" id="avatargallery">
+                    <div className="avatargallery" id="avatargallery" >
                         {/* Handle the case where avatarlist is not defined or empty */}
                         <p>Loading...</p> {/* You can customize this message */}
                     </div>
@@ -228,14 +350,26 @@ export default class Avatar extends Component {
             );
         }
         const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.title))];
+        const containerHeight = 800; // Replace this with the actual height of the container
+        const avatarListHeight = this.calculateAvatarListHeight(); // Calculate total height of avatar list
+        const totalTitles = uniqueTitles.length;
+        const midPoint = Math.ceil(totalTitles / 2);
+        const rowGap = 2*(containerHeight - avatarListHeight) / totalTitles;
+        console.log("containerHeight - avatarListHeight : ", (containerHeight - avatarListHeight))
+        console.log("rowGap : ",rowGap)
+        console.log("totalTitles : ",totalTitles)
 
         require("../../prerna/avatar.css");
 
         return (
             <div>
-                <div className="avatargallery" id="avatargallery" style={{ ...{ columnGap: this.setColumnGap().gap + 'px' } }}>
+                <div className="avatargallery" id="avatargallery" style={{ columnGap: this.setColumnGap().gap + 'px', height: '1000px'}}>
+                {/* <div className="avatargallery" id="avatargallery" style={{ height: '1000px', overflow: 'auto', position: 'relative' }}> */}
+
                     <div className="avatar-inner">
                         <div className="avatar-line-container">
+                        {/* <svg className="avatar-svg" style={{ width: '100%', height: '100%' }}> */}
+
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
                                     this.state.avatarlist.map((item, index) => {
@@ -266,34 +400,75 @@ export default class Avatar extends Component {
                     </div>
                     {/* {this.state.avatarlist.map((item, index) => { */}
                     {uniqueTitles.map((title, index) => {
-                    const item = this.state.avatarlist.find((item) => item.title === title);
+                const color = this.state.selectedItemIndex === index ? 'darkgrey' : 'black';
+                const item = this.state.avatarlist.find((item) => item.title === title);
+                const isEvenIndex = index % 2 === 0; // Check if the index is even
 
-        
-                        return (
+                // Calculate the position based on even/odd index
+                const positionStyle = {
+                    position: 'relative',
+                    // textAlign: isEvenIndex ? 'right' : 'left', // Alternate text alignment
+                    // transform: isEvenIndex ? 'translateX(300%)' : 'translateX(10%)', // Adjust translation
+                    textAlign: isEvenIndex ? 'left' : 'right',
+                    transform: isEvenIndex ? 'translate(10%,10%)' : 'translate(320%,-110%)',
+                    // marginBottom: `${rowGap}px`,
+                };
 
-                            <div
-                                className={`avatar-all-content `}
-                                key={index} >
-                                <div className="avatar-content-section">
-                                    <span
-                                        className={`avatar-text-field `}
-                                        id={"text" + String(index)}
-                                        onClick={() => this.handleButtonClick(item, index)}
-                                        style={{ cursor: 'pointer' }}>
-                                         {item.title}
-                                         <ColorBar data={json_data} sectionName={item.title} />
-                                    </span>
-                                    
-                                    {this.state.selectedItemIndex === index && (
-                                        <div className="table-container">
-                                            
-                                                <AthleteProfileTable  data={json_data} section_name={this.state.selectedSection} sectionData={this.state.sectionData} />
+                return (
+                    <div className={`avatar-all-content `} key={index} style={positionStyle}>
+                        <div className="avatar-content-section">
+                            <span
+                                className={`avatar-text-field `}
+                                id={"text" + String(index)}
+                                onClick={() => this.handleButtonClick(item, index)}
+                                style={{ cursor: 'pointer', position: 'relative',textAlign: 'left' }}
+                            >   
+                            {/* {item.title} */}
+                                <span style={{ color: color }}>{item.title}</span> 
+                                <ColorBar data={json_data} sectionName={item.title} />
+
+                    {/* Determine table positioning based on title's position visibility: this.state.expandedTableIndex === index ? 'visible' : 'hidden', */}
+                    {this.state.selectedItemIndex === index && (
+                        <div ref={this.tableRef}
+                            className="table-container"
+                            style={{
+                                position: 'absolute',
+                                zIndex: '2',
+                                top: `${this.state.tableTopPosition}px`,
+                                // top: '0',
+                                visibility: this.state.selectedItemIndex === index ? 'visible' : 'hidden',
+                                maxHeight: '500px',
+                                width: '500px',
+                                overflowY: 'auto', 
+                                // boxShadow: '0.5px 0.5px 0.5px rgba(0, 0, 0, 0.3)',
+                                // background: 'linear-gradient(to bottom right, #ffffff, #f0f0f0)', // Gradient background
+                                border: '0.5px solid #ccc', // Border style
+                                borderRadius: '0.5px', // Rounded corners for a smoother appearance
+
+                                // right: isEvenIndex ? '100%' : 'auto',
+                                // left: isEvenIndex ? 'auto' : '100%',
+                                // transform: isEvenIndex ? 'translateX(0%)' :'none',
+
+                                left: isEvenIndex ? '100%' : 'auto',
+                                right: isEvenIndex ? 'auto' : '100%',
+                                transform: isEvenIndex ? 'none' :'translateX(0%)',
+                                // Additional styling as needed
+                            }}
+                            // ref={(ref) => ref && this.handleTableHeight(ref.getBoundingClientRect().height)}
+                        >
+                                        
+                                            <AthleteProfileTable
+                                                data={json_data}
+                                                section_name={this.state.selectedSection}
+                                                sectionData={this.state.sectionData}
+                                            />
                                         </div>
-                                        )}
-                                </div>
+                                    )}
+                                </span>
                             </div>
-                        );
-                    })}
+                        </div>
+                    );
+                })}
                 </div>
             </div>
         );

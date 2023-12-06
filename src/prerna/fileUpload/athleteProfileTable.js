@@ -37,10 +37,20 @@ export const json_data = {
         ]
       },
       {
-        "section_name": "Soziologie",
+        "section_name": "Ziologies",
         "testsArr": [
           {"test_title": "t1", "ser": [{"value": "7,7", "color": "red"}, {"value": "9", "color": "green"}]},
           {"test_title": "t2", "ser": [{"value": "10,7", "color": "yellow"}, {"value": "75", "color": "red"}]}
+        ]
+      },
+      {
+        "section_name": "Motorik",
+        "testsArr": [
+          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "red"}]},
+          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "red"}]},
+          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "yellow"}]},
+          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "red"}]},
+          {"test_title": "t2", "ser": [{"value": "8,5", "color": "yellow"}, {"value": "65", "color": "yellow"}]}
         ]
       },
       {
@@ -54,10 +64,40 @@ export const json_data = {
         ]
       },
       {
-        "section_name": "Motorik",
+        "section_name": "Motoriko",
         "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
+          {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
+          {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
+          {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
+          {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "red"}]},
+          {"test_title": "t3", "ser": [{"value": "17,4", "color": "yellow"}, {"value": "61", "color": "red"}]}
+        ]
+      },
+      {
+      "section_name": "INKognition",
+      "testsArr": [
+        {"test_title": "INKognition12345", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
+        {"test_title": "INKognition23243456", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
+        {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "red"}]}
+      ]
+    },
+    {
+      "section_name": "NoZiologies",
+      "testsArr": [
+        {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
+        {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
+        {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "red"}]},
+        {"test_title": "t3", "ser": [{"value": "17,4", "color": "yellow"}, {"value": "61", "color": "red"}]}
+      ]
+    },
+      {
+        "section_name": "Soziologie",
+        "testsArr": [
+          {"test_title": "INKognition12345", "ser": [{"value": "7,7", "color": "red"}, {"value": "9", "color": "green"}]},
+          {"test_title": "INKognition123453456", "ser": [{"value": "10,7", "color": "yellow"}, {"value": "75", "color": "red"}]}
         ]
       }
     ]
