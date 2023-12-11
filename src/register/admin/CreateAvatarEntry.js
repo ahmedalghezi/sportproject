@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function CreateAvatarEntry({ done , sectionID}) {
+function CreateAvatarEntry({ done, sectionID }) {
     const [spaces, setSpaces] = useState([]);
     const [tests, setTests] = useState([]);
     const [selectedSpace, setSelectedSpace] = useState("");
@@ -9,11 +9,9 @@ function CreateAvatarEntry({ done , sectionID}) {
     const [selectedTestsList, setSelectedTestsList] = useState([]);
     const [title, setTitle] = useState("");
     const [formula, setFormula] = useState("");
-
     const [formulaGreen, setFormulaGreen] = useState("");
     const [formulaRed, setFormulaRed] = useState("");
     const [comparisonOperator, setComparisonOperator] = useState("great-less");
-
 
     useEffect(() => {
         axios.get("https://inprove-sport.info/csv/getSpaces").then((response) => {
@@ -22,7 +20,7 @@ function CreateAvatarEntry({ done , sectionID}) {
     }, []);
 
     const fetchTests = (space) => {
-        axios.get(`https://inprove-sport.info/csv/dnnxyrtFgrhXdYtdKEw/getTests/${space}`).then((response) => {
+        axios.get(`https://inprove-sport.info/csv/dnnxyrtFgrhXdYtdKEw/getTests/${space}/d6fBgdKZx6DGHaReiUe`).then((response) => {
             setTests(response.data.data);
         });
     };
@@ -38,6 +36,7 @@ function CreateAvatarEntry({ done , sectionID}) {
         };
 
         axios.post("https://inprove-sport.info/avatar/createAvatarElement", payload).then((response) => {
+            console.log('Response:', response);
             if (response.data.res === "ok") {
                 if (typeof done === "function") {
                     done(true);
@@ -69,7 +68,13 @@ function CreateAvatarEntry({ done , sectionID}) {
             {/* Test selection */}
             <div>
                 {tests && (
-                    <select onChange={(e) => setSelectedTest(e.target.value)}>
+                    <select onChange={(e) => {
+                        setSelectedTest(e.target.value);
+                        const selectedTestName = tests.find((test) => String(test.testid) === String(e.target.value))?.testname;
+                        if (selectedTestName) {
+                            setTitle(selectedTestName);
+                        }
+                    }}>
                         {tests.map((test) => (
                             <option key={test.testid} value={test.testid}>
                                 {test.testname}
@@ -86,16 +91,20 @@ function CreateAvatarEntry({ done , sectionID}) {
                     if (foundTest) {
                         setSelectedTestsList([...selectedTestsList, foundTest]);
                     }
-                }}>Add Test</button>
-                <button onClick={() => setSelectedTestsList([])}>Delete All Selected Tests</button>
+                }} className="edit-button" >Add Test</button>
+                <button onClick={() => setSelectedTestsList([])} className="edit-button" >Delete All Selected Tests</button>
             </div>
 
             {/* Title field */}
             <div>
-                <input className={"form-control"} type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <input
+                    className={"form-control"}
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
             </div>
-
-
 
             {/* Formula Green field */}
             <div>
@@ -120,19 +129,6 @@ function CreateAvatarEntry({ done , sectionID}) {
             </div>
 
             {/* Comparison Operator field */}
-
-            <div>
-                {"Select whether the the green threshold should be (greater than the formula and the red is less) or (vice versa)" }
-                <select onChange={(e) => setComparisonOperator(e.target.value)}>
-                    <option value="great-less">great-less</option>
-                    <option value="less-great">less-great</option>
-                </select>
-            </div>
-
-
-
-
-
             {/* Submit button */}
             <div>
                 <button onClick={handleSubmit} className={"btn btn-primary btn-block"}>Submit</button>
@@ -146,7 +142,6 @@ function CreateAvatarEntry({ done , sectionID}) {
             </ul>
         </div>
     );
-
 }
 
 export default CreateAvatarEntry;
