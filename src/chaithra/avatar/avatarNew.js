@@ -9,7 +9,7 @@ import CoachInputDataService from "../../DB/rw"
 import { color } from "@mui/system";
 import '../../prerna/avatar.css'
 import runner from './runner.png'
-import myImage from './myImage.png'
+// import myImage from './myImage.png'
 import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
 import AthleteProfileTable, { json_data } from '../../prerna/fileUpload/athleteProfileTable';
