@@ -89,6 +89,7 @@ import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
 import CreateIntervention from "./trainer/intervention/create";
 import TableComponentInt from "./trainer/intervention/actions";
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
+import ProfilePictureUpload from './prerna/fileUpload/profilePicture';
 import OGAvatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
 //import ScrollingContent from "./firebase/Dar/Dar";
@@ -166,6 +167,8 @@ function Main() {
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
                             <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            
+                            <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
 
 
 

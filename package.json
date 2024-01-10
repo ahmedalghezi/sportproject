@@ -2,7 +2,7 @@
   "name": "inprove",
   "version": "3.1.0",
   "private": true,
-  "homepage": "http://inprove-sport.info/reg",
+  "homepage": "http://inprove-sport.info/dev2",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -25,6 +25,7 @@
     "plotly.js": "^2.25.2",
     "rc-collapse": "^3.5.2",
     "react": "^17.0.2",
+    "react-avatar-editor": "^13.0.2",
     "react-bootstrap": "^2.5.0",
     "react-csv": "^2.2.2",
     "react-data-table-component": "^7.4.7",

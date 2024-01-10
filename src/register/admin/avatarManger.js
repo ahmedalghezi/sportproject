@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CreateAvatarEntry from "./CreateAvatarEntry";
+import CreateAvatarEntry from "./CreateAvatarEntry1";
+import PostSignup from "../../DB/postSignup";
 
 const SectionManager = () => {
     const [sections, setSections] = useState([]);
@@ -11,9 +12,28 @@ const SectionManager = () => {
     const [testsModalContent, setTestsModalContent] = useState(null); // Define testsModalContent state
     const [sectionToAddEntryTo, setSectionToAddEntryTo] = useState(null);
     const [testsForSections, setTestsForSections] = useState({});
+    const [disciplinesList, setDisciplinesList] = useState([]);
+    const [discipline, setDiscipline] = useState("All");
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const done = (status) => {
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
+
+    // const done = (status) => {
+//     if (status) {
+    //     }
+    //     setSectionToAddEntryTo(null);
+    // };
+
+    const done = async (status, sectionID) => {
         if (status) {
+// Check if showTestsModal is true
+            if (showTestsModal) {
+                // Call showEntries for the relevant section
+                await showEntries(sectionID);
+
+            }
         }
         setSectionToAddEntryTo(null);
     };
@@ -21,7 +41,47 @@ const SectionManager = () => {
     // Load sections when the component mounts
     useEffect(() => {
         loadSections();
+if (disciplinesList.length == 0) {
+            getDisplines();
+            //showError("This page is under update ...");
+        }
     }, []);
+
+
+        // fetch('your_url_to_get_disciplines')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         // Assuming data is an array of disciplines like: ['Discipline1', 'Discipline2', ...]
+        //         setDisciplines(data);
+        //     })
+        //     .catch(error => {
+        //         // Handle error
+        //         console.error('Error fetching disciplines:', error);
+        //     });
+    //     done(true);
+    // }, []);
+
+
+    const showError = (msg) => {
+        setError(true);
+        setErrorMsg(msg);
+    }
+
+    const getDisplines = () => {
+        PostSignup.getAllDisciplines().then(response => {
+            if (response.data.res === "error") {
+                showError("Error getting disciplines from server");
+                return;
+            } else if (response.data.res && response.data.res.length > 0) {
+                setDisciplinesList(response.data.res);
+                setDiscipline("All");
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("some error has happened");
+        });
+    }
 
     const loadSections = async () => {
         try {
@@ -75,27 +135,34 @@ const SectionManager = () => {
         }
     };
 
-    const showEntries = async (sectionID) => {
+    const showEntries = async (sectionID,discipline) => {
         try {
-            const url = `https://inprove-sport.info/avatar/getEntries`;
+            console.log("discipline : ", discipline)
+            const url = `https://inprove-sport.info/avatar/getEntries/${discipline}`;
             const response = await axios.get(url);
-            const entries = response.data;
+            const entries = response.data.entries;
+            console.log("show entry payload : ", response)
+            console.log("show entry entries : ", entries)
+            console.log("discipline : ", discipline)
 
             // Filter entries for the specific section
             const sectionEntries = entries.filter((entry) => entry.section_id === sectionID);
             const sectionName = sectionEntries.length > 0 ? sectionEntries[0].section_name : '';
 
+            const responseTests = await axios.get(`https://inprove-sport.info/avatar/getTestsForSection/${sectionID}`);
+            console.log("show responseTests  : ", responseTests.data.data)
             const entriesContent = (
                 <div>
-                    <h1>Entries for Section {sectionName}</h1>
+                    <h1>{`Entries for Section : ${sectionName} and discipline: ${discipline}`}</h1>
                     <ul>
                         {sectionEntries.map((entry) => (
                             <li key={entry.id}>
-                                {entry.title}
+                                {/* {entry.title} */}
+                                {`${entry.title} : Tests = [${entry.test_names}]  /n Red = [${entry.red}]  /n Green = [${entry.green}]`}
                                 <button
                                     type="button"
                                     className="btn btn-danger"
-                                    onClick={() => handleRemoveEntry(entry.id)}
+                                    onClick={() => handleRemoveEntry(entry.id, sectionID)}
                                     style={{ marginLeft: '10px' }}
                                 >X
                                 </button>
@@ -112,12 +179,57 @@ const SectionManager = () => {
         }
     };
 
-    const handleRemoveEntry = async (entryId) => {
+    // const showEntries = async (sectionID) => {
+    //     try {
+    //         const entriesResponse = await axios.get('https://inprove-sport.info/avatar/getEntries');
+    //         const testsResponse = await axios.get(`https://inprove-sport.info/avatar/getTestsForSection/${sectionID}`);
+    
+    //         const entries = entriesResponse.data;
+    //         const tests = testsResponse.data.tests;
+    
+    //         const sectionEntries = entries.filter((entry) => entry.section_id === sectionID);
+    //         const sectionName = sectionEntries.length > 0 ? sectionEntries[0].section_name : '';
+    
+    //         const entriesWithTestsContent = sectionEntries.map((entry) => {
+    //             const testIds = entry.test_ids.split(',').map(Number);
+    //             const testNames = tests.filter((test) => testIds.includes(test.testid)).map((test) => test.testname);
+    //             return (
+    //                 <li key={entry.id}>
+    //                     {`${entry.title} : Tests [${testNames.join(', ')}]`}
+    //                     <button
+    //                         type="button"
+    //                         className="btn btn-danger"
+    //                         onClick={() => handleRemoveEntry(entry.id)}
+    //                         style={{ marginLeft: '10px' }}
+    //                     >
+    //                         X
+    //                     </button>
+    //                 </li>
+    //             );
+    //         });
+    
+    //         const entriesContent = (
+    //             <div>
+    //                 <h1>Entries for Section {sectionName}</h1>
+    //                 <ul>{entriesWithTestsContent}</ul>
+    //             </div>
+    //         );
+    
+    //         setTestsModalContent(entriesContent);
+    //         setShowTestsModal(true);
+    //     } catch (error) {
+    //         console.error('Error fetching entries:', error);
+    //     }
+    // };
+    
+
+    const handleRemoveEntry = async (entryId,sectionID) => {
         try {
             // Make a DELETE request to delete the entry
             const response = await axios.post(`https://inprove-sport.info/avatar/deleteAvatarElement`, { id: entryId });
             console.log(`Entry with ID ${entryId} has been deleted`);
             console.log(`Response from delete request:`, response);
+            showEntries(sectionID,discipline);
         } catch (error) {
             console.error(`Error deleting entry with ID ${entryId}:`, error);
         }
@@ -129,6 +241,13 @@ const SectionManager = () => {
         setTestsModalContent(null);
     };
 
+const handleDispSele = (event) => {
+        event.preventDefault();
+        setDiscipline(event.target.value);
+        setSuccess(false);
+        setError(false);
+        console.log("discipline : ", discipline)
+    }
     return (
         <div>
             <h1>Section Manager</h1>
@@ -170,14 +289,38 @@ const SectionManager = () => {
                                             style={{ marginRight: '10px', border: "1px solid #000"}}>
                                         Add Entry
                                     </button>
-                                    <button  type="button" class="btn btn-light" onClick={() => showEntries(section.id)}
+                                    <button  type="button" class="btn btn-light" onClick={() => showEntries(section.id,discipline)}
                                              style={{ marginRight: '10px', border: "1px solid #000"}}>
                                         Show Entries
                                     </button>
+                                    <select onChange={handleDispSele} name="Discipline" value={discipline}>
+                                        <option value="All">All</option>
+                                        {disciplinesList.map((item) => (
+                                            <option key={item} value={item}>{item}</option>
+                                        ))}
+                                    </select>
+                                    {/* <select
+                                        value={selectedDiscipline}
+                                        onChange={(e) => setSelectedDiscipline(e.target.value)}
+                                        style={{ marginRight: '10px', border: '1px solid #000' }}
+                                    >
+                                        <option value="All">All</option>
+                                        {disciplines.map((discipline, index) => (
+                                            <option key={index} value={discipline}>
+                                                {discipline}
+                                            </option>
+                                        ))}
+                                    </select> */}
                                 </div>
                             </div>
                         )}
-                        {sectionToAddEntryTo === section.id && <CreateAvatarEntry sectionID={section.id} done={done} />}
+                        {/* {sectionToAddEntryTo === section.id && <CreateAvatarEntry sectionID={section.id} done={done} />} */}
+                        {sectionToAddEntryTo === section.id && (
+                            <CreateAvatarEntry sectionID={section.id} done={() => done(true, section.id, discipline)} discipline={discipline} />
+                        )}
+
+
+
                     </li>
                 ))}
             </ul>
