@@ -245,7 +245,7 @@ h3 {
   border-radius: 100px;
   background: gray;
   transform: scaleZ(-2);
-  background: url(./runner.png) no-repeat center center fixed;
+  /* background: url(./runner.png) no-repeat center center fixed; */
   background-size: 80px;
   background-color: rgb(218, 210, 210);
   transform: rotateY(180deg);
