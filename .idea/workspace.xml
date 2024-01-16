@@ -5,24 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/firebase/Dar/ScrollingContent.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/firebase/Dar/jizdanMain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/avatarManger.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/correctDate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/intervention/actions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/intervention/create.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chaithra/avatar/CircleWithAnimation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chaithra/avatar/SpanWithAnimation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chaithra/avatar/withAnimation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chaithra/avatar/withFadeInTransition.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chaithra/avatar/withTransition.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/chaithra/avatar/withTransitionAnimations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/editSquad.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/editSquad.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chaithra/avatar/avatarNew.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/chaithra/avatar/avatarNew.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/colorBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/colorBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +82,6 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/App.js" root0="FORCE_HIGHLIGHTING" />
@@ -152,6 +144,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectFrameBounds">
     <option name="x" value="28" />
     <option name="y" value="23" />
@@ -213,8 +208,11 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/user/fileUpload&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;AdminPage&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/chait/SportProjectAdmin/sportproject&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -242,7 +240,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager">
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -283,20 +281,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="npm.build" />
-      <item itemvalue="npm.start (1)" />
-      <item itemvalue="npm.start" />
-      <item itemvalue="npm.test" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.build" />
-        <item itemvalue="npm.start (1)" />
-        <item itemvalue="npm.start" />
-        <item itemvalue="npm.test" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
@@ -403,6 +387,7 @@
       <workItem from="1693386172508" duration="51422000" />
       <workItem from="1696760563476" duration="14555000" />
       <workItem from="1697458751590" duration="1184000" />
+      <workItem from="1702276796930" duration="569000" />
     </task>
     <task id="LOCAL-00028" summary="Adding change and forget password. Changes to the coach interface: admin delete training tests.">
       <created>1659959780169</created>
@@ -884,32 +869,6 @@
     <MESSAGE value="Version 2" />
     <MESSAGE value="Version 2.5" />
     <option name="LAST_COMMIT_MESSAGE" value="Version 2.5" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>302</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/register/Login.js</url>
-          <line>40</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/user/testFolderList.js</url>
-          <line>28</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/DB/postSignup.js</url>
-          <line>35</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
