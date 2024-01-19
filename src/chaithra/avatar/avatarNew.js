@@ -1,14 +1,12 @@
 /*
-By Prerna
+By Chaithra,Prerna
  */
 
-import React, {Component} from "react";
-import HandelTrainer from "../../DB/handelTrainer";
-import PostSignup from "../../DB/postSignup";
-import CoachInputDataService from "../../DB/rw"
+import React, { Component, useEffect } from "react";
+import { useSpring, animated, config } from 'react-spring';
 import { color } from "@mui/system";
-import '../../prerna/avatar.css'
-import runner from './runner.png'
+import '../../prerna/avatar.css';
+import runner from './runner.png';
 // import myImage from './myImage.png'
 import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
@@ -17,8 +15,13 @@ import ColorBar from "../../prerna/fileUpload/colorBar";
 import ProfilePictureUpload from '../../prerna/fileUpload/profilePicture';
 import { X } from "@mui/icons-material";
 import AvatarEditor from 'react-avatar-editor';
-
-
+import HandelTrainer from "../../DB/handelTrainer";
+import PostSignup from "../../DB/postSignup";
+import CoachInputDataService from "../../DB/rw";
+import withTransition from "./withTransition"
+import CircleWithAnimation from "./CircleWithAnimation";
+import SpanWithAnimation from './SpanWithAnimation';
+import withCombinedAnimation from './withCombinedAnimation';
 
 <AthleteProfileTable data={json_data} />
 
@@ -33,22 +36,23 @@ const testdata = [
     { id: 8,title: "Ziologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
 
-
-
-export default class Avatar extends Component {
-
-
+class Avatar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state =  {selectedSection: null, 
-            avatarlist: testdata, sectionData: null, selectedItemIndex: null,
+        this.state =  {
+            selectedSection: null,
+            avatarlist: testdata,
+            sectionData: null,
+            selectedItemIndex: null,
             tableHeight: 0,
+            springProps: { height: 0 },
             showProfileUpload: false,
             uploadedFileName: null,
             avatarImage: null,
-            loggedIn: false,};
-
+            loggedIn: false,
+            tableOpacity: 0,
+            };
         this.tableRef = React.createRef();
         this.getData = this.getData.bind(this);
         this.drawhorizontalLines = this.drawhorizontalLines.bind(this);
@@ -60,38 +64,35 @@ export default class Avatar extends Component {
         this.drawImageIcon = this.drawImageIcon.bind(this);
         this.calculateTablePosition = this.calculateTablePosition.bind(this);
         this.handleTableHeight = this.handleTableHeight.bind(this);
-        this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.handleHover = this.handleHover.bind(this);
         this.calculateAvatarListHeight=this.calculateAvatarListHeight.bind(this);
         // this.saveImageToLocal = this.saveImageToLocal.bind(this);
-
     }
 
-
-    
-    handleButtonClick = (section, index) => {
+      handleHover = (section, index, isMouseEnter) => {
         const selectedSectionName = section.title;
         const tableTopPosition = this.calculateTablePosition(`text${index}`, index);
-    
-        // Check if the clicked table is already expanded
         const isSameIndex = this.state.selectedItemIndex === index;
         const newSelectedItemIndex = isSameIndex ? null : index;
-    
-        this.setState({
-            selectedSection: selectedSectionName,
-            sectionData: section,
-            selectedItemIndex: newSelectedItemIndex, // Update the selected item index
-            tableTopPosition: tableTopPosition,
-            expandedTableIndex: isSameIndex ? null : index, // Update the expanded index if needed
-        });
-    };
+
+         this.setState({
+            selectedSection: isMouseEnter ? selectedSectionName : null,
+            sectionData: isMouseEnter ? section : null,
+            selectedItemIndex: newSelectedItemIndex,
+            tableTopPosition: isMouseEnter ? tableTopPosition : 0,
+            expandedTableIndex: isSameIndex ? null : index,
+        },
+        () => {
+        this.props.onTransition();
+      }
+    );
+  };
 
     checkLoginStatus = () => {
         PostSignup.isLogin()
           .then((response) => {
             if (response.data.res === 'ok') {
-              this.setState({ loggedIn: true }); 
-              // Set loggedIn state based on API response
-            //   console.log('logged in');
+              this.setState({ loggedIn: true });
             } else {
               this.setState({ loggedIn: false });
             }
@@ -100,25 +101,18 @@ export default class Avatar extends Component {
             console.error('Error checking login status:', error);
           });
       };
-    
-    
-    
 
     handleSelectImage = () => {
         if (!this.state.loggedIn) {
           console.log('User not logged in. Please log in to upload a profile picture.');
           return;
         }
-        // console.log('Button Clicked for photo upload');
-        
-          
-        this.setState({ showProfileUpload: true});
-        
+         this.setState({ showProfileUpload: true});
       };
       
       receiveFileName = (filename) => {
         this.setState({ uploadedFileName: filename, showProfileUpload: false }, () => {
-          this.checkImageIcon(); // Call checkImageIcon after receiving the fileName
+          this.checkImageIcon();
         });
       };
 
@@ -130,40 +124,26 @@ export default class Avatar extends Component {
         const titleTop = titleRect.top - containerRect.top;
         const titleBottom = titleRect.bottom - containerRect.top;
         const containerHeight = containerRect.height;
-        
         let tableTop = 0;
-    
-        
         const topThreshold = containerHeight / 4;
-       
         const bottomThreshold = (3 * containerHeight) / 4;
-        
         if (index < 2) {
-           
             tableTop = (titleBottom-titleTop)/16;
-            
-            
         } 
         else if (index >= this.state.avatarlist.length - 2) {
 
             tableTop = (bottomThreshold - titleBottom) + (titleTop-titleBottom)
-           
             if(Math.abs(tableTop)> this.state.tableHeight)
             {
                 tableTop = 0
             }  
-            
-        } 
+        }
         else 
         {   
             tableTop = (titleTop-titleBottom)
-            
-            
-        }  
-       
+        }
         return tableTop;
     }
-    
     
     // Function to handle table height calculation
     handleTableHeight = (height) => {
@@ -171,33 +151,24 @@ export default class Avatar extends Component {
             this.setState({ tableHeight: height });
         }
     };
-    
+
     checkImageIcon() {
-        
         const imageIcon = this.drawImageIcon();
-        
-        // console.log('Image Icon:', imageIcon); 
       }
 
     componentDidMount() {
         this.getData();
         this.setBoundingSVG();
         const lastTableIndex = this.state.avatarlist.length - 1;
-        this.handleButtonClick(this.state.avatarlist[lastTableIndex], lastTableIndex);
+        this.handleHover(this.state.avatarlist[lastTableIndex], lastTableIndex);
         this.checkImageIcon();
         this.checkLoginStatus();
-
     }
-        
-    
 
     componentDidUpdate() {
-        
         if (this.tableRef.current && this.state.tableHeight === 0) {
             const height = this.tableRef.current.getBoundingClientRect().height;
-            
             this.setState({ tableHeight: height });
-            // console.log('Table height:', height);
         }
     }
 
@@ -207,8 +178,6 @@ export default class Avatar extends Component {
         }else{
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
         }
-        // console.log("height : ", gal.height)
-        // console.log("width : ", gal.width)
         return {height: gal.height, width: gal.width};
     }
     setColumnGap(){
@@ -239,7 +208,6 @@ export default class Avatar extends Component {
 
         }).catch(e => {
             this.setState({avatarlist: testdata});
-            // console.log(e);
             alert("Es ist ein Fehler aufgetreten!");
         });
     }
@@ -253,7 +221,6 @@ export default class Avatar extends Component {
             x2Position = 0
             yPosition = 0;
         }
-        
         else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
@@ -266,8 +233,18 @@ export default class Avatar extends Component {
                 x1Position = con.x - gal.x - 40;
             }
         }
-        return <line x1={x1Position} y1={yPosition} x2={x2Position} y2={yPosition} stroke="black"/>;
+        return <animated.line
+        x1={x1Position}
+        y1={yPosition}
+        x2={x2Position}
+        y2={yPosition}
+        stroke="black"
+         style={{
+        opacity: this.state.transitionProps?.height?.interpolate((value) => (value ? value / 1000 : 1)),
+      }}
+        />;
     }
+
     drawiconCircles(element, index) {
         var cxPosition = 0;
         var cyPosition = 0;
@@ -297,7 +274,19 @@ export default class Avatar extends Component {
                 cyPosition = gal.height/2-200 - cyPosition
             }
         }
-        return <circle cx={cxPosition} cy={cyPosition} r="10" stroke="gray" fill="gray"/>;
+         return (
+              <CircleWithAnimation
+                key={index}
+                cx={cxPosition}
+                cy={cyPosition}
+                r={10}
+                stroke="gray"
+                fill="gray"
+               style={{
+                opacity: this.state.transitionProps?.height?.interpolate((value) => (value ? value / 1000 : 1)),
+                }}
+                />
+              );
     }
 
     drawiconLines(element, index) {
@@ -305,16 +294,14 @@ export default class Avatar extends Component {
         var x2Position = 0;
         var yPosition = 0;
         var relativey = 0;
-        
+
         // Check if the element is available and if it's the initial load
         if (element === null && this.state.selectedItemIndex !== index) {
-            // Set initial positions for elements that aren't selected or loaded yet
             x1Position = 0;
             x2Position = 0;
             yPosition = 0;
             relativey = 0;
         } else {
-            // Calculate positions based on bounding rectangles
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
             yPosition = con.y - gal.y + con.height / 2 - 10;
@@ -324,7 +311,7 @@ export default class Avatar extends Component {
             } else {
                 x2Position = con.x - gal.x - 40;
             }
-            
+
             x1Position = gal.width / 2;
             relativey = gal.height / 2 - 200;
         }
@@ -341,8 +328,6 @@ export default class Avatar extends Component {
             var x = 0;
             var y = 0;
         }
-        // console.log("Circle x : ", x)
-        // console.log("Circle y : ", y)
 
         return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill}/>;
     }
@@ -364,19 +349,11 @@ export default class Avatar extends Component {
     //       console.error('Error saving image to local:', error);
     //     }
     //   };
-      
-      
-      
 
     drawImageIcon() {
-    
         const { uploadedFileName } = this.state;
-    
-        // Default image URL
         let imageURL = runner;
 
-        // console.log(" uploadedFileName : ", uploadedFileName)
-    
         // If uploadedFileName exists, use its URL from the API
         if (uploadedFileName) {
 
@@ -393,7 +370,6 @@ export default class Avatar extends Component {
             }
             const imageURL = `https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage/${uploadedFileName}`;
 
-            // this.saveImageToLocal(imageURL,"myImage.png")
             return (
                 <image
                   x={x}
@@ -405,12 +381,10 @@ export default class Avatar extends Component {
                   onError={this.handleImageError}
                 ></image>
               );
-        
     }
 
         else
         {
-
             if (document.getElementById('avatargallery')) {
                 var gal = document.getElementById('avatargallery').getBoundingClientRect();
                 var x = gal.width / 2 - 55;
@@ -420,8 +394,6 @@ export default class Avatar extends Component {
                 var x = 0;
                 var y = 0;
               }
-
-
             return (
                 <image
                   x={x}
@@ -433,62 +405,43 @@ export default class Avatar extends Component {
                   onError={this.handleImageError}
                 ></image>
               );
-
         }
-    
-        
       };
-
-      
 
     calculateAvatarListHeight() {
         const avatarItems = document.querySelectorAll('.avatar-all-content'); 
         let totalHeight = 0;
     
         avatarItems.forEach((item) => {
-            // Get the height of each avatar item and add it to the total height
             totalHeight += item.getBoundingClientRect().height;
         });
-        // console.log("totalHeight",totalHeight)
         return totalHeight;
     }
-
-    
-
     
     render() {
         const { isBoxClicked, showProfileUpload } = this.state;
-        
-
-
+        const { textAnimationProps, tableAnimationProps } = this.props;
         if (!this.state.avatarlist || this.state.avatarlist.length === 0) {
             return (
                 <div>
                     <div className="avatargallery" id="avatargallery" >
-                        {/* Handle the case where avatarlist is not defined or empty */}
-                        <p>Loading...</p> {/* You can customize this message */}
+                        <p>Loading...</p>
                     </div>
                 </div>
             );
         }
         const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.title))];
-        const containerHeight = 800; // Replace this with the actual height of the container
-        const avatarListHeight = this.calculateAvatarListHeight(); // Calculate total height of avatar list
+        const containerHeight = 800;
+        const avatarListHeight = this.calculateAvatarListHeight();
         const totalTitles = uniqueTitles.length;
         const midPoint = Math.ceil(totalTitles / 2);
         const rowGap = 2*(containerHeight - avatarListHeight) / totalTitles;
-       
-
         require("../../prerna/avatar.css");
 
         return (
-
-            
-
             <div>   
                 <button onClick={this.handleSelectImage}>Upload Profile Picture</button>
 
-                {/* Render ProfilePictureUpload if showProfileUpload is true */}
                 {showProfileUpload && (
                 <ProfilePictureUpload onFileName={this.receiveFileName} 
                 onRedirect={this.handleRedirect}
@@ -496,13 +449,9 @@ export default class Avatar extends Component {
                 )}
         
                 <div className="avatargallery" id="avatargallery" style={{ columnGap: this.setColumnGap().gap + 'px', height: '1000px'}}>
-                {/* <div className="avatargallery" id="avatargallery" style={{ height: '1000px', overflow: 'auto', position: 'relative' }}> */}
 
                     <div className="avatar-inner">
                         <div className="avatar-line-container">
-                        {/* <svg className="avatar-svg" style={{ width: '100%', height: '100%' }}> */}
-                        
-
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
                                     this.state.avatarlist.map((item, index) => {
@@ -522,7 +471,6 @@ export default class Avatar extends Component {
                                 {this.drawCircle(75, "#DAD2D2", "#DAD2D2")}
                                 {this.drawImageIcon()}
                                 
-                                
                                 {
                                     this.state.avatarlist.map((item, index) => {
                                         return (
@@ -534,80 +482,71 @@ export default class Avatar extends Component {
                         </div>
                         </div>
 
-                    {/* {this.state.avatarlist.map((item, index) => { */}
                     {uniqueTitles.map((title, index) => {
                     const color = this.state.selectedItemIndex === index ? 'darkgrey' : 'black';
                     const item = this.state.avatarlist.find((item) => item.title === title);
-                    const isEvenIndex = index % 2 === 0; // Check if the index is even
+                    const isEvenIndex = index % 2 === 0;
 
-                // Calculate the position based on even/odd index
                 const positionStyle = {
                     position: 'relative',
-                    // textAlign: isEvenIndex ? 'right' : 'left', // Alternate text alignment
-                    // transform: isEvenIndex ? 'translateX(300%)' : 'translateX(10%)', // Adjust translation
                     textAlign: isEvenIndex ? 'left' : 'right',
                     transform: isEvenIndex ? 'translate(10%,10%)' : 'translate(320%,-110%)',
-                    // marginBottom: `${rowGap}px`,
                 };
 
                 return (
                     <div className={`avatar-all-content `} key={index} style={positionStyle}>
                         <div className="avatar-content-section">
-                            <span
+                            <animated.span
                                 className={`avatar-text-field `}
                                 id={"text" + String(index)}
-                                onClick={() => this.handleButtonClick(item, index)}
-                                style={{ cursor: 'pointer', position: 'relative',textAlign: 'left' }}
-                            >   
+                                onMouseEnter={() => this.handleHover(item, index, true)}
+                                onMouseLeave={() => this.handleHover(item, index, false)}
+                                style={{
+                                cursor: 'pointer',
+                                position:'relative',
+                                textAlign: 'left'
+                                }}
+                            >
                             {/* {item.title} */}
-                                <span style={{ color: color }}>{item.title}</span> 
+                                <SpanWithAnimation style={{ color: color }}>{item.title}</SpanWithAnimation>
                                 <ColorBar data={json_data} sectionName={item.title} />
 
                     {/* Determine table positioning based on title's position visibility: this.state.expandedTableIndex === index ? 'visible' : 'hidden', */}
                     {this.state.selectedItemIndex === index && (
-                        <div ref={this.tableRef}
+                         <animated.div
+                            ref={this.tableRef}
                             className="table-container"
                             style={{
                                 position: 'absolute',
                                 zIndex: '2',
                                 top: `${this.state.tableTopPosition}px`,
-                                // top: '0',
                                 visibility: this.state.selectedItemIndex === index ? 'visible' : 'hidden',
                                 maxHeight: '500px',
                                 width: '500px',
-                                overflowY: 'auto', 
-                                // boxShadow: '0.5px 0.5px 0.5px rgba(0, 0, 0, 0.3)',
-                                // background: 'linear-gradient(to bottom right, #ffffff, #f0f0f0)', // Gradient background
-                                border: '0.5px solid #ccc', // Border style
-                                borderRadius: '0.5px', // Rounded corners for a smoother appearance
-
-                                // right: isEvenIndex ? '100%' : 'auto',
-                                // left: isEvenIndex ? 'auto' : '100%',
-                                // transform: isEvenIndex ? 'translateX(0%)' :'none',
-
+                                overflowY: 'auto',
+                                border: '0.5px solid #ccc',
+                                borderRadius: '0.5px',
                                 left: isEvenIndex ? '100%' : 'auto',
                                 right: isEvenIndex ? 'auto' : '100%',
                                 transform: isEvenIndex ? 'none' :'translateX(0%)',
-                                // Additional styling as needed
                             }}
-                            // ref={(ref) => ref && this.handleTableHeight(ref.getBoundingClientRect().height)}
                         >
-                                        
                                             <AthleteProfileTable
                                                 data={json_data}
                                                 section_name={this.state.selectedSection}
                                                 sectionData={this.state.sectionData}
                                             />
-                                        </div>
+                                       </animated.div>
                                     )}
-                                </span>
+                                </animated.span>
                             </div>
-                        </div>
-                    );
-                })}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         );
     }
 }
 
+export default withCombinedAnimation(Avatar);
