@@ -83,6 +83,7 @@ import EditSquad from "./register/admin/editSquad";
 import CorrectDate from "./register/admin/correctDate";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
+import ProfileStyleComp from './prerna/fileUpload/testsSpaceCnt';
 import AvatarManger from "./register/admin/avatarManger";
 import SectionAndEntryManager from "./register/admin/avatarManger";
 import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
@@ -169,7 +170,8 @@ function Main() {
                             <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
                             
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
-
+                            {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
+                            
 
 
 

@@ -20,6 +20,7 @@ import LoadCharts from "../profilechart/profile_charts";
 import graphimage from "./graph.png"
 import avaimg from "./avatar.png"
 import LinkList from "../../user/LinkList";
+import ProfileStyleComp from '../../prerna/fileUpload/testsSpaceCnt';
 
 //Profile Template
 const diastyle = {
@@ -279,11 +280,13 @@ class TestProfileC2 extends Component {
 
   render() {
     return (
+      <div>
       <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Header title="Mein Profil" subtitle="Willkommen bei in:prove!" />
         <Box>
+          
           <Button
             onClick={this.handlePopupOpenInfo}
             sx={{
@@ -402,8 +405,13 @@ class TestProfileC2 extends Component {
             </div>
 
         </Typography>
+                  
           </Box>
         </Modal>
+
+      
+        
+        
 
         <Modal
           open={this.state.showSurvey}
@@ -470,7 +478,13 @@ class TestProfileC2 extends Component {
 
         </Box>
       </Box>
+      <ProfileStyleComp />
+      </Box>
+      
+      <Box m="20px">
       {/* GRID & CHARTS */}
+
+
       <Box
         display="grid"
         gridTemplateColumns="repeat(12, 1fr)"
@@ -605,68 +619,8 @@ class TestProfileC2 extends Component {
           </Box>
         </Box>
         </Box>
-
-
-
-
-      {/*
-        <div id="beside">
-          <div className="profile-name" hidden={true}>
-            <div>
-              <h3> Max Mustermann </h3>
-            </div>
-          </div>
-
-          <div>
-
-            <div hidden={true} className="information-content">
-              {" "}
-              <h4>Information</h4>
-              <button onClick={this.handleClick} className="btn btn-primary btn-block">
-                {" "}
-                update profile
-              </button>
-            </div>
-            <div hidden={!this.state.showEmptyMsg}>
-              <p>Hallo,</p><p>willkommen im Projektportal des in:prove Projektes.</p><p>Aktuell können wir
-              Deine Ergebnisse noch nicht für den Abruf bereitstellen.
-              Wir geben Dir Bescheid, sobald Du diese im Projektportal abrufen kannst.</p>
-              <p>Mit sportlichen Grüßen,<br></br> Dein in:prove Team</p>
-            </div>
-            <hr></hr>
-
-
-            <div id="beside">
-              <div className="list-one" hidden={this.state.hideSurvey}>
-
-                <h4>Meine Umfragen</h4>
-
-                <ul>
-                  <ul>
-                    {this.state.surveyList.map((item) => (
-                        <li key={item.title}>
-                          <a href={item.link}>{item.title}</a></li>
-                    ))}
-                  </ul>
-                </ul>
-              </div>
-              <div className="list-two">
-                <h4>Meine Dateien</h4>
-                <ul>
-                  {this.state.filesList.map((item) => (
-                      <li key={item.file_name} onClick={this.handleFileClick}>
-                        <a hidden={!item.admin} name={"deletevftr5"+item.file_name} href={"#" + item.file_name}>(delete) </a>
-                        <a name={item.file_name} href={"#" + item.file_name}>{item.title}</a>
-                      </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-                  */}
         </Box>
+        </div>
     );
   }
 
