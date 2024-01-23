@@ -315,6 +315,15 @@ h3 {
   animation-fill-mode: forwards; /* Keep the final style after animation */
 }
 
+.two-column-layout {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 0 10px; /* Adjust padding as needed */
+}
+
 
 
 
