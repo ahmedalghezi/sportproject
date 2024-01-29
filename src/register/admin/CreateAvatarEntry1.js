@@ -13,17 +13,27 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
     const [formulaRed, setFormulaRed] = useState("");
     const [comparisonOperator, setComparisonOperator] = useState("great-less");
 
+
+    // State for the 'Show values' checkbox
+    const [showValues, setShowValues] = useState(true);
+    const [comparison, setComparison] = useState('greaterThan');
+
+    // State for the 'Show thresholds' checkbox
+    const [showThresholds, setShowThresholds] = useState(true);
+
     useEffect(() => {
         axios.get("https://inprove-sport.info/csv/getSpaces").then((response) => {
             setSpaces(response.data.data);
             console.log("CAE get spaces", response.data.data);
         });
-        
+
     }, []);
 
     const fetchTests = (space) => {
         axios.get(`https://inprove-sport.info/csv/dnnxyrtFgrhXdYtdKEw/getTests/${space}/d6fBgdKZx6DGHaReiUe`).then((response) => {
             setTests(response.data.data);
+            if(response.data.data && response.data.data.length > 0)
+                setSelectedTest(response.data.data[0].testid);
             console.log("CAE fetchTests", response.data.data);
         });
     };
@@ -73,12 +83,12 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
     //         console.log("selectedTestsList :", selectedTestsList)
     //     }
     // };
-    
+
     const handleSpaceSelect = (space) => {
         setSelectedSpace(space);
         fetchTests(space);
     };
-    
+
     const handleTestSelect = (test) => {
         setSelectedTest(test);
         // const selectedTestName = tests.find((t) => String(t.testid) === String(test))?.testname;
@@ -86,7 +96,7 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
         //     setTitle(selectedTestName);
         // }
     };
-    
+
     // const handleSubmit = () => {
     //     if (title && selectedTestsList.length > 0) {
     //         const testIds = selectedTestsList.map((entry) => entry.test);
@@ -100,7 +110,7 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
     //         };
 
     //         console.log("payload : ", payload)
-    
+
     //         axios.post("https://inprove-sport.info/avatar/createAvatarElement", payload)
     //             .then((response) => {
     //                 if (response.data.res === "ok") {
@@ -122,7 +132,7 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
     //         alert('Please enter a title and select tests before submitting.');
     //     }
     // };
-    
+
     const handleAddTest = () => {
         if (selectedSpace !== "" && selectedTest !== "") {
             const spaceTestCombo = {
@@ -135,7 +145,7 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
             console.log("selectedTestsList :", selectedTestsList)
         }
     };
-    
+
     // const handleSubmit = () => {
     //     if (title && selectedTestsList.length > 0) {
     //         const testIds = selectedTestsList.map((entry) => entry.test);
@@ -186,17 +196,20 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
                 formulaGreen,
                 formulaRed,
                 comparisonOperator,
+                comparison,
+                showValues,
+                showThresholds,
                 sectionID,
                 discipline
             };
             console.log("payload : ", payload)
             axios.post("https://inprove-sport.info/avatar/createAvatarElement", payload)
-                .then((response) => {   
+                .then((response) => {
                     if (response.data.res === "ok") {
                         const mapping = selectedTestsList.map((entry) => entry.testName);
                         const message = `One entry added with title : ${title} and tests : [${mapping}]`;
                         alert(message);
-                        
+
                         // Resetting fields after successful submission
                         setTitle(""); // Reset the title
                         setSelectedSpace("Please select"); // Reset the selected space
@@ -205,7 +218,7 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
                         setFormulaGreen(""); // Reset formulaGreen
                         setFormulaRed(""); // Reset formulaRed
                         // Reset other necessary fields here
-                        
+
                         // If successful, perform any necessary actions
                     } else {
                         console.log("title : ", title)
@@ -228,7 +241,7 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
             alert('Please enter a title and select tests before submitting.');
         }
     };
-    
+
 
     return (
         <div>
@@ -272,14 +285,14 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
                     // if (foundTest) {
                     //     setSelectedTestsList([...selectedTestsList, foundTest]);
                     // }
-        
+
                         const foundTests = tests.filter(test => selectedTestsList.every(selectedTest => selectedTest.testid !== test.testid));
-                    
+
                         if (foundTests.length > 0) {
                             setSelectedTestsList([...selectedTestsList, ...foundTests]);
                         }
 
-                        
+
                     }} className="edit-button">Add Test</button>
 
                 <button onClick={() => setSelectedTestsList([])} className="edit-button" >Delete All Selected Tests</button>
@@ -294,6 +307,19 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
                     }} className="edit-button">Add Test</button>
                     <button onClick={() => setSelectedTestsList([])} className="edit-button">Delete All Selected Tests</button>
                 </div> */}
+
+            {/* Title field */}
+            <div>
+                <input
+                    className={"form-control"}
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={handleInputChange}
+                    required
+                />
+            </div>
+
 
 <div>
             <select value={selectedSpace} onChange={(e) => handleSpaceSelect(e.target.value)}>
@@ -324,31 +350,73 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
             <button onClick={() => setSelectedTestsList([])} className="edit-button">Delete All Selected Tests</button>
         </div>
 
-            {/* Title field */}
+
+
+
+
             <div>
-                <input
-                    className={"form-control"}
-                    type="text"
-                    placeholder="Title"
-                    value={title}
-                    onChange={handleInputChange}
-                    required
-                />
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={showValues}
+                        onChange={e => setShowValues(e.target.checked)}
+                    />
+                    Show values
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={showThresholds}
+                        onChange={e => setShowThresholds(e.target.checked)}
+                    />
+                    Show thresholds
+                </label>
             </div>
 
+
+            <br/>
+            {showThresholds && "In the formula field, please use numerical values for static thresholds, F for the formula (MW + SD * 1,5), or FR for (MW - SD * 1,5) "}
             {/* Formula Green field */}
-            <div>
-                <input
-                    className={"form-control"}
-                    type="text"
-                    placeholder="Formula Green"
-                    value={formulaGreen}
-                    onChange={(e) => setFormulaGreen(e.target.value)}
-                />
-            </div>
 
-            {/* Formula Red field */}
-            <div>
+
+            {showThresholds && <div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <select
+                        className="form-control"
+                        value={comparison}
+                        onChange={e => setComparison(e.target.value)}
+                        style={{ width: 'auto' }} // Adjust width as needed
+                    >
+                        <option value="greaterThan">Greater than</option>
+                        <option value="lessThan">Less than</option>
+                    </select>
+                    <input
+                        className={"form-control"}
+                        type="text"
+                        placeholder="Formula Green"
+                        value={formulaGreen}
+                        onChange={(e) => setFormulaGreen(e.target.value)}
+                    />
+                </div>
+
+
+
+
+
+
+                {/* Formula Red field */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <select
+                    className="form-control"
+                    value={comparison}
+                    onChange={e => setComparison(e.target.value)}
+                    style={{ width: 'auto' }} // Adjust width as needed
+                >
+                    <option value="greaterThan">Less than</option>
+                    <option value="lessThan">Greater than</option>
+                </select>
                 <input
                     className={"form-control"}
                     type="text"
@@ -357,6 +425,9 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
                     onChange={(e) => setFormulaRed(e.target.value)}
                 />
             </div>
+            </div>}
+
+
 
             {/* Comparison Operator field */}
             {/* Submit button */}

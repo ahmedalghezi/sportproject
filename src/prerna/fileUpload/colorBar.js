@@ -69,39 +69,44 @@ export const json_data = {
     static defaultProps = {
       data: {},
     };
-  
-    
+
+
     calculateLastColors(sectionName) {
       const { data } = this.props;
-      const section = data.sections.find((s) => s.section_name === sectionName);
-  
-      if (section && section.testsArr.length > 0) {
-        const lastColors = section.testsArr.map((test) =>
-          test.ser[test.ser.length - 1].color
-        );
-  
-        return lastColors;
+      try {
+          const section = data.sections.find(
+              (s) => s.section_name === sectionName);
+
+          if (section && section.testsArr.length > 0) {
+              const lastColors = section.testsArr.map((test) =>
+                  test.ser[test.ser.length - 1].color
+              );
+
+              return lastColors;
+          }
+      }catch (e) {
+          console.log(e)
       }
-  
+
       return [];
     }
-  
+
     render() {
       const { sectionName } = this.props;
       const lastColors = this.calculateLastColors(sectionName);
-  
+
       if (!lastColors || lastColors.length === 0) {
         // Return null or an empty div when data is not available
         return null;
       }
-  
+
       const rectWidth = 20;
       const overlap = 0.1;
       const lineWidth = 0.5;
-  
+
       const totalWidth =
         (lastColors.length - 1) * (rectWidth - overlap * rectWidth) + rectWidth;
-  
+
       return (
         <div
           style={{
@@ -156,10 +161,10 @@ export const json_data = {
       );
     }
   }
-  
+
   ColorBar.propTypes = {
     data: PropTypes.object.isRequired,
     sectionName: PropTypes.string.isRequired,
   };
-  
+
   export default ColorBar;

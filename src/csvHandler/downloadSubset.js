@@ -995,6 +995,18 @@ export function DownloadSubset() {
                                 Yes
                             </label>
                         </div>
+
+                        <div>
+                            <label>
+                                <input
+                                    type="radio"
+                                    value="dob"
+                                    checked={ageRequired === 'dob'}
+                                    onChange={handleAgeChange}
+                                />
+                                Date of  birth
+                            </label>
+                        </div>
                     </div>
 
                     <div>
