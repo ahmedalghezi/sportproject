@@ -4,9 +4,10 @@ By Ahmed Al-Ghezi
 
 import React, { Component } from "react";
 import PostSignup from "../DB/postSignup";
-import { Link } from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import image from "../images/inprove_logo-400x103.png";
 import Footer from "./footer";
+import SectionAndEntryManager from "./admin/avatarManger";
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -165,9 +166,22 @@ export default class NavBar extends Component {
                     hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
                   <Link className="nav-link" to={"/super/athleteControl"}>
-                    Manage Athlete
+                    Manage
                   </Link>
                 </li>
+
+
+
+                <li
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <Link className="nav-link" to={"/avatar/createSection"}>
+                    Avatar
+                  </Link>
+                </li>
+
+
 
 
                 <li

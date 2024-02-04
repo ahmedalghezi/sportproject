@@ -1,13 +1,15 @@
 // EditTest.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import editIcon from '../../assets/img/edit.png';  // Adjust the path accordingly
+
 
 const EditTest = () => {
     const [spaces, setSpaces] = useState([]);
     const [selectedSpace, setSelectedSpace] = useState('');
     const [tests, setTests] = useState([]);
     const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-
+    const [editingTestId, setEditingTestId] = useState(null);
 
 
 
@@ -24,6 +26,9 @@ const EditTest = () => {
             const fetchTests = async () => {
                 const response = await axios.get(`https://inprove-sport.info/csv/getAllTests/${selectedSpace}`);
                 const testsWithModifiedFlag = response.data.map((test) => ({ ...test, isModified: false }));
+                response.data.forEach(obj => {
+                    obj.name_old = obj.name;
+                });
                 setTests(response.data);
             };
             fetchTests();
@@ -130,7 +135,35 @@ const EditTest = () => {
                     {tests.map((test, index) => (
                         <tr key={test.id}>
 
-                            <td>{test.name}</td>
+                            <td style={{ display: 'flex', alignItems: 'center' }}>
+                                {editingTestId === test.id ? (
+                                    <input
+                                        type="text"
+                                        value={test.name}
+                                        onChange={(e) => handleChange(index, 'name', e.target.value)}
+                                        onBlur={() => setEditingTestId(null)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault(); // Prevent any default behavior
+                                                handleSubmit(e, test.id);
+                                                setEditingTestId(null);  // To exit the editing mode
+                                            }
+                                        }}
+                                    />
+                                ) : (
+                                    <>
+                                        {test.name}
+                                        <button
+                                            style={{ marginLeft: '10px', background: 'none', border: 'none', display: 'flex', alignItems: 'center' }}
+                                            onClick={() => setEditingTestId(test.id)}
+                                            title="Edit test name"  // Add this line
+                                        >
+                                            <img src={editIcon} alt="Edit" style={{ height: '20px', width: '20px' }} />
+                                        </button>
+                                    </>
+                                )}
+                            </td>
+
 
 
                             <td>

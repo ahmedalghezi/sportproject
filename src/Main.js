@@ -92,7 +92,6 @@ import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
 import ProfilePictureUpload from './prerna/fileUpload/profilePicture';
 import OGAvatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
-import AvatarPdf from './chaithra/avatar/avatarPdf';
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
 
@@ -168,7 +167,6 @@ function Main() {
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
                             <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
-                             <Route path='/reg/chaithra/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
 
