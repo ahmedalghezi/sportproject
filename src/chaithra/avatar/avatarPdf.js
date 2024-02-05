@@ -11,14 +11,14 @@ import CoachInputDataService from "../../DB/rw";
 <AthleteProfileTable data={json_data} />
 
 const testdata = [
-    { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
-    { id: 2,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
-    { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
-    { id: 4,title: "Soziologie", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
-    { id: 5,title: "Motoriko", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
-    { id: 6,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
-    { id: 7,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 8,title: "Ziologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
+    { id: 1, title: "Anthropometrie", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
+    { id: 2,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
+    { id: 3,title: "Blutanalyse", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
+    { id: 4,title: "Ernährung", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
+    { id: 5,title: "Kognition", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
+    { id: 6,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
+    { id: 7,title: "Psychosoziale Faktoren", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
+    { id: 8,title: "Zyklus", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
 
 class AvatarPdf extends React.Component {
@@ -96,6 +96,60 @@ class AvatarPdf extends React.Component {
     return this.state.avatarlist.find(section => section.title === title);
   });
 
+    const legendItems = {
+      'Blut/Mikrobiom/Ernährung': [
+        { color: 'green', label: 'Grün = im Normbereich' },
+        { color: 'yellow', label: 'Gelb = suboptimal' },
+        { color: 'red', label: 'Rot = auffällig' },
+        { color: 'blue', label: 'Blau = erhöht' },
+      ],
+      'Genetik': [
+        { color: 'green', label: '0 = 0 weniger ,,optimale\'\' Ausprägung' },
+        { color: 'red', label: '100 = ,,optimale\'\' Ausprägung' },
+      ],
+      'Soziologie': [
+        { color: 'green', label: 'Grün = unauffällig' },
+        { color: 'yellow', label: 'Gelb = leicht auffällig' },
+        { color: 'red', label: 'Rot = auffällig' },
+      ],
+      'Motorik & Kognition': [
+        { color: 'green', label: 'Grün = überdurchschnittlich' },
+        { color: 'yellow', label: 'Gelb = durchschnittlich' },
+        { color: 'red', label: 'Rot = unter durchschnittlich' },
+      ],
+    };
+
+      const legend = (
+      <div className="legend">
+        {Object.keys(legendItems).map((category, index) => (
+          <div key={index}>
+            <h5>{`Legende ${category}`}</h5>
+            <ul>
+              {legendItems[category].map((item, subIndex) => (
+                <li key={subIndex}>
+                  <span className="legend-color" style={{ backgroundColor: item.color }}></span>
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+              {index < Object.keys(legendItems).length - 1 && <br />}
+          </div>
+        ))}
+        {/* Additional item for "Grau" */}
+        <br />
+
+    <div className="legend-category">
+      <ul>
+        <li>
+          <span className="legend-color" style={{ backgroundColor: 'grey' }}></span>
+          Grau = Ergebnis liegt noch nicht vor/keine Teilnahme
+        </li>
+      </ul>
+    </div>
+
+      </div>
+    );
+
   return (
     <div>
       <div className="two-column-layout">
@@ -108,7 +162,6 @@ class AvatarPdf extends React.Component {
                   <ColorBar data={json_data} sectionName={section.title} />
                 </span>
               </div>
-
               <div className="table-container">
                 <AthleteProfileTable
                   data={json_data}
@@ -117,6 +170,7 @@ class AvatarPdf extends React.Component {
                 />
               </div>
             </div>
+
           ))}
         </div>
 
@@ -140,7 +194,11 @@ class AvatarPdf extends React.Component {
             </div>
           ))}
         </div>
+         <div className="legend-column">
+        {legend}
       </div>
+      </div>
+
     </div>
   );
 }
