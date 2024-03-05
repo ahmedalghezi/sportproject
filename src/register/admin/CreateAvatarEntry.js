@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Checkbox from "@mui/material/Checkbox";
+import ListItemText from "@mui/material/ListItemText";
 
 function CreateAvatarEntry({ done, sectionID }) {
     const [spaces, setSpaces] = useState([]);
@@ -12,6 +15,12 @@ function CreateAvatarEntry({ done, sectionID }) {
     const [formulaGreen, setFormulaGreen] = useState("");
     const [formulaRed, setFormulaRed] = useState("");
     const [comparisonOperator, setComparisonOperator] = useState("great-less");
+    // State for the 'Show values' checkbox
+    const [showValues, setShowValues] = useState(true);
+    const [comparison, setComparison] = useState('greaterThan');
+
+    // State for the 'Show thresholds' checkbox
+    const [showThresholds, setShowThresholds] = useState(true);
 
     useEffect(() => {
         axios.get("https://inprove-sport.info/csv/getSpaces").then((response) => {
@@ -32,6 +41,8 @@ function CreateAvatarEntry({ done, sectionID }) {
             formulaGreen,
             formulaRed,
             comparisonOperator,
+            showThresholds,
+            showValues,
             sectionID
         };
 
@@ -106,8 +117,46 @@ function CreateAvatarEntry({ done, sectionID }) {
                 />
             </div>
 
-            {/* Formula Green field */}
+
+
             <div>
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={showValues}
+                        onChange={e => setShowValues(e.target.checked)}
+                    />
+                    Show values
+                </label>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={showThresholds}
+                        onChange={e => setShowThresholds(e.target.checked)}
+                    />
+                    Show thresholds
+                </label>
+            </div>
+
+
+
+
+
+            {"Use numerical values for static thresholds, F for the formula (MW + SD * 1,5), or FR for (MW - SD * 1,5) "}
+            {/* Formula Green field */}
+            {showThresholds && <div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <select
+                        className="form-control"
+                        value={comparison}
+                        onChange={e => setComparison(e.target.value)}
+                        style={{ width: 'auto' }} // Adjust width as needed
+                    >
+                        <option value="greaterThan">Greater than</option>
+                        <option value="lessThan">Less than</option>
+                    </select>
                 <input
                     className={"form-control"}
                     type="text"
@@ -127,6 +176,8 @@ function CreateAvatarEntry({ done, sectionID }) {
                     onChange={(e) => setFormulaRed(e.target.value)}
                 />
             </div>
+            </div>}
+
 
             {/* Comparison Operator field */}
             {/* Submit button */}

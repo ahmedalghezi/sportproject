@@ -26,15 +26,28 @@ import withCombinedAnimation from './withCombinedAnimation';
 <AthleteProfileTable data={json_data} />
 
 const testdata = [
-    { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
-    { id: 2,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
-    { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
-    { id: 4,title: "Soziologie", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
-    { id: 5,title: "Motoriko", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
-    { id: 6,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
-    { id: 7,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 8,title: "Ziologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
+    { id: 1, title: "Anthropometrie", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
+    { id: 2,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
+    { id: 3,title: "Blutanalyse", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
+    { id: 4,title: "Ernährung", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
+    { id: 5,title: "Kognition", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
+    { id: 6,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
+    { id: 7,title: "Psychosoziale Faktoren", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
+    { id: 8,title: "Zyklus", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
+
+/*
+const testdata = [
+{ id: 1, title: "Anthropometrie", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
+{ id: 2,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
+{ id: 3,title: "Blutanalyse", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
+{ id: 4,title: "Ernährung", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
+{ id: 5,title: "Kognition", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
+{ id: 6,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
+{ id: 7,title: "Psychosoziale Faktoren", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
+{ id: 8,title: "Mikrobiom", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
+];*/
+
 
 class Avatar extends React.Component {
 
@@ -109,7 +122,7 @@ class Avatar extends React.Component {
         }
          this.setState({ showProfileUpload: true});
       };
-      
+
       receiveFileName = (filename) => {
         this.setState({ uploadedFileName: filename, showProfileUpload: false }, () => {
           this.checkImageIcon();
@@ -129,22 +142,22 @@ class Avatar extends React.Component {
         const bottomThreshold = (3 * containerHeight) / 4;
         if (index < 2) {
             tableTop = (titleBottom-titleTop)/16;
-        } 
+        }
         else if (index >= this.state.avatarlist.length - 2) {
 
             tableTop = (bottomThreshold - titleBottom) + (titleTop-titleBottom)
             if(Math.abs(tableTop)> this.state.tableHeight)
             {
                 tableTop = 0
-            }  
+            }
         }
-        else 
-        {   
+        else
+        {
             tableTop = (titleTop-titleBottom)
         }
         return tableTop;
     }
-    
+
     // Function to handle table height calculation
     handleTableHeight = (height) => {
         if (this.state.tableHeight !== height) {
@@ -305,7 +318,7 @@ class Avatar extends React.Component {
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
             yPosition = con.y - gal.y + con.height / 2 - 10;
-    
+
             if (con.x - gal.x < gal.width / 2) {
                 x2Position = con.x - gal.x + con.width + 20;
             } else {
@@ -315,10 +328,10 @@ class Avatar extends React.Component {
             x1Position = gal.width / 2;
             relativey = gal.height / 2 - 200;
         }
-        
+
         return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black" />;
     }
-    
+
     drawCircle(r, stroke, fill){
         if(document.getElementById("avatargallery")){
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
@@ -337,12 +350,12 @@ class Avatar extends React.Component {
     // //       const response = await fetch(imageUrl);
     // //       const blob = await response.blob();
     // //       const url = window.URL.createObjectURL(blob);
-      
+
     // //       const link = document.createElement('a');
     // //       link.href = url;
     // //       link.setAttribute('download', filename); // Set desired filename
     // //       link.click();
-      
+
     //       // Clean up
     //       window.URL.revokeObjectURL(url);
     //     } catch (error) {
@@ -389,7 +402,7 @@ class Avatar extends React.Component {
                 var gal = document.getElementById('avatargallery').getBoundingClientRect();
                 var x = gal.width / 2 - 55;
                 var y = gal.height / 2 - 260;
-           
+
               } else {
                 var x = 0;
                 var y = 0;
@@ -409,15 +422,15 @@ class Avatar extends React.Component {
       };
 
     calculateAvatarListHeight() {
-        const avatarItems = document.querySelectorAll('.avatar-all-content'); 
+        const avatarItems = document.querySelectorAll('.avatar-all-content');
         let totalHeight = 0;
-    
+
         avatarItems.forEach((item) => {
             totalHeight += item.getBoundingClientRect().height;
         });
         return totalHeight;
     }
-    
+
     render() {
         const { isBoxClicked, showProfileUpload } = this.state;
         const { textAnimationProps, tableAnimationProps } = this.props;
@@ -439,15 +452,15 @@ class Avatar extends React.Component {
         require("../../prerna/avatar.css");
 
         return (
-            <div>   
+            <div>
                 <button onClick={this.handleSelectImage}>Upload Profile Picture</button>
 
                 {showProfileUpload && (
-                <ProfilePictureUpload onFileName={this.receiveFileName} 
+                <ProfilePictureUpload onFileName={this.receiveFileName}
                 onRedirect={this.handleRedirect}
                 />
                 )}
-        
+
                 <div className="avatargallery" id="avatargallery" style={{ columnGap: this.setColumnGap().gap + 'px', height: '1000px'}}>
 
                     <div className="avatar-inner">
@@ -470,7 +483,7 @@ class Avatar extends React.Component {
                                 {this.drawCircle(82, "black", "none")}
                                 {this.drawCircle(75, "#DAD2D2", "#DAD2D2")}
                                 {this.drawImageIcon()}
-                                
+
                                 {
                                     this.state.avatarlist.map((item, index) => {
                                         return (

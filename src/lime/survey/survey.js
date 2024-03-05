@@ -23,7 +23,7 @@ const testdata = [
     { videoID: 5, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%201.mp4"},
     { videoID: 6, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%202.mp4"},
     { videoID: 7, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%203.mp4"},
-    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},   
+    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},
 ]
 */
 
@@ -48,7 +48,12 @@ const recordAudio = () =>
                     const audioUrl = URL.createObjectURL(audioBlob);
                     const audio = new Audio(audioUrl);
                     const play = () => audio.play();
-                    saveAs(audioBlob, 'recorded-audio.mp4');
+                    let fileNameRec = "recorded-audio.mp4";
+                    const searchParams = new URLSearchParams(window.location.search);
+                    const id = searchParams.get("id");
+                    if(id)
+                        fileNameRec = id+"_"+fileNameRec
+                    saveAs(audioBlob, fileNameRec);
                     resolve({ audioBlob, audioUrl, play });
 
                 });
@@ -119,25 +124,6 @@ export default class Survey extends Component {
     }
 
     getTests(){
-        /*
-        HandelCognition.getTests({id: 0}).then(response => {
-            if(response.data.res === "error") {
-                const arr = ["connection error"];
-                return;
-            }
-            if(response.data.res === "error"){
-                alert("Bitte erst anmelden.");
-                return;
-            }
-            if(response.data.res === "ok") {
-                this.setState({testList: response.data})
-            }
-
-        }).catch(e => {
-            console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
-        });
-        */
         this.setState({testList: this.props.testData})
     }
 
@@ -152,25 +138,16 @@ export default class Survey extends Component {
             newanswers.push({videoID: this.state.questionnumber, answers: [q1,q2]})
             console.log(this.state.questionnumber)
             console.log(this.state.testList.length/2)
-            if(this.state.questionnumber % (this.state.testList.length/2) === (this.state.trialquestions - 1)){
-                this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next, answersList: newanswers        
+            /*if(this.state.questionnumber % (this.state.testList.length/2) === (this.state.trialquestions - 1)){
+                this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next, answersList: newanswers
                 });
             }else if(this.state.questionnumber + 1 === (Math.ceil(this.state.testList.length/2))){
-                this.setState({questioncheckbox: false, hquest: true, questionnumber: next, answersList: newanswers        
+                this.setState({questioncheckbox: false, hquest: true, questionnumber: next, answersList: newanswers
                 });
-            }else{
-                this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next, answersList: newanswers         
+            }else*/{
+                this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next, answersList: newanswers
                 });
             }
-            
-            /*
-            this.setState((prevState, props) => ({
-                questionnumber: prevState.questionnumber + 1,
-                questioncheckbox: false,
-                questionbutton: true,
-                answersList: [...this.state.answersList, ...{videoID: this.state.questionnumber, answers: [q1,q2]}]
-            }));
-            */
         }
     }
     introButton(event){
@@ -268,7 +245,14 @@ export default class Survey extends Component {
     questionwithbutton(){
         var string;
         var string2;
-        if(this.state.questionnumber < (this.state.testList.length/2)){
+        string2 = "stellenden Spieler";
+        if(this.state.questionnumber  < this.state.trialquestions){
+            string = "Übungsdurchgang: " + (this.state.questionnumber + 1);
+        }else {
+            string = "Angriffs-Sequenz: " + (this.state.questionnumber + 1);
+        }
+
+        /*if(this.state.questionnumber < (this.state.testList.length/2)){
              if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){
                 string = "Übungsdurchgang: " + (this.state.questionnumber % (this.state.testList.length/2) + 1);
              }else{
@@ -276,14 +260,14 @@ export default class Survey extends Component {
              }
              string2 = "stellenden Spieler";
         }else{
-            if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){               
+            if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){
                 string = "Übungsdurchgang: " + (this.state.questionnumber % (this.state.testList.length/2) + 1);
             }else{
-               string = "Abwehr-Sequenz: " + (this.state.questionnumber % (this.state.testList.length/2) - (this.state.trialquestions-1));             
+               string = "Abwehr-Sequenz: " + (this.state.questionnumber % (this.state.testList.length/2) - (this.state.trialquestions-1));
             }
             string2 = "Mittelblocker";
-        }
-        
+        }*/
+
         return(
             <div>
                 <div className=" question-title-container  bg-primary-survey col-xs-12 ">
@@ -668,29 +652,55 @@ export default class Survey extends Component {
                 {
                     (this.state.intro)
                         ?
+
+
+
                         <div>
                             <h3>Optionengenerierungs-Test DVV</h3>
                             <div className=" survey-welcome  h4 text-primary">
-                                <p><span  className="p_text">In dieser Studie geht es darum herauszufinden, wie du als Volleyballer Entscheidungen auf dem Platz triffst. Hierfür ist eine hohe Konzentration erforderlich, um zu untersuchen wie DU im Spiel entscheidest. <br></br><br></br>
+                                <p><span  className="p_text">In dieser Studie geht es darum herauszufinden, wie du als Volleyballer Entscheidungen auf dem Platz triffst. Hierfür ist eine hohe Konzentration erforderlich, um zu untersuchen wie DU im Spiel entscheidest.
 
-Dafür werden dir im weiteren Verlauf kurze Videosequenzen aus Volleyballspielen gezeigt. Wir bitten dich während einer Angriffs-Sequenz die Rolle des stellenden Spielers und in einer Abwehr-Sequenz die Rolle des Mittelblockers einzunehmen. Zunächst werden drei Beispielsequenzen gezeigt, um ein Gefühl für die Aufgabe zu bekommen. Im Anschluss werden dann zuerst die Angriffs-Sequenzen und dann die Abwehr-Sequenzen präsentiert.<br></br>
+<br></br><br></br>
+
+
+Dafür werden dir im weiteren Verlauf kurze Videosequenzen aus Volleyballspielen gezeigt. Wir bitten dich während der Angriffs-Sequenz die Rolle des stellenden Spielers einzunehmen. Zunächst werden drei Beispielsequenzen gezeigt, um ein Gefühl für die Aufgabe zu bekommen. Im Anschluss werden dann alle Angriffs-Sequenzen nacheinander präsentiert:
+
+<br></br><br></br>
+
 Wenn das Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Du sollst dich dann in den stellenden Spieler (Angriff) oder Mittelblocker (Abwehr) hineinversetzen und entscheiden, welche angemessene Optionen du siehst.
-<br></br><br></br>
-Das heißt, wenn die Szene stoppt ist es deine Aufgabe, wie auf dem Platz, so schnell wie möglich zu entscheiden wie du jetzt handelst.
-<br></br><br></br>
-Die Optionen die du siehst, sollst du dazu direkt in das Mikrofon sprechen. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit sobald das Video stoppt.<br></br>
-Danach wirst du gebeten die Optionen welche du genannt hast zu bewerten. Hierbei sollst du angeben welches deine beste Option ist, indem du diese erneut ins Mikrofon sprichst.
-<br></br><br></br>
-Im Anschluss folgt dann eine persönliche Einschätzung zur von dir genannten besten Option.
-Wenn du noch Fragen hast, kannst du dich jetzt an den Versuchsleiter oder die Versuchsleiterin wenden. 
-<br></br><br></br>
-Wenn du bereit bist, kannst du mit den Übungsvideos beginnen.
-Klicke auf <strong>WEITER </strong> um mit den Übungsvideos zu starten.</span></p>
 
-                               
+<br></br><br></br>
+
+
+Das heißt, wenn die Szene stoppt, ist es deine Aufgabe, wie auf dem Platz, so schnell wie möglich zu entscheiden wie du jetzt handelst.
+
+<br></br><br></br>
+
+
+Die Optionen, die du siehst, sollst du dazu direkt in das Mikrofon sprechen. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit, sobald das Video stoppt.
+
+<br></br><br></br>
+Danach wirst du gebeten die Optionen, welche du genannt hast, zu bewerten. Hierbei sollst du angeben welches deine beste Option ist, indem du diese erneut ins Mikrofon sprichst.
+
+<br></br><br></br>
+Im Anschluss folgt dann eine persönliche Einschätzung zur von dir genannten besten Option. Wenn du noch Fragen hast, kannst du dich jetzt an den Versuchsleiter oder die Versuchsleiterin wenden.
+<br></br><br></br>
+Wenn du bereit bist, kannst du mit den Übungsvideos beginnen. Klicke auf <strong>WEITER</strong>, um mit den Übungsvideos zu starten.
+<br></br><br></br>
+
+
+<br></br><br></br></span></p>
+
+
 
                                 <p className="p_title"><span className="p_text">Viel Spaß!</span></p>
                             </div>
+
+
+
+
+
+
                             <div className=" number-of-questions   text-muted">
                                 <div className=" question-count-text ">
 
@@ -716,17 +726,17 @@ Klicke auf <strong>WEITER </strong> um mit den Übungsvideos zu starten.</span><
                             this.questionwithcheckbox()
                         :(this.state.questionbutton)
                             ?
-                            this.questionwithbutton()           
+                            this.questionwithbutton()
                         : (this.state.betwquestion)
                             ?
                             this.betweenQuestion()
                         : null
-                        
-                                
-                                                            
+
+
+
                                                                                                                                                                                                                       ?
                                                                                                                                                                                     this.showVideo(8)
-                                                                                           
+
                                                                                                                                                                                                                                                                                                                                                                 : (this.state.counter === 82)
                                                                                                                                                                                                                                                                                                                                                                     ?
                                                                                                                                                                                                                                                                                                                                                                     this.uploadSurvey()

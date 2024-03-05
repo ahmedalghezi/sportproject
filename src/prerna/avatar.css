@@ -273,8 +273,6 @@ h3 {
   position: relative;
 }
 
-
-
 .avatar-line {
    animation: rotate 10s linear infinite; /* Adjust the duration and timing function as needed */
 }
@@ -294,9 +292,6 @@ h3 {
   border: 1px solid #000;
 }
 
-
-
-
 .avatar-data-table {
   /* ... Previous styles ... */
   /* Add animation properties to the table */
@@ -313,6 +308,55 @@ h3 {
 .avatar-data-table-hide {
   animation-name: fadeOut;
   animation-fill-mode: forwards; /* Keep the final style after animation */
+}
+
+.two-column-layout {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 0 10px; /* Adjust padding as needed */
+}
+
+.legend-column {
+  width: 450px; /* Adjust the width as needed */
+  padding: 20px;
+ /* background-color: #f4f4f4;  Set the background color */
+}
+
+.legend h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.legend ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legend li {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+/* Additional styling for your existing columns */
+.column {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin: 0 10px;
+
+
 }
 
 

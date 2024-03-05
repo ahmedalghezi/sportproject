@@ -79,6 +79,7 @@ export default function  GetIDS(){
     const [approvedStudies, setApprovedStudies] = useState([]);
     const [selectedStudyID, setSelectedStudyID] = useState();
 
+
     let navigate = useNavigate();
 
     const processCSV = (str, delim=';') => {
@@ -113,10 +114,10 @@ export default function  GetIDS(){
     });
 
     const handleSort = (column, sortDirection) => {
-        
+
         setSortInfo({ column, direction: sortDirection });
-        
-        
+
+
         const sortedData = [...objDataList].sort((a, b) => {
           if (sortDirection === 'asc') {
             return a[column].localeCompare(b[column]);
@@ -124,7 +125,7 @@ export default function  GetIDS(){
             return b[column].localeCompare(a[column]);
           }
         });
-      
+
         setObjDataList(sortedData);
       };
 
