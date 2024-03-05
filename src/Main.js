@@ -83,6 +83,7 @@ import EditSquad from "./register/admin/editSquad";
 import CorrectDate from "./register/admin/correctDate";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
+import DataFetchingComponent from './prerna/fileUpload/testResponse';
 import ProfileStyleComp from './prerna/fileUpload/testsSpaceCnt';
 import AvatarManger from "./register/admin/avatarManger";
 import SectionAndEntryManager from "./register/admin/avatarManger";
@@ -167,13 +168,13 @@ function Main() {
                             <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
-                            <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
                             
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
                             {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
                             
 
-
+                            {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
 
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />

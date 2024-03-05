@@ -22,8 +22,9 @@ import withTransition from "./withTransition"
 import CircleWithAnimation from "./CircleWithAnimation";
 import SpanWithAnimation from './SpanWithAnimation';
 import withCombinedAnimation from './withCombinedAnimation';
+import axios from 'axios';
 
-<AthleteProfileTable data={json_data} />
+{/* <AthleteProfileTable data={json_data} /> */}
 
 const testdata = [
     { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
@@ -33,7 +34,9 @@ const testdata = [
     { id: 5,title: "Motoriko", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
     { id: 6,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
     { id: 7,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 8,title: "Ziologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
+    { id: 8,title: "Ziologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+    // { id: 9,title: "INKognition", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+    // { id: 10,title: "NoZiologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
 
 class Avatar extends React.Component {
@@ -52,6 +55,8 @@ class Avatar extends React.Component {
             avatarImage: null,
             loggedIn: false,
             tableOpacity: 0,
+            json_data:null,
+            imageURL: null,
             };
         this.tableRef = React.createRef();
         this.getData = this.getData.bind(this);
@@ -66,7 +71,7 @@ class Avatar extends React.Component {
         this.handleTableHeight = this.handleTableHeight.bind(this);
         this.handleHover = this.handleHover.bind(this);
         this.calculateAvatarListHeight=this.calculateAvatarListHeight.bind(this);
-        // this.saveImageToLocal = this.saveImageToLocal.bind(this);
+        this.fetchImage = this.fetchImage.bind(this);
     }
 
       handleHover = (section, index, isMouseEnter) => {
@@ -105,16 +110,12 @@ class Avatar extends React.Component {
     handleSelectImage = () => {
         if (!this.state.loggedIn) {
           console.log('User not logged in. Please log in to upload a profile picture.');
+          console.error("User not logged in")
           return;
         }
          this.setState({ showProfileUpload: true});
       };
       
-      receiveFileName = (filename) => {
-        this.setState({ uploadedFileName: filename, showProfileUpload: false }, () => {
-          this.checkImageIcon();
-        });
-      };
 
     calculateTablePosition(sectionId, index) {
         const sectionTitleElement = document.getElementById(sectionId);
@@ -145,24 +146,27 @@ class Avatar extends React.Component {
         return tableTop;
     }
     
-    // Function to handle table height calculation
+    
     handleTableHeight = (height) => {
         if (this.state.tableHeight !== height) {
             this.setState({ tableHeight: height });
         }
     };
 
-    checkImageIcon() {
-        const imageIcon = this.drawImageIcon();
-      }
+    receiveFileName = (filename) => {
+        console.log('Uploaded file name:', filename);
+        this.fetchImage()
+        this.setState({ showProfileUpload: false });
+    };
 
     componentDidMount() {
         this.getData();
         this.setBoundingSVG();
         const lastTableIndex = this.state.avatarlist.length - 1;
         this.handleHover(this.state.avatarlist[lastTableIndex], lastTableIndex);
-        this.checkImageIcon();
         this.checkLoginStatus();
+        this.fetchImage();
+        
     }
 
     componentDidUpdate() {
@@ -189,6 +193,44 @@ class Avatar extends React.Component {
         }
         return {gap: columngap.gap};
     }
+    // getData(){
+            
+    //     this.setState({avatarlist: testdata});
+    //     CoachInputDataService.getAll().then(response => {
+    //         if(response.data.res === "error") {
+    //             const arr = ["connection error"];
+    //             this.setState({videoList: arr});
+    //             return;
+    //         }
+    //         if(response.data.res === "error"){
+    //             alert("Bitte erst anmelden.");
+    //             return;
+    //         }
+    //         if(response.data.res === "ok") 
+    //         {
+    //             // this.setState({videoList: response.data.videoList});
+
+    //             fetch('http://localhost:3000/test-api')
+    //             .then(response => response.json())
+    //             .then(data => {
+    //             // Store the API response in the json_data state variable
+    //             this.setState({json_data: data.finalObj.sections })
+    //             this.setState({ avatarlist: data.finalObj })
+    //             console.log("calculateAvatarElement json_data  : ", json_data)
+    //             console.log("calculateAvatarElement avatarlist : ", this.state.avatarlist)
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    
+
+    //             // this.setState({avatarlist: json_data.sections});
+    //         }
+
+    //     }).catch(e => {
+    //         this.setState({avatarlist: testdata});
+    //         alert("Es ist ein Fehler aufgetreten!");
+    //     });
+    // }
+
     getData(){
         this.setState({avatarlist: testdata});
         CoachInputDataService.getAll().then(response => {
@@ -295,7 +337,6 @@ class Avatar extends React.Component {
         var yPosition = 0;
         var relativey = 0;
 
-        // Check if the element is available and if it's the initial load
         if (element === null && this.state.selectedItemIndex !== index) {
             x1Position = 0;
             x2Position = 0;
@@ -332,83 +373,83 @@ class Avatar extends React.Component {
         return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill}/>;
     }
 
-    // //  saveImageToLocal = async (imageUrl, filename) => {
-    // //     try {
-    // //       const response = await fetch(imageUrl);
-    // //       const blob = await response.blob();
-    // //       const url = window.URL.createObjectURL(blob);
-      
-    // //       const link = document.createElement('a');
-    // //       link.href = url;
-    // //       link.setAttribute('download', filename); // Set desired filename
-    // //       link.click();
-      
-    //       // Clean up
-    //       window.URL.revokeObjectURL(url);
-    //     } catch (error) {
-    //       console.error('Error saving image to local:', error);
-    //     }
-    //   };
-
     drawImageIcon() {
-        const { uploadedFileName } = this.state;
-        let imageURL = runner;
+        
+        const imageURL = this.state.imageURL; 
+        let x, y;
 
-        // If uploadedFileName exists, use its URL from the API
-        if (uploadedFileName) {
+        if (imageURL != runner  && imageURL != null) {
 
-            if(document.getElementById("avatargallery"))
-            {
-                var gal = document.getElementById("avatargallery").getBoundingClientRect();
-                var x = gal.width/2-75;
-                var y = gal.height/2-275;
+            // console.log("Image exists name : ", imageURL)
+            if (document.getElementById("avatargallery")) {
+                const gal = document.getElementById("avatargallery").getBoundingClientRect();
+                x = gal.width / 2 - 75;
+                y = gal.height / 2 - 275;
             }
-            else
-            {
-                var x = 0;
-                var y = 0;
+            else {
+                x = 0;
+                y = 0;
             }
-            const imageURL = `https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage/${uploadedFileName}`;
 
             return (
                 <image
-                  x={x}
-                  y={y}
-                  width="150"
-                  height="150"
-                  href={imageURL}
-                  onLoad={this.handleImageLoad}
-                  onError={this.handleImageError}
+                    x={x}
+                    y={y}
+                    width="150" 
+                    height="150"
+                    href={imageURL}
+                    onLoad={this.handleImageLoad}
+                    onError={this.handleImageError}
                 ></image>
-              );
-    }
-
-        else
-        {
-            if (document.getElementById('avatargallery')) {
-                var gal = document.getElementById('avatargallery').getBoundingClientRect();
-                var x = gal.width / 2 - 55;
-                var y = gal.height / 2 - 260;
-           
-              } else {
-                var x = 0;
-                var y = 0;
-              }
-            return (
-                <image
-                  x={x}
-                  y={y}
-                  width="120"
-                  height="120"
-                  href={imageURL}
-                  onLoad={this.handleImageLoad}
-                  onError={this.handleImageError}
-                ></image>
-              );
+            );
         }
-      };
+        else {
+                if (document.getElementById('avatargallery')) {
+                    const gal = document.getElementById('avatargallery').getBoundingClientRect();
+                    x = gal.width / 2 - 55; //55
+                    y = gal.height / 2 - 272;//260
+                } 
+                    else {
+                        x = 0;
+                        y = 0;
+                        }
 
-    calculateAvatarListHeight() {
+                // console.log(" Setting default image ")
+                return (
+                        <image
+                            x={x}
+                            y={y}
+                            width="140"
+                            height="135"
+                            href={imageURL}
+                            onLoad={this.handleImageLoad}
+                            onError={this.handleImageError}
+                        ></image>
+                        );
+                
+            } };
+ 
+    fetchImage() {
+        fetch('https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage')
+          .then(response => {
+            if (response.ok && response.headers.get('Content-Type').startsWith('image')) {
+              return response.blob();
+            } else {
+              throw new Error('Response does not contain an image');
+            }
+          })
+          .then(imageData => {
+            const imageURL = URL.createObjectURL(imageData);
+            this.setState({ imageURL });
+          })
+          .catch(error => {
+            console.error('Error fetching image:', error);
+            // Set a default image (runner) in case of error
+            this.setState({ imageURL: runner });
+          });
+      }
+
+      calculateAvatarListHeight() {
         const avatarItems = document.querySelectorAll('.avatar-all-content'); 
         let totalHeight = 0;
     
@@ -434,13 +475,14 @@ class Avatar extends React.Component {
         const containerHeight = 800;
         const avatarListHeight = this.calculateAvatarListHeight();
         const totalTitles = uniqueTitles.length;
+        console.log("totalTitles : ", totalTitles)
         const midPoint = Math.ceil(totalTitles / 2);
         const rowGap = 2*(containerHeight - avatarListHeight) / totalTitles;
         require("../../prerna/avatar.css");
 
         return (
             <div>   
-                <button onClick={this.handleSelectImage}>Upload Profile Picture</button>
+               <div><button className="upload-btn" onClick={this.handleSelectImage}>Upload Profile Picture</button></div> <br></br>
 
                 {showProfileUpload && (
                 <ProfilePictureUpload onFileName={this.receiveFileName} 
@@ -467,8 +509,8 @@ class Avatar extends React.Component {
                                         );
                                     })
                                 }
-                                {this.drawCircle(82, "black", "none")}
-                                {this.drawCircle(75, "#DAD2D2", "#DAD2D2")}
+                                {this.drawCircle(82, "black", "none")} //82
+                                {this.drawCircle(75, "#DAD2D2", "#DAD2D2")} //75
                                 {this.drawImageIcon()}
                                 
                                 {

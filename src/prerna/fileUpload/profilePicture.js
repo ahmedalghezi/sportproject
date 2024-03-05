@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import PostSignup from '../../DB/postSignup';
 
-const ProfilePictureUpload = ({ onRedirect, onFileName }) => {
+const ProfilePictureUpload = ({ onFileName, onRedirect }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   // const [editorWidth, setEditorWidth] = useState(null);
   // const [editorHeight, setEditorHeight] = useState(null);
@@ -15,8 +15,8 @@ const ProfilePictureUpload = ({ onRedirect, onFileName }) => {
   // const [editor, setEditor] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
 
-  const editorWidth = 160; 
-  const editorHeight = 160;
+  const editorWidth = 180; 
+  const editorHeight = 180; //160
 
   useEffect(() => {
     checkLoginStatus();
@@ -61,7 +61,7 @@ const checkLoginStatus = () => {
         img.src = avatar; 
   
         img.onload = () => {
-          const canvasSize = 150; // Size of the circular image
+          const canvasSize = 170; // Size of the circular image //150
           canvas.width = canvasSize;
           canvas.height = canvasSize;
   
@@ -106,6 +106,7 @@ const checkLoginStatus = () => {
   };
   
   const uploadFormData = async (formData) => {
+    console.log('uploadFormData');
     try {
       const response = await fetch('https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/sendProfileImage', {
         method: 'POST',
@@ -114,7 +115,7 @@ const checkLoginStatus = () => {
   
       if (response.ok) {
         const data = await response.json();
-        // console.log('Image name:', data.fileName);
+        console.log('Image name:', data.fileName);
         setFileName(data.fileName);
         onFileName(data.fileName);
         setSuccessMessage('Image uploaded successfully!');
@@ -131,7 +132,7 @@ const checkLoginStatus = () => {
   };
 
   const handleRedirect = () => {
-    // console.log("fileName set is : ", fileName)
+    console.log("fileName set is : ", fileName)
     window.location.href = `${window.location.origin}/reg/chaithra/Avatar`;
     onRedirect();
   };
@@ -146,35 +147,40 @@ const checkLoginStatus = () => {
         ref={fileInputRef}
         style={{ display: 'none' }}
       />
-      <button onClick={() => fileInputRef.current.click()}>Choose Picture</button>
-      <button onClick={handleRedirect}>Go back</button>
+      <div><button className="upload-btn" onClick={() => fileInputRef.current.click()}>Choose Picture</button>
+      <button className="upload-btn" onClick={handleRedirect}> Cancel </button></div>
+      
       {selectedFile && (
         <div>
-          <div style={{ position: 'relative', backgroundColor: 'grey',overflow: 'hidden' }}>
+          <div style={{ position: 'relative', backgroundColor: 'white',overflow: 'hidden' }}>
           
           <AvatarEditor
             ref={editorRef}
             image={selectedFile}
             width={editorWidth}
             height={editorHeight}
-            borderRadius={75}
+            borderRadius={85}
             color={[255, 255, 255, 0.6]}
             scale={zoom}
           />
           </div>
           <div>
-            <button onClick={() => setZoom(zoom + 0.1)}>Zoom In</button>
-            <button onClick={() => setZoom(zoom - 0.1)}>Zoom Out</button>
-          </div>
-          <button onClick={handleCrop}>Crop Picture</button>
+            <button className="zoom-btn" onClick={() => setZoom(zoom + 0.1)}>Zoom In</button>
+            <button className="zoom-btn" onClick={() => setZoom(zoom - 0.1)}>Zoom Out</button>
+            <button className="crop-upload-btn" onClick={handleCrop}>Crop Picture</button>
+          </div> 
+          
           
           {avatar && (
             <div>
-              <p>Preview:</p>
+              <p style={{ color: '007bff', fontSize: '18px' }}>Preview</p>
               <div style={{ width: editorWidth, height: editorHeight, overflow: 'hidden', borderRadius: '50%', border: '2px solid black' }}>
                 <img src={avatar} alt="Avatar" style={{ width: '100%', height: '100%', borderRadius: '50%' }} />
+                
               </div>
-              {<button onClick={handleSubmit}>Upload Profile</button>}
+              <div>
+              {<button className="crop-upload-btn" onClick={handleSubmit}>Upload Picture</button>}</div>
+              
             </div>
           )}
 
@@ -185,7 +191,32 @@ const checkLoginStatus = () => {
   );
 };
 
+
+// CSS Styles
+const styles = `
+.upload-btn,
+.crop-upload-btn,
+.zoom-btn {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.upload-btn:hover,
+.crop-upload-btn:hover,
+.zoom-btn:hover {
+  background-color: #0056b3;
+}
+`;
+
+// Embedding CSS Styles
+const styleElement = document.createElement('style');
+styleElement.innerHTML = styles;
+document.head.appendChild(styleElement);
+
 export default ProfilePictureUpload;
-
-
-

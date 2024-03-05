@@ -2,7 +2,7 @@
   "name": "inprove",
   "version": "3.1.0",
   "private": true,
-  "homepage": "http://inprove-sport.info/dev2",
+  "homepage": "http://inprove-sport.info/dev2/",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -18,6 +18,7 @@
     "axios": "^0.21.2",
     "bootstrap": "^5.1.3",
     "date-fns": "^2.29.2",
+    "express": "^4.18.2",
     "file-saver": "^2.0.5",
     "firebase": "^9.15.0",
     "moment": "^2.29.4",

@@ -158,7 +158,7 @@ if (disciplinesList.length == 0) {
                         {sectionEntries.map((entry) => (
                             <li key={entry.id}>
                                 {/* {entry.title} */}
-                                {`${entry.title} : Tests = [${entry.test_names}]  /n Red = [${entry.red}]  /n Green = [${entry.green}]`}
+                                {`${entry.title} : Tests = [${entry.test_names}]   Red = [${entry.red}]   Green = [${entry.green}]`}
                                 <button
                                     type="button"
                                     className="btn btn-danger"

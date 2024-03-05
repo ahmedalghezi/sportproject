@@ -229,6 +229,7 @@ class TestProfileC2 extends Component {
   };
   
   deleteMyFile = (fileName) => {
+    console.log("file to be deleted : ", fileName)
     PostCSVData.deleteMyFile({ fileName: fileName })
         .then((response) => {
           if (response.data.res === "error") {

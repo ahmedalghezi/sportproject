@@ -27,8 +27,9 @@ const Folder = ({ folder ,admin,onDeleteFile}) => {
                     {folder[Object.keys(folder)[0]].map((link, index) => (
                         <li key={link.url} onClick={handleFileClick}>
                             {/*<Link name={"deletevftr5"+link.name} url={"#" +link.url} />*/}
-                            <a hidden={!admin} name={"deletevftr5"+link.url} href={"#" + link.url}>(delete) </a>
-                            <a name={link.url} href={"#" + link.url}>{link.name}</a>
+                            {/* title={link.name} */}
+                            <a hidden={!admin} name={"deletevftr5"+link.url} href={"#" + link.url} title={link.name}>(delete) </a>
+                            <a name={link.url} href={"#" + link.url} title={link.name.split('_')[1]}>{link.name.split('_')[1]}</a>
                         </li>
                     ))}
                 </ul>
