@@ -18,7 +18,7 @@ class Footer extends Component {
               <br />
               <a href="https://www.inprove.info/datenschutz/">
                 Daten­schutz
-              </a> | <a href="https://www.inprove.info/impressum/">Impressum</a>
+              </a> | <a href="https://www.inprove.info/impressum/">Impressum</a>  | <a href="https://inprove-sport.info/mxTexyr/deletYourAccount/">Lösche Deine Daten</a>
             </p>
           </div>
           <div className="icondiv">
@@ -29,6 +29,12 @@ class Footer extends Component {
               crossOrigin="anonymous"
               referrerPolicy="no-referrer"
             />
+
+
+
+
+
+
             <div className="container">
               <p>
                 <a

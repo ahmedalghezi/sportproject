@@ -183,13 +183,13 @@ if (disciplinesList.length == 0) {
     //     try {
     //         const entriesResponse = await axios.get('https://inprove-sport.info/avatar/getEntries');
     //         const testsResponse = await axios.get(`https://inprove-sport.info/avatar/getTestsForSection/${sectionID}`);
-    
+
     //         const entries = entriesResponse.data;
     //         const tests = testsResponse.data.tests;
-    
+
     //         const sectionEntries = entries.filter((entry) => entry.section_id === sectionID);
     //         const sectionName = sectionEntries.length > 0 ? sectionEntries[0].section_name : '';
-    
+
     //         const entriesWithTestsContent = sectionEntries.map((entry) => {
     //             const testIds = entry.test_ids.split(',').map(Number);
     //             const testNames = tests.filter((test) => testIds.includes(test.testid)).map((test) => test.testname);
@@ -207,21 +207,21 @@ if (disciplinesList.length == 0) {
     //                 </li>
     //             );
     //         });
-    
+
     //         const entriesContent = (
     //             <div>
     //                 <h1>Entries for Section {sectionName}</h1>
     //                 <ul>{entriesWithTestsContent}</ul>
     //             </div>
     //         );
-    
+
     //         setTestsModalContent(entriesContent);
     //         setShowTestsModal(true);
     //     } catch (error) {
     //         console.error('Error fetching entries:', error);
     //     }
     // };
-    
+
 
     const handleRemoveEntry = async (entryId,sectionID) => {
         try {
@@ -251,6 +251,7 @@ const handleDispSele = (event) => {
     return (
         <div>
             <h1>Section Manager</h1>
+            <p><a href={"https://inprove-sport.info:8080/videos/avatar_manger_desc.mp4"}>For more info, please watch the describing video</a></p>
             {/* Add a new section */}
             <div style={{ display: 'flex', marginBottom: '10px' }}>
                 <input

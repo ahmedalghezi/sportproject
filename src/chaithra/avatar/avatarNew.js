@@ -130,17 +130,17 @@ class Avatar extends React.Component {
         const bottomThreshold = (3 * containerHeight) / 4;
         if (index < 2) {
             tableTop = (titleBottom-titleTop)/16;
-        } 
+        }
         else if (index >= this.state.avatarlist.length - 2) {
 
             tableTop = (bottomThreshold - titleBottom) + (titleTop-titleBottom)
             if(Math.abs(tableTop)> this.state.tableHeight)
             {
                 tableTop = 0
-            }  
+            }
         }
-        else 
-        {   
+        else
+        {
             tableTop = (titleTop-titleBottom)
         }
         return tableTop;
@@ -346,7 +346,7 @@ class Avatar extends React.Component {
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
             yPosition = con.y - gal.y + con.height / 2 - 10;
-    
+
             if (con.x - gal.x < gal.width / 2) {
                 x2Position = con.x - gal.x + con.width + 20;
             } else {
@@ -356,10 +356,10 @@ class Avatar extends React.Component {
             x1Position = gal.width / 2;
             relativey = gal.height / 2 - 200;
         }
-        
+
         return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black" />;
     }
-    
+
     drawCircle(r, stroke, fill){
         if(document.getElementById("avatargallery")){
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
@@ -452,13 +452,13 @@ class Avatar extends React.Component {
       calculateAvatarListHeight() {
         const avatarItems = document.querySelectorAll('.avatar-all-content'); 
         let totalHeight = 0;
-    
+
         avatarItems.forEach((item) => {
             totalHeight += item.getBoundingClientRect().height;
         });
         return totalHeight;
     }
-    
+
     render() {
         const { isBoxClicked, showProfileUpload } = this.state;
         const { textAnimationProps, tableAnimationProps } = this.props;
@@ -485,11 +485,11 @@ class Avatar extends React.Component {
                <div><button className="upload-btn" onClick={this.handleSelectImage}>Upload Profile Picture</button></div> <br></br>
 
                 {showProfileUpload && (
-                <ProfilePictureUpload onFileName={this.receiveFileName} 
+                <ProfilePictureUpload onFileName={this.receiveFileName}
                 onRedirect={this.handleRedirect}
                 />
                 )}
-        
+
                 <div className="avatargallery" id="avatargallery" style={{ columnGap: this.setColumnGap().gap + 'px', height: '1000px'}}>
 
                     <div className="avatar-inner">
@@ -512,7 +512,7 @@ class Avatar extends React.Component {
                                 {this.drawCircle(82, "black", "none")} //82
                                 {this.drawCircle(75, "#DAD2D2", "#DAD2D2")} //75
                                 {this.drawImageIcon()}
-                                
+
                                 {
                                     this.state.avatarlist.map((item, index) => {
                                         return (

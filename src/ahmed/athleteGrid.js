@@ -140,8 +140,8 @@ export default function AthletesGrid(props) {
                 console.log(e);
             });
 
-        // processStudyArr(arr);
-
+            // processStudyArr(arr);
+        
     }
 
     function createRow(ID,name,lastAccessTime, hasConsent){
@@ -170,12 +170,12 @@ export default function AthletesGrid(props) {
 
         // if(action === "Upload report")
         //     props.uploadReport(selectedID, name);
-
+        
         if (action === "Upload report") {
             // Access the actionArray from the component's state
             const allIDs = actionArray.map(row => row[0]);
             const allNames = actionArray.map(row => row[1]);
-
+    
             // Call the uploadReport function with all IDs and names
             props.uploadReport(allIDs, allNames,selectedID,name );
         }
@@ -332,19 +332,19 @@ export default function AthletesGrid(props) {
 
                 <table className={"styled-table"}>
                     <thead>
-                    <tr>
-                        {headerArray.map((colItem) =>
-                            //   {console.log(colItem);
-                            (
-                                <td>{colItem}</td>
-                            ))}
-                    </tr>
+                  <tr>
+                      {headerArray.map((colItem) => 
+                    //   {console.log(colItem);
+                      (
+                          <td>{colItem}</td>
+                      ))}
+                  </tr>
                     </thead>
                     <tbody>
                     {actionArray.map((row) => (
                         <tr>
                             {row.map((item) => (
-                                <td><a href="#" name={item+"-"+row[0]+"-"+row[1]} onClick={onAction}>{item}</a></td>
+                            <td><a href="#" name={item+"-"+row[0]+"-"+row[1]} onClick={onAction}>{item}</a></td>
                             ))}
                         </tr>
                     ))}

@@ -94,6 +94,7 @@ import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
 import ProfilePictureUpload from './prerna/fileUpload/profilePicture';
 import OGAvatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
+import AvatarPdf from './chaithra/avatar/avatarPdf';
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
 
@@ -133,7 +134,7 @@ function Main() {
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
 
-                            
+
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
                             <Route path='/csv/vanessa/profile' element={<div className="csv-inner"><ProfileC/></div>} />
@@ -168,8 +169,8 @@ function Main() {
                             <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
-                            <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
-                            
+                            <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            <Route path='/reg/chaithra/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
                             {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
                             
@@ -251,6 +252,8 @@ function Main() {
                             <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
 
 
+
+                            <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
 
 
 
