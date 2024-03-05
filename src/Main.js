@@ -39,6 +39,7 @@ import EmailConfirmed from "./register/emailConfirmed";
 import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
+import FileUploadFormConvert from "./register/admin/convertNameToID";
 
 import AdminFileUpload from "../src/register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
