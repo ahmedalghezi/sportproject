@@ -5,32 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/ahmed/athleteControlTest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ahmed/athleteGrid.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/img/edit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/RequestDelete.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/convertNameToID.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chaithra/avatar/avatarNew.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/chaithra/avatar/avatarNew.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/TestsView.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteControlTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteControlTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/athleteGrid.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/getIDs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lime/survey/component_survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/component_survey.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/colorBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/colorBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/getIDs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/getIDs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry1.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/avatarManger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/avatarManger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/controllMetabase.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/navBarMobile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/navBarMobile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -419,14 +395,11 @@
       <workItem from="1701762487485" duration="3314000" />
       <workItem from="1702375897951" duration="11306000" />
       <workItem from="1704619761849" duration="45771000" />
-      <workItem from="1706173263243" duration="598000" />
-    </task>
-    <task id="LOCAL-00029" summary="adding bot check">
-      <created>1660764254758</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1660764254758</updated>
+      <workItem from="1706173263243" duration="2112000" />
+      <workItem from="1707823019418" duration="598000" />
+      <workItem from="1708093084701" duration="598000" />
+      <workItem from="1708336737112" duration="3442000" />
+      <workItem from="1709294143439" duration="1204000" />
     </task>
     <task id="LOCAL-00030" summary="adding support for proxy. fixing some signup bugs">
       <created>1661263694047</created>
@@ -764,7 +737,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697460827806</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Version 2.7&#10;Avatar page changed">
+      <created>1706523589891</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1706523589891</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -875,7 +855,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="finalize studies approves" />
     <MESSAGE value="starting profile page + updating signup" />
     <MESSAGE value="Editing uploadFile" />
     <MESSAGE value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
@@ -900,7 +879,8 @@
     <MESSAGE value="Version 2" />
     <MESSAGE value="Version 2.5" />
     <MESSAGE value="Version 2.51" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 2.51" />
+    <MESSAGE value="Version 2.7&#10;Avatar page changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 2.7&#10;Avatar page changed" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

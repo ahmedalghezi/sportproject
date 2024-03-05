@@ -132,7 +132,7 @@ function Main() {
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
 
-                            
+
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
                             <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
                             <Route path='/csv/vanessa/profile' element={<div className="csv-inner"><ProfileC/></div>} />
@@ -249,6 +249,8 @@ function Main() {
                             <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
 
 
+
+                            <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
 
 
 
