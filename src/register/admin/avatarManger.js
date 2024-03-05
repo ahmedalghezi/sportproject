@@ -135,7 +135,7 @@ if (disciplinesList.length == 0) {
         }
     };
 
-    const showEntries = async (sectionID,discipline) => {
+    const showEntries = async (sectionID,discipline,sectionName) => {
         try {
             console.log("discipline : ", discipline)
             const url = `https://inprove-sport.info/avatar/getEntries/${discipline}`;
@@ -147,7 +147,7 @@ if (disciplinesList.length == 0) {
 
             // Filter entries for the specific section
             const sectionEntries = entries.filter((entry) => entry.section_id === sectionID);
-            const sectionName = sectionEntries.length > 0 ? sectionEntries[0].section_name : '';
+            // const sectionName = sectionEntries.length > 0 ? sectionEntries[0].section_name : '';
 
             const responseTests = await axios.get(`https://inprove-sport.info/avatar/getTestsForSection/${sectionID}`);
             console.log("show responseTests  : ", responseTests.data.data)
@@ -241,6 +241,13 @@ if (disciplinesList.length == 0) {
         setTestsModalContent(null);
     };
 
+    // In your parent component
+
+    const handleCloseCreateAvatarEntry = () => {
+        setSectionToAddEntryTo(null); // or any falsy value that would imply no section is selected
+    };
+  
+
 const handleDispSele = (event) => {
         event.preventDefault();
         setDiscipline(event.target.value);
@@ -290,7 +297,7 @@ const handleDispSele = (event) => {
                                             style={{ marginRight: '10px', border: "1px solid #000"}}>
                                         Add Entry
                                     </button>
-                                    <button  type="button" class="btn btn-light" onClick={() => showEntries(section.id,discipline)}
+                                    <button  type="button" class="btn btn-light" onClick={() => showEntries(section.id,discipline,section.name)}
                                              style={{ marginRight: '10px', border: "1px solid #000"}}>
                                         Show Entries
                                     </button>
@@ -316,9 +323,17 @@ const handleDispSele = (event) => {
                             </div>
                         )}
                         {/* {sectionToAddEntryTo === section.id && <CreateAvatarEntry sectionID={section.id} done={done} />} */}
-                        {sectionToAddEntryTo === section.id && (
+                        {/* {sectionToAddEntryTo === section.id && (
                             <CreateAvatarEntry sectionID={section.id} done={() => done(true, section.id, discipline)} discipline={discipline} />
-                        )}
+                        )} */}
+                        {sectionToAddEntryTo === section.id && (
+                            <CreateAvatarEntry
+                                sectionID={section.id}
+                                done={() => done(true, section.id, discipline)}
+                                discipline={discipline}
+                                onClose={handleCloseCreateAvatarEntry} // Passing the close function as a prop
+                            />
+                            )}
 
 
 

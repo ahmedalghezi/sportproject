@@ -64,7 +64,7 @@ export const json_data2 = {
         ]
       },
       {
-        "section_name": "Motoriko",
+        "section_name": "Ernährung",
         "testsArr": [
           {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
           {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
@@ -74,7 +74,7 @@ export const json_data2 = {
         ]
       },
       {
-      "section_name": "INKognition",
+      "section_name": "Psychosoziale Faktoren",
       "testsArr": [
         {"test_title": "INKognition12345", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
         {"test_title": "INKognition23243456", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
@@ -84,7 +84,7 @@ export const json_data2 = {
       ]
     },
     {
-      "section_name": "NoZiologies",
+      "section_name": "Anthropometrie",
       "testsArr": [
         {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
         {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
