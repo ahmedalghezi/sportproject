@@ -48,7 +48,7 @@ import AthleteControl from "./csvHandler/athleteControl";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
-import FileUploadFormConvert from "./register/admin/convertNameToID";
+// import FileUploadFormConvert from "./register/admin/convertNameToID";
 
 
 import ShareVideo from "./nico/videosharing/shareVideo";

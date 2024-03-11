@@ -401,7 +401,7 @@ export default function  GetIDS(){
             /> */}
 
             <DataTable
-                pagination
+                // pagination
                 highlightOnHover
                 columns={columnsC.map((column) => ({
                     ...column,

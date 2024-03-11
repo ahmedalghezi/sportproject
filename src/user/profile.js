@@ -417,7 +417,7 @@ clearSearch = () => {
             <hr></hr>
             <div><input
           type="text"
-          placeholder="Search files..."
+          placeholder="Dateien suchen..."
           value={this.state.searchQuery}
           onChange={this.handleSearchInputChange}
         />

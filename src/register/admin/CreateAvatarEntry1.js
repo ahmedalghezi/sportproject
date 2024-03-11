@@ -431,9 +431,9 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
 
             {/* Comparison Operator field */}
             {/* Submit button */}
-            <div>
+            <div style={{ display: 'flex', gap: '8px' }}>
                 <button onClick={handleSubmit} className={"btn btn-primary btn-block"}>Submit</button>
-           
+                
                 <button onClick={onClose} className={"btn btn-primary btn-block"}>Close</button>
             </div>
             {/* <button onClick={closeTestsModal} type="button" class="btn btn-primary">

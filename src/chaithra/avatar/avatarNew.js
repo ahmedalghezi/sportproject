@@ -29,12 +29,12 @@ import axios from 'axios';
 const testdata = [
     { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
     { id: 2,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
-    { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
+    { id: 3,title: "Anthropometrie", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
     { id: 4,title: "Psychosoziale Faktoren", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
     { id: 5,title: "Ernährung", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
     { id: 6,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
     { id: 7,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 8,title: "Anthropometrie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+    { id: 8,title: "Genetik", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
     // { id: 9,title: "INKognition", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
     // { id: 10,title: "NoZiologies", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
