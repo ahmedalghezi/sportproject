@@ -175,13 +175,15 @@ export default class NavBarMobile extends Component {
                   </li>
 
                   <li
-                      className="nav-item"
-                      hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                  >
-                    <Link className="nav-link" to={"/avatar/createSection"}>
-                      Avatar
-                    </Link>
-                  </li>
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <Link className="nav-link" to={"/avatar/createSection"}>
+                    Create Section
+                  </Link>
+                </li>
+
+
 
                   <li
                       className="nav-item"

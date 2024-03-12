@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function CreateAvatarEntry({ done, sectionID, discipline }) {
+function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
     const [spaces, setSpaces] = useState([]);
     const [tests, setTests] = useState([]);
     const [selectedSpace, setSelectedSpace] = useState("");
@@ -431,8 +431,10 @@ function CreateAvatarEntry({ done, sectionID, discipline }) {
 
             {/* Comparison Operator field */}
             {/* Submit button */}
-            <div>
+            <div style={{ display: 'flex', gap: '8px' }}>
                 <button onClick={handleSubmit} className={"btn btn-primary btn-block"}>Submit</button>
+                
+                <button onClick={onClose} className={"btn btn-primary btn-block"}>Close</button>
             </div>
             {/* <button onClick={closeTestsModal} type="button" class="btn btn-primary">
                             Close

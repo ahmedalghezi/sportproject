@@ -39,6 +39,7 @@ import EmailConfirmed from "./register/emailConfirmed";
 import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
+import FileUploadFormConvert from "./register/admin/convertNameToID";
 
 import AdminFileUpload from "../src/register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
@@ -47,6 +48,7 @@ import AthleteControl from "./csvHandler/athleteControl";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
+// import FileUploadFormConvert from "./register/admin/convertNameToID";
 
 
 import ShareVideo from "./nico/videosharing/shareVideo";
@@ -83,6 +85,8 @@ import EditSquad from "./register/admin/editSquad";
 import CorrectDate from "./register/admin/correctDate";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
+import DataFetchingComponent from './prerna/fileUpload/testResponse';
+import ProfileStyleComp from './prerna/fileUpload/testsSpaceCnt';
 import AvatarManger from "./register/admin/avatarManger";
 import SectionAndEntryManager from "./register/admin/avatarManger";
 import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
@@ -164,15 +168,16 @@ function Main() {
                             <Route path='/reg/nico/createChart' element={<div className="wide-inner"><CreateCharts/></div>} />
                             <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
 
-                            <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
+                            <Route path='/reg/myProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
                             <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
-                            <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
-                            <Route path='/reg/chaithra/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
+                            <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
+                            {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
+                            
 
-
-
+                            {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
 
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />

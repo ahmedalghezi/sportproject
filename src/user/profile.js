@@ -24,6 +24,9 @@ class ProfileC extends Component {
       isTrainer: false,
       links: [],
       hideAllMsgs: true,
+      searchQuery: "",
+      searchQueryMeineDateien: "",
+      searchQueryUploads: "", 
 
     };
   }
@@ -34,6 +37,127 @@ class ProfileC extends Component {
     this.getSurveys();
   }
 
+  // handleSearchInputChange = (event) => {
+  //   const searchQuery = event.target.value.toLowerCase(); // Convert search query to lowercase for case-insensitive matching
+  //   this.setState({ searchQuery });
+  // };
+
+  // handleSearchInputChangeMeineDateien = (event) => {
+  //   const searchQueryMeineDateien = event.target.value.toLowerCase();
+  //   this.setState({ searchQueryMeineDateien });
+  // };
+  
+  // handleSearchInputChangeUploads = (event) => {
+  //   const searchQueryUploads = event.target.value.toLowerCase();
+  //   this.setState({ searchQueryUploads });
+  // };
+  
+  // filteredFiles = () => {
+  //   const { searchQuery } = this.state;
+  
+  //   // Filter files based on search query
+  //   const filteredFiles = [];
+  
+  //   // Filter files from "Meine Dateien"
+  //   this.state.links.forEach(folder => {
+  //     Object.values(folder).forEach(files => {
+  //       files.forEach(file => {
+  //         if (file.name.toLowerCase().includes(searchQuery)) {
+  //           filteredFiles.push(file);
+  //         }
+  //       });
+  //     });
+  //   });
+  
+  //   // Filter files from "Uploads"
+  //   this.state.filesList.forEach(folder => {
+  //     Object.values(folder).forEach(files => {
+  //       files.forEach(file => {
+  //         if (file.name.toLowerCase().includes(searchQuery)) {
+  //           filteredFiles.push(file);
+  //         }
+  //       });
+  //     });
+  //   });
+  
+  //   return filteredFiles;
+  // };
+
+//   filteredFiles = (searchQueryMeineDateien, searchQueryUploads) => {
+//     const filteredFiles = [];
+  
+//     // Filter files from "Meine Dateien" if searchQueryMeineDateien is present
+//   if (searchQueryMeineDateien) {
+//     this.state.links.forEach(folder => {
+//       Object.values(folder).forEach(files => {
+//         files.forEach(file => {
+//           if (file.name.toLowerCase().includes(searchQueryMeineDateien)) {
+//             filteredFiles.push(file);
+//           }
+//         });
+//       });
+//     });
+//     return filteredFiles; // Return filtered files for "Meine Dateien"
+//   }
+
+//   // Filter files from "Uploads" if searchQueryUploads is present
+//   if (searchQueryUploads) {
+//     this.state.filesList.forEach(folder => {
+//       Object.values(folder).forEach(files => {
+//         files.forEach(file => {
+//           if (file.name.toLowerCase().includes(searchQueryUploads)) {
+//             filteredFiles.push(file);
+//           }
+//         });
+//       });
+//     });
+//     return filteredFiles; // Return filtered files for "Uploads"
+//   }
+
+//   return filteredFiles; // Return empty array if neither search query is present
+// };
+  
+
+  
+//   clearSearch = () => {
+//     this.setState({ searchQueryMeineDateien: "" });
+//     this.setState({ searchQueryUploads: "" });
+//   };
+
+handleSearchInputChange = (event) => {
+  const searchQuery = event.target.value.toLowerCase();
+  this.setState({ searchQuery });
+};
+
+filteredFiles = () => {
+  const { searchQuery } = this.state;
+  const filteredFiles = [];
+
+  // Filter files from both "Meine Dateien" and "Uploads"
+  if (searchQuery) 
+  {
+  [this.state.links, this.state.filesList].forEach((fileLists) => {
+    fileLists.forEach((folder) => {
+      Object.values(folder).forEach((files) => {
+        files.forEach((file) => {
+          if (file.name.toLowerCase().includes(searchQuery)) {
+            filteredFiles.push(file);
+          }
+        });
+      });
+    });
+  });
+
+  return filteredFiles; 
+}
+  return filteredFiles;
+
+};
+
+clearSearch = () => {
+  this.setState({ searchQuery: "" });
+};
+
   getFiles = () => {
     PostCSVData.getMyFiles()
         .then((response) => {
@@ -43,6 +167,7 @@ class ProfileC extends Component {
           } else if (response.data.filesP && response.data.res === "ok") {
             //this.setState({ filesList: response.data.files });
             this.setState({ links: response.data.filesP });
+            console.log("links : ", response.data.filesP)
             if (response.data.admin) {
               this.setState({ admin: true });
             }
@@ -73,11 +198,15 @@ class ProfileC extends Component {
           if (response.data.res === "error") {
             const arr = ["connection error"];
             this.setState({ surveyList: arr });
+            console.log("surveyList : ", arr)
             return;
           } else {
             if (response.data.res === "hide") {
               this.setState({ hideSurvey: true });
-            } else this.setState({ surveyList: response.data.files }); //todo
+              console.log("hideSurvey : ", true)
+            } else this.setState({ surveyList: response.data.files }); 
+            console.log("surveyList : ", response.data.files)
+            //todo
           }
         })
         .catch((e) => {
@@ -93,8 +222,10 @@ class ProfileC extends Component {
             alert("Es ist ein Fehler aufgetreten. Code pro 30");
             return;
           } else if (response.data.filesP && response.data.res === "ok") {
+            
             //this.setState({ filesList: response.data.files });
             this.setState({ filesList: response.data.filesP });
+            console.log("filesList : ", response.data.filesP )
             if (response.data.admin) {
               this.setState({ admin: true });
             }
@@ -137,9 +268,7 @@ class ProfileC extends Component {
       return;
     }
     window.location.href =
-        "https://inprove-sport.info/" +
-        "files/viewMyOwnFiles/" +
-        event.target.name;
+        "https://inprove-sport.info/" + "files/viewMyOwnFiles/" + event.target.name;
   };
   // added by Vanessa
   deleteMyFile = (fileName) => {
@@ -193,6 +322,8 @@ class ProfileC extends Component {
   }
 
   render() {
+    const filteredFiles = this.filteredFiles();
+    const showClearButton = this.state.searchQuery !== "";
     return (
         <div id="beside">
           <div className="profile-name" hidden={true}>
@@ -284,7 +415,22 @@ class ProfileC extends Component {
             </div>
 
             <hr></hr>
-
+            <div><input
+          type="text"
+          placeholder="Dateien suchen..."
+          value={this.state.searchQuery}
+          onChange={this.handleSearchInputChange}
+        />
+        {showClearButton && <button onClick={this.clearSearch}>X</button>}
+        
+        <ul>
+                  {this.filteredFiles().map((file, index) => (
+                      <li key={index}>
+                        <a href={file.url} name={file.name} onClick={this.handleFileClick} title={file.name}>{file.name.split('_')[1]}</a>
+                      </li>
+                    ))}
+                  </ul>
+</div>
             <div id="collaps-beside">
               <div className="list-one" hidden={this.state.hideSurvey}>
                 <h4>Meine Umfragen</h4>
@@ -302,6 +448,20 @@ class ProfileC extends Component {
               <div className="list-two">
 
                 <h4>Meine Dateien</h4>
+                {/* <input
+                    type="text"
+                    placeholder="Search files..."
+                    value={this.state.searchQueryMeineDateien}
+                    onChange={this.handleSearchInputChangeMeineDateien}
+                  />
+                  <button onClick={this.clearSearch}>Clear</button>
+                  <ul>
+                  {this.filteredFiles(this.state.searchQueryMeineDateien, "").map((file, index) => (
+                      <li key={index}>
+                        <a href={file.url} name={file.name} onClick={this.handleFileClick}>{file.name}</a>
+                      </li>
+                    ))}
+                  </ul> */}
                 <LinkList
                     links={this.state.links}
                     admin={this.state.admin}
@@ -311,16 +471,33 @@ class ProfileC extends Component {
 
               </div>
               <div className="list-three">
-                <h4>Uploads</h4>
+              
+                <div><h4>Uploads</h4>
+                {/* <input
+                  type="text"
+                  placeholder="Search Uploads.."
+                  value={this.state.searchQueryUploads}
+                  onChange={this.handleSearchInputChangeUploads}
+                />
+                <button onClick={this.clearSearch}>Clear</button>
+                <ul>
+                {this.filteredFiles("", this.state.searchQueryUploads).map((file, index) => (
+                    <li key={index}>
+                      <a href={file.url} name={file.name} onClick={this.handleFileClick}>{file.name}</a>
+                    </li>
+                  ))}
+                </ul> */}
 
                 <LinkList
                     links={this.state.filesList}
                     admin={this.state.admin}
                     onDeleteFile={this.deleteMyFile}
-                />
+                /></div>
+                
 
 
               </div>
+              
             </div>
           </div>
         </div>
