@@ -107,7 +107,7 @@ class AvatarPdf extends React.Component {
         { color: '#9ec261', label: '0 = 0 weniger ,,optimale\'\' Ausprägung' },
         { color: '#c86658', label: '100 = ,,optimale\'\' Ausprägung' },
       ],
-      'Soziologie': [
+      'Psychosoziale Aspekte': [
         { color: '#9ec261', label: 'Grün = unauffällig' },
         { color: '#fae19d', label: 'Gelb = leicht auffällig' },
         { color: '#c86658', label: 'Rot = auffällig' },
