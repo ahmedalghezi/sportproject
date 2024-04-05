@@ -98,24 +98,24 @@ class AvatarPdf extends React.Component {
 
     const legendItems = {
       'Blut/Mikrobiom/Ernährung': [
-        { color: 'green', label: 'Grün = im Normbereich' },
-        { color: 'yellow', label: 'Gelb = suboptimal' },
-        { color: 'red', label: 'Rot = auffällig' },
-        { color: 'blue', label: 'Blau = erhöht' },
+        { color: '#9ec261', label: 'Grün = im Normbereich' },
+        { color: '#fae19d', label: 'Gelb = suboptimal' },
+        { color: '#c86658', label: 'Rot = auffällig' },
+        { color: '#619ec2', label: 'Blau = erhöht' },
       ],
       'Genetik': [
-        { color: 'green', label: '0 = 0 weniger ,,optimale\'\' Ausprägung' },
-        { color: 'red', label: '100 = ,,optimale\'\' Ausprägung' },
+        { color: '#9ec261', label: '0 = 0 weniger ,,optimale\'\' Ausprägung' },
+        { color: '#c86658', label: '100 = ,,optimale\'\' Ausprägung' },
       ],
       'Soziologie': [
-        { color: 'green', label: 'Grün = unauffällig' },
-        { color: 'yellow', label: 'Gelb = leicht auffällig' },
-        { color: 'red', label: 'Rot = auffällig' },
+        { color: '#9ec261', label: 'Grün = unauffällig' },
+        { color: '#fae19d', label: 'Gelb = leicht auffällig' },
+        { color: '#c86658', label: 'Rot = auffällig' },
       ],
       'Motorik & Kognition': [
-        { color: 'green', label: 'Grün = überdurchschnittlich' },
-        { color: 'yellow', label: 'Gelb = durchschnittlich' },
-        { color: 'red', label: 'Rot = unter durchschnittlich' },
+        { color: '#9ec261', label: 'Grün = überdurchschnittlich' },
+        { color: '#fae19d', label: 'Gelb = durchschnittlich' },
+        { color: '#c86658', label: 'Rot = unter durchschnittlich' },
       ],
     };
 
@@ -127,7 +127,16 @@ class AvatarPdf extends React.Component {
             <ul>
               {legendItems[category].map((item, subIndex) => (
                 <li key={subIndex}>
-                  <span className="legend-color" style={{ backgroundColor: item.color }}></span>
+                   <span
+                    className="legend-color"
+                    style={{
+                      display: 'inline-block',
+                      width: '20px',
+                      height: '20px',
+                      backgroundColor: item.color,
+                      marginRight: '5px'
+                    }}
+                  ></span>
                   {item.label}
                 </li>
               ))}
@@ -140,9 +149,20 @@ class AvatarPdf extends React.Component {
 
     <div className="legend-category">
       <ul>
-        <li>
-          <span className="legend-color" style={{ backgroundColor: 'grey' }}></span>
+       <li style={{ whiteSpace: 'nowrap' }}>
+      <span
+        className="legend-color"
+        style={{
+          display: 'inline-block',
+          width: '20px',
+          height: '20px',
+          backgroundColor: '#808080',
+          marginRight: '5px'
+        }}
+      ></span>
+      <span style={{ display: 'inline-block', maxWidth: 'calc(100% - 25px)' }}>
           Grau = Ergebnis liegt noch nicht vor/keine Teilnahme
+          </span>
         </li>
       </ul>
     </div>
