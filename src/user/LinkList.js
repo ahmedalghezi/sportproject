@@ -29,7 +29,7 @@ const Folder = ({ folder ,admin,onDeleteFile}) => {
                             {/*<Link name={"deletevftr5"+link.name} url={"#" +link.url} />*/}
                             {/* title={link.name} */}
                             <a hidden={!admin} name={"deletevftr5"+link.url} href={"#" + link.url} title={link.name}>(delete) </a>
-                            <a name={link.url} href={"#" + link.url} title={link.name.split('_')[1]}>{link.name.split('_')[1]}</a>
+                            <a name={link.url} href={"#" + link.url} title={link.name}>{link.name}</a>
                         </li>
                     ))}
                 </ul>
