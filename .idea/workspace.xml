@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/lime/survey/MicTestComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lime/survey/component_survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/component_survey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +67,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="MIXED" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -72,6 +79,14 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="28c4f902-958d-4799-9614-609c4bcae79c" />
+        <option name="url" value="https://github.com/ahmedalghezi/sportproject.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
@@ -399,14 +414,8 @@
       <workItem from="1707823019418" duration="598000" />
       <workItem from="1708093084701" duration="598000" />
       <workItem from="1708336737112" duration="3442000" />
-      <workItem from="1709294143439" duration="1204000" />
-    </task>
-    <task id="LOCAL-00030" summary="adding support for proxy. fixing some signup bugs">
-      <created>1661263694047</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1661263694047</updated>
+      <workItem from="1709294143439" duration="3870000" />
+      <workItem from="1710932875015" duration="15589000" />
     </task>
     <task id="LOCAL-00031" summary="Committing testing version of csv upload">
       <created>1661935600395</created>
@@ -744,7 +753,14 @@
       <option name="project" value="LOCAL" />
       <updated>1706523589891</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Version 2.8&#10;Avatar page changed2">
+      <created>1709646290784</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1709646290785</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -855,7 +871,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="starting profile page + updating signup" />
     <MESSAGE value="Editing uploadFile" />
     <MESSAGE value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
     <MESSAGE value="Translations and editings" />
@@ -880,7 +895,8 @@
     <MESSAGE value="Version 2.5" />
     <MESSAGE value="Version 2.51" />
     <MESSAGE value="Version 2.7&#10;Avatar page changed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 2.7&#10;Avatar page changed" />
+    <MESSAGE value="Version 2.8&#10;Avatar page changed2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 2.8&#10;Avatar page changed2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

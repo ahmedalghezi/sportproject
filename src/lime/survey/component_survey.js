@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Survey from './survey';
+import MicTestComponent from "./MicTestComponent";
 
 const testdata = [
     { videoID: 1, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%201.mp4"},
@@ -75,6 +76,9 @@ export default class Survey_Component extends Component {
     render() {
         const searchParams = new URLSearchParams(window.location.search);
         const id = searchParams.get("id");
-        return <Survey  testData={testDataLisa} athleteID={id}/>;
+        return (<div>
+            <Survey  testData={testDataLisa} athleteID={id}/>
+        </div>)
+        ;
       }
 }

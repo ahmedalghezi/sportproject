@@ -215,7 +215,7 @@ export default class Survey extends Component {
                     const arr = ["connection error"];
                     return;
                 }
-                if(response.data.res === "error"){
+                if(response.data.res === "no"){
                     alert("Bitte erst anmelden.");
                     return;
                 }
