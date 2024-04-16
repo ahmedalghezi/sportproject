@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CreateAvatarEntry from "./CreateAvatarEntry1";
 import PostSignup from "../../DB/postSignup";
+import { FaQuestionCircle } from 'react-icons/fa';
+import { set } from 'date-fns';
 
 const SectionManager = () => {
     const [sections, setSections] = useState([]);
     const [newSectionName, setNewSectionName] = useState('');
+    // const [newSectionDescription, setnewSectionDescription] = useState('');
     const [isEditing, setIsEditing] = useState(null);
     const [editSectionName, setEditSectionName] = useState('');
     const [showTestsModal, setShowTestsModal] = useState(false); // Define showTestsModal state
@@ -41,7 +44,7 @@ const SectionManager = () => {
     // Load sections when the component mounts
     useEffect(() => {
         loadSections();
-if (disciplinesList.length == 0) {
+    if (disciplinesList.length == 0) {
             getDisplines();
             //showError("This page is under update ...");
         }
@@ -100,7 +103,7 @@ if (disciplinesList.length == 0) {
     const loadTestsForSections = async (sectionID) => {
         try {
             const response = await axios.get(`https://inprove-sport.info/avatar/getTestsForSection/${sectionID}`);
-            console.log(`Tests for Section ${sectionID}:`, response.data);
+            // console.log(`Tests for Section ${sectionID}:`, response.data);
             setTestsForSections((prevTestsForSections) => ({
                 ...prevTestsForSections,
                 [sectionID]: response.data.tests,
@@ -112,9 +115,12 @@ if (disciplinesList.length == 0) {
 
     const addSection = async () => {
         try {
-            await axios.post('https://inprove-sport.info/avatar/createSection', { name: newSectionName });
-            setNewSectionName('');
-            loadSections();
+            await axios.post('https://inprove-sport.info/avatar/createSection', { name: newSectionName
+            // , description: newSectionDescription // Include description in the request if provided
+        });
+        setNewSectionName('');
+        // setnewSectionDescription('');
+        loadSections();
         } catch (error) {
             console.error('Error creating section:', error);
         }
@@ -158,7 +164,13 @@ if (disciplinesList.length == 0) {
                         {sectionEntries.map((entry) => (
                             <li key={entry.id}>
                                 {/* {entry.title} */}
-                                {`${entry.title} : Tests = [${entry.test_names}]   Red = [${entry.red}]   Green = [${entry.green}]`}
+                                <span data-toggle="tooltip" title={entry.descr}>
+                                {entry.title}
+                                {entry.descr && <span style={{ verticalAlign: "super" }}><FaQuestionCircle style={{ color: 'blue' }} /></span>}
+                                {/* {entry.descr && <sub> <FaQuestionCircle style={{ color: 'blue' }} /> </sub>} */}
+                            </span>
+                                {/* ${entry.title} : ${entry.descr}  */}
+                                {`: Tests = [${entry.test_names}]   Red = [${entry.red}]   Green = [${entry.green}]`}
                                 <button
                                     type="button"
                                     className="btn btn-danger"
@@ -268,26 +280,46 @@ const handleDispSele = (event) => {
                     onChange={(e) => setNewSectionName(e.target.value)}
                     style={{ marginRight: '10px' }}
                 />
+                {/* <textarea
+                placeholder="New Section Description"
+                value={newSectionDescription}
+                onChange={(e) => setnewSectionDescription(e.target.value)}
+                style={{ 
+                    marginLeft: '10px', 
+                    marginRight: '10px',
+                    width: '30%', // Set the width to fill the available space
+                    minHeight: '40px', // Set minimum height for better visibility
+                    maxHeight: '40px', // Set maximum height to limit expansion
+                    resize: 'vertical', // Allow vertical resizing for multiline input
+                    overflowY: 'auto', // Add vertical scroll if content overflows
+                }}/> */}
+
                 <button type="button" className="btn btn-success" onClick={addSection}>Add Section</button>
+
             </div>
 
             <ul>
-                {sections.map((section) => (
-                    <li key={section.id} style={{ marginBottom: '10px' }}>
-                        {isEditing === section.id ? (
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <input
-                                    type="text"
-                                    value={editSectionName}
-                                    onChange={(e) => setEditSectionName(e.target.value)}
-                                    style={{ marginRight: '10px' }}
-                                />
-                                <button className="btn btn-primary" onClick={editSection} >Save</button>
-                            </div>
-                        ) : (
+            {sections.map((section) => (
+                <li key={section.id} style={{ marginBottom: '10px' }}>
+                    {isEditing === section.id ? (
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <input
+                                type="text"
+                                value={editSectionName}
+                                onChange={(e) => setEditSectionName(e.target.value)}
+                                style={{ marginRight: '10px' }}
+                            />
+                            <button className="btn btn-primary" onClick={editSection}>Save</button>
+                        </div>
+                    ) : (
+                        <div>
                             <div>
-                                <div>
-                                    {section.name}
+                                {section.name}
+                                {section.description
+                                //  && ( // Render question mark with tooltip if description exists
+                                //     <sup title={section.description} style={{ cursor: 'help' }}>?</sup>
+                                // )
+                                }
                                     &nbsp;&nbsp;&nbsp;
                                     <button type="button" class="btn btn-light" onClick={() => startEditing(section.id, section.name)}
                                             style={{ marginRight: '10px', border: "1px solid #000" }}>

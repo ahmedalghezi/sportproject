@@ -5,7 +5,7 @@ By Chaithra,Prerna
 import React, { Component, useEffect } from "react";
 import { useSpring, animated, config } from 'react-spring';
 import { color } from "@mui/system";
-import '../avatar/avatar.css';
+import '../../prerna/avatar.css';
 import runner from './runner.png';
 // import myImage from './myImage.png'
 import { getElement } from "bootstrap/js/src/util";
@@ -360,29 +360,17 @@ class Avatar extends React.Component {
         return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black" />;
     }
 
-    // drawCircle(r, stroke, fill){
-    //     if(document.getElementById("avatargallery")){
-    //         var gal = document.getElementById("avatargallery").getBoundingClientRect();
-    //         var x = gal.width/2;
-    //         // var y = gal.height/2-200;
-    //         y = gal.height / 2;
-    //     }else{
-    //         var x = 0;
-    //         var y = 0;
-    //     }
-
-    //     return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill}/>;
-    // }
-
-    drawCircle(r, stroke, fill) {
-        let x = 0;
-        let y = 0;
-        if (document.getElementById("avatargallery")) {
-            const gal = document.getElementById("avatargallery").getBoundingClientRect();
-            x = gal.width / 2 + 450;
-            y = gal.height / 2 + 100;
+    drawCircle(r, stroke, fill){
+        if(document.getElementById("avatargallery")){
+            var gal = document.getElementById("avatargallery").getBoundingClientRect();
+            var x = gal.width/2;
+            var y = gal.height/2-200;
+        }else{
+            var x = 0;
+            var y = 0;
         }
-        return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill} />;
+
+        return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill}/>;
     }
 
     drawImageIcon() {
@@ -474,38 +462,37 @@ class Avatar extends React.Component {
     render() {
         const { isBoxClicked, showProfileUpload } = this.state;
         const { textAnimationProps, tableAnimationProps } = this.props;
-        
         if (!this.state.avatarlist || this.state.avatarlist.length === 0) {
             return (
                 <div>
-                    <div className="avatargallery" id="avatargallery">
+                    <div className="avatargallery" id="avatargallery" >
                         <p>Loading...</p>
                     </div>
                 </div>
             );
         }
-        
         const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.title))];
+        const containerHeight = 800;
+        const avatarListHeight = this.calculateAvatarListHeight();
         const totalTitles = uniqueTitles.length;
+        console.log("totalTitles : ", totalTitles)
         const midPoint = Math.ceil(totalTitles / 2);
-        
+        const rowGap = 2*(containerHeight - avatarListHeight) / totalTitles;
         require("../../prerna/avatar.css");
 
         return (
-            <div className="avatar-container">
-                <button className="upload-btn" onClick={this.handleSelectImage}>Upload Profile Picture</button>
-                <br />
-                
+            <div>   
+               <div><button className="upload-btn" onClick={this.handleSelectImage}>Upload Profile Picture</button></div> <br></br>
+
                 {showProfileUpload && (
-                    <ProfilePictureUpload
-                        onFileName={this.receiveFileName}
-                        onRedirect={this.handleRedirect}
-                    />
+                <ProfilePictureUpload onFileName={this.receiveFileName}
+                onRedirect={this.handleRedirect}
+                />
                 )}
 
-                <div className="avatargallery" id="avatargallery">
+                <div className="avatargallery" id="avatargallery" style={{ columnGap: this.setColumnGap().gap + 'px', height: '1000px'}}>
 
-                <div className="avatar-inner">
+                    <div className="avatar-inner">
                         <div className="avatar-line-container">
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
@@ -538,44 +525,63 @@ class Avatar extends React.Component {
                         </div>
 
                     {uniqueTitles.map((title, index) => {
-                        const color = this.state.selectedItemIndex === index ? 'darkgrey' : 'black';
-                        const item = this.state.avatarlist.find(item => item.title === title);
-                        const isEvenIndex = index % 2 === 0;
-                        const positionStyle = {
-                            textAlign: isEvenIndex ? 'left' : 'right',
-                            transform: isEvenIndex ? 'translate(-50%, -50%)' : 'translate(50%, -50%)',
-                        };
+                    const color = this.state.selectedItemIndex === index ? 'darkgrey' : 'black';
+                    const item = this.state.avatarlist.find((item) => item.title === title);
+                    const isEvenIndex = index % 2 === 0;
 
-                        return (
-                            <div className="avatar-item" key={index} style={positionStyle}>
-                                <animated.span
-                                    className="avatar-text-field"
-                                    id={"text" + String(index)}
-                                    onMouseEnter={() => this.handleHover(item, index, true)}
-                                    onMouseLeave={() => this.handleHover(item, index, false)}
-                                    style={{ cursor: 'pointer', position: 'relative' }}
-                                >
-                                    <SpanWithAnimation style={{ color: color }}>
-                                        {item.title}
-                                    </SpanWithAnimation>
-                                    <ColorBar data={json_data} sectionName={item.title} />
+                const positionStyle = {
+                    position: 'relative',
+                    textAlign: isEvenIndex ? 'left' : 'right',
+                    transform: isEvenIndex ? 'translate(10%,10%)' : 'translate(320%,-110%)',
+                };
 
-                                    {this.state.selectedItemIndex === index && (
-                                        <animated.div
-                                            ref={this.tableRef}
-                                            className="table-container"
-                                            style={{
-                                                visibility: this.state.selectedItemIndex === index ? 'visible' : 'hidden',
-                                            }}
-                                        >
+                return (
+                    <div className={`avatar-all-content `} key={index} style={positionStyle}>
+                        <div className="avatar-content-section">
+                            <animated.span
+                                className={`avatar-text-field `}
+                                id={"text" + String(index)}
+                                onMouseEnter={() => this.handleHover(item, index, true)}
+                                onMouseLeave={() => this.handleHover(item, index, false)}
+                                style={{
+                                cursor: 'pointer',
+                                position:'relative',
+                                textAlign: 'left'
+                                }}
+                            >
+                            {/* {item.title} */}
+                                <SpanWithAnimation style={{ color: color }}>{item.title}</SpanWithAnimation>
+                                <ColorBar data={json_data} sectionName={item.title} />
+
+                    {/* Determine table positioning based on title's position visibility: this.state.expandedTableIndex === index ? 'visible' : 'hidden', */}
+                    {this.state.selectedItemIndex === index && (
+                         <animated.div
+                            ref={this.tableRef}
+                            className="table-container"
+                            style={{
+                                position: 'absolute',
+                                zIndex: '2',
+                                top: `${this.state.tableTopPosition}px`,
+                                visibility: this.state.selectedItemIndex === index ? 'visible' : 'hidden',
+                                maxHeight: '500px',
+                                width: '500px',
+                                overflowY: 'auto',
+                                border: '0.5px solid #ccc',
+                                borderRadius: '0.5px',
+                                left: isEvenIndex ? '100%' : 'auto',
+                                right: isEvenIndex ? 'auto' : '100%',
+                                transform: isEvenIndex ? 'none' :'translateX(0%)',
+                            }}
+                        >
                                             <AthleteProfileTable
                                                 data={json_data}
                                                 section_name={this.state.selectedSection}
                                                 sectionData={this.state.sectionData}
                                             />
-                                        </animated.div>
+                                       </animated.div>
                                     )}
                                 </animated.span>
+                            </div>
                             </div>
                         );
                     })}

@@ -61,19 +61,41 @@ const recordAudio = () =>
                 mediaRecorder.stop();
             });
 
-
-
-
-
         resolve({ start, stop });
     });
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 var recorder = undefined;
+
+// const Audiostart = async () => {
+//     recorder = await recordAudio();
+//     recorder.start();
+// };
+
 const Audiostart = async () => {
-    recorder = await recordAudio();
-    recorder.start();
+    // Check screen size before requesting microphone permission
+
+    console.log("Window width:", window.innerWidth);
+    console.log("Window height:", window.innerHeight);
+    if (window.innerWidth <= 1300 && window.innerHeight <= 2318) {
+        alert("The test cannot be given from a mobile device. Please use a tablet or laptop.");
+    } else {
+        // Request microphone permission only if not already granted
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            alert("Your browser does not support microphone recording.");
+            return;
+        }
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recorder = new MediaRecorder(stream);
+            // Rest of the Audiostart function logic
+        } catch (error) {
+            alert("Microphone access denied. Please allow microphone access to proceed.");
+            console.error('Error accessing microphone:', error);
+        }
+    }
 };
+
 const Audiostop = async () => {
     const audio = await recorder.stop();
     return await audio
@@ -113,8 +135,18 @@ export default class Survey extends Component {
 
 
     componentDidMount() {
-        //get id of athlete
-        this.getTests();
+
+        // Check screen size
+        if (window.innerWidth <= 768 && window.innerHeight <= 1024) {
+            console.log("Window width:", window.innerWidth);
+            console.log("Window height:", window.innerHeight);
+            alert("The test cannot be given from a mobile device. Please use a tablet or laptop.");
+        } else {
+            // If not a mobile device, continue with existing flow
+            console.log("Window width:", window.innerWidth);
+            console.log("Window height:", window.innerHeight);
+            this.getTests();
+        }
     }
 
 
@@ -124,6 +156,8 @@ export default class Survey extends Component {
     }
 
     getTests(){
+        console.log("Window width:", window.innerWidth);
+        console.log("Window height:", window.innerHeight);
         this.setState({testList: this.props.testData})
     }
 
