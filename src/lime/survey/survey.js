@@ -11,6 +11,7 @@ import CoachInputDataService from "../../DB/rw"
 import './survey.css'
 import HandelCognition from "../../DB/handelCognition";
 import VideoPlayer from "./videoPlayer";
+import MicTestComponent from "./MicTestComponent";
 
 import { saveAs } from 'file-saver';
 
@@ -97,7 +98,13 @@ export default class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {testList: [], athlete:'', answersList:[], audioList:[], questionbutton: false, questioncheckbox: false, shvideo: false, questionnumber: 0, intro: true, betwquestion: false, hquest: false, trialquestions: 3};
+        this.state = {testList: [], athlete:'', 
+        answersList:[], audioList:[], questionbutton: false, 
+        questioncheckbox: false, shvideo: false, questionnumber: 0, 
+        intro: true, betwquestion: false, hquest: false, 
+        trialquestions: 3,
+        micPermission: false,
+        micTestPassed: false};
         this.getTests = this.getTests.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
@@ -109,6 +116,10 @@ export default class Survey extends Component {
         this.questionwithcheckbox = this.questionwithcheckbox.bind(this);
         this.uploadSurvey = this.uploadSurvey.bind(this);
         this.onVideoEnd = this.onVideoEnd.bind(this);
+        this.handleMicTestPassed = this.handleMicTestPassed.bind(this);
+        this.handleMicPermission = this.handleMicPermission.bind(this);
+
+
     }
 
 
@@ -126,6 +137,19 @@ export default class Survey extends Component {
     getTests(){
         this.setState({testList: this.props.testData})
     }
+
+    handleMicTestPassed(){
+    // Set micTestPassed state to true when "OK" button is clicked
+    // if (this.state.micPermission) {
+        this.setState({ micTestPassed: true });
+    }
+
+    handleMicPermission(micTestResult){
+        // Set micTestPassed state to true when "OK" button is clicked
+        this.setState({ micPermission  : micTestResult })
+        
+    }
+    
 
     handleButtonClick(event){
         if(!document.querySelector('input[name="firstquestion"]:checked') || !document.querySelector('input[name="secondquestion"]:checked')){
@@ -643,12 +667,30 @@ export default class Survey extends Component {
         require("./survey.css")
         const { athleteID } = this.props
         const { testData } = this.props
-        return (
-            <div>
+        console.log("micPermission : " , (this.state.micPermission))
+        if (!this.state.micTestPassed) {
+            return (
+                <div>
+                    <MicTestComponent onMicTestResult={this.handleMicPermission} />
+                    {this.state.micPermission && (
+                        // this.state.micTestPassed ( */}
+                        <div>
+                            <button onClick={this.handleMicTestPassed}>Skip</button>
+                        </div>
+                    )} 
+                </div>
+            );
+                    }
+        else if(this.state.micTestPassed) {
+            return (
+           
 
+                <div>
+                
                 <div className="progressWrapper">
                     <div className="progress" style= {{...{width: "100%"}}}><div className="progress-bar" role="progressbar" style= {{...{width: this.state.questionnumber/this.state.testList.length * 100 +"%", "--to-width": this.state.questionnumber/this.state.testList.length * 100 + "%"}}} aria-valuenow={String(this.state.questionnumber/this.state.testList.length * 100 +"%")} aria-valuemin="0" aria-valuemax="100"></div>{Math.ceil(this.state.questionnumber/this.state.testList.length * 100) +"%"}</div>
                 </div>
+                
                 {
                     (this.state.intro)
                         ?
@@ -747,6 +789,8 @@ Wenn du bereit bist, kannst du mit den Übungsvideos beginnen. Klicke auf <stron
                 }
             </div>
         );
+            }
+        
     }
 
 }
