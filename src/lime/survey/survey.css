@@ -9,6 +9,16 @@ h3 {
   color: black;
 }
 
+.video-container {
+  text-align: center;
+  max-width: 40%;
+  max-height: 40%;
+}
+
+.video-container video {
+  width: 85%;
+  height: auto;
+}
 
 @media screen {
   .gallery {
@@ -151,4 +161,7 @@ sup {
 }
 .survey-video-container{
   text-align: center;
+  max-width: 85%;
+  max-height: 85%;
+  overflow: hidden;
 }

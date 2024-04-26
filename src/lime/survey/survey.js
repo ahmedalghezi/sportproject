@@ -12,27 +12,20 @@ import './survey.css'
 import HandelCognition from "../../DB/handelCognition";
 import VideoPlayer from "./videoPlayer";
 import MicTestComponent from "./MicTestComponent";
+import { withRouter } from 'react-router-dom';
+import JSZip from 'jszip';
+
 
 import { saveAs } from 'file-saver';
 
-/*
-const testdata = [
-    { videoID: 1, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%201.mp4"},
-    { videoID: 2, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%202.mp4"},
-    { videoID: 3, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%203.mp4"},
-    { videoID: 4, url: "https://inprove-sport.info:8080/videos/dvv/combined/Angriff/Angriff%204.mp4"},
-    { videoID: 5, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%201.mp4"},
-    { videoID: 6, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%202.mp4"},
-    { videoID: 7, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%203.mp4"},
-    { videoID: 8, url: "https://inprove-sport.info:8080/videos/dvv/combined/Abwehr/Abwehr%204.mp4"},
-]
-*/
+let recorder = null; // Declare recorder variable outside the functions
+let csvDownloaded = false;
+let zipDownloaded = false;
 
 const recordAudio = () =>
     new Promise(async resolve => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const mediaRecorder = new MediaRecorder(stream);
-
         const audioChunks = [];
 
         mediaRecorder.addEventListener("dataavailable", event => {
@@ -45,64 +38,77 @@ const recordAudio = () =>
             new Promise(resolve => {
                 mediaRecorder.addEventListener("stop", () => {
                     const audioBlob = new Blob(audioChunks);
-                    //sendToServer(audioBlob);
-                    const audioUrl = URL.createObjectURL(audioBlob);
-                    const audio = new Audio(audioUrl);
-                    const play = () => audio.play();
-                    let fileNameRec = "recorded-audio.mp4";
-                    const searchParams = new URLSearchParams(window.location.search);
-                    const id = searchParams.get("id");
-                    if(id)
-                        fileNameRec = id+"_"+fileNameRec
-                    saveAs(audioBlob, fileNameRec);
-                    resolve({ audioBlob, audioUrl, play });
-
+                    resolve({ audioBlob });
                 });
-
                 mediaRecorder.stop();
             });
 
-
-
-
-
-        resolve({ start, stop });
+        recorder = { start, stop }; // Assign start and stop functions to the global recorder variable
+        resolve(recorder);
     });
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
-var recorder = undefined;
+
 const Audiostart = async () => {
-    recorder = await recordAudio();
-    recorder.start();
-};
-const Audiostop = async () => {
-    const audio = await recorder.stop();
-    return await audio
-    //save audioh
-    //URL.revokeObjectURL(url)
+    await recordAudio();
+    if (recorder) {
+        recorder.start();
+    }
 };
 
-const saveFile = async (blob) => {
-    const a = document.createElement('a');
-    a.download = 'my-file.mp3';
-    a.href = blob.audioUrl;
-    a.addEventListener('click', (e) => {
-      setTimeout(() => URL.revokeObjectURL(a.href), 30 * 1000);
+let recordedAudios = []; // Store recorded audio blobs
+
+const Audiostop = async (videoID) => {
+    return new Promise(async (resolve, reject) => {
+        if (!recorder) {
+            console.error("Recorder is not initialized.");
+            reject("Recorder is not initialized.");
+            return;
+        }
+
+        console.log("Audiostop id: ", videoID);
+
+        try {
+            const { audioBlob } = await recorder.stop(); 
+            recordedAudios.push({ id: videoID, blob: audioBlob }); // Store audio blob along with its corresponding ID
+            resolve(audioBlob);
+        } catch (error) {
+            console.error("Error stopping recorder:", error);
+            reject(error);
+        }
     });
-    a.click();
 };
 
 
+// Function to download audio blobs as a zip file
+const downloadAudioZip = async () => {
+    const zip = new JSZip();
+    console.log("recordedAudios : ", recordedAudios)
+    recordedAudios.forEach(({ id, blob }) => {
+        zip.file(`Video ${id}.mp3`, blob);
+       
+    });
 
-export default class Survey extends Component {
+    // Generate the zip file asynchronously
+    const content = await zip.generateAsync({ type: 'blob' });
+
+    // Trigger download of the zip file
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(content);
+    link.download = 'audio_recordings.zip';
+    link.click();
+};
+
+class Survey extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {testList: [], athlete:'', 
+        this.state = {testList: [], athlete:'', discipline: props.discipline,
         answersList:[], audioList:[], questionbutton: false, 
         questioncheckbox: false, shvideo: false, questionnumber: 0, 
         intro: true, betwquestion: false, hquest: false, 
         trialquestions: 3,
+        alertShown: false,
         micPermission: false,
         micTestPassed: false};
         this.getTests = this.getTests.bind(this);
@@ -116,7 +122,7 @@ export default class Survey extends Component {
         this.questionwithcheckbox = this.questionwithcheckbox.bind(this);
         this.uploadSurvey = this.uploadSurvey.bind(this);
         this.onVideoEnd = this.onVideoEnd.bind(this);
-        this.handleMicTestPassed = this.handleMicTestPassed.bind(this);
+        // this.handleMicTestPassed = this.handleMicTestPassed.bind(this);
         this.handleMicPermission = this.handleMicPermission.bind(this);
 
 
@@ -124,24 +130,33 @@ export default class Survey extends Component {
 
 
     componentDidMount() {
-        //get id of athlete
-        this.getTests();
+        // PostSignup.isLogin().
+        // PostSignup.isLogin().then(response => {
+
+        //     if (response.data.res === "error")
+        //         alert("some error has happened");
+
+        //     if (response.data.res === "no") {
+        //         window.location.href = window.location.origin+"/reg/sign-in?org=$reg$profile";
+        //         return
+        //     }
+        //     if (response.data.res === "ok") {
+                this.getTests();
+            // }
+
+        // }).catch(e => {
+        //     console.log(e);
+        //     alert("some error has happened");
+        // });
+        
     }
-
-
-
+    
     sendToServer(){
         //xxxx
     }
 
     getTests(){
         this.setState({testList: this.props.testData})
-    }
-
-    handleMicTestPassed(){
-    // Set micTestPassed state to true when "OK" button is clicked
-    // if (this.state.micPermission) {
-        this.setState({ micTestPassed: true });
     }
 
     handleMicPermission(micTestResult){
@@ -159,16 +174,8 @@ export default class Survey extends Component {
             var q2 = document.querySelector('input[name="secondquestion"]:checked').value.slice(-1)-1;
             var next = this.state.questionnumber + 1
             var newanswers = this.state.answersList
-            newanswers.push({videoID: this.state.questionnumber, answers: [q1,q2]})
-            console.log(this.state.questionnumber)
-            console.log(this.state.testList.length/2)
-            /*if(this.state.questionnumber % (this.state.testList.length/2) === (this.state.trialquestions - 1)){
-                this.setState({questioncheckbox: false, betwquestion: true, questionnumber: next, answersList: newanswers
-                });
-            }else if(this.state.questionnumber + 1 === (Math.ceil(this.state.testList.length/2))){
-                this.setState({questioncheckbox: false, hquest: true, questionnumber: next, answersList: newanswers
-                });
-            }else*/{
+            newanswers.push({videoID: this.state.testList[this.state.questionnumber]['videoID'], answers: [q1,q2]})
+            {
                 this.setState({questioncheckbox: false, questionbutton: true, questionnumber: next, answersList: newanswers
                 });
             }
@@ -225,46 +232,65 @@ export default class Survey extends Component {
 
     onVideoEnd(){
         (async () => {
-            var blob = await Audiostop();
-            var fd = new FormData();
-           //saveFile(blob);
-            //blob.play();
-            //fd.append('fname', 'file');
-            var wavfromblob = new File([blob], "incomingaudioclip.wav");
-            fd.append('file', blob.audioBlob);
 
-            //blob.play();
-            HandelCognition.uploadRecordFiles(fd).then(response => {
-                if(response.data.res === "error") {
-                    const arr = ["connection error"];
-                    return;
-                }
-                if(response.data.res === "no"){
-                    alert("Bitte erst anmelden.");
-                    return;
-                }
-                if(response.data.res === "ok") {
-                    this.setState(prevState => ({
-                        audioList: [...prevState.audioList, {videoID: this.state.currentVideoID, recFileName: response.data.filename}]
-                    }))
-                }
+            var videoID = this.state.testList[this.state.questionnumber]['videoID'];
+             const audioBlob = await Audiostop(videoID);
+            if (!audioBlob || audioBlob.size === 0) {
+                // console.log("Empty audio recording.");
+                return;
+            }
 
-            }).catch(e => {
-                console.log(e);
-                alert("Es ist ein Fehler aufgetreten!");
-            });
-        })()
-        this.setState({questioncheckbox: true, shvideo: false});
-    }
+        var formData = new FormData();
+        formData.append('audioFile', audioBlob, `RecordedAudio_Video.${videoID}.mp3`); // Adjust filename as needed
+        // formData.append('file', audioBlob.audioBlob);
+
+
+        // console.log("formData: ", formData)
+        HandelCognition.uploadRecordFiles(formData).then(response => {
+            if(response.data.res === "error") {
+                const arr = ["connection error"];
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "no"){
+                alert("Bitte erst anmelden.");
+                return;
+            }
+            if(response.data.res === "ok") {
+                console.log("uploadRecordFiles : Success")
+                this.setState(prevState => ({
+                    audioList: [...prevState.audioList, {videoID: this.state.currentVideoID, recFileName: response.data.filename}]
+                    
+
+                }));
+                console.log("response.data : ", response.data)
+
+            }
+        }).catch(e => {
+            console.error(e);
+            if (e.response) {
+                console.log("Response status code:", e.response.status);
+              }
+            alert("Es ist ein Fehler aufgetreten!");
+        });
+    })()
+    this.setState({ questioncheckbox: true, shvideo: false });
+}
+    
+
+
     showVideo(id){
-        return(
-            <div className="survey-video-container">
+        const videoSrc = this.state.testList[this.state.questionnumber].url;
+        // console.log("Video source :", videoSrc); // Print the src attribute
+        // console.log("this.state.questionnumber :", this.state.questionnumber);
+        // console.log("this.state.testList[this.state.questionnumber] :", this.state.testList[this.state.questionnumber]);
 
-              <VideoPlayer src={this.state.testList[this.state.questionnumber].url} onEnded={this.onVideoEnd}  onPlay={Audiostart} ></VideoPlayer>
-                 </div>
+    return (
+        <div className="survey-video-container">
+            <VideoPlayer src={videoSrc} onEnded={this.onVideoEnd} onPlay={Audiostart}></VideoPlayer>
+        </div>
         );
-    }
-
+    };
 
     questionwithbutton(){
         var string;
@@ -275,22 +301,6 @@ export default class Survey extends Component {
         }else {
             string = "Angriffs-Sequenz: " + (this.state.questionnumber + 1);
         }
-
-        /*if(this.state.questionnumber < (this.state.testList.length/2)){
-             if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){
-                string = "Übungsdurchgang: " + (this.state.questionnumber % (this.state.testList.length/2) + 1);
-             }else{
-                string = "Angriffs-Sequenz: " + (this.state.questionnumber % (this.state.testList.length/2) - (this.state.trialquestions-1));
-             }
-             string2 = "stellenden Spieler";
-        }else{
-            if(this.state.questionnumber % (this.state.testList.length/2) < this.state.trialquestions){
-                string = "Übungsdurchgang: " + (this.state.questionnumber % (this.state.testList.length/2) + 1);
-            }else{
-               string = "Abwehr-Sequenz: " + (this.state.questionnumber % (this.state.testList.length/2) - (this.state.trialquestions-1));
-            }
-            string2 = "Mittelblocker";
-        }*/
 
         return(
             <div>
@@ -626,62 +636,241 @@ export default class Survey extends Component {
             </div>
         );
     }
+
+    getDescriptionText(discipline) {
+        switch(discipline) {
+            case 'volleyball':
+                return (
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
+
+                    <br></br><br></br>
+                    Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
+                    
+                    <br></br><br></br>
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
+                    
+                    <br></br><br></br>
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
+                    
+                    <br></br><br></br>
+                    Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
+                    
+                    <br></br><br></br>
+                    Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
+
+                    <br></br><br></br>
+                    {/* *Video einfügen*  */}
+                    <div className="video-container">
+                        <video controls>
+                            <source src="https://inprove-sport.info/files/cog/showVideos/instruction.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <br></br><br></br>
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
+                    
+                    <br></br><br></br>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    <br></br><br></br></span></p>
+                );
+
+            case 'eishockey':
+                return (
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler Entscheidungen auf dem Eis triffst. 
+
+                    <br></br><br></br>
+                    Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Puck ein. 
+                    
+                    <br></br><br></br>
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Puck siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen. 
+                    
+                    <br></br><br></br>
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
+                    
+                    <br></br><br></br>
+                    Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
+                    
+                    <br></br><br></br>
+                    Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
+
+                    <br></br><br></br>
+                    {/* *Video einfügen*  */}
+                    <div className="video-container">
+                        <video controls>
+                            <source src="https://inprove-sport.info/files/cog/showVideos/instruction.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                   
+                    
+                    <br></br><br></br>1
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
+                    
+                    <br></br><br></br>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    <br></br><br></br></span></p>
+                    
+                );
+            
+            case 'basketball':
+                return (
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Basketballspieler Entscheidungen auf dem Platz triffst.
+
+                    <br></br><br></br>
+                    Dafür werden dir kurze Videosequenzen aus Basketballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
+                    
+                    <br></br><br></br>
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
+                    
+                    <br></br><br></br>
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
+                    
+                    <br></br><br></br>
+                    Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
+                    
+                    <br></br><br></br>
+                    Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
+
+                    <br></br><br></br>
+                    {/* *Video einfügen*  */}
+                    <div className="video-container">
+                        <video controls>
+                            <source src="https://inprove-sport.info/files/cog/showVideos/instruction.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    
+                    <br></br><br></br>
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
+                    
+                    <br></br><br></br>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    <br></br><br></br></span></p>
+                    
+                );
+            
+            default:
+                return(
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
+
+                    <br></br><br></br>
+                    Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
+                    
+                    <br></br><br></br>
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
+                    
+                    <br></br><br></br>
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
+                    
+                    <br></br><br></br>
+                    Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
+                    
+                    <br></br><br></br>
+                    Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
+
+                    <br></br><br></br>
+                    {/* *Video einfügen*  */}
+                    <div className="video-container">
+                        <video controls>
+                            <source src="https://inprove-sport.info/files/cog/showVideos/instruction.mp4" type="video/mp4" />
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <br></br><br></br>
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
+                    
+                    <br></br><br></br>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    <br></br><br></br></span></p>
+                );
+        }
+    }
+
+    
+
     uploadSurvey(){
-        //download csv
-        const headers = Object.keys(this.state.answersList[0]);
-        const csv = [
-            headers.join(','),
-            ...this.state.answersList.map(row => headers.map(header => row[header]).join(','))
-          ].join('\n');
-        const csvblob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(csvblob);
-        const link = document.createElement('a');
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'answers.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        return(
-            <div>Vielen Dank. Du hast den Test erfolgreich beendet!</div>
-        );
+        
+        if (!csvDownloaded) {
+            // Download CSV file
+            const headers = Object.keys(this.state.answersList[0]);
+            const csv = [
+                headers.join(','),
+                ...this.state.answersList.map(row => headers.map(header => row[header]).join(','))
+            ].join('\n');
+            const csvblob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(csvblob);
+            const link = document.createElement('a');
+            link.setAttribute('href', url);
+            // link.setAttribute('download', 'answers.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+    
+            // Mark CSV as downloaded
+            csvDownloaded = true;
+        }
+
+        // if (!zipDownloaded) {
+        //     // Download ZIP file
+        //     downloadAudioZip().then(() => {
+        //         console.log("Audio recordings zip file downloaded successfully.");
+        //     }).catch(error => {
+        //         console.error("Error downloading audio recordings zip file:", error);
+        //     });
+    
+        //     // Mark ZIP as downloaded
+        //     zipDownloaded = true;
+        // }
+    
         HandelCognition.postTestRes( {arr:this.state.audioList}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
+                alert("Bitte erst anmelden.");
                 return;
             }
-            if(response.data.res === "error"){
+            if(response.data.res === "no"){
                 alert("Bitte erst anmelden.");
                 return;
             }
             if(response.data.res === "ok") {
+                console.log("postTestRes : Success")
             }
+            console.log("response.data : ", response.data.res)
 
         }).catch(e => {
-            console.log(e);
+            console.error(e);
+            if (e.response) {
+                console.log("Response status code:", e.response.status);
+              }
             alert("Es ist ein Fehler aufgetreten!");
         });
+
+        return(
+            <div>Vielen Dank. Du hast den Test erfolgreich beendet!</div>
+        );
     }
 
     render() {
         require("./survey.css")
         const { athleteID } = this.props
         const { testData } = this.props
-        console.log("micPermission : " , (this.state.micPermission))
-        if (!this.state.micTestPassed) {
-            return (
-                <div>
-                    <MicTestComponent onMicTestResult={this.handleMicPermission} />
-                    {this.state.micPermission && (
-                        // this.state.micTestPassed ( */}
-                        <div>
-                            <button onClick={this.handleMicTestPassed}>Skip</button>
-                        </div>
-                    )} 
-                </div>
-            );
-                    }
-        else if(this.state.micTestPassed) {
+        const { discipline } = this.state;
+        const descriptionText = this.getDescriptionText(discipline);
+        
+        // console.log("micPermission : " , (this.state.micPermission))
+        // console.log("Window width:", window.innerWidth);
+        // console.log("Window height:", window.innerHeight);
+
+        if (!this.state.alertShown && window.innerWidth <= 700 && window.innerHeight <= 1000) {
+            this.setState({ alertShown: true });
+            alert("Hinweis zur Gerätekompatibilität: Tablet oder Laptop erforderlich (Mindestbildschirmgröße 700X1000)");
+            return null;
+        } 
+        else if(!this.state.alertShown)  {      
             return (
            
 
@@ -698,9 +887,11 @@ export default class Survey extends Component {
 
 
                         <div>
-                            <h3>Optionengenerierungs-Test DVV</h3>
+                            <h3>Instruktion für Teilnehmende</h3>
                             <div className=" survey-welcome  h4 text-primary">
-                                <p><span  className="p_text">In dieser Studie geht es darum herauszufinden, wie du als Volleyballer Entscheidungen auf dem Platz triffst. Hierfür ist eine hohe Konzentration erforderlich, um zu untersuchen wie DU im Spiel entscheidest.
+                            {descriptionText}
+
+                                {/* <p><span  className="p_text">In dieser Studie geht es darum herauszufinden, wie du als Volleyballer Entscheidungen auf dem Platz triffst. Hierfür ist eine hohe Konzentration erforderlich, um zu untersuchen wie DU im Spiel entscheidest.
 
 <br></br><br></br>
 
@@ -731,19 +922,17 @@ Wenn du bereit bist, kannst du mit den Übungsvideos beginnen. Klicke auf <stron
 <br></br><br></br>
 
 
-<br></br><br></br></span></p>
+
+</span></p> */}
+
+<MicTestComponent onMicTestResult={this.handleMicPermission} />
+<br></br><br></br>
 
 
+  <p className="p_title"><span className="p_text">Viel Spaß!</span></p>
+    </div>
 
-                                <p className="p_title"><span className="p_text">Viel Spaß!</span></p>
-                            </div>
-
-
-
-
-
-
-                            <div className=" number-of-questions   text-muted">
+<div className=" number-of-questions   text-muted">
                                 <div className=" question-count-text ">
 
                                     In dieser Umfrage sind {this.state.testList.length} Fragen enthalten.
@@ -773,24 +962,22 @@ Wenn du bereit bist, kannst du mit den Übungsvideos beginnen. Klicke auf <stron
                             ?
                             this.betweenQuestion()
                         : null
-
-
-
-                                                                                                                                                                                                                      ?
-                                                                                                                                                                                    this.showVideo(8)
-
-                                                                                                                                                                                                                                                                                                                                                                : (this.state.counter === 82)
-                                                                                                                                                                                                                                                                                                                                                                    ?
-                                                                                                                                                                                                                                                                                                                                                                    this.uploadSurvey()
-                                                                                                                                                                                                                                                                                                                                                                    : (this.state.counter === 83)
-                                                                                                                                                                                                                                                                                                                                                                        ?
-                                                                                                                                                                                                                                                                                                                                                                        <div>Vielen Dank für die Teilnahme an dieser Studie!</div>
-                                                                                                                                                                                                                                                                                                                                                                        : alert("Ein Fehler ist aufgetreten")
+                        ?
+                        this.showVideo(8)
+                        : (this.state.counter === 82)
+                        ?
+                        this.uploadSurvey()
+                        : (this.state.counter === 83)
+                            ?
+                            <div>Vielen Dank für die Teilnahme an dieser Studie!</div>
+                            : alert("Ein Fehler ist aufgetreten")                        
+                                                                                                                                                                                                                                                                                                                                                                   
                 }
             </div>
-        );
+                );
             }
         
     }
 
 }
+export default Survey; 

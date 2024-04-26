@@ -205,7 +205,7 @@ function Main() {
                             <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />
                             <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
 
-                            <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey_Component/></div>} />
+                            <Route path="/trainer/cognition/options/:discipline" element={<div className="wide-inner data-view"><Survey_Component/></div>} />
 
 
 
