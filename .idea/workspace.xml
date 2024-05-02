@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/lime/survey/MicTestComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lime/survey/getCognitionRecords.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lime/survey/component_survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/component_survey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/csvHandler/TestsView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/TestsView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lime/survey/MicTestComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/MicTestComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/lime/survey/survey.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/lime/survey/survey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register/MainReg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/MainReg.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -415,14 +422,7 @@
       <workItem from="1708093084701" duration="598000" />
       <workItem from="1708336737112" duration="3442000" />
       <workItem from="1709294143439" duration="3870000" />
-      <workItem from="1710932875015" duration="15589000" />
-    </task>
-    <task id="LOCAL-00031" summary="Committing testing version of csv upload">
-      <created>1661935600395</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1661935600396</updated>
+      <workItem from="1710932875015" duration="30036000" />
     </task>
     <task id="LOCAL-00032" summary="Updating todos for the studies approves">
       <created>1663580473108</created>
@@ -760,7 +760,14 @@
       <option name="project" value="LOCAL" />
       <updated>1709646290785</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Version 2.9&#10;&#10;* Options generation test, in progress">
+      <created>1712847519375</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1712847519376</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -871,7 +878,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Editing uploadFile" />
     <MESSAGE value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
     <MESSAGE value="Translations and editings" />
     <MESSAGE value="New PDF Consent fill" />
@@ -896,7 +902,8 @@
     <MESSAGE value="Version 2.51" />
     <MESSAGE value="Version 2.7&#10;Avatar page changed" />
     <MESSAGE value="Version 2.8&#10;Avatar page changed2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 2.8&#10;Avatar page changed2" />
+    <MESSAGE value="Version 2.9&#10;&#10;* Options generation test, in progress" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 2.9&#10;&#10;* Options generation test, in progress" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -923,7 +930,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/lime/survey/survey.js</url>
-          <line>643</line>
+          <line>866</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
