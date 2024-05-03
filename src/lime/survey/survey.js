@@ -25,7 +25,15 @@ let zipDownloaded = false;
 const recordAudio = () =>
     new Promise(async resolve => {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mediaRecorder = new MediaRecorder(stream);
+        let mediaRecorder = new MediaRecorder(stream);
+        let options = { mimeType: 'audio/webm; codecs=opus' };
+        if (MediaRecorder.isTypeSupported(options.mimeType)) {
+            mediaRecorder = new MediaRecorder(stream, options);
+        } else {
+            // Fallback or error handling
+            console.error('No supported media types for MediaRecorder.');
+        }
+
         const audioChunks = [];
 
         mediaRecorder.addEventListener("dataavailable", event => {
@@ -69,7 +77,7 @@ const Audiostop = async (videoID) => {
         console.log("Audiostop id: ", videoID);
 
         try {
-            const { audioBlob } = await recorder.stop(); 
+            const { audioBlob } = await recorder.stop();
             recordedAudios.push({ id: videoID, blob: audioBlob }); // Store audio blob along with its corresponding ID
             resolve(audioBlob);
         } catch (error) {
@@ -86,7 +94,7 @@ const downloadAudioZip = async () => {
     console.log("recordedAudios : ", recordedAudios)
     recordedAudios.forEach(({ id, blob }) => {
         zip.file(`Video ${id}.mp3`, blob);
-       
+
     });
 
     // Generate the zip file asynchronously
@@ -104,9 +112,9 @@ class Survey extends Component {
     constructor(props) {
         super(props);
         this.state = {testList: [], athlete:'', discipline: props.discipline,
-        answersList:[], audioList:[], questionbutton: false, 
-        questioncheckbox: false, shvideo: false, questionnumber: 0, 
-        intro: true, betwquestion: false, hquest: false, 
+        answersList:[], audioList:[], questionbutton: false,
+        questioncheckbox: false, shvideo: false, questionnumber: 0,
+        intro: true, betwquestion: false, hquest: false,
         trialquestions: 3,
         alertShown: false,
         micPermission: false,
@@ -149,9 +157,9 @@ class Survey extends Component {
         //     console.log(e);
         //     alert("some error has happened");
         // });
-        
+
     }
-    
+
     sendToServer(){
         //xxxx
     }
@@ -163,9 +171,9 @@ class Survey extends Component {
     handleMicPermission(micTestResult){
         // Set micTestPassed state to true when "OK" button is clicked
         this.setState({ micPermission  : micTestResult })
-        
+
     }
-    
+
 
     handleButtonClick(event){
         if(!document.querySelector('input[name="firstquestion"]:checked') || !document.querySelector('input[name="secondquestion"]:checked')){
@@ -237,12 +245,12 @@ class Survey extends Component {
             var videoID = this.state.testList[this.state.questionnumber]['videoID'];
              const audioBlob = await Audiostop(videoID);
             if (!audioBlob || audioBlob.size === 0) {
-                // console.log("Empty audio recording.");
+                 console.log("Empty audio recording.");
                 return;
             }
 
         var formData = new FormData();
-        formData.append('audioFile', audioBlob, `RecordedAudio_Video.${videoID}.mp3`); // Adjust filename as needed
+        formData.append('file', audioBlob, `RecordedAudio_Video.${videoID}.webm`); // Adjust filename as needed
         // formData.append('file', audioBlob.audioBlob);
 
 
@@ -261,7 +269,7 @@ class Survey extends Component {
                 console.log("uploadRecordFiles : Success")
                 this.setState(prevState => ({
                     audioList: [...prevState.audioList, {videoID: this.state.currentVideoID, recFileName: response.data.filename}]
-                    
+
 
                 }));
                 console.log("response.data : ", response.data)
@@ -277,7 +285,7 @@ class Survey extends Component {
     })()
     this.setState({ questioncheckbox: true, shvideo: false });
 }
-    
+
 
 
     showVideo(id){
@@ -692,11 +700,11 @@ class Survey extends Component {
                     Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handeln könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
                     
                     <br></br><br></br>
-                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
-                    
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon.
+
                     <br></br><br></br>
                     Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
-                    
+
                     <br></br><br></br>
                     Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
 
@@ -708,32 +716,32 @@ class Survey extends Component {
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    
+
                     <br></br><br></br>
                     Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, 
                     Wir werden uns dann zeitnah bei dir melden. 
                     
                     <br></br><br></br>
-                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
                     <br></br><br></br></span></p>
                 );
 
             case 'eishockey':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler Entscheidungen auf dem Eis triffst. 
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler Entscheidungen auf dem Eis triffst.
 
                     <br></br><br></br>
-                    Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Puck ein. 
-                    
+                    Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Puck ein.
+
                     <br></br><br></br>
-                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Puck siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen. 
-                    
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Puck siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
+
                     <br></br><br></br>
-                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
-                    
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon.
+
                     <br></br><br></br>
                     Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
-                    
+
                     <br></br><br></br>
                     Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
 
@@ -751,11 +759,11 @@ class Survey extends Component {
                     Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
                     
                     <br></br><br></br>
-                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
                     <br></br><br></br></span></p>
-                    
+
                 );
-            
+
             case 'basketball':
                 return (
                     <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Basketballspieler Entscheidungen auf dem Platz triffst.
@@ -778,7 +786,7 @@ class Survey extends Component {
                     
                     <br></br><br></br>
                     Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
-                    
+
                     <br></br><br></br>
                     Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
 
@@ -790,34 +798,34 @@ class Survey extends Component {
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    
-                    
+
+
                     <br></br><br></br>
                     Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, 
                     Wir werden uns dann zeitnah bei dir melden. 
                     
                     <br></br><br></br>
-                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
                     <br></br><br></br></span></p>
-                    
+
                 );
-            
+
             default:
                 return(
                     <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
 
                     <br></br><br></br>
-                    Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
-                    
+                    Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein.
+
                     <br></br><br></br>
                     Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
-                    
+
                     <br></br><br></br>
-                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
-                    
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon.
+
                     <br></br><br></br>
                     Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
-                    
+
                     <br></br><br></br>
                     Es folgt nun ein kurzes Video, in dem der Ablauf des Tests dargestellt wird.
 
@@ -829,21 +837,21 @@ class Survey extends Component {
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    
+
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
-                    
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden.
+
                     <br></br><br></br>
-                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen. Klicke dazu auf <strong>WEITER</strong>
+                    Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
                     <br></br><br></br></span></p>
                 );
         }
     }
 
-    
+
 
     uploadSurvey(){
-        
+
         if (!csvDownloaded) {
             // Download CSV file
             const headers = Object.keys(this.state.answersList[0]);
@@ -860,7 +868,7 @@ class Survey extends Component {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-    
+
             // Mark CSV as downloaded
             csvDownloaded = true;
         }
@@ -872,11 +880,11 @@ class Survey extends Component {
         //     }).catch(error => {
         //         console.error("Error downloading audio recordings zip file:", error);
         //     });
-    
+
         //     // Mark ZIP as downloaded
         //     zipDownloaded = true;
         // }
-    
+
         HandelCognition.postTestRes( {arr:this.state.audioList}).then(response => {
             if(response.data.res === "error") {
                 const arr = ["connection error"];
@@ -911,7 +919,7 @@ class Survey extends Component {
         const { testData } = this.props
         const { discipline } = this.state;
         const descriptionText = this.getDescriptionText(discipline);
-        
+
         // console.log("micPermission : " , (this.state.micPermission))
         // console.log("Window width:", window.innerWidth);
         // console.log("Window height:", window.innerHeight);
@@ -920,17 +928,17 @@ class Survey extends Component {
             this.setState({ alertShown: true });
             alert("Hinweis zur Gerätekompatibilität: Tablet oder Laptop erforderlich (Mindestbildschirmgröße 700X1000)");
             return null;
-        } 
-        else if(!this.state.alertShown)  {      
+        }
+        else if(!this.state.alertShown)  {
             return (
-           
+
 
                 <div>
-                
+
                 <div className="progressWrapper">
                     <div className="progress" style= {{...{width: "100%"}}}><div className="progress-bar" role="progressbar" style= {{...{width: this.state.questionnumber/this.state.testList.length * 100 +"%", "--to-width": this.state.questionnumber/this.state.testList.length * 100 + "%"}}} aria-valuenow={String(this.state.questionnumber/this.state.testList.length * 100 +"%")} aria-valuemin="0" aria-valuemax="100"></div>{Math.ceil(this.state.questionnumber/this.state.testList.length * 100) +"%"}</div>
                 </div>
-                
+
                 {
                     (this.state.intro)
                         ?
@@ -1021,14 +1029,13 @@ Wenn du bereit bist, kannst du mit den Übungsvideos beginnen. Klicke auf <stron
                         : (this.state.counter === 83)
                             ?
                             <div>Vielen Dank für die Teilnahme an dieser Studie!</div>
-                            : alert("Ein Fehler ist aufgetreten")                        
-                                                                                                                                                                                                                                                                                                                                                                   
+                            : alert("Ein Fehler ist aufgetreten")
+
                 }
             </div>
                 );
             }
-        
+
     }
 
-}
-export default Survey; 
+export default Survey;

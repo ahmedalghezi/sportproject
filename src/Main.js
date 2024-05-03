@@ -93,6 +93,7 @@ import ProfilePictureUpload from './prerna/fileUpload/profilePicture';
 import OGAvatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
 import AvatarPdf from './chaithra/avatar/avatarPdf';
+import CognitionRecFiles from "./lime/survey/getCognitionRecords";
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
 
@@ -171,7 +172,7 @@ function Main() {
                             <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
                             {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
-                            
+
 
                             {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
 
@@ -206,6 +207,7 @@ function Main() {
                             <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
 
                             <Route path="/trainer/cognition/options/:discipline" element={<div className="wide-inner data-view"><Survey_Component/></div>} />
+                            <Route path="/trainer/cognition/optionsAdmin" element={<div className="wide-inner data-view"><CognitionRecFiles/></div>} />
 
 
 

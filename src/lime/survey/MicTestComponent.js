@@ -103,7 +103,7 @@ const MicTestComponent = ({ onMicTestResult }) => {
         <div>
             {micPermission === 'granted' ? (
                 <div>
-                    <p>Audiopegel-Anzeigebalken in grüner Farbe</p>
+                    <p>Ändert sich die grüne Mikrofonanzeige, wenn Du sprichst? Klicke dann auf Weiter.</p>
                     <div style={{ width: '100%', backgroundColor: '#ddd' }}>
                         <div style={{ height: '20px', width: `${audioLevel}%`, backgroundColor: 'green' }}></div>
                     </div>
