@@ -1036,6 +1036,6 @@ Wenn du bereit bist, kannst du mit den Übungsvideos beginnen. Klicke auf <stron
                 );
             }
 
-    }
+    } }
 
 export default Survey;
