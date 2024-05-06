@@ -687,14 +687,10 @@ class Survey extends Component {
         switch(discipline) {
             case 'volleyball':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler 
-                    Entscheidungen auf dem Feld triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
 
                     <br></br><br></br>
-                    Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. 
-                    Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. 
-                    Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. 
-                    Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
+                    Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
                     
                     <br></br><br></br>
                     Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handeln könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
@@ -718,8 +714,7 @@ class Survey extends Component {
                     </div>
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, 
-                    Wir werden uns dann zeitnah bei dir melden. 
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.  
                     
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -731,10 +726,11 @@ class Survey extends Component {
                     <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler Entscheidungen auf dem Eis triffst.
 
                     <br></br><br></br>
-                    Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Puck ein.
+                    Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. 
+                    Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Puck ein.
 
                     <br></br><br></br>
-                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Puck siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handeln könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Puck siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
 
                     <br></br><br></br>
                     Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon.
@@ -756,7 +752,7 @@ class Survey extends Component {
                    
                     
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, Wir werden uns dann zeitnah bei dir melden. 
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden. 
                     
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -769,20 +765,14 @@ class Survey extends Component {
                     <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Basketballspieler Entscheidungen auf dem Platz triffst.
 
                     <br></br><br></br>
-                    Dafür werden dir kurze Videosequenzen aus Basketballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen 
-                    zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. 
-                    Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein. 
+                    Dafür werden dir kurze Videosequenzen aus Basketballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. 
+                    Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein.  
                     
                     <br></br><br></br>
-                    Sobald ein Video stoppt, bleibt ein Standbild der letzten 
-                    Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, 
-                    wie du jetzt handelst könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit 
-                    dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. 
-                    Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
+                    Sobald ein Video stoppt, bleibt ein Standbild der letzten Spielsituation für 10 Sekunden stehen. Nun ist es deine Aufgabe, so schnell wie möglich zu entscheiden, wie du jetzt handeln könntest. Sprich dafür laut aus welche angemessenen Optionen du für den Spieler mit dem Ball siehst. Du kannst bei jeder Szene mehrere Optionen nennen, die du angemessen findest. Dafür hast du bei jeder Szene 10 Sekunden Zeit. Du musst die Optionen, die du nennst, nicht begründen.
                     
                     <br></br><br></br>
-                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, 
-                    die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
+                    Danach wirst du gebeten, aus deinen genannten Optionen, diejenige Option auszuwählen, die du am besten findest. Diese sprichst du erneut ins Mikrofon. 
                     
                     <br></br><br></br>
                     Danach bewertest du diese Option und gibst an wie gut du in der Lage bist sie tatsächlich auszuführen.
@@ -801,8 +791,7 @@ class Survey extends Component {
 
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de, 
-                    Wir werden uns dann zeitnah bei dir melden. 
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden. 
                     
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
