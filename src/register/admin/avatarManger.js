@@ -131,6 +131,23 @@ const SectionManager = () => {
         setEditSectionName(name);
     };
 
+    const handleDateChange = (dateString) => {
+        // Regular expression to match dd.mm.yy format
+        const dateRegex = /^\d{2}\.\d{2}\.\d{2}$/;
+        
+        if (dateRegex.test(dateString)) {
+            // Date format is correct, you can proceed with further actions
+            const [day, month, year] = dateString.split('.').map(part => parseInt(part));
+            const date = new Date(2000 + year, month - 1, day); // Adjusting year for yy format
+            console.log("Selected date:", date);
+            // Call function to handle the selected date
+        } else {
+            // Invalid date format, you can show an error message or handle it accordingly
+            console.log("Invalid date format");
+        }
+    };
+    
+
     const editSection = async () => {
         try {
             await axios.put(`https://inprove-sport.info/avatar/editSection/${isEditing}`, { name: editSectionName });
@@ -325,6 +342,14 @@ const handleDispSele = (event) => {
                                             style={{ marginRight: '10px', border: "1px solid #000" }}>
                                         Edit
                                     </button>
+                                    {/* <label htmlFor="testDateInput">Test Date:</label> */}
+                                    <input
+                                        class="btn btn-light" 
+                                        type="text" 
+                                        placeholder="dd.mm.yy (Test Date)" 
+                                        style={{ marginRight: '10px', border: "1px solid #000" }}
+                                        onChange={(e) => handleDateChange(e.target.value)}
+                                    />
                                     <button type="button" class="btn btn-light" onClick={() => setSectionToAddEntryTo(section.id)}
                                             style={{ marginRight: '10px', border: "1px solid #000"}}>
                                         Add Entry
