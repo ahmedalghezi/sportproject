@@ -113,9 +113,9 @@ class Survey extends Component {
         super(props);
         this.state = {testList: [], athlete:'', discipline: props.discipline,
         answersList:[], audioList:[], questionbutton: false,
-        questioncheckbox: false, shvideo: false, questionnumber: 0,
+        questioncheckbox: false, shvideo: false, questionnumber: 0, showCompletionMessage: false,
         intro: true, betwquestion: false, hquest: false,
-        trialquestions: 3,
+        trialquestions: 2,
         alertShown: false,
         micPermission: false,
         micTestPassed: false};
@@ -337,34 +337,79 @@ class Survey extends Component {
         }
     }
 
-    questionwithbutton(){
-        var string;
-        var string2;
-        string2 = "stellenden Spieler";
-        if(this.state.questionnumber  < this.state.trialquestions){
-            string = "Übungsdurchgang: " + (this.state.questionnumber + 1);
-        }else {
-            string = "Angriffs-Sequenz: " + (this.state.questionnumber + 1);
-        }
+    // questionwithbutton(){
+    //     var string;
+    //     var string2;
+    //     string2 = "stellenden Spieler";
+    //     if(this.state.questionnumber  < this.state.trialquestions){
+    //         string = "Übungsdurchgang: " + (this.state.questionnumber + 1);
+    //     }else {
+    //         string = "Angriffs-Sequenz: " + (this.state.questionnumber + 1);
+    //     }
 
-        return(
+    //     return(
+    //         <div>
+    //             <div className=" question-title-container  bg-primary-survey col-xs-12 ">
+    //                 <div className=" question-text ">
+    //                     <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
+    //                         <p><span className="span_question"><u>{string}</u></span></p>
+    //                         {/* <p><span className="span_question">Welches sind angemessene Handlungen für den {string2}, um einen Punkt zu erzielen?</span></p>
+    //                         <p><span className="span_question">Nenne die angemessenen Handlungen sobald das Video anhält.</span></p> */}
+    //                         {this.getQuestionText(this.state.discipline)}
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //             <div className="weiter">
+    //                 <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+    questionwithbutton() {
+        const { questionnumber, trialquestions, discipline, showCompletionMessage,testList} = this.state;
+        let string, additionalText, string2;
+    
+        if (questionnumber < trialquestions) {
+            string = "Übungsdurchgang: " + (questionnumber + 1);
+            additionalText = this.getQuestionText(discipline);
+        }
+        else if (questionnumber == trialquestions ) {
+            string = "Notiz"
+            string2 = (questionnumber - trialquestions + 1)
+                additionalText = (
+                    <div>
+                        <p><span className="span_question">Die Übungsdurchgänge sind geschafft. Wenn der Ablauf klar ist, kannst du jetzt den Test starten und bekommst 12 Angriffs-Sequenzen zu sehen.</span></p>
+                        <p><span className="span_question">Klicke auf <strong>WEITER</strong>, um mit der Präsentation der Angriffs-Sequenze: {string2} zu starten.</span></p>
+                    </div>
+                );
+        }
+        else {
+            string = "Angriffs-Sequenz: " + (questionnumber - trialquestions + 1);
+            additionalText = (
+                <div>
+                    {/* <p><span className="span_question">Die Übungsdurchgänge sind geschafft. Wenn der Ablauf klar ist, kannst du jetzt den Test starten und bekommst 12 Angriffs-Sequenzen zu sehen.</span></p> */}
+                    <p><span className="span_question">Klicke auf <strong>WEITER</strong>, um mit der Präsentation der {string} zu starten.</span></p>
+                </div>
+            );
+        }
+    
+        return (
             <div>
-                <div className=" question-title-container  bg-primary-survey col-xs-12 ">
-                    <div className=" question-text ">
-                        <div id="ls-question-text-188727X126X2629" className=" ls-label-question ">
+                <div className="question-title-container bg-primary-survey col-xs-12">
+                    <div className="question-text">
+                        <div id="ls-question-text-188727X126X2629" className="ls-label-question">
                             <p><span className="span_question"><u>{string}</u></span></p>
-                            {/* <p><span className="span_question">Welches sind angemessene Handlungen für den {string2}, um einen Punkt zu erzielen?</span></p>
-                            <p><span className="span_question">Nenne die angemessenen Handlungen sobald das Video anhält.</span></p> */}
-                            {this.getQuestionText(this.state.discipline)}
+                            {additionalText}
                         </div>
                     </div>
                 </div>
                 <div className="weiter">
-                    <button className="weiterButton"onClick={this.handleFirstButtonClick}>Weiter</button>
+                    <button className="weiterButton" onClick={this.handleFirstButtonClick}>Weiter</button>
                 </div>
             </div>
         );
     }
+    
     questionwithcheckbox(){
         return(
             <div>
