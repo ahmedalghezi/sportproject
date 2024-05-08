@@ -197,6 +197,7 @@ export function DownloadSubset() {
     const [ageRequired, setAgeRequired] = React.useState("ageNotRequired");
 
 
+
     const clearCheckedRight = () => {
         setCheckedRight([]);
     }
@@ -897,6 +898,19 @@ export function DownloadSubset() {
                                 measurement
                             </label>
                         </div>
+
+                        <div>
+                        <label>
+                            <input
+                                type="radio"
+                                value="singleTimeCol"
+                                checked={selectedValue === 'singleTimeCol'}
+                                onChange={handleFillingOptionChange}
+                            />
+                            Single Time-column
+                        </label>
+                        </div>
+
 
                         <br/><br/>
                     </div>
