@@ -199,6 +199,10 @@ class SignUpC extends Component {
           alert("Diese Email-Adresse ist bereits registriert.");
         //this.props.history.push('./AfterReg');
         else {
+          if(this.props.st){
+            window.location.href = window.location.origin+"/user/profile";
+            return;
+          }
           if(!this.state.askAgain) {
             //this.props.showStudies(true);
             if (this.props.showWelcome)
@@ -408,7 +412,7 @@ function SignUp(props) {
     </div>;
   }
   else
-    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp} idf={idf}/>;
+    return <SignUpC {...props} navigate={navigate} adminReg={st} tempReg={isTemp} idf={idf} st={'adExt'}/>;
 }
 
 export default SignUp;

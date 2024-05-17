@@ -85,7 +85,8 @@ export default function AthletesGrid(props) {
     const [key, setKey] = useState("");
 
     const[isOnlyCoach,setOnlyCoach] = useState(false);
-
+    const[isOnlyExternal,setOnlyExternal] = useState(false);
+    const[isOnlyCompetence, setOnlyCompetence] = useState(false);
 
 
 
@@ -105,6 +106,7 @@ export default function AthletesGrid(props) {
                 showError("Error getting disciplines from server");
                 return;
             } else if (response.data.res && response.data.res.length > 0) {
+                response.data.res.push('all')
                 setDisciplinesList(response.data.res);
                 setDiscipline(response.data.res[0]);
             }
@@ -116,7 +118,7 @@ export default function AthletesGrid(props) {
     }
 
     const getAthlete = (event) => {
-        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
+        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach, 'onlyExternal':isOnlyExternal, 'onlyCompetence':isOnlyCompetence}).then(response => {
             console.log(response.data);
             if (response.data.res === "no") {
                 // processStudyArr(arr);
@@ -244,10 +246,15 @@ export default function AthletesGrid(props) {
         setHeaderArray(header);
 
     }
+    function clear() {
+        setActionArray([]);
+        setHeaderArray([]);
+    }
 
 
     const submitAll = () => {
         setError(false);
+        clear();
         getAthlete();
         return;
     }
@@ -284,10 +291,30 @@ export default function AthletesGrid(props) {
     }
 
 
-    const changeCoach = (event) => {
-        event.preventDefault();
-        const value = event.target.checked;
-        setOnlyCoach(value);
+    const changeRole = (event) => {
+        const { value, checked } = event.target;
+
+        if (value === 'coaches') {
+            setOnlyCoach(checked);
+            if (checked) {
+                setOnlyExternal(false);
+                setOnlyCompetence(false);
+            }
+        }
+        if (value === 'external') {
+            setOnlyExternal(checked);
+            if (checked) {
+                setOnlyCoach(false);
+                setOnlyCompetence(false);
+            }
+        }
+        if (value === 'competence') {
+            setOnlyCompetence(checked);
+            if (checked) {
+                setOnlyCoach(false);
+                setOnlyExternal(false);
+            }
+        }
     }
 
     return (
@@ -323,8 +350,14 @@ export default function AthletesGrid(props) {
                     Show
                 </button>
                 &nbsp; &nbsp; &nbsp;
-                <input type="checkbox" id="coaches" name="coaches" value="no_coaches"  onChange={changeCoach}/>
+                <input type="checkbox" id="coaches" name="coaches" value="coaches"  onChange={changeRole} checked={isOnlyCoach}/>
                 <label htmlFor="coaches"> only coaches </label>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="external" name="external" value="external"  onChange={changeRole} checked={isOnlyExternal}/>
+                <label htmlFor="external"> external </label>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="competence" name="competence" value="competence"  onChange={changeRole} checked={isOnlyCompetence}/>
+                <label htmlFor="competence"> competence team </label>
 
 
                 <Alert severity="success" hidden={!success}>{successMsg}</Alert>

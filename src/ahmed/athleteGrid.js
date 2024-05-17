@@ -85,6 +85,9 @@ export default function AthletesGrid(props) {
     const [key, setKey] = useState("");
 
     const[isOnlyCoach,setOnlyCoach] = useState(false);
+    const[isOnlyExternal,setOnlyExternal] = useState(false);
+    const[isOnlyCompetence, setOnlyCompetence] = useState(false);
+
 
 
 
@@ -116,7 +119,7 @@ export default function AthletesGrid(props) {
     }
 
     const getAthlete = (event) => {
-        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
+        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach, "onlyExternal":isOnlyExternal,"onlyCompetence":isOnlyCompetence}).then(response => {
             console.log(response.data);
             if (response.data.res === "no") {
                 // processStudyArr(arr);
@@ -141,7 +144,7 @@ export default function AthletesGrid(props) {
             });
 
             // processStudyArr(arr);
-        
+
     }
 
     function createRow(ID,name,lastAccessTime, hasConsent){
@@ -170,12 +173,12 @@ export default function AthletesGrid(props) {
 
         // if(action === "Upload report")
         //     props.uploadReport(selectedID, name);
-        
+
         if (action === "Upload report") {
             // Access the actionArray from the component's state
             const allIDs = actionArray.map(row => row[0]);
             const allNames = actionArray.map(row => row[1]);
-    
+
             // Call the uploadReport function with all IDs and names
             props.uploadReport(allIDs, allNames,selectedID,name );
         }
@@ -284,10 +287,30 @@ export default function AthletesGrid(props) {
     }
 
 
-    const changeCoach = (event) => {
-        event.preventDefault();
-        const value = event.target.checked;
-        setOnlyCoach(value);
+    const changeRole = (event) => {
+        const { name, checked } = event.target;
+
+        if (name === 'coaches') {
+            setOnlyCoach(checked);
+            if (checked) {
+                setOnlyExternal(false);
+                setOnlyCompetence(false);
+            }
+        }
+        if (name === 'external') {
+            setOnlyExternal(checked);
+            if (checked) {
+                setOnlyCoach(false);
+                setOnlyCompetence(false);
+            }
+        }
+        if (name === 'competence') {
+            setOnlyCompetence(checked);
+            if (checked) {
+                setOnlyCoach(false);
+                setOnlyExternal(false);
+            }
+        }
     }
 
     return (
@@ -323,8 +346,14 @@ export default function AthletesGrid(props) {
                     Show
                 </button>
                 &nbsp; &nbsp; &nbsp;
-                <input type="checkbox" id="coaches" name="coaches" value="no_coaches"  onChange={changeCoach}/>
-                <label htmlFor="coaches"> only coaches </label>
+                <input type="checkbox" id="coaches" name="coaches" value="no_coaches"  onChange={changeRole} checked={isOnlyCoach}/>
+                <label htmlFor="coaches"> only coachess </label>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="external" name="external" value="external"  onChange={changeRole} checked={isOnlyExternal}/>
+                <label htmlFor="external"> external </label>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="competence" name="competence" value="competence"  onChange={changeRole} checked={isOnlyCompetence}/>
+                <label htmlFor="competence"> competence team </label>
 
 
                 <Alert severity="success" hidden={!success}>{successMsg}</Alert>
@@ -333,7 +362,7 @@ export default function AthletesGrid(props) {
                 <table className={"styled-table"}>
                     <thead>
                   <tr>
-                      {headerArray.map((colItem) => 
+                      {headerArray.map((colItem) =>
                     //   {console.log(colItem);
                       (
                           <td>{colItem}</td>
