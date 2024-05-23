@@ -1,0 +1,14 @@
+.chart-container {
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+.svg-container {
+    margin: 0 auto;
+}
+
+.close-icon-container {
+    position: absolute;
+    right: 10px;
+}

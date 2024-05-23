@@ -1,0 +1,36 @@
+.folder {
+    position: relative; /* Make the folder container position relative */
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.toggle-button {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.folder-link {
+    text-decoration: none;
+    color: black;
+}
+
+.file-list {
+    margin-left: 20px;
+}
+
+.link-list {
+    margin-left: 20px;
+}
+
+/* Tooltip styling */
+.folder a:hover::before {
+    content: attr(title); /* Set the content of the tooltip to the filename */
+    position: absolute;
+    top: -20px; /* Adjust this value to control the distance above the link */
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+}

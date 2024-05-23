@@ -31,7 +31,11 @@ export default class SignOut extends Component {
             if(response.data.disguised) {
                 this.setState({disguised: true});
                 if (response.data.res === "ok") {
-                    this.setState({message: "You have been sign out from that coach!"});
+                    if(response.data.role === "trainer")
+                        this.setState({message: "You have been sign out from that coach!"});
+                    else
+                        this.setState({message: "You have been sign out from that user!"});
+                    this.setState({disguisedRole:response.data.role})
                 }
                 return;
             }
@@ -57,14 +61,18 @@ export default class SignOut extends Component {
     }
 
     forwardSignInDisg() {
-        if(!this.state.disguised)
-            window.location.href = "https://inprove-sport.info:3000/reg/";
-        else
-            window.location.href = "https://inprove-sport.info:3000/trainer/editCoach";
+        if(!this.state.disguised){
+            window.location.href = window.location.origin+"/reg/";
+        } else{
+            if(this.state.role === "trainer")
+                window.location.href = window.location.origin+"/trainer/editCoach";
+            else
+                window.location.href = window.location.origin+"/super/athleteControl";
+        }
     }
 
 
     static forwardSignIn() {
-        window.location.href = "https://inprove-sport.info:3000/reg/";
+        window.location.href = window.location.origin+"/reg/";
     }
 }

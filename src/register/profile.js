@@ -11,7 +11,7 @@ export class MyProfile extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {isCoachAdmin: false, isAdmin: false};
+        this.state = {isCoachAdmin: false, isAdmin: false, isTrainer:false};
         this.updateProfile = this.updateProfile.bind(this);
     }
 
@@ -20,7 +20,8 @@ export class MyProfile extends Component {
             if (response.data.res === "error")
                 alert("some error has happened");
             if (response.data.res === "no") {
-                alert("You are not logged in, please login");
+                //alert("You are not logged in, please login");
+                window.location.href = window.location.origin+"/reg/sign-in?org=$reg$profile";
                 return
             }
             if (response.data.res === "ok") {
@@ -28,6 +29,8 @@ export class MyProfile extends Component {
                     this.setState({isAdmin: true});
                 if (response.data.role === "trainerAdmin")
                     this.setState({isCoachAdmin: true});
+                if (response.data.role === "trainer")
+                    this.setState({isTrainer: true});
             }
 
         }).catch(e => {
@@ -42,8 +45,9 @@ export class MyProfile extends Component {
         event.preventDefault();
     }
 
-    updateProfile() {
-        this.props.navigate('/reg/updateProfile');
+    updateProfile(event) {
+        event.preventDefault();
+        //this.props.navigate('/reg/updateProfile');
     }
 
     goToCoaches = (event) => {
