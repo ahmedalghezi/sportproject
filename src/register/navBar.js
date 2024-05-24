@@ -166,7 +166,7 @@ export default class NavBar extends Component {
                     hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
                   <Link className="nav-link" to={"/super/athleteControl"}>
-                    Manage
+                    Manage Athlete
                   </Link>
                 </li>
 
@@ -181,14 +181,14 @@ export default class NavBar extends Component {
 
 
 
-                <li
+                {/* <li
                     className="nav-item"
                     hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
                   <Link className="nav-link" to={"/avatar/createSection"}>
                     Avatar
                   </Link>
-                </li>
+                </li> */}
 
 
 

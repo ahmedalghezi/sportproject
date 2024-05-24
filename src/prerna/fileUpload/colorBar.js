@@ -71,29 +71,56 @@ export const json_data = {
     };
 
 
+    // calculateLastColors(sectionName) {
+    //   const { data } = this.props;
+    //   try {
+    //       const section = data.sections.find(
+    //           (s) => s.section_name === sectionName);
+
+    //       if (section && section.testsArr.length > 0) {
+    //           const lastColors = section.testsArr.map((test) =>
+    //               test.ser[test.ser.length - 1].color
+    //           );
+
+    //           return lastColors;
+    //       }
+    //   }catch (e) {
+    //       console.log(e)
+    //   }
+
+    //   return [];
+    // }
+
     calculateLastColors(sectionName) {
       const { data } = this.props;
       try {
           const section = data.sections.find(
-              (s) => s.section_name === sectionName);
-
+              (s) => s.section_name === sectionName
+          );
+  
           if (section && section.testsArr.length > 0) {
-              const lastColors = section.testsArr.map((test) =>
-                  test.ser[test.ser.length - 1].color
-              );
+              const lastColors = section.testsArr.map((test) => {
+                  const lastSer = test.ser[test.ser.length - 1];
+                  // console.log("lastSer : ", lastSer)
+                  // console.log("IF lastSer.color : ", lastSer.color)
+                  return lastSer.color && lastSer.color.toLowerCase() !== "white" ? lastSer.color : "grey";
 
+              });
+              // console.log("Out lastColors : ", lastColors)
               return lastColors;
           }
-      }catch (e) {
-          console.log(e)
+      } catch (e) {
+          console.log(e);
       }
-
+  
       return [];
-    }
+  }
 
     render() {
       const { sectionName } = this.props;
+      // console.log("sectionName : ", sectionName)
       const lastColors = this.calculateLastColors(sectionName);
+      // console.log("lastColors : ", lastColors)
 
       if (!lastColors || lastColors.length === 0) {
         // Return null or an empty div when data is not available
