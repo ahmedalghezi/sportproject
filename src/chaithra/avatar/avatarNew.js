@@ -35,9 +35,9 @@ const testdata = [
     { id: 3,title: "Ernährung", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
     { id: 4,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
     { id: 7,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    // { id: 8,title: "Genetik", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+    { id: 8,title: "Genetik", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
     { id: 9,title: "Kieferfunktion", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
-    // { id: 10,title: "Mundgesundheit", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
+    { id: 10,title: "Mundgesundheit", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]}
 ];
 
 class Avatar extends React.Component {

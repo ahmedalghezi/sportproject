@@ -79,25 +79,25 @@ const SectionManager = () => {
 
     
 
-    const handleEditDate = async (testId) => {
-        // Logic to handle editing the date for the test with the provided testId
-        try {
-            // Fetch data or perform any necessary operations
-            console.log(`Editing date for test with ID: ${testId}`);
-        } catch (error) {
-            console.error('Error editing date:', error);
-        }
-    };
+    // const handleEditDate = async (testId) => {
+    //     // Logic to handle editing the date for the test with the provided testId
+    //     try {
+    //         // Fetch data or perform any necessary operations
+    //         console.log(`Editing date for test with ID: ${testId}`);
+    //     } catch (error) {
+    //         console.error('Error editing date:', error);
+    //     }
+    // };
     
-    const handleDeleteDate = async (testId) => {
-        // Logic to handle deleting the date for the test with the provided testId
-        try {
-            // Perform delete operation
-            console.log(`Deleting date for test with ID: ${testId}`);
-        } catch (error) {
-            console.error('Error deleting date:', error);
-        }
-    };
+    // const handleDeleteDate = async (testId) => {
+    //     // Logic to handle deleting the date for the test with the provided testId
+    //     try {
+    //         // Perform delete operation
+    //         console.log(`Deleting date for test with ID: ${testId}`);
+    //     } catch (error) {
+    //         console.error('Error deleting date:', error);
+    //     }
+    // };
     
 
     const getDisplines = () => {
