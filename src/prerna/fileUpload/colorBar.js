@@ -106,7 +106,7 @@ export const json_data = {
                   return lastSer.color && lastSer.color.toLowerCase() !== "white" ? lastSer.color : "grey";
 
               });
-              console.log("Out lastColors : ", lastColors)
+              // console.log("Out lastColors : ", lastColors)
               return lastColors;
           }
       } catch (e) {
@@ -118,9 +118,9 @@ export const json_data = {
 
     render() {
       const { sectionName } = this.props;
-      console.log("sectionName : ", sectionName)
+      // console.log("sectionName : ", sectionName)
       const lastColors = this.calculateLastColors(sectionName);
-      console.log("lastColors : ", lastColors)
+      // console.log("lastColors : ", lastColors)
 
       if (!lastColors || lastColors.length === 0) {
         // Return null or an empty div when data is not available

@@ -114,6 +114,7 @@ h3 {
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   overflow: hidden;
+  height: 100%;
 }
 .avatargallery .video {
   -webkit-transition: all 350ms ease;
@@ -160,20 +161,23 @@ h3 {
     display: none !important;
   }
   .avatar-inner{
-    display: none;
+    display: flex;
+    /* display: none; */
   }
   .avatar-content-section{
     margin: 0 auto;
     margin-bottom: 40px;
   }
 }
+
 .avatar-text-field{
   background-color: white;
-  border-radius: 30px;
+  border-radius: 10px;
   display: block;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   margin-bottom: 10px;
-  padding: 20px;
+  margin-top: 10px;
+  padding: 10px;
   word-wrap:break-word;
 }
 
@@ -243,11 +247,22 @@ h3 {
 .avatar-line-container{
   position: absolute;
 }
+
 .avatar-inner{
   position: relative; 
-  height: auto;
+  height: 100%;
 }
 
 .avatar-svg{
+  max-width: 1145px;
   z-index: -1;
+  height: 100%;
+  min-height: 560px;
+  /* position: relative;  */
+}
+
+.avatar-item{
+  max-width: 200px;
+  /* z-index: -1; */
+  /* position: 'relative'; */
 }

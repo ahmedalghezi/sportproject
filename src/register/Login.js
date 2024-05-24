@@ -81,6 +81,10 @@ class LoginC extends Component {
             /*this.props.navigate(
               this.props.searchParams.get("org").replaceAll("$", "/")
             );*/
+              else if (window.location.pathname !== '/reg/sign-in' && window.location.pathname !== '/' && window.location.pathname !== '/reg' &&  window.location.pathname !== '/reg/') {
+              // Redirect to the current path by changing the location directly
+              window.location.href = window.location.origin + window.location.pathname;
+          }
           else if (
             response.data.role &&
             PostSignup.isTrainer(response.data.role)

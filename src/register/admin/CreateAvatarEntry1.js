@@ -253,7 +253,15 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
 
 
     return (
-        <div>
+        <div
+        style={{
+            maxWidth: '800px',
+            margin: '20px',
+            padding: '20px',
+            border: '1px solid #ccc',
+            borderRadius: '5px'
+        }}
+        >
             {/* Space selection */}
             {/* <div>
                 <select onChange={(e) => {

@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Main from "./Main";
+import Main from "./MainReg";
 //import Main from './register/MainReg'; not here do it in index.json
 
 
@@ -10,7 +10,6 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <AthleteProfileTable section_name="section6" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>

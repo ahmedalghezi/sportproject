@@ -12,7 +12,7 @@ function Sheet(props) {
 
     //const [columns, setColumns] = useState([]);
     //const [data, setData] = useState([]);
-    const [viewAsJson, setViewAsJson] = useState(false);  // This is the switch state
+    const [viewAsJson, setViewAsJson] = useState(true);  // This is the switch state
 
     const columns = props.headers;
     const data = props.matrix;
@@ -145,7 +145,7 @@ function Sheet(props) {
         <div>
             <input type="file"  accept=".csv,.xlsx,.xls" onChange={handleFileUpload}/>
             <p>If the table is not showing correctly, please use the JSON view to preview your data </p>
-            <Switch checkedChildren="JSON" unCheckedChildren="Table" onChange={onSwitchChange} />
+            <Switch checkedChildren="JSON" unCheckedChildren="Table" onChange={onSwitchChange} checked={viewAsJson}/>
             { columns && data && renderDataView()}
         </div>
     );
