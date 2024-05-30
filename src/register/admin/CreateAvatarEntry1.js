@@ -5,6 +5,7 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
     const [spaces, setSpaces] = useState([]);
     const [tests, setTests] = useState([]);
     const [selectedSpace, setSelectedSpace] = useState("");
+    const [desc, setDescription] = useState('');
     const [selectedTest, setSelectedTest] = useState("");
     const [selectedTestsList, setSelectedTestsList] = useState([]);
     const [title, setTitle] = useState("");
@@ -40,6 +41,12 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
 
     const handleInputChange = (event) => {
         setTitle(event.target.value);
+        // setDescription(event.target.value);
+    };
+
+    const handleInputChangeDesc = (event) => {
+        // setTitle(event.target.value);
+        setDescription(event.target.value);
     };
 
     // const handleSubmit = () => {
@@ -193,6 +200,7 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
                 testIds,
                 testName,
                 title,
+                desc,
                 formulaGreen,
                 formulaRed,
                 comparisonOperator,
@@ -212,6 +220,7 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
 
                         // Resetting fields after successful submission
                         setTitle(""); // Reset the title
+                        setDescription("");
                         setSelectedSpace("Please select"); // Reset the selected space
                         setSelectedTest(""); // Reset the selected test
                         setSelectedTestsList([]); // Reset the selected tests list
@@ -244,7 +253,15 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
 
 
     return (
-        <div>
+        <div
+        style={{
+            maxWidth: '800px',
+            margin: '20px',
+            padding: '20px',
+            border: '1px solid #ccc',
+            borderRadius: '5px'
+        }}
+        >
             {/* Space selection */}
             {/* <div>
                 <select onChange={(e) => {
@@ -319,6 +336,21 @@ function CreateAvatarEntry({ done, sectionID, discipline,onClose }) {
                     required
                 />
             </div>
+            <div>
+                <textarea
+                placeholder="Description"
+                className={"form-control"}
+                value={desc}
+                onChange={handleInputChangeDesc}
+                style={{ 
+                    width: '30%', 
+                    minHeight: '40px', 
+                    maxHeight: '40px', 
+                    resize: 'vertical', 
+                    overflowY: 'auto', 
+                }}/>
+                </div>
+
 
 
 <div>

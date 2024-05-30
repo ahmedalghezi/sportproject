@@ -20,7 +20,6 @@ import { saveAs } from 'file-saver';
 
 let recorder = null; // Declare recorder variable outside the functions
 let csvDownloaded = false;
-let zipDownloaded = false;
 
 const recordAudio = () =>
     new Promise(async resolve => {

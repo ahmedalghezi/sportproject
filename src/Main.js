@@ -96,7 +96,6 @@ import AvatarPdf from './chaithra/avatar/avatarPdf';
 import CognitionRecFiles from "./lime/survey/getCognitionRecords";
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
-//import SignUpJiz from "./firebase/signup";
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -119,7 +118,7 @@ function Main() {
                 </div>
                 <div className="auth-wrapper">
                         <Routes>
-                            {/*<Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />*/}
+                           
                             <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
                             <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
                             <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
