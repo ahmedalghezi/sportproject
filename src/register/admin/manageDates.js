@@ -39,13 +39,13 @@ function ManageDates({ done, sectionID, discipline,onClose }) {
     }, [sectionID]);
 
     const validateDate = (value) => {
-        const dateRegex = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
+        const dateRegex = /^(\d{4})\-(\d{1,2})\-(\d{1,2})$/;
     
         if (!value.match(dateRegex)) {
             return false;
         }
     
-        const [, day, month, year] = value.match(dateRegex);
+        const [,year, month, day] = value.match(dateRegex);
         const currentYear = new Date().getFullYear();
         const currentMonth = new Date().getMonth() + 1; 
         const currentDay = new Date().getDate();
@@ -266,7 +266,7 @@ function ManageDates({ done, sectionID, discipline,onClose }) {
                         id="testDate"
                         className="form-control"
                         type="text"
-                        placeholder="dd.mm.yyyy"
+                        placeholder="yyyy-mm-dd"
                         value={editSectionDate}
                         onChange={handleInputChange}
                         maxLength={12}
