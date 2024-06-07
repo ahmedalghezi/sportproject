@@ -100,7 +100,8 @@ class Avatar extends React.Component {
       };
       
 
-      calculateTablePosition(sectionId, index) {
+    calculateTablePosition(sectionId, index)
+    {
         const title_size = this.state.avatarlist.length;
         console.log("sectionId : ", sectionId)
         const sectionTitleElement = document.getElementById(sectionId);
@@ -175,6 +176,7 @@ class Avatar extends React.Component {
             this.setState({ tableTopPosition: newTableTopPosition });
         }
     }
+
     receiveFileName = (filename) => {
         this.fetchImage()
         this.setState({ showProfileUpload: false });
@@ -227,6 +229,7 @@ class Avatar extends React.Component {
         }
         return {height: gal.height, width: gal.width};
     }
+
     setColumnGap(){
         if(!document.getElementById("avatargallery")){
             var columngap = {gap: 20}
@@ -236,6 +239,7 @@ class Avatar extends React.Component {
         }
         return {gap: columngap.gap};
     }
+
     drawhorizontalLines(element, index) {
         var x1Position = 0;
         var x2Position = 0;
@@ -405,7 +409,8 @@ class Avatar extends React.Component {
                 
             } };
  
-    fetchImage() {
+    fetchImage() 
+    {
         fetch('https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage')
           .then(response => {
             if (response.ok && response.headers.get('Content-Type').startsWith('image')) {
@@ -489,8 +494,8 @@ class Avatar extends React.Component {
                                         );
                                     })
                                 }
-                                {this.drawCircle(82, "black", "none")} //82
-                                {this.drawCircle(76, "#DAD2D2", "#DAD2D2")} //75
+                                {this.drawCircle(82, "black", "none")}
+                                {this.drawCircle(76, "#DAD2D2", "#DAD2D2")}
                                 {this.drawImageIcon()}
 
                                 {
@@ -553,7 +558,6 @@ class Avatar extends React.Component {
                                             <AthleteProfileTable
                                                 data={this.state.json_data}
                                                 section_name={this.state.selectedSection}
-                                                // sectionData={this.state.sectionData}
                                                 onTableHeightChange={this.handleTableHeight} 
                                             />
                                         </animated.div>
