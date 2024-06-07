@@ -731,7 +731,7 @@ class Survey extends Component {
         switch(discipline) {
             case 'volleyball':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler*in Entscheidungen auf dem Feld triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein.
@@ -758,7 +758,7 @@ class Survey extends Component {
                     </div>
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
 
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -767,7 +767,7 @@ class Survey extends Component {
 
             case 'eishockey':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler Entscheidungen auf dem Eis triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler*in Entscheidungen auf dem Eis triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen.
@@ -796,7 +796,7 @@ class Survey extends Component {
 
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
 
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -806,7 +806,7 @@ class Survey extends Component {
 
             case 'basketball':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Basketballspieler Entscheidungen auf dem Platz triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Basketballspieler*in Entscheidungen auf dem Platz triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Basketballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen.
@@ -835,7 +835,7 @@ class Survey extends Component {
 
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
 
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -845,7 +845,7 @@ class Survey extends Component {
 
             default:
                 return(
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler*in Entscheidungen auf dem Feld triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein.
