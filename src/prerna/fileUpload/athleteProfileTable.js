@@ -44,17 +44,38 @@ export const json_data = {
         ]
       },
       {
-        "section_name": "Kognition",
+        "section_name": "Motorik",
         "testsArr": [
           {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "red"}]}
+          {"test_title": "t2", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
+          {"test_title": "t3", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+          {"test_title": "t4", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
+          {"test_title": "t5", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "red"}]}
         ]
       },
       {
         "section_name": "Motorik",
+        "testsArr": [
+          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
+          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
+        ]
+      },
+      {
+        "section_name": "Motoriky",
+        "testsArr": [
+          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
+          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
+        ]
+      },
+      {
+        "section_name": "Kognition",
+        "testsArr": [
+          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
+          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
+        ]
+      },
+      {
+        "section_name": "Soziologietere",
         "testsArr": [
           {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
           {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}

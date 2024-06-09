@@ -24,9 +24,9 @@ const testdata = [
     { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
     { id: 4,title: "Soziologie", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
     { id: 6,title: "Motorik", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
-    { id: 7,title: "Motorik", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
+    { id: 7,title: "Motoriky", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
     { id: 8,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 9,title: "Soziologie", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
+    { id: 9,title: "Soziologietere", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
 ];
 
 
@@ -66,6 +66,7 @@ export default class Avatar extends Component {
         // Log the filtered section data
         console.log("inside the handle button click")
         console.log(selectedSectionName);
+        console.log(index);
 
 
     };
@@ -168,6 +169,7 @@ export default class Avatar extends Component {
         }
         return <circle cx={cxPosition} cy={cyPosition} r="10" stroke="gray" fill="gray"/>;
     }
+
     drawiconLines(element, index) {
         var x1Position = 0;
         var x2Position = 0;
@@ -192,6 +194,7 @@ export default class Avatar extends Component {
         }
         return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black"/>;
     }
+
     drawCircle(r, stroke, fill){
         if(document.getElementById("avatargallery")){
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
@@ -217,7 +220,10 @@ export default class Avatar extends Component {
     }
     render() {
         const { isBoxClicked } = this.state;
-        if (!this.state.avatarlist || this.state.avatarlist.length === 0) {
+        const avatarListLength = this.state.avatarlist.length;
+        const midpoint = Math.ceil(avatarListLength / 2); // Calculate the midpoint
+    
+        if (!this.state.avatarlist || avatarListLength === 0) {
             return (
                 <div>
                     <div className="avatargallery" id="avatargallery">
@@ -231,6 +237,8 @@ export default class Avatar extends Component {
 
         require("../../prerna/avatar.css");
 
+        
+
         return (
             <div>
                 <div className="avatargallery" id="avatargallery" style={{ ...{ columnGap: this.setColumnGap().gap + 'px' } }}>
@@ -239,6 +247,8 @@ export default class Avatar extends Component {
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
                                     this.state.avatarlist.map((item, index) => {
+                                        console.log("drawhorizontalLines")
+                                        console.log("text" + String(index))
                                         return (
                                             this.drawhorizontalLines(document.getElementById("text" + String(index)), index)
                                         );
@@ -251,8 +261,8 @@ export default class Avatar extends Component {
                                         );
                                     })
                                 }
-                                {this.drawCircle(82, "black", "none")}
-                                {this.drawCircle(75, "#DAD2D2", "#DAD2D2")}
+                                {this.drawCircle(82, "black", "none")} //82
+                                {this.drawCircle(75, "#DAD2D2", "#DAD2D2")} //75
                                 {this.drawImageIcon()}
                                 {
                                     this.state.avatarlist.map((item, index) => {
@@ -264,6 +274,90 @@ export default class Avatar extends Component {
                             </svg>
                         </div>
                     </div>
+                    <div className="left-column">
+                {this.state.avatarlist.slice(0, midpoint).map((item, index) => {
+                    // Assuming ColorBar and AthleteProfileTable are related to each item
+                    // Adjust as needed if the association is different
+                    const correspondingTitle = uniqueTitles[index];
+                    const correspondingItem = this.state.avatarlist.find((item) => item.title === correspondingTitle);
+                    
+                    return (
+                        <div className={`avatar-all-content`} key={index}>
+                            <div className="avatar-content-section">
+                                <span
+                                    className={`avatar-text-field`}
+                                    id={"text" + String(index)}
+                                    onClick={() => this.handleButtonClick(correspondingItem, index)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {correspondingItem.title}
+                                    <ColorBar data={json_data} sectionName={correspondingItem.title} />
+                                </span>
+
+                                {this.state.selectedItemIndex === index && (
+                                    <div className="table-container">
+                                        <AthleteProfileTable
+                                            data={json_data}
+                                            section_name={this.state.selectedSection}
+                                            sectionData={this.state.sectionData}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            <div className="right-column">
+                    {this.state.avatarlist.slice(midpoint).map((item, index) => {
+                        const titleIndex = midpoint + index;
+                        return (
+                            <div
+                                className={`avatar-all-content `}
+                                key={titleIndex}>
+
+<div className="avatar-content-section">
+                                <span
+                                    className={`avatar-text-field`}
+                                    id={"text" + String(index)}
+                                    onClick={() => this.handleButtonClick(correspondingItem, index)}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    {correspondingItem.title}
+                                    <ColorBar data={json_data} sectionName={correspondingItem.title} />
+                                </span>
+
+                                {this.state.selectedItemIndex === index && (
+                                    <div className="table-container">
+                                        <AthleteProfileTable
+                                            data={json_data}
+                                            section_name={this.state.selectedSection}
+                                            sectionData={this.state.sectionData}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })}
+
+                
+            {/* {/* </div> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     {/* {this.state.avatarlist.map((item, index) => { */}
                     {uniqueTitles.map((title, index) => {
                     const item = this.state.avatarlist.find((item) => item.title === title);
@@ -299,4 +393,4 @@ export default class Avatar extends Component {
         );
     }
 }
-
+ */}
