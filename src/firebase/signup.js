@@ -41,6 +41,12 @@ class SignUpC extends Component {
       this.setState({callerName:"registerProduct"});
       this.setState({phone:this.props.productPhone});
       let c = this.props.productPhone;
+      let prefix = this.props.prefix.replace('+','');
+      this.setState({prefix: prefix});
+      this.setState({noCountryCodePhone: c});
+      return;
+
+
       if (c.startsWith("+964")) {
         c = c.substring(4);
       }else if  (c.startsWith("00964")) {
@@ -86,9 +92,9 @@ class SignUpC extends Component {
       value = this.a2e(value);
       if(value === "999")
         value = "9990564977";
-      if(value.startsWith("0"))
+      /*if(value.startsWith("0"))
         value = "+964"+this.state.phone.substring(1);
-      value = "+964"+value;
+      value = "+964"+value;*/
     }
     if(name === "code"){
       value = this.a2e(value);
@@ -127,16 +133,19 @@ class SignUpC extends Component {
 
   signInWithPhone(){
     console.log("signing in with firebase");
-    const auth = getAuth(getApp());
+    const fApp = getApp();
+    const auth = getAuth();
     // const auth = getAuth();
     auth.languageCode = 'iq';
     this.setState({showCapcha:true});
     window.recaptchaVerifier = new RecaptchaVerifier('cont_cap_id', {}, auth);
     const appVerifier = window.recaptchaVerifier;
-    let phoneNumber = this.state.phone;
-    if(!phoneNumber.startsWith("+964") && !phoneNumber.startsWith("00964")){
+    const sanitizedPhone = this.state.phone.replace(/^0+/, ''); // Remove leading zeros
+    let phoneNumber = `+${this.state.prefix.replace('+', '')}${sanitizedPhone}`;
+
+    /*if(!phoneNumber.startsWith("+964") && !phoneNumber.startsWith("00964")){
       phoneNumber = "+964"+phoneNumber;
-    }
+    }*/
     this.setState({fullPhone:phoneNumber});
     if(debug)
       alert("pereparing to sign in with phone");
@@ -144,6 +153,7 @@ class SignUpC extends Component {
         .then((confirmationResult) => {
           if(debug)
             alert("got res sign in with phone");
+          console.log(phoneNumber);
           // SMS sent. Prompt user to type the code from the message, then sign the
           // user in with confirmationResult.confirm(code).
           window.confirmationResult = confirmationResult;
@@ -182,13 +192,24 @@ class SignUpC extends Component {
         .catch((e) => {
           this.setState({working:false});
           console.log(e);
-          alert("حصل خطأ ما");
+          alert("حصل خطأ ما2");
+          alert(e);
+          sendDataToReactNativeApp(JSON.stringify({
+            type: 'Network Error',
+            message: e.message,
+            stack: e.stack,
+            time: new Date().toISOString(),
+          }))
           sendDataToReactNativeApp(this.state.phone);
+
         });
   }
 
 
   informProductServer = (userID) =>{
+    sendDataToReactNativeApp(this.state.fullPhone+"userID:"+userID);
+    return;
+
     PostJizdanSignup.setPhoneOwnership({phone:this.state.fullPhone,name:this.state.name,userID:userID})
         .then((response) => {
           this.setState({working:false});
@@ -235,80 +256,87 @@ class SignUpC extends Component {
   }
 
 
+  handleCancel = () => {
+    // Implement your cancel logic here
+    console.log('Cancel button clicked');
+    sendDataToReactNativeApp(this.state.phone);
+  };
+
 
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>التسجيل</h3>
-        <div className="form-group" hidden={this.state.callerName === "registerProduct"}>
-          <label className={"float-end"}>الاسم</label>
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            placeholder="Name"
-            onChange={this.handleChange}
-          />
-        </div>
-
-
-
-
-
-        <label className={"float-end"}>رقم الموبايل</label>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text">+964</span>
+        <form onSubmit={this.handleSubmit}>
+          <h3>التسجيل</h3>
+          <div className="form-group" hidden={this.state.callerName === "registerProduct"}>
+            <label className={"float-end"}>الاسم</label>
+            <input
+                type="text"
+                className="form-control"
+                name="name"
+                placeholder="Name"
+                onChange={this.handleChange}
+            />
           </div>
-          <input type="phone" placeholder="Mobile phone" className="form-control" id="phone"  name="phone"  onChange={this.handleChange} value={this.state.noCountryCodePhone}/>
-        </div>
 
+          <label className="float-end">رقم الموبايل</label>
+          <div className="form-line">
+            <label className="plus-label">+</label>
+            <input type="text" className="fixed-width-input"  id="prefix"  name="prefix" onChange={this.handleChange}
+                   value={this.state.prefix}/>
+            <input type="text" className="form-control"  id="phone"
+                   name="phone"
+                   onChange={this.handleChange}
+                   value={this.state.noCountryCodePhone}/>
+          </div>
 
-        <br></br>
+          <br></br>
 
-        <div className="form-group" hidden={!this.state.askForCode}>
-          <label>تم ارسال كود الى جهازك لتأكيد الرقم عبر رسالة قصيرة</label>
-          <input
-              type="ادخل كود التفعيل"
-              className="form-control"
-              placeholder="SMS code"
-              name="code"
-              onChange={this.handleChange}
-          />
-        </div>
+          <div className="form-group" hidden={!this.state.askForCode}>
+            <label>تم ارسال كود الى جهازك لتأكيد الرقم عبر رسالة قصيرة</label>
+            <input
+                type="ادخل كود التفعيل"
+                className="form-control"
+                placeholder="SMS code"
+                name="code"
+                onChange={this.handleChange}
+            />
+          </div>
 
+          <div className="form-group" hidden={true}>
+            <label>Password</label>
+            <input
+                type="password"
+                className="form-control"
+                placeholder="Passwort"
+                name="password"
+                onChange={this.handleChange}
+                value={this.state.password}
+            />
+          </div>
 
+          <div hidden={!this.state.showCapcha}>
+            <div id={"cont_cap_id"}></div>
+          </div>
 
-        <div className="form-group" hidden={true}>
-          <label>Password</label>
-          <input
-            type="password"
-            className="form-control"
-            placeholder="Passwort"
-            name="password"
-            onChange={this.handleChange}
-            value={this.state.password}
-          />
-        </div>
+          <div
+              className="g-recaptcha"
+              data-sitekey="_reCAPTCHA_site_key_"
+              data-size="invisible"
+          ></div>
 
-        <div hidden={!this.state.showCapcha}>
-          <div id={"cont_cap_id"}></div>
-        </div>
-
-        <div
-            className="g-recaptcha"
-            data-sitekey="_reCAPTCHA_site_key_"
-            data-size="invisible"
-        ></div>
-
-        <button type="submit" className="btn btn-primary btn-block" disabled={this.state.working}>
-          أرسل
-        </button>
-
-      </form>
+          <div className="button-group">
+            <button type="submit" className="btn btn-primary" disabled={this.state.working}>
+              أرسل
+            </button>
+            <button type="button" className="btn btn-cancel" onClick={this.handleCancel}>
+              الغاء
+            </button>
+          </div>
+        </form>
     );
   }
+
 }
 
 function SignUpJiz(props) {
@@ -323,6 +351,7 @@ function SignUpJiz(props) {
   const phone = searchParams.get("phone");
   let tempParam = searchParams.get("temreg");
   let extra = searchParams.get("idf");
+  let prefix = searchParams.get("prefix");
   let isTemp = false;
   if(tempParam)
     isTemp = true;
@@ -351,7 +380,7 @@ function SignUpJiz(props) {
     props.onHideNav(true);
   }
 
-    return <SignUpC {...props} navigate={navigate} onHideNav={onHideNav} productPhone={phone} extra={extra}/>;
+    return <SignUpC {...props} navigate={navigate} onHideNav={onHideNav} productPhone={phone} extra={extra} prefix={prefix}/>;
 }
 
 
