@@ -2,7 +2,7 @@
   "name": "temp",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://inprove-sport.info/reg",
+  "homepage": "http://inprove-sport.info/dev2",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
