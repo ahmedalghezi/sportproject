@@ -85,7 +85,7 @@ import DataFetchingComponent from './prerna/fileUpload/testResponse';
 import ProfileStyleComp from './prerna/fileUpload/testsSpaceCnt';
 import AvatarManger from "./register/admin/avatarManger";
 import SectionAndEntryManager from "./register/admin/avatarManger";
-import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
+// import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
 import CreateIntervention from "./trainer/intervention/create";
 import TableComponentInt from "./trainer/intervention/actions";
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
@@ -247,7 +247,7 @@ function Main() {
 
                             <Route path='/avatar/createSection' element={<div className="wide-inner"><SectionAndEntryManager/></div>} />
 
-                            <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} />
+                            {/* <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} /> */}
 
 
                             <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
