@@ -45,7 +45,7 @@ const SectionManager = () => {
         setSectionToAddEntryTo(null);
     };
 
-    
+
 
     // Load sections when the component mounts
     useEffect(() => {
@@ -77,7 +77,7 @@ const SectionManager = () => {
     }
 
 
-    
+
 
     // const handleEditDate = async (testId) => {
     //     // Logic to handle editing the date for the test with the provided testId
@@ -88,7 +88,7 @@ const SectionManager = () => {
     //         console.error('Error editing date:', error);
     //     }
     // };
-    
+
     // const handleDeleteDate = async (testId) => {
     //     // Logic to handle deleting the date for the test with the provided testId
     //     try {
@@ -98,7 +98,7 @@ const SectionManager = () => {
     //         console.error('Error deleting date:', error);
     //     }
     // };
-    
+
 
     const getDisplines = () => {
         PostSignup.getAllDisciplines().then(response => {
@@ -164,16 +164,16 @@ const SectionManager = () => {
     const startEditing = (id, name) => {
         setIsEditing(id);
         setEditSectionName(name);
-        // setEditSectionDate(date); 
+        // setEditSectionDate(date);
     };
 
     // const handleDateChange = (dateString) => {
     //     // Regular expression to match dd.mm.yy format
     //     const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/;
-        
+
     //     if (dateRegex.test(dateString)) {
     //         const [day, month, year] = dateString.split('.').map(part => parseInt(part));
-    //         const date = new Date(year, month - 1, day); 
+    //         const date = new Date(year, month - 1, day);
     //         console.log("Selected date:", date);
     //     } else {
     //         console.error("Invalid date format");
@@ -231,13 +231,13 @@ const SectionManager = () => {
     //     setInputValue("");
     //     setShowButtons(false); // Hide buttons after reset
     // };
-    
+
     // const handleInputChange = (e) => {
     //     console.log("entered e value ; ", e)
     //     setInputValue(e.target.value);
     //     setShowButtons(true); // Show buttons when user starts typing
     // };
-    
+
 
     const editSection = async () => {
         try {
@@ -265,11 +265,11 @@ const SectionManager = () => {
 
     //         // Filter entries for the specific section
     //         const sectionEntries = entries.filter((entry) => entry.section_id === sectionID);
-    
+
     //         // Sort tests by id in descending order
     //         sectionEntries.sort((a, b) => b.id - a.id);
     //         console.log("Sorted sectionEntries : ", sectionEntries)
-    
+
     //         const testsContent = (
     //             <div>
     //                 <h1>{`Tests for Section: ${sectionName} and discipline: ${discipline}`}</h1>
@@ -317,7 +317,7 @@ const SectionManager = () => {
     //                 </ul>
     //             </div>
     //         );
-    
+
     //         setTestsModalContent(testsContent);
     //         setShowTestsModal(true);
     //     } catch (error) {
@@ -453,7 +453,7 @@ const SectionManager = () => {
     const handleCloseDateEntry = () => {
         setSectionToAddDate(null); // or any falsy value that would imply no section is selected
     };
-  
+
 
 const handleDispSele = (event) => {
         event.preventDefault();
@@ -470,7 +470,7 @@ const handleDispSele = (event) => {
     //     // without having to click on the input field again
     //     document.getElementById('dateInput').focus();
     // };
-    
+
     return (
         <div
         style={{
@@ -481,8 +481,8 @@ const handleDispSele = (event) => {
             borderRadius: '5px'
         }}
         >
-            <h1 style = {{alignItems: 'centre'}}>Section Manager</h1>
-            <p><a href={"https://inprove-sport.info:8080/videos/avatar_manger_desc.mp4"}>For more info, please watch the describing video</a></p>
+            <h1 style = {{alignItems: 'centre'}}>Avatar Section Manager</h1>
+            {/*<p><a href={"https://inprove-sport.info:8080/videos/avatar_manger_desc.mp4"}>For more info, please watch the describing video</a></p>*/}
             {/* Add a new section */}
             <div style={{ display: 'flex', marginBottom: '10px' }}>
                 <input
@@ -496,8 +496,8 @@ const handleDispSele = (event) => {
                 placeholder="New Section Description"
                 value={newSectionDescription}
                 onChange={(e) => setnewSectionDescription(e.target.value)}
-                style={{ 
-                    marginLeft: '10px', 
+                style={{
+                    marginLeft: '10px',
                     marginRight: '10px',
                     width: '30%', // Set the width to fill the available space
                     minHeight: '40px', // Set minimum height for better visibility
@@ -522,14 +522,14 @@ const handleDispSele = (event) => {
                                 style={{ marginRight: '10px' }}
                             />
                             <input
-                                class="btn btn-light" 
+                                class="btn btn-light"
                                 type="text"
                                 placeholder="dd.mm.yyyy(Test Date)"
                                 value={editSectionDate}
                                 onChange={(e) => handleDateChange(e.target.value)}
                                 style={{ marginRight: '10px', border: "1px solid #000" }}
                             /> */}
-                           
+
                            {sections.map((section) => (
     <li key={section.id} style={{ marginBottom: '10px' }}>
         {isEditing === section.id ? (
@@ -543,7 +543,7 @@ const handleDispSele = (event) => {
                 {/* <div style={{ position: 'relative' }}>
                     <input
                         // id="dateInput"
-                        className="btn btn-light" 
+                        className="btn btn-light"
                         type="text"
                         placeholder="dd.mm.yyyy(Test Date)"
                         value={editSectionDate}
@@ -579,7 +579,7 @@ const handleDispSele = (event) => {
                                             style={{ marginRight: '10px', border: "1px solid #000" }}>
                                         Edit
                                     </button>
-                                    
+
                                     <button type="button" class="btn btn-light" onClick={() => setSectionToAddEntryTo(section.id)}
                                             style={{ marginRight: '10px', border: "1px solid #000"}}>
                                         Add Entry
@@ -627,8 +627,8 @@ const handleDispSele = (event) => {
                                 discipline={discipline}
                                 onClose={handleCloseCreateAvatarEntry} // Passing the close function as a prop
                             />
-                            )} 
-                            
+                            )}
+
                         {sectionToAddDate === section.id && (
                             <ManageDates
                                 sectionID={section.id}
@@ -636,7 +636,7 @@ const handleDispSele = (event) => {
                                 discipline={discipline}
                                 onClose={handleCloseDateEntry} // Passing the close function as a prop
                             />
-                            )} 
+                            )}
 
 
 
