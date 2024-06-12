@@ -40,7 +40,7 @@ const AvatarActions = () => {
             </div>
             <img width={30} src={logo} alt="loading..." hidden={!working} />
             {showAvatar && <Avatar key={avatarKey} />}
-            {showManager && <SectionAndEntryManager />}
+            {showManager && <SectionAndEntryManager />/* to */}
         </div>
     );
 };
