@@ -29,12 +29,14 @@ class UploadFileC extends Component {
       notifyBtnEnabled: false,
       profileBtnEnabled: false,
       sendEmailWithoutFile: false,
+      showAllFolders: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleKeyChange = this.handleKeyChange.bind(this);
+    this.handleShowAllFoldersChange = this.handleShowAllFoldersChange.bind(this);
   }
 
   componentDidMount() {
@@ -83,9 +85,12 @@ class UploadFileC extends Component {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+
+        console.log("response : ", response.json)
         return response.json();
       })
       .then((data) => {
+        console.log("data : ", data)
         this.setState({
           folders: data,
         });
@@ -101,8 +106,13 @@ class UploadFileC extends Component {
   }
 
   filteredFolders() {
-    const { folders, searchQuery } = this.state;
-    return folders.filter(folder =>
+    const { folders, searchQuery, key, showAllFolders } = this.state;
+    // return folders.filter(folder =>
+    //   folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
+    return folders
+    .filter(folder => showAllFolders || folder.athlete_id === key)
+    .filter(folder =>
       folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
@@ -125,6 +135,11 @@ class UploadFileC extends Component {
       key: selectedKey,
       athleteID: selectedKey,
     });
+  }
+
+  handleShowAllFoldersChange(event) {
+    const { checked } = event.target;
+    this.setState({ showAllFolders: checked });
   }
 
   async handleSubmit(event) {
@@ -218,7 +233,7 @@ class UploadFileC extends Component {
   }
 
   render() {
-    const { uploadStatus, key } = this.state;
+    const { uploadStatus, key, showAllFolders } = this.state;
     const { allIDs, allNames } = this.props;
     const athleteID = this.props.ID;
     const athleteName = this.props.athleteName;
@@ -251,7 +266,7 @@ class UploadFileC extends Component {
               size="10"
               style={{
                 width: '500px',
-                height: '400px',
+                height: '150px',
               }}
               required
             >
@@ -288,6 +303,14 @@ class UploadFileC extends Component {
                 ))}
               </ul>
             )}
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              checked={this.state.showAllFolders}
+              onChange={this.handleShowAllFoldersChange}
+            />
+            <label htmlFor="showAllFolders">Show all folders</label>
           </div>
           <input
             type="file"

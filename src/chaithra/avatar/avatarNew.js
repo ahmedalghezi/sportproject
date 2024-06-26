@@ -38,6 +38,7 @@ class Avatar extends React.Component {
             loggedIn: false,
             tableOpacity: 0,
             json_data:[],
+            name: null,
             imageURL: null,
             };
         this.tableRef = React.createRef();
@@ -200,10 +201,12 @@ class Avatar extends React.Component {
             if (result.success) {
                 this.setState({
                     avatarlist: result.data[0].sections,
+                    name: result.data[0].name,
                     json_data: result.data[0]
                 }, () => {
                     console.log("Updated avatarlist: ", this.state.avatarlist);
                     console.log("Updated json_data: ", this.state.json_data);
+                    console.log("Updated name: ", this.state.name);
 
                     const lastTableIndex = this.state.avatarlist.length - 1;
                     if (lastTableIndex >= 0) {
@@ -476,8 +479,23 @@ class Avatar extends React.Component {
                         )}
                 </div>
 
-                 <div className="avatargallery" id="avatargallery">
+                <span
+                        style={{
+                        display: 'block', // Makes the span behave like a block element
+                        textAlign: 'center',
+                        fontWeight: 'bold',
+                        fontSize: '24px', // Adjust the size as needed
+                        margin: '0', // Remove default margins
+                        }}
+                    >
+                        {this.state.name}
+                    </span>
+
+                <div className="avatargallery" id="avatargallery">
+                
                 <div className="avatar-inner">
+                
+
                         <div className="avatar-line-container">
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
@@ -497,6 +515,7 @@ class Avatar extends React.Component {
                                 {this.drawCircle(82, "black", "none")}
                                 {this.drawCircle(76, "#DAD2D2", "#DAD2D2")}
                                 {this.drawImageIcon()}
+                                
 
                                 {
                                     this.state.avatarlist.map((item, index) => {
