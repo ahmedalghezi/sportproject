@@ -15,6 +15,7 @@ import NavBar from "./register/navBar";
 import SignOut from "./register/sign-out";
 import EditCoach from "./trainer/editCoach";
 import CsvReader from "./csvHandler/CsvReader";
+import AccessReminder from "./prerna/fileUpload/sendReminders";
 // import GetIDS from "./csvHandler/getIDsTest";
 import GetIDS from "./csvHandler/getIDs";
 // import GetIDS from "../src/prerna/fileUpload/getIDs";
@@ -96,7 +97,7 @@ import AvatarPdf from './chaithra/avatar/avatarPdf';
 import CognitionRecFiles from "./lime/survey/getCognitionRecords";
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
-import SignUpJiz from "./firebase/signup";
+// import SignUpJiz from "./firebase/signup";
 import AvatarActions from "./register/admin/AvatarActions";
 
 function Main() {
@@ -173,6 +174,7 @@ function Main() {
                             <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
                             <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
+                            <Route path='/reg/sendReminders' element={<div className="wide-inner"><AccessReminder/></div>} />
                             {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
 
 
