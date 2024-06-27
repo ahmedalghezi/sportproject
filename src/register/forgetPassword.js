@@ -66,7 +66,7 @@ class ForgetPasswordC extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Request Changing Your Password </h3>
+                <h3>Passwort Zurücksetzen </h3>
                 <div className="form-group">
                     <label>Email-Adresse</label>
                     <input

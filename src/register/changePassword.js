@@ -107,6 +107,9 @@ class ChangePasswordC extends Component {
                 <Alert severity="error" hidden={!this.state.error}>{this.state.errorMsg}</Alert>
                 <form onSubmit={this.handleSubmit}>
                     <h3>Change Password </h3>
+                    <p> {"Das Passwort muss zwischen 8 und 15 Zeichen lang sein und mindestens einen Kleinbuchstaben, " +
+                        " einen Großbuchstaben, eine Ziffer und ein Sonderzeichen enthalten."}</p>
+
                     <div className="form-group" hidden={this.state.isTemp}>
                         <label>Current password</label>
                         <input type="text" className="form-control" placeholder="Enter password" name="currentPassword"
