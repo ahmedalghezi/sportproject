@@ -97,8 +97,11 @@ import AvatarPdf from './chaithra/avatar/avatarPdf';
 import CognitionRecFiles from "./lime/survey/getCognitionRecords";
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
-// import SignUpJiz from "./firebase/signup";
 import AvatarActions from "./register/admin/AvatarActions";
+//import SignUpJiz from "./firebase/signup";
+import Intervention from "./register/admin/avatarIntervention";
+import InterventionList from "./register/admin/getIntervention";
+
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -183,6 +186,9 @@ function Main() {
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
+
+
+
                             <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
 
                             <Route path='/csv/history2' element={<div className="csv-inner data-view"><TestsViewT/></div>} />
@@ -255,9 +261,13 @@ function Main() {
                             <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
                             <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
 
-                            <Route path='/avatar/admin' element={<div className="wide-inner"><AvatarActions/></div>} />
+
 
                             <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
+
+                             <Route path='/avatar/interventions'  element={<div className="wide-inner"><Intervention/></div>}/>
+                             <Route path='/avatar/interventionsList'  element={<div className="wide-inner"><InterventionList/></div>}/>
+
 
 
 
