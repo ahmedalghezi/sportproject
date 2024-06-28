@@ -1,3 +1,7 @@
+/*
+By Chaithra, prerna
+ */
+
 import React, { Component, useEffect } from "react";
 import { useSpring, animated, config } from 'react-spring';
 import { color } from "@mui/system";
@@ -20,6 +24,7 @@ import CircleWithAnimation from "./CircleWithAnimation";
 import SpanWithAnimation from './SpanWithAnimation';
 import withCombinedAnimation from './withCombinedAnimation';
 import axios from 'axios';
+import GetInterventions from '../../register/admin/getIntervention'
 
 class Avatar extends React.Component {
 
@@ -40,6 +45,7 @@ class Avatar extends React.Component {
             json_data:[],
             name: null,
             imageURL: null,
+            athleteId: props.athleteId,
             };
         this.tableRef = React.createRef();
         this.drawhorizontalLines = this.drawhorizontalLines.bind(this);
@@ -60,9 +66,9 @@ class Avatar extends React.Component {
         const tableTopPosition = this.calculateTablePosition(`text${index}`, index);
         const isSameIndex = this.state.selectedItemIndex === index;
         const newSelectedItemIndex = isSameIndex ? null : index;
-        console.log("section : ", section)
+        /*console.log("section : ", section)
         console.log("index : ", index)
-        console.log("selectedSectionName : ", selectedSectionName)
+        console.log("selectedSectionName : ", selectedSectionName)*/
          this.setState({
             selectedSection: isMouseEnter ? selectedSectionName : null,
             sectionData: isMouseEnter ? section : null,
@@ -75,7 +81,7 @@ class Avatar extends React.Component {
             this.props.onTransition();
       }
     );
-        console.log("sectionData : ", this.state.sectionData)
+       /* console.log("sectionData : ", this.state.sectionData)*/
   };
 
     checkLoginStatus = () => {
@@ -99,7 +105,7 @@ class Avatar extends React.Component {
         }
          this.setState({ showProfileUpload: true});
       };
-      
+
 
     calculateTablePosition(sectionId, index)
     {
@@ -112,17 +118,17 @@ class Avatar extends React.Component {
         const titleTop = titleRect.top - containerRect.top;
         const titleBottom = titleRect.bottom - containerRect.top;
         const containerHeight = containerRect.height;
-        
+
         let tableTop = 0;
         const topThreshold = containerHeight / title_size ;
         const bottomThreshold = (3 * containerHeight) / title_size;
-        const tableHeight= this.state.tableHeight; 
-    
+        const tableHeight= this.state.tableHeight;
+
         if (index < 2) {
             tableTop = titleBottom/title_size;
         }
 
-        else if ((title_size%2==0  && index < title_size - 2) || (title_size%2!=0  && index < title_size - 1)) 
+        else if ((title_size%2==0  && index < title_size - 2) || (title_size%2!=0  && index < title_size - 1))
         {
 
             if(tableHeight < 270 && containerHeight/2 - tableHeight+40 >= 0)
@@ -130,19 +136,19 @@ class Avatar extends React.Component {
                     tableTop = -(titleBottom - titleTop) / title_size;
                 }
 
-            else 
+            else
                 {
                     if (titleTop < containerHeight/2 )
                     {
                         tableTop = titleBottom/title_size;
 
                     }
-                    
+
                     else
                     {
-                    tableTop = -titleBottom+containerHeight/2;}}} 
+                    tableTop = -titleBottom+containerHeight/2;}}}
 
-        else 
+        else
 
         {
             if((containerHeight - titleBottom)< tableHeight )
@@ -157,21 +163,21 @@ class Avatar extends React.Component {
             else{
                 tableTop = ((titleBottom - titleTop )/title_size)
             }
-            
+
         }
         return tableTop;
     }
-    
+
     handleTableHeight = (height) => {
         if(height>0) {
 
-            this.setState({ tableHeight: height }, () => { 
+            this.setState({ tableHeight: height }, () => {
             }); }
-        
+
     };
 
     componentDidUpdate(prevProps, prevState) {
-        
+
         if (prevState.tableHeight !== this.state.tableHeight) {
             const newTableTopPosition = this.calculateTablePosition('text' + this.state.selectedItemIndex, this.state.selectedItemIndex);
             this.setState({ tableTopPosition: newTableTopPosition });
@@ -188,12 +194,18 @@ class Avatar extends React.Component {
         this.setBoundingSVG();
         this.checkLoginStatus();
         this.fetchImage();
-        
+
     }
 
-    fetchData = async () => {
+     fetchData = async () => {
         try {
-            const response = await fetch('https://inprove-sport.info/avatar/BhdYsskMxsTePaxTsd/getCachedAvatarElement');
+             const response = await fetch('https://inprove-sport.info/avatar/BhdYsskMxsTePaxTsd/getCachedAvatarElement', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Athlete-Id': this.props.athleteId
+                }
+            });
             const result = await response.json();
             console.log("result.success : ", result.success);
             console.log("result.data[0] : ", result.data[0]);
@@ -212,7 +224,7 @@ class Avatar extends React.Component {
                     if (lastTableIndex >= 0) {
                         this.handleHover(this.state.avatarlist[lastTableIndex], lastTableIndex);
                     }
-    
+
                 });
             }
         }
@@ -223,6 +235,7 @@ class Avatar extends React.Component {
         console.log("json_data : ", this.state.json_data);
 
     };
+
 
     setBoundingSVG(){
         if(!document.getElementById("avatargallery")){
@@ -255,10 +268,10 @@ class Avatar extends React.Component {
         else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            yPosition = con.y - gal.y + con.height/2 - 10 ; 
+            yPosition = con.y - gal.y + con.height/2 - 10 ;
             if(con.x - gal.x < gal.width/2){
-                x1Position = con.x - gal.x + con.width -12 ; 
-                x2Position = con.x - gal.x + con.width + 20  ; 
+                x1Position = con.x - gal.x + con.width -12 ;
+                x2Position = con.x - gal.x + con.width + 20  ;
             }else{
                 x2Position = con.x - gal.x;
                 x1Position = con.x - gal.x - 40 ;
@@ -285,7 +298,7 @@ class Avatar extends React.Component {
         }else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            var y = con.y - gal.y + con.height/2 - 10; 
+            var y = con.y - gal.y + con.height/2 - 10;
             if(con.x - gal.x < gal.width/2){
                 var x = con.x - gal.x + con.width + 20;
             }else{
@@ -299,7 +312,7 @@ class Avatar extends React.Component {
             }else{
                 cxPosition = gal.width/2 - cxPosition
             }
-            if(y-(gal.height/2) > 0){ 
+            if(y-(gal.height/2) > 0){
                 cyPosition = gal.height/2 +  cyPosition
             }else{
                 cyPosition = gal.height/2 - cyPosition
@@ -361,8 +374,8 @@ class Avatar extends React.Component {
     }
 
     drawImageIcon() {
-        
-        const imageURL = this.state.imageURL; 
+
+        const imageURL = this.state.imageURL;
         let x, y;
 
         if (imageURL != runner  && imageURL != null) {
@@ -380,7 +393,7 @@ class Avatar extends React.Component {
                 <image
                     x={x}
                     y={y}
-                    width="150" 
+                    width="150"
                     height="150"
                     href={imageURL}
                     onLoad={this.handleImageLoad}
@@ -391,9 +404,9 @@ class Avatar extends React.Component {
         else {
                 if (document.getElementById('avatargallery')) {
                     const gal = document.getElementById('avatargallery').getBoundingClientRect();
-                    x = gal.width / 2 - 56; 
-                    y = gal.height / 2 -74; 
-                } 
+                    x = gal.width / 2 - 56;
+                    y = gal.height / 2 -74;
+                }
                     else {
                         x = 0;
                         y = 0;
@@ -409,31 +422,38 @@ class Avatar extends React.Component {
                             onError={this.handleImageError}
                         ></image>
                         );
-                
+
             } };
- 
-    fetchImage() 
-    {
-        fetch('https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage')
-          .then(response => {
-            if (response.ok && response.headers.get('Content-Type').startsWith('image')) {
-              return response.blob();
-            } else {
-              throw new Error('Response does not contain an image');
+
+
+
+      fetchImage() {
+        fetch('https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage', {
+            headers: {
+                'Athlete-Id': this.props.athleteId
             }
-          })
-          .then(imageData => {
+        })
+        .then(response => {
+            if (response.ok && response.headers.get('Content-Type').startsWith('image')) {
+                return response.blob();
+            } else {
+                throw new Error('Response does not contain a valid image');
+            }
+        })
+        .then(imageData => {
             const imageURL = URL.createObjectURL(imageData);
             this.setState({ imageURL });
-          })
-          .catch(error => {
+        })
+        .catch(error => {
             console.error('Error fetching image:', error);
             this.setState({ imageURL: runner });
-          });
-      }
+        });
+    }
+
+
 
     calculateAvatarListHeight() {
-        const avatarItems = document.querySelectorAll('.avatar-all-content'); 
+        const avatarItems = document.querySelectorAll('.avatar-all-content');
         let totalHeight = 0;
 
         avatarItems.forEach((item) => {
@@ -446,7 +466,7 @@ class Avatar extends React.Component {
     render() {
         const { isBoxClicked, showProfileUpload } = this.state;
         const { textAnimationProps, tableAnimationProps } = this.props;
-        
+
         if (!this.state.avatarlist || this.state.avatarlist.length === 0) {
             return (
                 <div>
@@ -456,21 +476,23 @@ class Avatar extends React.Component {
                 </div>
             );
         }
-        
+
         const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.section_name))];
         const avatarListHeight = this.calculateAvatarListHeight();
         const totalTitles = uniqueTitles.length;
         const midPoint = Math.ceil(totalTitles / 2);
-        
+
         require("../../prerna/avatar.css");
 
         return (
             <div className="avatar-container">
 
-                <div> 
+
+
+                <div>
                         <button className="upload-btn" onClick={this.handleSelectImage}>Upload Profile Picture</button>
                         <br />
-                        
+
                         {showProfileUpload && (
                             <ProfilePictureUpload
                                 onFileName={this.receiveFileName}
@@ -478,6 +500,7 @@ class Avatar extends React.Component {
                             />
                         )}
                 </div>
+
 
                 <span
                         style={{
@@ -492,9 +515,9 @@ class Avatar extends React.Component {
                     </span>
 
                 <div className="avatargallery" id="avatargallery">
-                
+
                 <div className="avatar-inner">
-                
+
 
                         <div className="avatar-line-container">
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
@@ -515,7 +538,7 @@ class Avatar extends React.Component {
                                 {this.drawCircle(82, "black", "none")}
                                 {this.drawCircle(76, "#DAD2D2", "#DAD2D2")}
                                 {this.drawImageIcon()}
-                                
+
 
                                 {
                                     this.state.avatarlist.map((item, index) => {
@@ -536,7 +559,7 @@ class Avatar extends React.Component {
                             textAlign: isEvenIndex ? 'left' : 'left',   //'left' : 'right'
                             transform: isEvenIndex ? 'translate(-450%, 50%)' : 'translate(-20%, -50%)',
                             zIndex: 1,
-                            
+
                         };
 
                         return (
@@ -577,7 +600,7 @@ class Avatar extends React.Component {
                                             <AthleteProfileTable
                                                 data={this.state.json_data}
                                                 section_name={this.state.selectedSection}
-                                                onTableHeightChange={this.handleTableHeight} 
+                                                onTableHeightChange={this.handleTableHeight}
                                             />
                                         </animated.div>
                                     )}
@@ -585,8 +608,17 @@ class Avatar extends React.Component {
                             </div>
                         );
                     })}
+
                 </div>
+
+                  <div>
+                        <GetInterventions athleteId={this.props.athleteId} />
+                </div>
+
              </div>
+
+
+
         );
     }
 }

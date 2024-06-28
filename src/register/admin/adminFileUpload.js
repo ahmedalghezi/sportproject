@@ -24,7 +24,7 @@ class UploadFileC extends Component {
       selectedFolder: "",
       folderInput: '',
       uploadStatus: [],
-      key: this.props.ID,
+      key: "",
       athleteID: this.props.ID,
       notifyBtnEnabled: false,
       profileBtnEnabled: false,
@@ -48,35 +48,71 @@ class UploadFileC extends Component {
     this.loadFolders();
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.key !== prevState.key && this.state.key && prevState.key) {
+  //     this.setState((prevState) => {
+  //       const updatedState = {};
+
+  //       if (!this.state.athleteID) {
+  //         this.setState({ athleteID: this.state.key });
+  //       }
+
+  //       if (prevState.folder !== '') {
+  //         updatedState.selectedFolder = prevState.selectedFolder;
+  //       }
+
+  //       if (prevState.files.length > 0) {
+  //         updatedState.files = prevState.files;
+  //       }
+
+  //       if (Object.keys(updatedState).length > 0) {
+  //         this.setState({ uploadStatus: [] });
+  //         this.setState({ notifyBtnEnabled: false });
+  //         this.setState({ profileBtnEnabled: false });
+
+  //         return updatedState;
+  //       }
+
+  //       return null;
+  //     });
+  //   }
+  // }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.key !== prevState.key && this.state.key && prevState.key) {
-      this.setState((prevState) => {
-        const updatedState = {};
+        this.setState((prevState) => {
+            const updatedState = {};
 
-        if (!this.state.athleteID) {
-          this.setState({ athleteID: this.state.key });
-        }
+            if (!this.state.athleteID) {
+                this.setState({ athleteID: this.state.key });
+            }
 
-        if (prevState.folder !== '') {
-          updatedState.selectedFolder = prevState.selectedFolder;
-        }
+            if (prevState.folder !== '') {
+                updatedState.selectedFolder = prevState.selectedFolder;
+            }
 
-        if (prevState.files.length > 0) {
-          updatedState.files = prevState.files;
-        }
+            if (prevState.files.length > 0) {
+                updatedState.files = prevState.files;
+            }
 
-        if (Object.keys(updatedState).length > 0) {
-          this.setState({ uploadStatus: [] });
-          this.setState({ notifyBtnEnabled: false });
-          this.setState({ profileBtnEnabled: false });
+            if (Object.keys(updatedState).length > 0) {
+                this.setState({ uploadStatus: [] });
+                this.setState({ notifyBtnEnabled: false });
+                this.setState({ profileBtnEnabled: false });
 
-          return updatedState;
-        }
+                return updatedState;
+            }
 
-        return null;
-      });
+            return null;
+        });
     }
-  }
+
+    // Check if athleteID or athleteName has changed and reset key if it has
+    if (this.props.ID !== prevProps.ID || this.props.athleteName !== prevProps.athleteName) {
+        this.setState({ key: '' });
+    }
+}
+
 
   loadFolders = () => {
     const url = 'https://inprove-sport.info/files/athlete_folders_admin';
@@ -107,9 +143,6 @@ class UploadFileC extends Component {
 
   filteredFolders() {
     const { folders, searchQuery, key, showAllFolders } = this.state;
-    // return folders.filter(folder =>
-    //   folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
     return folders
     .filter(folder => showAllFolders || folder.athlete_id === key)
     .filter(folder =>
@@ -261,7 +294,7 @@ class UploadFileC extends Component {
           <div className="input-field ">
             <select
               id="keyInput"
-              value={key}
+              value={this.state.key}
               onChange={this.handleKeyChange}
               size="10"
               style={{
@@ -271,7 +304,7 @@ class UploadFileC extends Component {
               required
             >
               {sortedIDs.length > 0 ? (
-                <option value={athleteID}>
+                <option value="">
                   {athleteID}, ({athleteName})
                 </option>
               ) : null}

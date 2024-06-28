@@ -46,6 +46,8 @@ export default class HandelTrainer{
         return http.post("/trainer/getHistory",data);
     }
 
+
+
     static readHistory(){
         return http.post("/trainer/getHistory",{});
     }
@@ -56,6 +58,10 @@ export default class HandelTrainer{
 
     static makeCoach(data) {
         return http.post("/trainer/makeTrainer",data);
+    }
+
+    static removeCoach(data) {
+        return http.post("/trainer/removeTrainer",data);
     }
 
 

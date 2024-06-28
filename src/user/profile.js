@@ -26,7 +26,7 @@ class ProfileC extends Component {
       hideAllMsgs: true,
       searchQuery: "",
       searchQueryMeineDateien: "",
-      searchQueryUploads: "", 
+      searchQueryUploads: "",
 
     };
   }
@@ -46,18 +46,18 @@ class ProfileC extends Component {
   //   const searchQueryMeineDateien = event.target.value.toLowerCase();
   //   this.setState({ searchQueryMeineDateien });
   // };
-  
+
   // handleSearchInputChangeUploads = (event) => {
   //   const searchQueryUploads = event.target.value.toLowerCase();
   //   this.setState({ searchQueryUploads });
   // };
-  
+
   // filteredFiles = () => {
   //   const { searchQuery } = this.state;
-  
+
   //   // Filter files based on search query
   //   const filteredFiles = [];
-  
+
   //   // Filter files from "Meine Dateien"
   //   this.state.links.forEach(folder => {
   //     Object.values(folder).forEach(files => {
@@ -68,7 +68,7 @@ class ProfileC extends Component {
   //       });
   //     });
   //   });
-  
+
   //   // Filter files from "Uploads"
   //   this.state.filesList.forEach(folder => {
   //     Object.values(folder).forEach(files => {
@@ -79,13 +79,13 @@ class ProfileC extends Component {
   //       });
   //     });
   //   });
-  
+
   //   return filteredFiles;
   // };
 
 //   filteredFiles = (searchQueryMeineDateien, searchQueryUploads) => {
 //     const filteredFiles = [];
-  
+
 //     // Filter files from "Meine Dateien" if searchQueryMeineDateien is present
 //   if (searchQueryMeineDateien) {
 //     this.state.links.forEach(folder => {
@@ -116,9 +116,9 @@ class ProfileC extends Component {
 
 //   return filteredFiles; // Return empty array if neither search query is present
 // };
-  
 
-  
+
+
 //   clearSearch = () => {
 //     this.setState({ searchQueryMeineDateien: "" });
 //     this.setState({ searchQueryUploads: "" });
@@ -134,7 +134,7 @@ filteredFiles = () => {
   const filteredFiles = [];
 
   // Filter files from both "Meine Dateien" and "Uploads"
-  if (searchQuery) 
+  if (searchQuery)
   {
   [this.state.links, this.state.filesList].forEach((fileLists) => {
     fileLists.forEach((folder) => {
@@ -148,7 +148,7 @@ filteredFiles = () => {
     });
   });
 
-  return filteredFiles; 
+  return filteredFiles;
 }
   return filteredFiles;
 
@@ -204,7 +204,7 @@ clearSearch = () => {
             if (response.data.res === "hide") {
               this.setState({ hideSurvey: true });
               console.log("hideSurvey : ", true)
-            } else this.setState({ surveyList: response.data.files }); 
+            } else this.setState({ surveyList: response.data.files });
             console.log("surveyList : ", response.data.files)
             //todo
           }
@@ -222,7 +222,7 @@ clearSearch = () => {
             alert("Es ist ein Fehler aufgetreten. Code pro 30");
             return;
           } else if (response.data.filesP && response.data.res === "ok") {
-            
+
             //this.setState({ filesList: response.data.files });
             this.setState({ filesList: response.data.filesP });
             console.log("filesList : ", response.data.filesP )
@@ -422,7 +422,7 @@ clearSearch = () => {
           onChange={this.handleSearchInputChange}
         />
         {showClearButton && <button onClick={this.clearSearch}>X</button>}
-        
+
         <ul>
                   {this.filteredFiles().map((file, index) => (
                       <li key={index}>
@@ -447,7 +447,7 @@ clearSearch = () => {
               </div>
               <div className="list-two">
 
-                <h4>Meine Dateien</h4>
+                <h4>Meine Dateien/Ordner</h4>
                 {/* <input
                     type="text"
                     placeholder="Search files..."
@@ -471,7 +471,7 @@ clearSearch = () => {
 
               </div>
               <div className="list-three">
-              
+
                 <div><h4>Uploads</h4>
                 {/* <input
                   type="text"
@@ -493,11 +493,11 @@ clearSearch = () => {
                     admin={this.state.admin}
                     onDeleteFile={this.deleteMyFile}
                 /></div>
-                
+
 
 
               </div>
-              
+
             </div>
           </div>
         </div>

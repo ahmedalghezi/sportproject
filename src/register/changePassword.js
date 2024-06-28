@@ -1,7 +1,3 @@
-/*
-By Ahmed Al-Ghezi
- */
-
 import React, {Component} from "react";
 import './style.css';
 import PostSignup from '../DB/postSignup';
