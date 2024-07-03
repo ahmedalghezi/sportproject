@@ -15,6 +15,7 @@ import NavBar from "./register/navBar";
 import SignOut from "./register/sign-out";
 import EditCoach from "./trainer/editCoach";
 import CsvReader from "./csvHandler/CsvReader";
+import AccessReminder from "./prerna/fileUpload/sendReminders";
 // import GetIDS from "./csvHandler/getIDsTest";
 import GetIDS from "./csvHandler/getIDs";
 // import GetIDS from "../src/prerna/fileUpload/getIDs";
@@ -85,7 +86,7 @@ import DataFetchingComponent from './prerna/fileUpload/testResponse';
 import ProfileStyleComp from './prerna/fileUpload/testsSpaceCnt';
 import AvatarManger from "./register/admin/avatarManger";
 import SectionAndEntryManager from "./register/admin/avatarManger";
-import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
+// import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
 import CreateIntervention from "./trainer/intervention/create";
 import TableComponentInt from "./trainer/intervention/actions";
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
@@ -96,6 +97,11 @@ import AvatarPdf from './chaithra/avatar/avatarPdf';
 import CognitionRecFiles from "./lime/survey/getCognitionRecords";
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
+import AvatarActions from "./register/admin/AvatarActions";
+//import SignUpJiz from "./firebase/signup";
+import Intervention from "./register/admin/avatarIntervention";
+import InterventionList from "./register/admin/getIntervention";
+
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -118,7 +124,7 @@ function Main() {
                 </div>
                 <div className="auth-wrapper">
                         <Routes>
-                           
+                            {/*<Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />*/}
                             <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
                             <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
                             <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
@@ -171,6 +177,7 @@ function Main() {
                             <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
                             <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
+                            <Route path='/reg/sendReminders' element={<div className="wide-inner"><AccessReminder/></div>} />
                             {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
 
 
@@ -179,6 +186,9 @@ function Main() {
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
                             <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
+
+
+
                             <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
 
                             <Route path='/csv/history2' element={<div className="csv-inner data-view"><TestsViewT/></div>} />
@@ -245,7 +255,7 @@ function Main() {
 
                             <Route path='/avatar/createSection' element={<div className="wide-inner"><SectionAndEntryManager/></div>} />
 
-                            <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} />
+                            {/* <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} /> */}
 
 
                             <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
@@ -254,6 +264,10 @@ function Main() {
 
 
                             <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
+
+                             <Route path='/avatar/interventions'  element={<div className="wide-inner"><Intervention/></div>}/>
+                             <Route path='/avatar/interventionsList'  element={<div className="wide-inner"><InterventionList/></div>}/>
+
 
 
 

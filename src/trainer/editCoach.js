@@ -41,6 +41,7 @@ export default class EditCoach extends Component {
         this.makeCoach = this.makeCoach.bind(this);
         this.downloadCoach = this.downloadCoach.bind(this);
         this.makeCompetence = this.makeCompetence.bind(this);
+        this.removeCoach = this.removeCoach.bind(this);
     }
 
 
@@ -62,6 +63,29 @@ export default class EditCoach extends Component {
             }
             if (response.data.res === "ok") {
                 this.setState({trainersList: response.data.trainersList});
+            }
+
+        }).catch(e => {
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten!");
+        });
+    }
+
+    removeCoach(event){
+        event.preventDefault();
+        if (this.state.selectedTrainer === '') {
+            alert("Bitte Trainer*in auswählen.");
+            return;
+        }
+        HandelTrainer.removeCoach({trainerID: this.state.selectedTrainerID}).then(response => {
+            if (response.data.res === "error") {
+                alert("Es ist ein Fehler aufgetreten!");
+                return;
+            }
+            if (response.data.res === "ok") {
+                alert("Coach has been removed!");
+                this.getTrainers();
+                return;
             }
 
         }).catch(e => {
@@ -177,6 +201,8 @@ export default class EditCoach extends Component {
 
 
 
+
+
     handleChange(event) {
         const target = event.target;
         let value = target.value;
@@ -223,7 +249,8 @@ export default class EditCoach extends Component {
 
                         <td>
                             &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.editGroups}> Edit Groups</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.downloadCoach}> Download Coachdata</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.downloadCoach}> Download Coach data</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<button className={"btn btn-primary btn-block"} onClick={this.removeCoach}> remove coach (make him athlete)</button>
                         </td>
                     </tr>
                 </table>

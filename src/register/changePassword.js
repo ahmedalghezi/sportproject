@@ -1,7 +1,3 @@
-/*
-By Ahmed Al-Ghezi
- */
-
 import React, {Component} from "react";
 import './style.css';
 import PostSignup from '../DB/postSignup';
@@ -30,10 +26,10 @@ class ChangePasswordC extends Component {
         if (isTemp)
             LoggedHandler.passwordChangeLinkClicked({email: emailP, temp: tempPass}).then(response => {
                 if(response.data.res === "wrong_pass")
-                    alert("Error: the link is either wrong or expired");
+                    alert("Fehler: Der Link ist entweder falsch oder abgelaufen");
             }).catch(e => {
                 console.log(e);
-                alert("some error has happened");
+                alert("Ein Fehler ist aufgetreten");
             });
         this.setState({temp: tempPass});
         this.setState({isTemp: isTemp});
@@ -58,15 +54,15 @@ class ChangePasswordC extends Component {
             return;
         LoggedHandler.changePassword(this.state).then(response => {
             if (response.data.res === "error")
-                alert("some error has happened");
+                alert("Ein Fehler ist aufgetreten");
             if (response.data.res === "wrong" && !this.state.isTemp)
                   window.location.href = window.location.origin+"/reg/sign-in";
             if (response.data.res === "wrong" && this.state.isTemp)
-                alert("The link is either wrong or expired");
+                alert("Der Link ist entweder falsch oder abgelaufen");
             if(response.data.res === "wrong_password")
-                alert("The current password is not correct");
+                alert("Das aktuelle Passwort ist nicht korrekt");
             if (response.data.res === "ok") {
-                this.setState({success:true, successMsg:"password have changed successfully!"});
+                this.setState({success:true, successMsg:"Das Passwort wurde erfolgreich geändert!"});
                 //TODO: does not work unless wrpped to the func. comp.
                 setTimeout(function(){
                     this.setState({success:false});
@@ -74,14 +70,14 @@ class ChangePasswordC extends Component {
                 }.bind(this),4500);
             }
             if (response.data.res === "wrong_password") {
-                alert("current password is not correct");
+                alert("Das aktuelle Passwort ist nicht korrekt");
             }
             if (response.data.res === "expired") {
-                alert("The link is either wrong or expired!");
+                alert("Der Link ist entweder falsch oder abgelaufen");
             }
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Ein Fehler ist aufgetreten");
         });
     }
 
@@ -106,18 +102,18 @@ class ChangePasswordC extends Component {
                 <Alert severity="success" hidden={!this.state.success}>{this.state.successMsg}</Alert>
                 <Alert severity="error" hidden={!this.state.error}>{this.state.errorMsg}</Alert>
                 <form onSubmit={this.handleSubmit}>
-                    <h3>Change Password </h3>
+                    <h3>Neues Passwort festlegen </h3>
                     <div className="form-group" hidden={this.state.isTemp}>
                         <label>Current password</label>
                         <input type="text" className="form-control" placeholder="Enter password" name="currentPassword"
                                onChange={this.handleChange}/>
                     </div>
                     <div className="form-group">
-                        <label>New password</label>
+                        <label>Lege Dir hier ein neues Passwort fest.</label>
                         <input type="text" className="form-control" placeholder="Enter password" name="newPassword"
                                onChange={this.handleChange}/>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                    <button type="submit" className="btn btn-primary btn-block">Senden</button>
                     <div>
                         <AlertDialog open={this.state.doneDialog} message={"Password updated successfully!"}
                                      onOk={this.forwardLogin} onCancel={this.cancelDelete}/>

@@ -20,6 +20,7 @@ import { saveAs } from 'file-saver';
 
 let recorder = null; // Declare recorder variable outside the functions
 let csvDownloaded = false;
+let zipDownloaded = false;
 
 const recordAudio = () =>
     new Promise(async resolve => {
@@ -367,7 +368,7 @@ class Survey extends Component {
     questionwithbutton() {
         const { questionnumber, trialquestions, discipline, showCompletionMessage,testList} = this.state;
         let string, additionalText, string2;
-    
+
         if (questionnumber < trialquestions) {
             string = "Übungsdurchgang: " + (questionnumber + 1);
             additionalText = this.getQuestionText(discipline);
@@ -391,7 +392,7 @@ class Survey extends Component {
                 </div>
             );
         }
-    
+
         return (
             <div>
                 <div className="question-title-container bg-primary-survey col-xs-12">
@@ -408,7 +409,7 @@ class Survey extends Component {
             </div>
         );
     }
-    
+
     questionwithcheckbox(){
         return(
             <div>
@@ -731,7 +732,7 @@ class Survey extends Component {
         switch(discipline) {
             case 'volleyball':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler*in Entscheidungen auf dem Feld triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein.
@@ -752,13 +753,13 @@ class Survey extends Component {
                     {/* *Video einfügen*  */}
                     <div className="video-container">
                         <video controls>
-                            <source src="https://inprove-sport.info/files/cog/showVideos/instruction.mp4" type="video/mp4" />
+                            <source src="https://inprove-sport.info/files/cog/volleyball/showVideos/DVV_Instruktion.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder  L.Musculus@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
 
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -767,7 +768,7 @@ class Survey extends Component {
 
             case 'eishockey':
                 return (
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler*in Entscheidungen auf dem Eis triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Eishockeyspieler Entscheidungen auf dem Eis triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Eishockeyspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen.
@@ -796,7 +797,7 @@ class Survey extends Component {
 
 
                     <br></br><br></br>
-                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
+                    Wenn du Fragen oder Probleme beim Durchführen des Tests hast, wende dich bitte an L.Will@dshs-koeln.de oder L.Musculus-Schoenenborn@dshs-koeln.de, wir werden uns dann zeitnah bei dir melden.
 
                     <br></br><br></br>
                     Wenn du bereit bist, kannst du mit den Beispielsequenzen beginnen.
@@ -828,7 +829,7 @@ class Survey extends Component {
                     {/* *Video einfügen*  */}
                     <div className="video-container">
                         <video controls>
-                            <source src="https://inprove-sport.info/files/cog/showVideos/instruction.mp4" type="video/mp4" />
+                            <source src="https://inprove-sport.info/files/cog/basketball/showVideos/DBB_Instruktion.mp4" type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -845,7 +846,7 @@ class Survey extends Component {
 
             default:
                 return(
-                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler*in Entscheidungen auf dem Feld triffst.
+                    <p><span  className="p_text">In diesem Test geht es darum herauszufinden, wie du als Volleyballspieler Entscheidungen auf dem Feld triffst.
 
                     <br></br><br></br>
                     Dafür werden dir kurze Videosequenzen aus Volleyballspielen gezeigt. Du bekommst zunächst 2 Beispielsequenzen zum Ausprobieren des Ablaufs. Danach triffst du Entscheidungen für 12 weitere Angriffs-Sequenzen. Bitte nimm in jeder Angriffs-Sequenz die Rolle des Spielers mit dem Ball ein.

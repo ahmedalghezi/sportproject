@@ -1,7 +1,3 @@
-/*
-By Ahmed Al-Ghezi
- */
-
 import React, { Component } from "react";
 import './style.css';
 import PostSignup from '../DB/postSignup';
@@ -51,14 +47,14 @@ class ForgetPasswordC extends Component {
         event.preventDefault();
         PostSignup.requestChangePassword(this.state).then(response => {
             if(response.data.res === "error")
-                alert("some error has happened");
+                alert("Ein Fehler ist aufgetreten");
             else if(response.data.res === "ok"){
-                alert("Check your email for further instructions");
+                alert("Überprüfe deine E-Mails für weitere Anweisungen");
             }
             this.iniReCapcha();
         }).catch(e => {
             console.log(e);
-            alert("some error has happened");
+            alert("Ein Fehler ist aufgetreten");
         });
     }
 
@@ -66,7 +62,7 @@ class ForgetPasswordC extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Request Changing Your Password </h3>
+                <h3>Passwort vergessen </h3>
                 <div className="form-group">
                     <label>Email-Adresse</label>
                     <input
@@ -77,7 +73,7 @@ class ForgetPasswordC extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
+                <button type="submit" className="btn btn-primary btn-block">Senden</button>
             </form>
         );
     }

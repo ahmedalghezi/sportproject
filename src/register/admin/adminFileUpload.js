@@ -24,17 +24,19 @@ class UploadFileC extends Component {
       selectedFolder: "",
       folderInput: '',
       uploadStatus: [],
-      key: this.props.ID,
+      key: "",
       athleteID: this.props.ID,
       notifyBtnEnabled: false,
       profileBtnEnabled: false,
       sendEmailWithoutFile: false,
+      showAllFolders: false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
     this.handleKeyChange = this.handleKeyChange.bind(this);
+    this.handleShowAllFoldersChange = this.handleShowAllFoldersChange.bind(this);
   }
 
   componentDidMount() {
@@ -46,35 +48,71 @@ class UploadFileC extends Component {
     this.loadFolders();
   }
 
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.key !== prevState.key && this.state.key && prevState.key) {
+  //     this.setState((prevState) => {
+  //       const updatedState = {};
+
+  //       if (!this.state.athleteID) {
+  //         this.setState({ athleteID: this.state.key });
+  //       }
+
+  //       if (prevState.folder !== '') {
+  //         updatedState.selectedFolder = prevState.selectedFolder;
+  //       }
+
+  //       if (prevState.files.length > 0) {
+  //         updatedState.files = prevState.files;
+  //       }
+
+  //       if (Object.keys(updatedState).length > 0) {
+  //         this.setState({ uploadStatus: [] });
+  //         this.setState({ notifyBtnEnabled: false });
+  //         this.setState({ profileBtnEnabled: false });
+
+  //         return updatedState;
+  //       }
+
+  //       return null;
+  //     });
+  //   }
+  // }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.key !== prevState.key && this.state.key && prevState.key) {
-      this.setState((prevState) => {
-        const updatedState = {};
+        this.setState((prevState) => {
+            const updatedState = {};
 
-        if (!this.state.athleteID) {
-          this.setState({ athleteID: this.state.key });
-        }
+            if (!this.state.athleteID) {
+                this.setState({ athleteID: this.state.key });
+            }
 
-        if (prevState.folder !== '') {
-          updatedState.selectedFolder = prevState.selectedFolder;
-        }
+            if (prevState.folder !== '') {
+                updatedState.selectedFolder = prevState.selectedFolder;
+            }
 
-        if (prevState.files.length > 0) {
-          updatedState.files = prevState.files;
-        }
+            if (prevState.files.length > 0) {
+                updatedState.files = prevState.files;
+            }
 
-        if (Object.keys(updatedState).length > 0) {
-          this.setState({ uploadStatus: [] });
-          this.setState({ notifyBtnEnabled: false });
-          this.setState({ profileBtnEnabled: false });
+            if (Object.keys(updatedState).length > 0) {
+                this.setState({ uploadStatus: [] });
+                this.setState({ notifyBtnEnabled: false });
+                this.setState({ profileBtnEnabled: false });
 
-          return updatedState;
-        }
+                return updatedState;
+            }
 
-        return null;
-      });
+            return null;
+        });
     }
-  }
+
+    // Check if athleteID or athleteName has changed and reset key if it has
+    if (this.props.ID !== prevProps.ID || this.props.athleteName !== prevProps.athleteName) {
+        this.setState({ key: '' });
+    }
+}
+
 
   loadFolders = () => {
     const url = 'https://inprove-sport.info/files/athlete_folders_admin';
@@ -83,9 +121,12 @@ class UploadFileC extends Component {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+
+        console.log("response : ", response.json)
         return response.json();
       })
       .then((data) => {
+        console.log("data : ", data)
         this.setState({
           folders: data,
         });
@@ -101,8 +142,10 @@ class UploadFileC extends Component {
   }
 
   filteredFolders() {
-    const { folders, searchQuery } = this.state;
-    return folders.filter(folder =>
+    const { folders, searchQuery, key, showAllFolders } = this.state;
+    return folders
+    .filter(folder => showAllFolders || folder.athlete_id === key)
+    .filter(folder =>
       folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
@@ -125,6 +168,11 @@ class UploadFileC extends Component {
       key: selectedKey,
       athleteID: selectedKey,
     });
+  }
+
+  handleShowAllFoldersChange(event) {
+    const { checked } = event.target;
+    this.setState({ showAllFolders: checked });
   }
 
   async handleSubmit(event) {
@@ -218,7 +266,7 @@ class UploadFileC extends Component {
   }
 
   render() {
-    const { uploadStatus, key } = this.state;
+    const { uploadStatus, key, showAllFolders } = this.state;
     const { allIDs, allNames } = this.props;
     const athleteID = this.props.ID;
     const athleteName = this.props.athleteName;
@@ -246,17 +294,17 @@ class UploadFileC extends Component {
           <div className="input-field ">
             <select
               id="keyInput"
-              value={key}
+              value={this.state.key}
               onChange={this.handleKeyChange}
               size="10"
               style={{
                 width: '500px',
-                height: '400px',
+                height: '150px',
               }}
               required
             >
               {sortedIDs.length > 0 ? (
-                <option value={athleteID}>
+                <option value="">
                   {athleteID}, ({athleteName})
                 </option>
               ) : null}
@@ -288,6 +336,14 @@ class UploadFileC extends Component {
                 ))}
               </ul>
             )}
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              checked={this.state.showAllFolders}
+              onChange={this.handleShowAllFoldersChange}
+            />
+            <label htmlFor="showAllFolders">Show all folders</label>
           </div>
           <input
             type="file"

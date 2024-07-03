@@ -156,8 +156,8 @@ export default class NavBar extends Component {
                     className="nav-item"
                     hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
                 >
-                  <Link className="nav-link" to={"/avatar/createSection"}>
-                    Create Section
+                  <Link className="nav-link" to={"/avatar/admin"}>
+                    Avatar manager
                   </Link>
                 </li>
                 <li
