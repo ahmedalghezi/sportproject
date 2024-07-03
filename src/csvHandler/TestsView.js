@@ -21,8 +21,8 @@ import ReactJson from "react-json-view";
 
 
 const defaultDates = {
-  from: new Date(2020, 0, 1),
-  to: new Date(2023, 0, 1),
+  from: new Date(2021, 0, 1),
+  to: new Date(2028, 0, 1),
 };
 
 // requesting data from API

@@ -2,204 +2,209 @@ import React, { Component } from 'react';
 import '../styleAthleteProfileTables.css';
 import PropTypes from 'prop-types';
 
-export const json_data = {
-  "sections" : [
-      {
-        "section_name": "Blutanalyse",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "green"}]},
-          {"test_title": "t1", "ser": [{"value": "4,4", "color": "red"}, {"value": "6", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "7,4", "color": "yellow"}, {"value": "60", "color": "red"}]},
-          {"test_title": "t3", "ser": [{"value": "17,4", "color": "yellow"}, {"value": "61", "color": "red"}]}
-        ]
-      },
-      {
-        "section_name": "Mikrobiom",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "red"}]},
-          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "red"}]},
-          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "yellow"}]},
-          {"test_title": "t1", "ser": [{"value": "5,5", "color": "red"}, {"value": "7", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "8,5", "color": "yellow"}, {"value": "65", "color": "yellow"}]}
-        ]
-      },
-      {
-        "section_name": "Genetik",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "6,6", "color": "red"}, {"value": "8", "color": "green"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
-          {"test_title": "t2", "ser": [{"value": "9,6", "color": "yellow"}, {"value": "70", "color": "yellow"}]}
-        ]
-      },
-      {
-        "section_name": "Soziologie",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "7,7", "color": "red"}, {"value": "9", "color": "green"}]},
-          {"test_title": "t2", "ser": [{"value": "10,7", "color": "yellow"}, {"value": "75", "color": "red"}]}
-        ]
-      },
-      {
-        "section_name": "Motorik",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "yellow"}]},
-          {"test_title": "t3", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t4", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}]},
-          {"test_title": "t5", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "red"}]}
-        ]
-      },
-      {
-        "section_name": "Motorik",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
-        ]
-      },
-      {
-        "section_name": "Motoriky",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
-        ]
-      },
-      {
-        "section_name": "Kognition",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
-        ]
-      },
-      {
-        "section_name": "Soziologietere",
-        "testsArr": [
-          {"test_title": "t1", "ser": [{"value": "8,8", "color": "red"}, {"value": "10", "color": "green"}, {"value": "80", "color": "red"}]},
-          {"test_title": "t2", "ser": [{"value": "11,8", "color": "yellow"}, {"value": "80", "color": "green"}, {"value": "80", "color": "yellow"},]}
-        ]
-      }
-    ]
-  };
-
-  export default class AthleteProfileTable extends Component {
+export default class AthleteProfileTable extends Component {
     static defaultProps = {
-      data: json_data,
-      section_name: ''
+      data: [],
+      section_name: '',
+      onTableHeightChange: () => {},
+      
     };
 
     constructor(props) {
       super(props);
+      this.tableRef = React.createRef();
       this.state = {
         expandedSection: null,
+        activeDesc: null,
+        activeCellCoords: null,
+        rowHeight: null,
+        // data: [],
       };
     }
 
-    computeTableWidth(section) {
-        const TEST_TITLE_WIDTH = 100;
-        const SER_ITEM_WIDTH = 50;
-
-        const totalSerItems = section.testsArr[0].ser.length;
-        return TEST_TITLE_WIDTH + (totalSerItems * SER_ITEM_WIDTH) + 'px';
+    componentDidMount() {
+      this.computeTableDimensions();
     }
+      
+      computeTableDimensions() {
+      if (this.tableRef.current) {
+        const tableWidth = this.tableRef.current.clientWidth;
+        const tableHeight = this.tableRef.current.clientHeight;
+        this.props.onTableHeightChange(tableHeight);
+      }
+    }
+
+    computeRowHeight() {
+      if (this.tableRef.current) {
+          const rowHeight = this.tableRef.current.querySelector('tbody tr').clientHeight;
+          return rowHeight;
+      }
+      return 0;
+  }
+
+    handleCellClick = (desc, activeCellCoords) => {
+      const rowHeight = this.computeRowHeight();
+      this.setState({ activeDesc: desc, activeCellCoords: activeCellCoords, rowHeight });
+    }
+
+    formatValue = (value) => {
+      
+      if (value === "null" || /^null(\/null)*$/.test(value)) {
+    return "";
+      }
+
+    // Replace "null" with an empty string
+    let formattedValue = value.replace(/null/g, "");
+
+      return formattedValue;
+    };
 
 
     render() {
-      const { data, section_name} = this.props;
-
-      // const colorBarData = data.sections
-      //   .filter((section) => section.section_name === section_name)
-      //   .map((section) =>
-      //     section.testsArr.map((test) => test.ser[test.ser.length - 1].color)
-      //   )
-      //   .flat();
-
-
+      const { section_name,data} = this.props;
+      const { activeDesc, activeCellCoords, rowHeight} = this.state;
       return (
-        <div style={{ width: '100%', padding: '20px' }}>
-          {/* {this.renderColorBar(colorBarData)} */}
-          {/* {colorBarData && this.renderColorBar(colorBarData)} */}
-          {data.sections.map((section, index) => {
-            if (section.section_name === section_name) {
-              const maxColumnsForSection = Math.max(
-                ...section.testsArr.map((test) => test.ser.length)
-              );
+    <div style={{ width: '100%', padding: '10px' }}>
+    {data.sections.map((section, index) => {
+      if (section.section_name === section_name) {
+        // Extracting dates from testsArr
+        const datesToRender = [];
+        section.testsArr.forEach(testArr => {
+          testArr.forEach(test => {
+            test.ser.forEach((s, sIndex) => {
+              if (!datesToRender[sIndex] && s.date) {
+                datesToRender[sIndex] = s.date;
+              }
+            });
+          });
+        });
 
-              return (
-                <div
-                  key={index}
-                  style={{
-                    padding: '10px',
-                    borderRadius: '5px',
-                    border: '2px solid #000000',
-                    marginBottom: '10px',
-                    backgroundColor: 'white',
-                  }}
-                >
-                  {/* <div style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '10px' }}>
-                    {section.section_name}
-                  </div> */}
-                  {/* {this.renderColorBar(colorBarData)} */}
-                  <table
-                    style={{
-                      width: '100%',
-                      borderCollapse: 'collapse',
-                      border: '1px solid #f3f2f3',
-                    }}
-                  >
-                    <tbody>
-                      {section.testsArr.map((test) => (
-                        <tr key={test.test_title}>
-                          <td
+        const maxColumnsForSection = Math.max(
+          ...section.testsArr.map(testArr => Math.max(...testArr.map(test => test.ser.length)))
+        );
+
+        return (
+          <div
+            key={index}
+            style={{
+              padding: '5',
+              borderRadius: '5px',
+              border: '2px solid #000000',
+              marginBottom: '10px',
+              backgroundColor: 'white',
+              position: 'relative'
+            }}
+          >
+            <table
+              ref={this.tableRef}
+              style={{
+                width: '100%',
+                height: 'auto',
+                maxHeight: '300px',
+                borderCollapse: 'collapse',
+                border: '1px solid #f3f2f3',
+              }}
+            >
+              <thead>
+                <tr style={{
+                  fontWeight: 'bold',
+                  textAlign: 'center'
+                }}>
+                  <th> </th>
+                  {datesToRender.map((date, dateIndex) => (
+                    <th key={dateIndex}> {date} </th>
+                  ))}
+                  {Array.from({ length: maxColumnsForSection - datesToRender.length }).map((_, i) => (
+                    <th key={`emptyHeader${i}`}></th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {section.testsArr.map((testArr, rowIndex) => (
+                  testArr.map((test, testIndex) => (
+                    <tr key={`${rowIndex}-${testIndex}`}>
+                      <td
+                        onClick={() => this.handleCellClick(test.desc, { rowIndex: rowIndex, colIndex: 0 })}
+                        style={{
+                          border: '1px solid lightgrey',
+                          padding: '5px',
+                          backgroundColor: '#F7F7F7',
+                          fontWeight: 'bold',
+                          textAlign: 'left',
+                          position: 'relative',
+                        }}
+                      >
+                        {test.test_title.trim()}
+                        {test.desc && (
+                          <sup
                             style={{
-                              border: '1px solid lightgrey',
-                              padding: '10px',
-                              backgroundColor: '#F7F7F7',
-                              fontWeight: 'bold',
-                              textAlign: 'center',
+                              fontSize: '1em',
+                              marginLeft: '3px',
+                              color: 'blue',
+                              cursor: 'pointer',
                             }}
+                            title={test.desc}
                           >
-                            {test.test_title.trim()}
-                          </td>
-                          {test.ser.map((s, sIndex) => (
-                            <td
-                              key={sIndex}
-                              className={`${s.color}-light`}
-                              style={{
-                                border: '1px solid #f3f2f3',
-                                fontWeight: 'bold',
-                                padding: '10px',
-                                textAlign: 'center',
-                              }}
-                            >
-                              {s.value}
-                            </td>
-                          ))}
-                          {Array.from({ length: maxColumnsForSection - test.ser.length }).map(
-                            (_, i) => (
-                              <td
-                                key={i + test.ser.length}
-                                style={{
-                                  border: '1px solid #f3f2f3',
-                                  padding: '10px',
-                                  textAlign: 'center',
-                                }}
-                              ></td>
-                            )
-                          )}
-                        </tr>
+                            ?
+                          </sup>
+                        )}
+                      </td>
+                      {test.ser.map((s, sIndex) => (
+                        <td
+                          key={sIndex}
+                          className={`${s.color}-light`}
+                          style={{
+                            border: '1px solid #f3f2f3',
+                            fontWeight: 'bold',
+                            padding: '5px',
+                            textAlign: 'center',
+                          }}
+                        >
+                          {this.formatValue(s.value)}
+                        </td>
                       ))}
-                    </tbody>
-                  </table>
-                </div>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </div>
-      );
-    }
+                      {Array.from({ length: maxColumnsForSection - test.ser.length }).map(
+                        (_, i) => (
+                          <td
+                            key={i + test.ser.length}
+                            style={{
+                              border: '1px solid #f3f2f3',
+                              padding: '5px',
+                              textAlign: 'left',
+                            }}
+                          ></td>
+                        )
+                      )}
+                    </tr>
+                  ))
+                ))}
+              </tbody>
+            </table>
+            {activeDesc && activeCellCoords && (
+              <div
+                style={{
+                  position: 'absolute',
+                  backgroundColor: 'rgba(211, 211, 211, 0.9)',
+                  padding: '10px',
+                  border: '1px solid #ccc',
+                  borderRadius: '5px',
+                  zIndex: '9999',
+                  top: `calc(${activeCellCoords.rowIndex} * ${rowHeight}px)`,
+                  left: `calc(${activeCellCoords.colIndex}px)`,
+                  width: 'auto',
+                  maxWidth: '400px',
+                }}
+              >
+                {activeDesc}
+              </div>
+            )}
+          </div>
+        );
+      } else {
+        return null;
+      }
+    })}
+  </div>
+);
+}
   }

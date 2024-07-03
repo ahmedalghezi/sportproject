@@ -56,7 +56,7 @@ function Main() {
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
                             <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
                             <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
-
+                            <Route path='*' element={<div className="auth-inner"><Login/></div>} />
 
 
                         </Routes>

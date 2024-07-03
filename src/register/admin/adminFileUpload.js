@@ -1,53 +1,147 @@
+/*
+ Chaithra KB
+ */
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import checkMark from '../../assets/img/check-mark.png';
 import crossMark from '../../assets/img/cross-mark.png';
 import logo from '../../loading-gif.gif';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class UploadFileC extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      success: false,
-      error: false,
       files: [],
-      ID: "",
+      folders: [],
+      searchQuery: "",
+      newFolderName: "",
       folder: "",
+      ID: "",
+      selectedFolder: "",
+      folderInput: '',
       uploadStatus: [],
-      notifyBtnEnabled: false,  // New state variable
+      key: this.props.ID,
+      athleteID: this.props.ID,
+      notifyBtnEnabled: false,
+      profileBtnEnabled: false,
+      sendEmailWithoutFile: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+    this.handleKeyChange = this.handleKeyChange.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.ID) this.setState({ ID: this.props.ID });
+    if (this.props.ID) this.setState({
+      ID: this.props.ID,
+      key: this.props.ID,
+      athleteID: this.props.ID,
+    });
+    this.loadFolders();
   }
 
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.key !== prevState.key && this.state.key && prevState.key) {
+      this.setState((prevState) => {
+        const updatedState = {};
 
+        if (!this.state.athleteID) {
+          this.setState({ athleteID: this.state.key });
+        }
+
+        if (prevState.folder !== '') {
+          updatedState.selectedFolder = prevState.selectedFolder;
+        }
+
+        if (prevState.files.length > 0) {
+          updatedState.files = prevState.files;
+        }
+
+        if (Object.keys(updatedState).length > 0) {
+          this.setState({ uploadStatus: [] });
+          this.setState({ notifyBtnEnabled: false });
+          this.setState({ profileBtnEnabled: false });
+
+          return updatedState;
+        }
+
+        return null;
+      });
+    }
+  }
+
+  loadFolders = () => {
+    const url = 'https://inprove-sport.info/files/athlete_folders_admin';
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          folders: data,
+        });
+      })
+      .catch((error) => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+  }
+
+  handleSearchInputChange(event) {
+    const { value } = event.target;
+    this.setState({ folder: value, folder: value, searchQuery: value });
+  }
+
+  filteredFolders() {
+    const { folders, searchQuery } = this.state;
+    return folders.filter(folder =>
+      folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
+
+  handleCheckboxChange(event) {
+    const { checked } = event.target;
+    this.setState({ sendEmailWithoutFile: checked });
+
+    if (checked) {
+      this.setState({ notifyBtnEnabled: true });
+    } else {
+      this.setState({ notifyBtnEnabled: false });
+    }
+  }
+
+
+  handleKeyChange(event) {
+    const selectedKey = event.target.value;
     this.setState({
-      [name]: value,
+      key: selectedKey,
+      athleteID: selectedKey,
     });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
 
-    const {  folder, files } = this.state;
-    let ID = this.state.ID;
-    if(!ID)
-      ID = this.props.ID;
+    const data = new FormData();
+    data.append("file", this.state.file);
+
+    const { files, folder } = this.state;
+
+    let ID = this.state.key;
+    if (!ID) ID = this.props.ID;
 
     if (!files.length || !ID || !folder) {
-      alert("All fields are required.");
+      toast.error("All fields are required.");
       return;
     }
-
 
     let uploadStatus = [];
     for (let i = 0; i < files.length; i++) {
@@ -69,13 +163,15 @@ class UploadFileC extends Component {
         if (result === 'ok') {
           uploadStatus[index] = { fileName: file.name, status: 'ok', img: checkMark };
           this.setState({ notifyBtnEnabled: true });
+          this.setState({ profileBtnEnabled: true });
+          this.loadFolders();
         } else if (result === 'error') {
           uploadStatus[index] = { fileName: file.name, status: 'error', img: crossMark };
         } else if (result === 'no') {
-          alert('Not authorized.');
+          toast.error("Not authorized.");
+          this.setState({ uploadStatus: [] });
           return;
         }
-
         this.setState({ uploadStatus });
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -83,84 +179,159 @@ class UploadFileC extends Component {
         this.setState({ uploadStatus });
       }
     }
-
-    this.setState({files:[]})
   }
 
   handleFileUpload = event => {
     this.setState({ files: event.target.files });
   };
 
+  handleFolderInputChange = (event) => {
+    const value = event.target.value;
+    this.setState({ folderInput: value });
+    const suggestions = this.state.folders.filter(folder =>
+      folder.toLowerCase().includes(value.toLowerCase())
+    );
+    this.setState({ folderSuggestions: suggestions });
+  };
 
   handleNotifyClick = async () => {
-    const athleteID = this.props.ID || this.state.ID;
+    const athleteID = this.state.key || this.props.ID;
+
     try {
       const response = await axios.post(
-          'https://inprove-sport.info/files/nbTrYxc6dNytxLo/sendReportNotification',
-          { athlete_id: athleteID }
+        'https://inprove-sport.info/files/nbTrYxc6dNytxLo/sendReportNotification',
+        { athlete_id: athleteID }
       );
       if (response.data.res === 'ok') {
-        // Disable the notify button after successful email notification
         this.setState({ notifyBtnEnabled: false });
-      }
-      else {alert("Error: email not sent")}
+        this.setState({ sendEmailWithoutFile: false });
+        toast.success(`Email sent successfully to athlete ID: ${athleteID}`);
+      } else { toast.error("Error: email not sent") }
     } catch (error) {
       console.error('Error sending notification:', error);
     }
   };
 
+  handleProfileClick() {
+    const athleteID = this.state.key || this.props.ID;
+    this.props.showProfile(athleteID);
+  }
+
   render() {
-    const { uploadStatus } = this.state;
-    const athleteID = this.props.ID ;
-    const athleteName = this.props.athleteName ;
+    const { uploadStatus, key } = this.state;
+    const { allIDs, allNames } = this.props;
+    const athleteID = this.props.ID;
+    const athleteName = this.props.athleteName;
+    let sortedIDs = [];
+    let sortedNames = [];
+
+    if (allIDs.length > 0 && allNames.length > 0) {
+      const sortedData = allIDs.map((id, index) => ({
+        id,
+        name: allNames[index],
+      })).sort((a, b) => a.name.localeCompare(b.name));
+
+      sortedIDs = sortedData.map((item) => item.id);
+      sortedNames = sortedData.map((item) => item.name);
+    }
 
     return (
-        <div>
-          <h4>Admin Upload</h4>
-            <label>Send Report to ID: {athleteID} , ({athleteName})</label> {/* New label */}
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <label>Folder Name</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="folder"
-                    name="folder"
-                    onChange={this.handleChange}
-                />
-              </div>
-
-              <input
-                  type="file"
-                  multiple
-                  accept=".pdf,.png,.jpg,.jpeg,.gif"
-                  onChange={this.handleFileUpload}
-              />
-              <br />
-              <br />
-              <button type="submit" className="btn btn-primary btn-block" >
-                Submit
-              </button>
-              &nbsp; &nbsp;
-              <button type="button" className="btn btn-primary btn-block"   disabled={!this.state.notifyBtnEnabled}  onClick={() => this.handleNotifyClick()}>
-                Notify athlete by email
-              </button>
-            </form>
-
-            <div>
-              <h4>Upload Status</h4>
+      <div>
+        <ToastContainer />
+        <h4>Admin Upload</h4>
+        <div className="input-container">
+          <label htmlFor="keyInput" className="input-label">
+            Send Report to ID:
+          </label>
+          <div className="input-field ">
+            <select
+              id="keyInput"
+              value={key}
+              onChange={this.handleKeyChange}
+              size="10"
+              style={{
+                width: '500px',
+                height: '400px',
+              }}
+              required
+            >
+              {sortedIDs.length > 0 ? (
+                <option value={athleteID}>
+                  {athleteID}, ({athleteName})
+                </option>
+              ) : null}
+              {sortedIDs.map((id, index) => (
+                <option key={id} value={id}>
+                  {id}, ({sortedNames[index]})
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <br />
+            You can assign your file to a folder:
+            <br />
+            <label htmlFor="folderInput">Choose or Create a Folder:</label>
+            <input
+              type="text"
+              id="folderInput"
+              value={this.state.searchQuery}
+              onChange={this.handleSearchInputChange}
+              placeholder="Type folder name..."
+            />
+            {this.state.searchQuery.trim() !== '' && (
               <ul>
-                {uploadStatus.map((upload, index) => (
-                    <li key={index}>
-                      {upload.fileName} <img src={upload.img} alt={upload.status} width={20} height={20} />
-                    </li>
+                {this.filteredFolders().map(folder => (
+                  <li key={folder.id}>{folder.folder_name}</li>
                 ))}
               </ul>
-            </div>
+            )}
+          </div>
+          <input
+            type="file"
+            multiple
+            accept=".pdf,.png,.jpg,.jpeg,.gif"
+            onChange={this.handleFileUpload}
+            id="fileInput"
+          />
+          <br />
+          <br />
+          <button type="submit" className="btn btn-primary btn-block" >
+            Submit
+          </button>
+          &nbsp; &nbsp;
+          <button type="button" className="btn btn-primary btn-block" disabled={!this.state.notifyBtnEnabled} onClick={() => this.handleNotifyClick()}>
+            Notify athlete by email
+          </button>
+          &nbsp; &nbsp;
+          <button type="button" className="btn btn-primary btn-block" disabled={!this.state.profileBtnEnabled} onClick={() => this.handleProfileClick()}>
+            Show Profile
+          </button>
+          <div style={{ marginLeft: '90px' }}>
+            <input
+              type="checkbox"
+              checked={this.state.sendEmailWithoutFile}
+              onChange={this.handleCheckboxChange}
+            />
+            <label htmlFor="sendEmailWithoutFile" style={{ fontSize: '12px' }}>Forced Notify</label>
+          </div>
+        </form>
+        <br />
+        <div>
+          <h5>Upload Status</h5>
+          <ul>
+            {uploadStatus.map((upload, index) => (
+              <li key={index}>
+                {upload.fileName} <img src={upload.img} alt={upload.status} width={20} height={20} />
+              </li>
+            ))}
+          </ul>
         </div>
-  );
+      </div>
+    );
   }
 }
-
 
 export default UploadFileC;

@@ -5,24 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="beed2b49-ec1a-41fe-a5e0-f69714243105" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/firebase/Dar/ScrollingContent.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/firebase/Dar/jizdanMain.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/CreateAvatarEntry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/avatarManger.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/register/admin/correctDate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/intervention/actions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trainer/intervention/create.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/downloadSubset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/csvHandler/metadata/EditTest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/prerna/fileUpload/athleteProfileTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/SignUp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/adminFileUpload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register/admin/editSquad.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/register/admin/editSquad.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +61,6 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -92,19 +74,12 @@
     <setting file="file://$USER_HOME$/Downloads/package.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/package-lock.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/App.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/DB/postLimeControl.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/DB/postSignup.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Main.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/csvHandler/getIDs.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/csvHandler/xlsSheet/XlsSheet.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/index.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/Login.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/limeControl.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/register/navBar.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/trainer/VideoUpload/myVideos.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/trainer/sheet.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -211,38 +186,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/apple/WebstormProjects/coach_input_fi/src/user/fileUpload&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/user/fileUpload" />
-      <recent name="$PROJECT_DIR$/src/trainer/VideoUpload" />
       <recent name="$PROJECT_DIR$/src/register" />
-      <recent name="$PROJECT_DIR$/src/lime" />
-      <recent name="$PROJECT_DIR$/src/user" />
+      <recent name="$PROJECT_DIR$/src/register/trainer" />
+      <recent name="$PROJECT_DIR$/src/csvHandler" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/firebase/Dar" />
-      <recent name="$PROJECT_DIR$/src/assets/img" />
-      <recent name="$PROJECT_DIR$/src/assets" />
-      <recent name="$PROJECT_DIR$/src/temp-data" />
+      <recent name="$PROJECT_DIR$/../coach_input_fi/src/firebase/Dar/img" />
+      <recent name="$PROJECT_DIR$/src/register" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
+    <configuration name="build (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/../coach_input_fi/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -253,8 +232,8 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="start (1)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
+    <configuration name="start (2)" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/../coach_input_fi/package.json" />
       <command value="run" />
       <scripts>
         <script value="start" />
@@ -284,15 +263,17 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="npm.build (1)" />
       <item itemvalue="npm.build" />
-      <item itemvalue="npm.start (1)" />
       <item itemvalue="npm.start" />
       <item itemvalue="npm.test" />
+      <item itemvalue="npm.start (2)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build (1)" />
+        <item itemvalue="npm.start (2)" />
         <item itemvalue="npm.build" />
-        <item itemvalue="npm.start (1)" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
       </list>
@@ -333,421 +314,184 @@
       <workItem from="1653722139392" duration="3201000" />
       <workItem from="1653813698598" duration="34000" />
       <workItem from="1653979199433" duration="18871000" />
-      <workItem from="1654106548131" duration="23039000" />
-      <workItem from="1655142842178" duration="16149000" />
-      <workItem from="1656934308293" duration="50000" />
-      <workItem from="1657088761491" duration="14179000" />
-      <workItem from="1657198369192" duration="22616000" />
-      <workItem from="1659350596034" duration="294000" />
-      <workItem from="1659359246945" duration="24392000" />
-      <workItem from="1660562377635" duration="6682000" />
-      <workItem from="1660764157621" duration="13592000" />
-      <workItem from="1661436493000" duration="9463000" />
-      <workItem from="1661786699584" duration="11648000" />
-      <workItem from="1661959976181" duration="13858000" />
-      <workItem from="1662020489481" duration="665000" />
-      <workItem from="1662031674659" duration="3229000" />
-      <workItem from="1662047439200" duration="336000" />
-      <workItem from="1662101505980" duration="1831000" />
-      <workItem from="1662969980357" duration="10566000" />
-      <workItem from="1663158036841" duration="6326000" />
-      <workItem from="1663577273202" duration="5713000" />
-      <workItem from="1663586394018" duration="17975000" />
-      <workItem from="1663650949420" duration="38617000" />
-      <workItem from="1664177898399" duration="32623000" />
-      <workItem from="1664276307903" duration="587000" />
-      <workItem from="1664287702729" duration="1547000" />
-      <workItem from="1664309117817" duration="85000" />
-      <workItem from="1664346465215" duration="32029000" />
-      <workItem from="1664869060542" duration="41882000" />
-      <workItem from="1665388984497" duration="8740000" />
-      <workItem from="1665580455250" duration="15363000" />
-      <workItem from="1666006143826" duration="29016000" />
-      <workItem from="1667463984826" duration="845000" />
-      <workItem from="1667466111138" duration="19726000" />
-      <workItem from="1667640533340" duration="9182000" />
-      <workItem from="1667804260828" duration="4927000" />
-      <workItem from="1667895258327" duration="4175000" />
-      <workItem from="1667987507756" duration="1305000" />
-      <workItem from="1668427511132" duration="268000" />
-      <workItem from="1668510556254" duration="1636000" />
-      <workItem from="1668532290327" duration="416000" />
-      <workItem from="1668590533448" duration="23378000" />
-      <workItem from="1669024892645" duration="19484000" />
-      <workItem from="1669562602637" duration="597000" />
-      <workItem from="1670403514060" duration="24842000" />
-      <workItem from="1670527184812" duration="666000" />
-      <workItem from="1670538675837" duration="145000" />
-      <workItem from="1670538898898" duration="598000" />
-      <workItem from="1670832540278" duration="62859000" />
-      <workItem from="1672172435854" duration="42275000" />
-      <workItem from="1672850503133" duration="5127000" />
-      <workItem from="1673004200904" duration="598000" />
-      <workItem from="1673011132225" duration="1916000" />
-      <workItem from="1673195139967" duration="60452000" />
-      <workItem from="1674210892788" duration="87781000" />
-      <workItem from="1676815884918" duration="24190000" />
-      <workItem from="1677147687524" duration="9306000" />
-      <workItem from="1677397294949" duration="25417000" />
-      <workItem from="1677520350210" duration="24117000" />
-      <workItem from="1678136960389" duration="19154000" />
-      <workItem from="1678802191558" duration="21715000" />
-      <workItem from="1680003113318" duration="3456000" />
-      <workItem from="1680036614623" duration="149034000" />
-      <workItem from="1684070708026" duration="62868000" />
-      <workItem from="1685439552199" duration="4031000" />
-      <workItem from="1685456349869" duration="47454000" />
-      <workItem from="1687704020666" duration="64419000" />
-      <workItem from="1693242719716" duration="15351000" />
-      <workItem from="1693381467678" duration="571000" />
-      <workItem from="1693386172508" duration="51422000" />
-      <workItem from="1696760563476" duration="14555000" />
-      <workItem from="1697458751590" duration="1184000" />
+      <workItem from="1654106548131" duration="19657000" />
+      <workItem from="1661954296414" duration="242000" />
+      <workItem from="1716136864442" duration="2389000" />
+      <workItem from="1716291877392" duration="23013000" />
+      <workItem from="1716452766270" duration="1538000" />
+      <workItem from="1716550196164" duration="15000" />
+      <workItem from="1716554206407" duration="554000" />
+      <workItem from="1716576027801" duration="43806000" />
     </task>
-    <task id="LOCAL-00028" summary="Adding change and forget password. Changes to the coach interface: admin delete training tests.">
-      <created>1659959780169</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
+    <task id="LOCAL-00001" summary="First version login component">
+      <created>1647258313351</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1659959780169</updated>
+      <updated>1647258313351</updated>
     </task>
-    <task id="LOCAL-00029" summary="adding bot check">
-      <created>1660764254758</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
+    <task id="LOCAL-00002" summary="First version login component">
+      <created>1647261499498</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1660764254758</updated>
+      <updated>1647261499498</updated>
     </task>
-    <task id="LOCAL-00030" summary="adding support for proxy. fixing some signup bugs">
-      <created>1661263694047</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
+    <task id="LOCAL-00003" summary="First version login component">
+      <created>1647262019662</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1661263694047</updated>
+      <updated>1647262019662</updated>
     </task>
-    <task id="LOCAL-00031" summary="Committing testing version of csv upload">
-      <created>1661935600395</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
+    <task id="LOCAL-00004" summary="First version login component">
+      <created>1647262088126</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1661935600396</updated>
+      <updated>1647262088126</updated>
     </task>
-    <task id="LOCAL-00032" summary="Updating todos for the studies approves">
-      <created>1663580473108</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
+    <task id="LOCAL-00005" summary="First version login component">
+      <created>1647263649151</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1663580473108</updated>
+      <updated>1647263649151</updated>
     </task>
-    <task id="LOCAL-00033" summary="Updating todos for the studies approves">
-      <created>1663581240653</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
+    <task id="LOCAL-00006" summary="First version login component">
+      <created>1647263754990</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1663581240653</updated>
+      <updated>1647263754990</updated>
     </task>
-    <task id="LOCAL-00034" summary="Updating todos for the studies approves">
-      <created>1663583418839</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
+    <task id="LOCAL-00007" summary="First version login component_2">
+      <created>1647272205850</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1663583418840</updated>
+      <updated>1647272205850</updated>
     </task>
-    <task id="LOCAL-00035" summary="Updating todos for the studies approves">
-      <created>1663596923280</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
+    <task id="LOCAL-00008" summary="Adding csv handler">
+      <created>1647417367549</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1663596923280</updated>
+      <updated>1647417367550</updated>
     </task>
-    <task id="LOCAL-00036" summary="Updating todos for the studies approves">
-      <created>1663654986901</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
+    <task id="LOCAL-00009" summary="Adding csv handler">
+      <created>1647417747838</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1663654986902</updated>
+      <updated>1647417747838</updated>
     </task>
-    <task id="LOCAL-00037" summary="finalize studies approves">
-      <created>1663745294838</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
+    <task id="LOCAL-00010" summary=" csv handler: XLs component">
+      <created>1648058184420</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
       <option name="project" value="LOCAL" />
-      <updated>1663745294838</updated>
+      <updated>1648058184421</updated>
     </task>
-    <task id="LOCAL-00038" summary="finalize studies approves">
-      <created>1664178471547</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
+    <task id="LOCAL-00011" summary=" csv handler: XLs component">
+      <created>1648061123996</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1664178471547</updated>
+      <updated>1648061123996</updated>
     </task>
-    <task id="LOCAL-00039" summary="starting profile page + updating signup">
-      <created>1664266661390</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
+    <task id="LOCAL-00012" summary="minor change">
+      <created>1648113046625</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1664266661390</updated>
+      <updated>1648113046625</updated>
     </task>
-    <task id="LOCAL-00040" summary="starting profile page + updating signup">
-      <created>1664273046358</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
+    <task id="LOCAL-00013" summary="minor changes">
+      <created>1648117764790</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1664273046358</updated>
+      <updated>1648117764790</updated>
     </task>
-    <task id="LOCAL-00041" summary="Editing uploadFile">
-      <created>1664436197484</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
+    <task id="LOCAL-00014" summary="Changes to regi. components set.">
+      <created>1648975232377</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1664436197484</updated>
+      <updated>1648975232377</updated>
     </task>
-    <task id="LOCAL-00042" summary="Editing uploadFile">
-      <created>1664443118839</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
+    <task id="LOCAL-00015" summary="Registration version 1 (update profile is still disabled)">
+      <created>1649767040969</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1664443118839</updated>
+      <updated>1649767040969</updated>
     </task>
-    <task id="LOCAL-00043" summary="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files.">
-      <created>1664965097710</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
+    <task id="LOCAL-00016" summary="Registration version 1.1 (update profile is still disabled)">
+      <created>1651044196053</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1664965097710</updated>
+      <updated>1651044196053</updated>
     </task>
-    <task id="LOCAL-00044" summary="Translations and editings">
-      <created>1665485830463</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
+    <task id="LOCAL-00017" summary="Coach interface v1.01">
+      <created>1652263167887</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
       <option name="project" value="LOCAL" />
-      <updated>1665485830463</updated>
+      <updated>1652263167887</updated>
     </task>
-    <task id="LOCAL-00045" summary="New PDF Consent fill">
-      <created>1666094872159</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
+    <task id="LOCAL-00018" summary="Minor changes by adding trainer history function">
+      <created>1652691955018</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
       <option name="project" value="LOCAL" />
-      <updated>1666094872160</updated>
+      <updated>1652691955018</updated>
     </task>
-    <task id="LOCAL-00046" summary="adding first mobile style support">
-      <created>1668512684657</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
+    <task id="LOCAL-00019" summary="Minor changes">
+      <created>1652723052014</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
       <option name="project" value="LOCAL" />
-      <updated>1668512684657</updated>
+      <updated>1652723052015</updated>
     </task>
-    <task id="LOCAL-00047" summary="Adding first video share support">
-      <created>1669028358572</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
+    <task id="LOCAL-00020" summary="More functions added to the trainer admin panels. Dealing with warnings.">
+      <created>1652873979194</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1669028358574</updated>
+      <updated>1652873979194</updated>
     </task>
-    <task id="LOCAL-00048" summary="Adding first video share support">
-      <created>1669030254320</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
+    <task id="LOCAL-00021" summary="Version2">
+      <created>1654104685629</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
       <option name="project" value="LOCAL" />
-      <updated>1669030254320</updated>
+      <updated>1654104685629</updated>
     </task>
-    <task id="LOCAL-00049" summary="updating the download api">
-      <created>1669217254258</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
+    <task id="LOCAL-00022" summary="Version2, change to connection url">
+      <created>1654157309555</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
       <option name="project" value="LOCAL" />
-      <updated>1669217254259</updated>
+      <updated>1654157309556</updated>
     </task>
-    <task id="LOCAL-00050" summary="updating the download api">
-      <created>1669219570430</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
+    <task id="LOCAL-00023" summary="Version2, navBar changes">
+      <created>1654252246624</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
       <option name="project" value="LOCAL" />
-      <updated>1669219570433</updated>
+      <updated>1654252246624</updated>
     </task>
-    <task id="LOCAL-00051" summary="Changes still required to the video share pages">
-      <created>1670518437787</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
+    <task id="LOCAL-00024" summary="Version2, navBar changes">
+      <created>1716467070774</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
       <option name="project" value="LOCAL" />
-      <updated>1670518437791</updated>
+      <updated>1716467070774</updated>
     </task>
-    <task id="LOCAL-00052" summary="Changes still required to the video share pages">
-      <created>1670922250079</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1670922250080</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Changes still required to the video share pages">
-      <created>1670939629941</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1670939629941</updated>
-    </task>
-    <task id="LOCAL-00054" summary="partial fix , video share">
-      <created>1672229082206</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1672229082207</updated>
-    </task>
-    <task id="LOCAL-00055" summary="Video share ready">
-      <created>1672308662532</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1672308662532</updated>
-    </task>
-    <task id="LOCAL-00056" summary="Fixing download data">
-      <created>1674061268035</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1674061268035</updated>
-    </task>
-    <task id="LOCAL-00057" summary="Fixing download data">
-      <created>1674114101822</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1674114101823</updated>
-    </task>
-    <task id="LOCAL-00058" summary="adding request of trainer admin">
-      <created>1674462559161</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1674462559162</updated>
-    </task>
-    <task id="LOCAL-00059" summary="adding request of trainer admin">
-      <created>1674472464199</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1674472464199</updated>
-    </task>
-    <task id="LOCAL-00060" summary="adding request of trainer admin">
-      <created>1674476029381</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1674476029381</updated>
-    </task>
-    <task id="LOCAL-00061" summary="adding request of trainer admin">
-      <created>1674557710823</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1674557710823</updated>
-    </task>
-    <task id="LOCAL-00062" summary="Json View in Download csv">
-      <created>1674654775103</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1674654775103</updated>
-    </task>
-    <task id="LOCAL-00063" summary="Fix issues with upload and download">
-      <created>1675685094468</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1675685094468</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Add support for  file structured in folders">
-      <created>1675859118444</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1675859118444</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Add support for metadata">
-      <created>1676986593990</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1676986593990</updated>
-    </task>
-    <task id="LOCAL-00066" summary="Add support for metadata">
-      <created>1676988650777</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1676988650777</updated>
-    </task>
-    <task id="LOCAL-00067" summary="Add support for metadata">
-      <created>1678433021310</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1678433021310</updated>
-    </task>
-    <task id="LOCAL-00068" summary="minor fix">
-      <created>1678711799678</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1678711799678</updated>
-    </task>
-    <task id="LOCAL-00069" summary="minor fix">
-      <created>1680514601428</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1680514601428</updated>
-    </task>
-    <task id="LOCAL-00070" summary="adding the general upload function">
-      <created>1680702980903</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1680702980903</updated>
-    </task>
-    <task id="LOCAL-00071" summary="adding the general upload function">
-      <created>1680703366598</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1680703366598</updated>
-    </task>
-    <task id="LOCAL-00072" summary="updating the profile by adding uploaded files">
-      <created>1682337521971</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1682337521971</updated>
-    </task>
-    <task id="LOCAL-00073" summary="Adding cognition test v1">
-      <created>1683009782498</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1683009782498</updated>
-    </task>
-    <task id="LOCAL-00074" summary="Adding cognition test v1">
-      <created>1683021476825</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1683021476825</updated>
-    </task>
-    <task id="LOCAL-00075" summary="Version 2">
-      <created>1688036250736</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1688036250738</updated>
-    </task>
-    <task id="LOCAL-00076" summary="Version 2.5">
-      <created>1691571374677</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1691571374677</updated>
-    </task>
-    <option name="localTasksCounter" value="77" />
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -786,127 +530,45 @@
         <option value="Default.Author" />
         <option value="Default.Date" />
         <option value="Default.Subject" />
-        <option value="Space.CommitStatus" />
       </list>
     </option>
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="7eec15fd-36dd-4701-b775-3ba4be5382dc">
-          <value>
-            <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="roots">
-                    <value>
-                      <list>
-                        <option value="$PROJECT_DIR$" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-        <entry key="8b9737a7-ae55-47ff-9a90-f747ca248e05">
-          <value>
-            <State>
-              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="HEAD" />
-                      </list>
-                    </value>
-                  </entry>
-                  <entry key="structure">
-                    <value>
-                      <list>
-                        <option value="dir:/Users/apple/WebstormProjects/coach_input_fi/src/csvHandler" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="OPEN_GENERIC_TABS">
-      <map>
-        <entry key="7eec15fd-36dd-4701-b775-3ba4be5382dc" value="TOOL_WINDOW" />
-        <entry key="8b9737a7-ae55-47ff-9a90-f747ca248e05" value="TOOL_WINDOW" />
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Updating todos for the studies approves" />
-    <MESSAGE value="finalize studies approves" />
-    <MESSAGE value="starting profile page + updating signup" />
-    <MESSAGE value="Editing uploadFile" />
-    <MESSAGE value="Done:&#10;*profile with file viewing&#10;*csv upload styling&#10;*email notification for athletes files." />
-    <MESSAGE value="Translations and editings" />
-    <MESSAGE value="New PDF Consent fill" />
-    <MESSAGE value="adding first mobile style support" />
-    <MESSAGE value="Adding first video share support" />
-    <MESSAGE value="updating the download api" />
-    <MESSAGE value="Changes still required to the video share pages" />
-    <MESSAGE value="partial fix , video share" />
-    <MESSAGE value="Video share ready" />
-    <MESSAGE value="Fixing download data" />
-    <MESSAGE value="adding request of trainer admin" />
-    <MESSAGE value="Json View in Download csv" />
-    <MESSAGE value="Fix issues with upload and download" />
-    <MESSAGE value="Add support for  file structured in folders" />
-    <MESSAGE value="Add support for metadata" />
-    <MESSAGE value="minor fix" />
-    <MESSAGE value="adding the general upload function" />
-    <MESSAGE value="updating the profile by adding uploaded files" />
-    <MESSAGE value="Adding cognition test v1" />
-    <MESSAGE value="Version 2" />
-    <MESSAGE value="Version 2.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 2.5" />
+    <MESSAGE value="First version login component" />
+    <MESSAGE value="First version login component_2" />
+    <MESSAGE value="Adding csv handler" />
+    <MESSAGE value=" csv handler: XLs component" />
+    <MESSAGE value="minor change" />
+    <MESSAGE value="minor changes" />
+    <MESSAGE value="Changes to regi. components set." />
+    <MESSAGE value="Registration version 1 (update profile is still disabled)" />
+    <MESSAGE value="Registration version 1.1 (update profile is still disabled)" />
+    <MESSAGE value="Coach interface v1.01" />
+    <MESSAGE value="Minor changes by adding trainer history function" />
+    <MESSAGE value="Minor changes" />
+    <MESSAGE value="More functions added to the trainer admin panels. Dealing with warnings." />
+    <MESSAGE value="Version2" />
+    <MESSAGE value="Version2, change to connection url" />
+    <MESSAGE value="Version2, navBar changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version2, navBar changes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/csvHandler/CsvReader.jsx</url>
-          <line>302</line>
+          <line>301</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/register/Login.js</url>
-          <line>40</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
+          <line>67</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/user/testFolderList.js</url>
-          <line>28</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/DB/postSignup.js</url>
-          <line>35</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/src/register/SignUp.js</url>
+          <line>213</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

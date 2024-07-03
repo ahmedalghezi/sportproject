@@ -20,6 +20,7 @@ import LoggedHandler from "../DB/loggedHandler";
 
 
 
+
 export default function  GetIDS(){
 
 
@@ -28,22 +29,27 @@ export default function  GetIDS(){
         {
             name: 'name',
             selector: row => row.name,
+            sortable: true
         },
         {
             name: 'discipline',
             selector: row => row.discipline,
+            sortable: true
         },
         {
             name: 'ID',
             selector: row => row.ID,
+            sortable: true
         },
         {
             name: 'email',
             selector: row => row.email,
+            sortable: true
         },
         {
             name: 'age',
             selector: row => row.age,
+            sortable: true
         },
     ];
 
@@ -56,6 +62,7 @@ export default function  GetIDS(){
 
     const [xlsColumns, setXlsColumns] = useState(columnsC);
     const [objDataList, setObjDataList] = useState();
+    const [allObjDataList, setAllObjDataList] = useState();
     const [checkTestFlag, setCheckTest] = useState(false);
 
     const [checkIDsFlag, setCheckIDs] = useState(false);
@@ -74,6 +81,7 @@ export default function  GetIDS(){
 
     const [approvedStudies, setApprovedStudies] = useState([]);
     const [selectedStudyID, setSelectedStudyID] = useState();
+    const [sortInfo, setSortInfo] = useState({ column: null, direction: 'asc' });
 
     let navigate = useNavigate();
 
@@ -115,6 +123,7 @@ export default function  GetIDS(){
                 return;
             }
             else if(response.data.res && response.data.res.length > 0){
+                response.data.res.push("all");
                 setDisciplinesList(response.data.res);
                 setDiscipline(response.data.res[0]);
             }
@@ -124,6 +133,24 @@ export default function  GetIDS(){
             alert("some error has happened");
         });
     }
+
+
+
+    const handleSort = (column, sortDirection) => {
+
+        setSortInfo({ column, direction: sortDirection });
+
+
+        const sortedData = [...objDataList].sort((a, b) => {
+            if (sortDirection === 'asc') {
+                return a[column].localeCompare(b[column]);
+            } else {
+                return b[column].localeCompare(a[column]);
+            }
+        });
+
+        setObjDataList(sortedData);
+    };
 
 
 
@@ -138,6 +165,25 @@ export default function  GetIDS(){
         }
         return true;
     }
+
+
+
+    const setSearchName = (event) => {
+        const nameToSearch = event.target.value;
+        let local_allObjDataList = allObjDataList;
+        if(!allObjDataList) {
+            setAllObjDataList(objDataList);
+            local_allObjDataList = objDataList;
+        }
+        if(nameToSearch === "" && allObjDataList) {
+            setObjDataList(allObjDataList);
+            return;
+        }
+        event.preventDefault();
+        const filteredObjects = local_allObjDataList.filter(obj => obj.name.includes(nameToSearch));
+        setObjDataList(filteredObjects);
+    }
+
 
     const submitAll = () => {
         setError(false);
@@ -181,6 +227,7 @@ export default function  GetIDS(){
               console.log(response.data.arr);
               console.log(columns);
               setObjDataList(response.data.arr);
+              setAllObjDataList(response.data.arr);
               return;
           }
 
@@ -358,7 +405,12 @@ export default function  GetIDS(){
                 </button>
 
 
+                <br/>
+                <br/>
 
+                <div className="form-group">
+                    <input type="text" className="form-control" name="search_name" placeholder="Search by name" onChange={setSearchName} />
+                </div>
 
                 <br/>
                 <br/>
@@ -371,10 +423,14 @@ export default function  GetIDS(){
 
             </form>
 
+
             <DataTable
-                pagination
+                // pagination
                 highlightOnHover
-                columns={xlsColumns}
+                columns={columnsC.map((column) => ({
+                    ...column,
+                    onSort: (column, sortDirection) => handleSort(column.selector, sortDirection),
+                }))}
                 data={objDataList}
                 customStyles={headerStyles}
             />

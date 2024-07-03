@@ -1,16 +1,4 @@
-@keyframes rotateCircle {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
-.avatar-circle {
-  /* Add animation properties */
-  animation: rotateCircle 5s linear infinite;  /* Adjust the duration and timing function as needed */
-}
 
 .select-file {
   background-color: #0d6efd;
@@ -125,6 +113,8 @@ h3 {
   column-gap: 320px;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
+  overflow: hidden;
+  height: 100%;
 }
 .avatargallery .video {
   -webkit-transition: all 350ms ease;
@@ -171,20 +161,23 @@ h3 {
     display: none !important;
   }
   .avatar-inner{
-    display: none;
+    display: flex;
+    /* display: none; */
   }
   .avatar-content-section{
     margin: 0 auto;
     margin-bottom: 40px;
   }
 }
+
 .avatar-text-field{
   background-color: white;
-  border-radius: 30px;
+  border-radius: 10px;
   display: block;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   margin-bottom: 10px;
-  padding: 20px;
+  margin-top: 10px;
+  padding: 10px;
   word-wrap:break-word;
 }
 
@@ -226,6 +219,7 @@ h3 {
   padding-left: 10px;
   break-inside: avoid;
   position: relative;
+  margin-bottom: 5px;
 }
 
 .avatar-icon{
@@ -245,7 +239,7 @@ h3 {
   border-radius: 100px;
   background: gray;
   transform: scaleZ(-2);
-  background: url(./runner.png) no-repeat center center fixed;
+  /* background: url(./runner.png) no-repeat center center fixed; */
   background-size: 80px;
   background-color: rgb(218, 210, 210);
   transform: rotateY(180deg);
@@ -253,68 +247,22 @@ h3 {
 .avatar-line-container{
   position: absolute;
 }
+
 .avatar-inner{
   position: relative; 
-  height: auto;
+  height: 100%;
 }
 
 .avatar-svg{
+  max-width: 1145px;
   z-index: -1;
+  height: 100%;
+  min-height: 560px;
+  /* position: relative;  */
 }
 
-/* avatar.css */
-.avatar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.avatar-item{
+  max-width: 200px;
+  /* z-index: -1; */
+  /* position: 'relative'; */
 }
-
-.avatar-center {
-  position: relative;
-}
-
-
-
-.avatar-line {
-   animation: rotate 10s linear infinite; /* Adjust the duration and timing function as needed */
-}
-
-.avatar-box {
-  position: absolute;
-  width: 70px; /* Adjust the width of the box */
-  height: 30px; /* Adjust the height of the box */
-  background: white; /* Adjust the background color of the box */
-  margin: 20px 20px 20px 470px;
-  transform: translateX(-50%);
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  border: 1px solid #000;
-}
-
-
-
-
-.avatar-data-table {
-  /* ... Previous styles ... */
-  /* Add animation properties to the table */
-  animation-duration: 0.5s; /* Animation duration in seconds */
-  animation-timing-function: ease; /* Easing function (e.g., ease, ease-in-out) */
-  animation-fill-mode: both; /* Apply styles before and after animation */
-}
-
-/* Add specific animations for showing and hiding the table */
-.avatar-data-table-show {
-  animation-name: fadeIn;
-}
-
-.avatar-data-table-hide {
-  animation-name: fadeOut;
-  animation-fill-mode: forwards; /* Keep the final style after animation */
-}
-
-
-
-

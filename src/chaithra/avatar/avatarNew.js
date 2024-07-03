@@ -1,45 +1,46 @@
-/*
-By Chaithra
- */
-
-import React, {Component} from "react";
-import HandelTrainer from "../../DB/handelTrainer";
-import PostSignup from "../../DB/postSignup";
-import CoachInputDataService from "../../DB/rw"
+import React, { Component, useEffect } from "react";
+import { useSpring, animated, config } from 'react-spring';
 import { color } from "@mui/system";
-import '../../prerna/avatar.css'
-import runner from './runner.png'
+import '../avatar/avatar.css';
+// import '../../prerna/avatar.css';
+import runner from './runner.png';
+// import myImage from './myImage.png'
 import { getElement } from "bootstrap/js/src/util";
 import { th } from "date-fns/locale";
-import AthleteProfileTable, { json_data } from '../../prerna/fileUpload/athleteProfileTable';
+import AthleteProfileTable from '../../prerna/fileUpload/athleteProfileTable';
 import ColorBar from "../../prerna/fileUpload/colorBar";
+import ProfilePictureUpload from '../../prerna/fileUpload/profilePicture';
+import { X } from "@mui/icons-material";
+import AvatarEditor from 'react-avatar-editor';
+import HandelTrainer from "../../DB/handelTrainer";
+import PostSignup from "../../DB/postSignup";
+import CoachInputDataService from "../../DB/rw";
+import withTransition from "./withTransition"
+import CircleWithAnimation from "./CircleWithAnimation";
+import SpanWithAnimation from './SpanWithAnimation';
+import withCombinedAnimation from './withCombinedAnimation';
+import axios from 'axios';
 
-
-
-<AthleteProfileTable data={json_data} />
-
-const testdata = [
-    { id: 1, title: "Blutanalyse", text: "text text text", parameter: [{id: 1, title: "Vit D", value: 0.1}, {id: 2,title: "weiter", value: 0.9}]},
-    { id: 2,title: "Mikrobiom", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 3,title: "", value: 0.5}]},
-    { id: 3,title: "Genetik", text: "text text text", parameter: [{id: 4,title: "", value: 0.1}]},
-    { id: 4,title: "Soziologie", text: "text text text text text texttext text texttext text texttext text texttext text texttext text text", parameter: [{id: 5, title: "chronischer Stress", value: 0.1}, {id: 6,title: "Drop-Out", value: 0.9}]},
-    { id: 6,title: "Motorik", text: "text text text ", parameter: [{id: 7,title: "Y-Balance", value: 0.1}]},
-    { id: 7,title: "Motoriky", text: "text text texttext text texttext text texttext text texttext text texttext text texttext text text ", parameter: [{id: 8,title: "", value: 0.1}]},
-    { id: 8,title: "Kognition", text: "text text text ", parameter: [{id: 9,title: "", value: 0.1}, {id: 10, title: "Drop-Out", value: 0.9}]},
-    { id: 9,title: "Soziologietere", text: "text text texttext text texttext text text ", parameter: [{id: 11, title: "", value: 0.1}]},
-];
-
-
-
-export default class Avatar extends Component {
-
-
+class Avatar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state =  {selectedSection: null, avatarlist: testdata, sectionData: null, selectedItemIndex: null,};
-
-        this.getData = this.getData.bind(this);
+        this.state =  {
+            selectedSection: null,
+            avatarlist: [],
+            sectionData: null,
+            selectedItemIndex: null,
+            tableHeight: 0,
+            springProps: { height: 0 },
+            showProfileUpload: false,
+            uploadedFileName: null,
+            avatarImage: null,
+            loggedIn: false,
+            tableOpacity: 0,
+            json_data:[],
+            imageURL: null,
+            };
+        this.tableRef = React.createRef();
         this.drawhorizontalLines = this.drawhorizontalLines.bind(this);
         this.drawiconLines = this.drawiconLines.bind(this);
         this.drawiconCircles = this.drawiconCircles.bind(this);
@@ -47,75 +48,198 @@ export default class Avatar extends Component {
         this.setColumnGap = this.setColumnGap.bind(this);
         this.drawCircle = this.drawCircle.bind(this);
         this.drawImageIcon = this.drawImageIcon.bind(this);
-        this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.calculateTablePosition = this.calculateTablePosition.bind(this);
+        this.handleTableHeight = this.handleTableHeight.bind(this);
+        this.handleHover = this.handleHover.bind(this);
+        this.fetchImage = this.fetchImage.bind(this);
     }
 
+      handleHover = (section, index, isMouseEnter) => {
+        const selectedSectionName = section.section_name;
+        const tableTopPosition = this.calculateTablePosition(`text${index}`, index);
+        const isSameIndex = this.state.selectedItemIndex === index;
+        const newSelectedItemIndex = isSameIndex ? null : index;
+        console.log("section : ", section)
+        console.log("index : ", index)
+        console.log("selectedSectionName : ", selectedSectionName)
+         this.setState({
+            selectedSection: isMouseEnter ? selectedSectionName : null,
+            sectionData: isMouseEnter ? section : null,
+            selectedItemIndex: newSelectedItemIndex,
+            tableTopPosition: isMouseEnter ? tableTopPosition : 50,
+            expandedTableIndex: isSameIndex ? null : index,
+        },
+        () => {
+            this.handleTableHeight(0);
+            this.props.onTransition();
+      }
+    );
+        console.log("sectionData : ", this.state.sectionData)
+  };
 
-    handleButtonClick = (section,index) => {
+    checkLoginStatus = () => {
+        PostSignup.isLogin()
+          .then((response) => {
+            if (response.data.res === 'ok') {
+              this.setState({ loggedIn: true });
+            } else {
+              this.setState({ loggedIn: false });
+            }
+          })
+          .catch((error) => {
+            console.error('Error checking login status:', error);
+          });
+      };
 
+    handleSelectImage = () => {
+        if (!this.state.loggedIn) {
+          console.error("User not logged in")
+          return;
+        }
+         this.setState({ showProfileUpload: true});
+      };
+      
 
-        const selectedSectionName = section.title;
-        // Filter the section data based on the selected section name
-        const sectionData = section
-        // Update the selectedSection and sectionData states
-        this.setState({
-            selectedSection: selectedSectionName,
-            sectionData:section,
-            selectedItemIndex: index,
-        });
-        // Log the filtered section data
-        console.log("inside the handle button click")
-        console.log(selectedSectionName);
-        console.log(index);
+    calculateTablePosition(sectionId, index)
+    {
+        const title_size = this.state.avatarlist.length;
+        console.log("sectionId : ", sectionId)
+        const sectionTitleElement = document.getElementById(sectionId);
+        const container = document.getElementById("avatargallery");
+        const titleRect = sectionTitleElement.getBoundingClientRect();
+        const containerRect = container.getBoundingClientRect();
+        const titleTop = titleRect.top - containerRect.top;
+        const titleBottom = titleRect.bottom - containerRect.top;
+        const containerHeight = containerRect.height;
+        
+        let tableTop = 0;
+        const topThreshold = containerHeight / title_size ;
+        const bottomThreshold = (3 * containerHeight) / title_size;
+        const tableHeight= this.state.tableHeight; 
+    
+        if (index < 2) {
+            tableTop = titleBottom/title_size;
+        }
 
+        else if ((title_size%2==0  && index < title_size - 2) || (title_size%2!=0  && index < title_size - 1)) 
+        {
 
+            if(tableHeight < 270 && containerHeight/2 - tableHeight+40 >= 0)
+                {
+                    tableTop = -(titleBottom - titleTop) / title_size;
+                }
+
+            else 
+                {
+                    if (titleTop < containerHeight/2 )
+                    {
+                        tableTop = titleBottom/title_size;
+
+                    }
+                    
+                    else
+                    {
+                    tableTop = -titleBottom+containerHeight/2;}}} 
+
+        else 
+
+        {
+            if((containerHeight - titleBottom)< tableHeight )
+            {if (containerHeight/2 > tableHeight)
+                {
+                    tableTop = -titleBottom+containerHeight/2 + (containerHeight/2 - tableHeight);
+                }
+                else{
+                    tableTop = -titleBottom+containerHeight/2 - (containerHeight/2 - tableHeight);
+                }
+            }
+            else{
+                tableTop = ((titleBottom - titleTop )/title_size)
+            }
+            
+        }
+        return tableTop;
+    }
+    
+    handleTableHeight = (height) => {
+        if(height>0) {
+
+            this.setState({ tableHeight: height }, () => { 
+            }); }
+        
+    };
+
+    componentDidUpdate(prevProps, prevState) {
+        
+        if (prevState.tableHeight !== this.state.tableHeight) {
+            const newTableTopPosition = this.calculateTablePosition('text' + this.state.selectedItemIndex, this.state.selectedItemIndex);
+            this.setState({ tableTopPosition: newTableTopPosition });
+        }
+    }
+
+    receiveFileName = (filename) => {
+        this.fetchImage()
+        this.setState({ showProfileUpload: false });
     };
 
     componentDidMount() {
-        this.getData();
+        this.fetchData();
         this.setBoundingSVG();
+        this.checkLoginStatus();
+        this.fetchImage();
+        
     }
+
+    fetchData = async () => {
+        try {
+            const response = await fetch('https://inprove-sport.info/avatar/BhdYsskMxsTePaxTsd/getCachedAvatarElement');
+            const result = await response.json();
+            console.log("result.success : ", result.success);
+            console.log("result.data[0] : ", result.data[0]);
+            console.log("result.data[0].sections : ", result.data[0].sections);
+            if (result.success) {
+                this.setState({
+                    avatarlist: result.data[0].sections,
+                    json_data: result.data[0]
+                }, () => {
+                    console.log("Updated avatarlist: ", this.state.avatarlist);
+                    console.log("Updated json_data: ", this.state.json_data);
+
+                    const lastTableIndex = this.state.avatarlist.length - 1;
+                    if (lastTableIndex >= 0) {
+                        this.handleHover(this.state.avatarlist[lastTableIndex], lastTableIndex);
+                    }
+    
+                });
+            }
+        }
+        catch (error) {
+            console.error('Error fetching data:', error);
+        }
+        console.log("avatarlist : ", this.state.avatarlist);
+        console.log("json_data : ", this.state.json_data);
+
+    };
 
     setBoundingSVG(){
         if(!document.getElementById("avatargallery")){
-            var gal = {height: "600px", width: "600px"}
+            var gal = {height: "1000px", width: "1100px"}
         }else{
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
         }
         return {height: gal.height, width: gal.width};
     }
+
     setColumnGap(){
         if(!document.getElementById("avatargallery")){
-            var columngap = {gap: 300}
+            var columngap = {gap: 20}
         }else{
             var el = document.getElementById("avatargallery").getBoundingClientRect();
             columngap =  {gap: el.width - 535}
         }
         return {gap: columngap.gap};
     }
-    getData(){
-        this.setState({avatarlist: testdata});
-        CoachInputDataService.getAll().then(response => {
-            if(response.data.res === "error") {
-                const arr = ["connection error"];
-                this.setState({videoList: arr});
-                return;
-            }
-            if(response.data.res === "error"){
-                alert("Bitte erst anmelden.");
-                return;
-            }
-            if(response.data.res === "ok") {
-                // this.setState({videoList: response.data.videoList});
-                this.setState({avatarlist: json_data.sections});
-            }
 
-        }).catch(e => {
-            this.setState({avatarlist: testdata});
-            console.log(e);
-            alert("Es ist ein Fehler aufgetreten!");
-        });
-    }
     drawhorizontalLines(element, index) {
         var x1Position = 0;
         var x2Position = 0;
@@ -124,20 +248,31 @@ export default class Avatar extends Component {
             x1Position = 0;
             x2Position = 0
             yPosition = 0;
-        }else{
+        }
+        else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            yPosition = con.y - gal.y + con.height/2 - 10
+            yPosition = con.y - gal.y + con.height/2 - 10 ; 
             if(con.x - gal.x < gal.width/2){
-                x1Position = con.x - gal.x + con.width - 12;
-                x2Position = con.x - gal.x + con.width + 20;
+                x1Position = con.x - gal.x + con.width -12 ; 
+                x2Position = con.x - gal.x + con.width + 20  ; 
             }else{
                 x2Position = con.x - gal.x;
-                x1Position = con.x - gal.x - 40;
+                x1Position = con.x - gal.x - 40 ;
             }
         }
-        return <line x1={x1Position} y1={yPosition} x2={x2Position} y2={yPosition} stroke="black"/>;
+        return <animated.line
+        x1={x1Position}
+        y1={yPosition}
+        x2={x2Position}
+        y2={yPosition}
+        stroke="black"
+         style={{
+        opacity: this.state.transitionProps?.height?.interpolate((value) => (value ? value / 1000 : 1)),
+      }}
+        />;
     }
+
     drawiconCircles(element, index) {
         var cxPosition = 0;
         var cyPosition = 0;
@@ -147,27 +282,39 @@ export default class Avatar extends Component {
         }else{
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            var y = con.y - gal.y + con.height/2 - 10
+            var y = con.y - gal.y + con.height/2 - 10; 
             if(con.x - gal.x < gal.width/2){
-                var x = con.x - gal.x + con.width + 20
+                var x = con.x - gal.x + con.width + 20;
             }else{
-                var x = con.x - gal.x - 40
+                var x = con.x - gal.x - 40;
             }
-            var pyth = Math.sqrt(Math.pow(x-gal.width/2, 2) + Math.pow(y - gal.height/2, 2))
+            var pyth = Math.sqrt(Math.pow(x-gal.width/2, 2) + Math.pow(y - (gal.height/2), 2))
             cxPosition = Math.abs(x-gal.width/2)*82/pyth
-            cyPosition = Math.sqrt(Math.pow(82, 2) - Math.pow(cxPosition, 2))
+            cyPosition = Math.sqrt(Math.pow(82, 2) - Math.pow(cxPosition, 2));
             if(x-gal.width/2 > 0){
                 cxPosition = gal.width/2 +  cxPosition
             }else{
                 cxPosition = gal.width/2 - cxPosition
             }
-            if(y-gal.height/2 > 0){
+            if(y-(gal.height/2) > 0){ 
                 cyPosition = gal.height/2 +  cyPosition
             }else{
                 cyPosition = gal.height/2 - cyPosition
             }
         }
-        return <circle cx={cxPosition} cy={cyPosition} r="10" stroke="gray" fill="gray"/>;
+         return (
+              <CircleWithAnimation
+                key={index}
+                cx={cxPosition}
+                cy={cyPosition}
+                r={10}
+                stroke="gray"
+                fill="gray"
+               style={{
+                opacity: this.state.transitionProps?.height?.interpolate((value) => (value ? value / 1000 : 1)),
+                }}
+                />
+              );
     }
 
     drawiconLines(element, index) {
@@ -175,74 +322,164 @@ export default class Avatar extends Component {
         var x2Position = 0;
         var yPosition = 0;
         var relativey = 0;
-        if(element === null){
+
+        if (element === null && this.state.selectedItemIndex !== index) {
             x1Position = 0;
-            x2Position = 0
+            x2Position = 0;
             yPosition = 0;
             relativey = 0;
-        }else{
+        } else {
             var con = element.getBoundingClientRect();
             var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            yPosition = con.y - gal.y + con.height/2 - 10
-            if(con.x - gal.x < gal.width/2){
-                x2Position = con.x - gal.x + con.width + 20;
-            }else{
-                x2Position = con.x - gal.x - 40;
+            yPosition = con.y - gal.y + con.height / 2 -10 ;
+
+            if (con.x - gal.x < gal.width / 2) {
+                x2Position = con.x - gal.x + con.width+ 20 ;
+            } else {
+                x2Position = con.x - gal.x- 40 ;
             }
-            x1Position = gal.width/2;
-            relativey = gal.height/2;
+
+            x1Position = gal.width / 2;
+            relativey = gal.height / 2;
         }
-        return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black"/>;
+
+        return <line x1={x1Position} y1={relativey} x2={x2Position} y2={yPosition} stroke="black" />;
     }
 
-    drawCircle(r, stroke, fill){
-        if(document.getElementById("avatargallery")){
-            var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            var x = gal.width/2;
-            var y = gal.height/2;
-        }else{
-            var x = 0;
-            var y = 0;
+    drawCircle(r, stroke, fill) {
+        let x = 0;
+        let y = 0;
+        if (document.getElementById("avatargallery")) {
+            const gal = document.getElementById("avatargallery").getBoundingClientRect();
+            x = gal.width / 2 ;
+            y = gal.height / 2;
         }
-        return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill}/>;
+        return <circle cx={x} cy={y} r={r} stroke={stroke} fill={fill} />;
     }
-    drawImageIcon(){
-        if(document.getElementById("avatargallery")){
-            var gal = document.getElementById("avatargallery").getBoundingClientRect();
-            var x = gal.width/2 - 60;
-            var y = gal.height/2 - 60;
-        }else{
-            var x = 0;
-            var y = 0;
-        }
-        return <image x={x} y={y} width="120" height="120" href={runner}></image>;
 
+    drawImageIcon() {
+        
+        const imageURL = this.state.imageURL; 
+        let x, y;
+
+        if (imageURL != runner  && imageURL != null) {
+            if (document.getElementById("avatargallery")) {
+                const gal = document.getElementById("avatargallery").getBoundingClientRect();
+                x = gal.width / 2 - 74;
+                y = gal.height / 2 - 74;
+            }
+            else {
+                x = 0;
+                y = 0;
+            }
+
+            return (
+                <image
+                    x={x}
+                    y={y}
+                    width="150" 
+                    height="150"
+                    href={imageURL}
+                    onLoad={this.handleImageLoad}
+                    onError={this.handleImageError}
+                ></image>
+            );
+        }
+        else {
+                if (document.getElementById('avatargallery')) {
+                    const gal = document.getElementById('avatargallery').getBoundingClientRect();
+                    x = gal.width / 2 - 56; 
+                    y = gal.height / 2 -74; 
+                } 
+                    else {
+                        x = 0;
+                        y = 0;
+                        }
+                return (
+                        <image
+                            x={x}
+                            y={y}
+                            width="140"
+                            height="135"
+                            href={imageURL}
+                            onLoad={this.handleImageLoad}
+                            onError={this.handleImageError}
+                        ></image>
+                        );
+                
+            } };
+ 
+    fetchImage() 
+    {
+        fetch('https://inprove-sport.info/files/jYdncTzQdkdPzxnTanxBst/getImage')
+          .then(response => {
+            if (response.ok && response.headers.get('Content-Type').startsWith('image')) {
+              return response.blob();
+            } else {
+              throw new Error('Response does not contain an image');
+            }
+          })
+          .then(imageData => {
+            const imageURL = URL.createObjectURL(imageData);
+            this.setState({ imageURL });
+          })
+          .catch(error => {
+            console.error('Error fetching image:', error);
+            this.setState({ imageURL: runner });
+          });
+      }
+
+    calculateAvatarListHeight() {
+        const avatarItems = document.querySelectorAll('.avatar-all-content'); 
+        let totalHeight = 0;
+
+        avatarItems.forEach((item) => {
+            totalHeight += item.getBoundingClientRect().height;
+        });
+        return totalHeight;
     }
+
+
     render() {
-        const { isBoxClicked } = this.state;
-        const avatarListLength = this.state.avatarlist.length;
-        const midpoint = Math.ceil(avatarListLength / 2); // Calculate the midpoint
-    
-        if (!this.state.avatarlist || avatarListLength === 0) {
+        const { isBoxClicked, showProfileUpload } = this.state;
+        const { textAnimationProps, tableAnimationProps } = this.props;
+        
+        if (!this.state.avatarlist || this.state.avatarlist.length === 0) {
             return (
                 <div>
                     <div className="avatargallery" id="avatargallery">
-                        {/* Handle the case where avatarlist is not defined or empty */}
-                        <p>Loading...</p> {/* You can customize this message */}
+                        <p>Loading...</p>
                     </div>
                 </div>
             );
         }
-        const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.title))];
-
+        
+        const uniqueTitles = [...new Set(this.state.avatarlist.map(item => item.section_name))];
+        const avatarListHeight = this.calculateAvatarListHeight();
+        const totalTitles = uniqueTitles.length;
+        const midPoint = Math.ceil(totalTitles / 2);
+        
         require("../../prerna/avatar.css");
 
         
 
         return (
-            <div>
-                <div className="avatargallery" id="avatargallery" style={{ ...{ columnGap: this.setColumnGap().gap + 'px' } }}>
-                    <div className="avatar-inner">
+            <div className="avatar-container">
+
+                <div> 
+                        <button className="upload-btn" onClick={this.handleSelectImage}>Upload Profile Picture</button>
+                        <br />
+                        
+                        {showProfileUpload && (
+                            <ProfilePictureUpload
+                                onFileName={this.receiveFileName}
+                                onRedirect={this.handleRedirect}
+                            />
+                        )}
+                </div>
+
+                 <div className="avatargallery" id="avatargallery">
+                <div className="avatar-inner">
                         <div className="avatar-line-container">
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
@@ -261,9 +498,10 @@ export default class Avatar extends Component {
                                         );
                                     })
                                 }
-                                {this.drawCircle(82, "black", "none")} //82
-                                {this.drawCircle(75, "#DAD2D2", "#DAD2D2")} //75
+                                {this.drawCircle(82, "black", "none")}
+                                {this.drawCircle(76, "#DAD2D2", "#DAD2D2")}
                                 {this.drawImageIcon()}
+
                                 {
                                     this.state.avatarlist.map((item, index) => {
                                         return (
@@ -273,124 +511,69 @@ export default class Avatar extends Component {
                                 }
                             </svg>
                         </div>
-                    </div>
-                    <div className="left-column">
-                {this.state.avatarlist.slice(0, midpoint).map((item, index) => {
-                    // Assuming ColorBar and AthleteProfileTable are related to each item
-                    // Adjust as needed if the association is different
-                    const correspondingTitle = uniqueTitles[index];
-                    const correspondingItem = this.state.avatarlist.find((item) => item.title === correspondingTitle);
-                    
-                    return (
-                        <div className={`avatar-all-content`} key={index}>
-                            <div className="avatar-content-section">
-                                <span
-                                    className={`avatar-text-field`}
-                                    id={"text" + String(index)}
-                                    onClick={() => this.handleButtonClick(correspondingItem, index)}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    {correspondingItem.title}
-                                    <ColorBar data={json_data} sectionName={correspondingItem.title} />
-                                </span>
-
-                                {this.state.selectedItemIndex === index && (
-                                    <div className="table-container">
-                                        <AthleteProfileTable
-                                            data={json_data}
-                                            section_name={this.state.selectedSection}
-                                            sectionData={this.state.sectionData}
-                                        />
-                                    </div>
-                                )}
-                            </div>
                         </div>
-                    );
-                })}
-            </div>
 
-            <div className="right-column">
-                    {this.state.avatarlist.slice(midpoint).map((item, index) => {
-                        const titleIndex = midpoint + index;
-                        return (
-                            <div
-                                className={`avatar-all-content `}
-                                key={titleIndex}>
-
-<div className="avatar-content-section">
-                                <span
-                                    className={`avatar-text-field`}
-                                    id={"text" + String(index)}
-                                    onClick={() => this.handleButtonClick(correspondingItem, index)}
-                                    style={{ cursor: 'pointer' }}
-                                >
-                                    {correspondingItem.title}
-                                    <ColorBar data={json_data} sectionName={correspondingItem.title} />
-                                </span>
-
-                                {this.state.selectedItemIndex === index && (
-                                    <div className="table-container">
-                                        <AthleteProfileTable
-                                            data={json_data}
-                                            section_name={this.state.selectedSection}
-                                            sectionData={this.state.sectionData}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    );
-                })}
-
-                
-            {/* {/* </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    {/* {this.state.avatarlist.map((item, index) => { */}
                     {uniqueTitles.map((title, index) => {
-                    const item = this.state.avatarlist.find((item) => item.title === title);
+                        const color = this.state.selectedItemIndex === index ? 'darkgrey' : 'black';
+                        const item = this.state.avatarlist.find(item => item.section_name === title);
+                        const isEvenIndex = index % 2 === 0;
+                        const positionStyle = {
+                            textAlign: isEvenIndex ? 'left' : 'left',   //'left' : 'right'
+                            transform: isEvenIndex ? 'translate(-450%, 50%)' : 'translate(-20%, -50%)',
+                            zIndex: 1,
+                            
+                        };
 
-        
                         return (
+                            <div className="avatar-item" key={index} style={positionStyle}>
+                                <animated.span
+                                    className="avatar-text-field"
+                                    id={"text" + String(index)}
+                                    onMouseEnter={() => this.handleHover(item, index, true)}
+                                    onMouseLeave={() => this.handleHover(item, index, false)}
+                                    style={{ cursor: 'pointer'}}
+                                >
+                                    <SpanWithAnimation style={{ color: color }}>
+                                        {item.section_name}
+                                    </SpanWithAnimation>
+                                    <ColorBar data={this.state.json_data} sectionName={item.section_name} />
 
-                            <div
-                                className={`avatar-all-content `}
-                                key={index} >
-                                <div className="avatar-content-section">
-                                    <span
-                                        className={`avatar-text-field `}
-                                        id={"text" + String(index)}
-                                        onClick={() => this.handleButtonClick(item, index)}
-                                        style={{ cursor: 'pointer' }}>
-                                         {item.title}
-                                         <ColorBar data={json_data} sectionName={item.title} />
-                                    </span>
-                                    
                                     {this.state.selectedItemIndex === index && (
-                                        <div className="table-container">
-                                            
-                                                <AthleteProfileTable  data={json_data} section_name={this.state.selectedSection} sectionData={this.state.sectionData} />
-                                        </div>
-                                        )}
-                                </div>
+                                        <animated.div
+                                            ref={this.tableRef}
+                                            className="table-container"
+                                            style={{
+                                                position: 'absolute',
+                                                zIndex: '2',
+                                                top: `${this.state.tableTopPosition}px`,
+                                                visibility: this.state.selectedItemIndex === index ? 'visible' : 'hidden',
+                                                height: 'auto',
+                                                maxHeight: '300px',
+                                                width: '500px',
+                                                overflowY: 'auto',
+                                                overflowX: 'auto',
+                                                border: '0.5px solid #ccc',
+                                                borderRadius: '0.5px',
+                                                left: isEvenIndex ? '100%' : 'auto',
+                                                right: isEvenIndex ? 'auto' : '100%',
+                                                transform: isEvenIndex ? 'none' :'translateX(0%)'
+                                            }}
+                                        >
+                                            <AthleteProfileTable
+                                                data={this.state.json_data}
+                                                section_name={this.state.selectedSection}
+                                                onTableHeightChange={this.handleTableHeight} 
+                                            />
+                                        </animated.div>
+                                    )}
+                                </animated.span>
                             </div>
                         );
                     })}
                 </div>
-            </div>
+             </div>
         );
     }
 }
- */}
+
+export default withCombinedAnimation(Avatar);

@@ -6,7 +6,7 @@ import HandelTrainer from '../DB/handelTrainer';
 import AthletesGrid from './athleteGrid';
 import AdminUploadFile from '../register/admin/adminFileUpload';
 import UploadConsent from '../register/UploadConsent';
-import AthleteReportsUpload from '../prerna/fileUpload/fileUpload';
+//import AthleteReportsUpload from '../prerna/fileUpload/fileUpload';
 
 class AthleteControl extends Component {
     constructor(props) {
@@ -79,9 +79,9 @@ class AthleteControl extends Component {
                     alert("Es ist ein Fehler aufgetreten! error code: cont54:");
                 }
             }).catch(e => {
-                console.log(e);
-                alert("Es ist ein Fehler aufgetreten! error code: cont70");
-            });
+            console.log(e);
+            alert("Es ist ein Fehler aufgetreten! error code: cont70");
+        });
     }
 
     signOut = () => {
@@ -130,9 +130,9 @@ class AthleteControl extends Component {
                     <p>.....</p>
                 </div>
 
-                <div hidden={!showUploadReport}>
+                {<div hidden={!showUploadReport}>
                     <AdminUploadFile ID={athleteID} athleteName={athleteName} onUpload={this.hideAll} />
-                </div>
+                </div>}
 
                 <div hidden={!showUploadConsent || !disguised}>
                     <UploadConsent ID={athleteID} uploadDone={this.uploadDone} />
@@ -147,7 +147,7 @@ class AthleteControl extends Component {
                 </div>
 
                 <AthletesGrid {...this.props} uploadReport={this.uploadReport} uploadConsent={this.uploadConsent}
-                    showProfile={this.showProfileFunc} showConsent={this.showConsent} />
+                              showProfile={this.showProfileFunc} showConsent={this.showConsent} />
             </div>
         );
     }

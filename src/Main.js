@@ -1,7 +1,3 @@
-/*
-By Ahmed Al-Ghezi
- */
-
 import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -20,8 +16,8 @@ import SignOut from "./register/sign-out";
 import EditCoach from "./trainer/editCoach";
 import CsvReader from "./csvHandler/CsvReader";
 // import GetIDS from "./csvHandler/getIDsTest";
-// import GetIDS from "./csvHandler/getIDs";
-import GetIDS from "../src/prerna/fileUpload/getIDs";
+import GetIDS from "./csvHandler/getIDs";
+// import GetIDS from "../src/prerna/fileUpload/getIDs";
 import ForgetPassword from "./register/forgetPassword";
 import Footer from "./register/footer";
 import ChangePassword from "./register/changePassword";
@@ -39,22 +35,23 @@ import EmailConfirmed from "./register/emailConfirmed";
 import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
+import FileUploadFormConvert from "./register/admin/convertNameToID";
 
-import AdminFileUpload from "./register/admin/adminFileUpload";
-// import AthleteControl from "./csvHandler/athleteControl";
-// import AthleteControl from "./csvHandler/athleteControl";
+import AdminFileUpload from "../src/register/admin/adminFileUpload";
+import AthleteControl from "./csvHandler/athleteControl";
 // import AthleteControl from "./csvHandler/athleteControlTest";
-import AthleteControl from "./prerna/fileUpload/athleteControl";
+// import AthleteControl from "./prerna/fileUpload/athleteControl";
 
 import WelcomeReg from "./register/WelcomeReg";
 import NavBarMobile from "./register/navBarMobile";
+// import FileUploadFormConvert from "./register/admin/convertNameToID";
 
 
 import ShareVideo from "./nico/videosharing/shareVideo";
 import CreateGroup from "./nico/videosharing/createGroup";
 import DisplayVideo from "./nico/videosharing/displayVideo";
 import TrainerVideo from "./trainer/trainerVideo";
-import SignUpJiz from "./firebase/signup";
+
 import VideoPlayer from "./temp-data/optionsGenTemp";
 import TestsViewT from "./csvHandler/testViewT";
 import TestFolderList from "./user/testFolderList";
@@ -84,17 +81,21 @@ import EditSquad from "./register/admin/editSquad";
 import CorrectDate from "./register/admin/correctDate";
 
 import AthleteReportsUpload from './prerna/fileUpload/fileUpload';
+import DataFetchingComponent from './prerna/fileUpload/testResponse';
+import ProfileStyleComp from './prerna/fileUpload/testsSpaceCnt';
 import AvatarManger from "./register/admin/avatarManger";
 import SectionAndEntryManager from "./register/admin/avatarManger";
 import CreateAvatarEntry from "./register/admin/CreateAvatarEntry";
 import CreateIntervention from "./trainer/intervention/create";
 import TableComponentInt from "./trainer/intervention/actions";
 import AthleteProfileTable from './prerna/fileUpload/athleteProfileTable';
-//import Avatar from './nico/avatar/avatar';
+import ProfilePictureUpload from './prerna/fileUpload/profilePicture';
+import OGAvatar from './nico/avatar/avatar';
 import Avatar from './chaithra/avatar/avatarNew';
+import AvatarPdf from './chaithra/avatar/avatarPdf';
+import CognitionRecFiles from "./lime/survey/getCognitionRecords";
 //import ScrollingContent from "./firebase/Dar/Dar";
 // import Avatar from './prerna/fileUpload/avatar_1'
-
 
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
@@ -117,6 +118,7 @@ function Main() {
                 </div>
                 <div className="auth-wrapper">
                         <Routes>
+                           
                             <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
                             <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
                             <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
@@ -163,13 +165,16 @@ function Main() {
                             <Route path='/reg/nico/createChart' element={<div className="wide-inner"><CreateCharts/></div>} />
                             <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
 
-                            <Route path='/reg/nico/newProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
+                            <Route path='/reg/myProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
                             <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
-                            {/* <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><Avatar/></div>} /> */}
-                            <Route path='/reg/chaithra/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
+                            <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                            <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
+                            <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
+                            {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
 
 
-
+                            {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
 
 
                             <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
@@ -201,11 +206,12 @@ function Main() {
                             <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />
                             <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
 
-                            <Route path='/trainer/cognition/options' element={<div className="wide-inner data-view"><Survey_Component/></div>} />
+                            <Route path="/trainer/cognition/options/:discipline" element={<div className="wide-inner data-view"><Survey_Component/></div>} />
+                            <Route path="/trainer/cognition/optionsAdmin" element={<div className="wide-inner data-view"><CognitionRecFiles/></div>} />
 
 
 
-                            <Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />
+
 
                             <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
 
@@ -246,6 +252,8 @@ function Main() {
                             <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
 
 
+
+                            <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
 
 
 

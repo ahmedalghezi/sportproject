@@ -1,6 +1,4 @@
-/*
-By Ahmed Al-Ghezi
- */
+
 import React, {useEffect, useState} from 'react';
 import {processArr} from "./processCSV";
 import {CSVToArray} from "./processCSV";
@@ -20,7 +18,56 @@ import LoggedHandler from "../DB/loggedHandler";
 //import '../register/style.css';
 
 
-
+// const arr = [
+//     {
+//         "name": "sttest1 test",
+//         "ID": 1,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test1@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "astest3 test",
+//         "ID": 2,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "patest3 test",
+//         "ID": 3,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "xpatest3 test",
+//         "ID": 6,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "mpatest3 test",
+//         "ID": 4,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     },
+//     {
+//         "name": "lpatest3 test",
+//         "ID": 5,
+//         "discipline": "Basketball",
+//         "hasConsent": false,
+//         "email": "test3@test.test",
+//         "age": 20
+//     }
+// ]
 
 export default function AthletesGrid(props) {
 
@@ -38,7 +85,8 @@ export default function AthletesGrid(props) {
     const [key, setKey] = useState("");
 
     const[isOnlyCoach,setOnlyCoach] = useState(false);
-
+    const[isOnlyExternal,setOnlyExternal] = useState(false);
+    const[isOnlyCompetence, setOnlyCompetence] = useState(false);
 
 
 
@@ -58,6 +106,7 @@ export default function AthletesGrid(props) {
                 showError("Error getting disciplines from server");
                 return;
             } else if (response.data.res && response.data.res.length > 0) {
+                response.data.res.push('all')
                 setDisciplinesList(response.data.res);
                 setDiscipline(response.data.res[0]);
             }
@@ -68,6 +117,34 @@ export default function AthletesGrid(props) {
         });
     }
 
+    const getAthlete = (event) => {
+        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach, 'onlyExternal':isOnlyExternal, 'onlyCompetence':isOnlyCompetence}).then(response => {
+            console.log(response.data);
+            if (response.data.res === "no") {
+                // processStudyArr(arr);
+                showError("Not authorize to access the data");
+                return;
+            }
+            if (response.data.res === "error") {
+                showError("some error has happened, error code: grid135");
+                return;
+            }
+
+            if (response.data.res === "ok") {
+                const arr = response.data.arr;
+                processStudyArr(arr);
+                return;
+            }
+
+
+        })
+            .catch(e => {
+                console.log(e);
+            });
+
+        // processStudyArr(arr);
+
+    }
 
     function createRow(ID,name,lastAccessTime, hasConsent){
         const obj = [];
@@ -92,8 +169,19 @@ export default function AthletesGrid(props) {
         let name = "";
         if( event.target.name.split("-").length > 2)
             name = event.target.name.split("-")[2];
-        if(action === "Upload report")
-            props.uploadReport(selectedID, name);
+
+        // if(action === "Upload report")
+        //     props.uploadReport(selectedID, name);
+
+        if (action === "Upload report") {
+            // Access the actionArray from the component's state
+            const allIDs = actionArray.map(row => row[0]);
+            const allNames = actionArray.map(row => row[1]);
+
+            // Call the uploadReport function with all IDs and names
+            props.uploadReport(allIDs, allNames,selectedID,name );
+        }
+
         if(action === "Upload consent")
             props.uploadConsent(selectedID);
         if(action === "Show profile")
@@ -158,10 +246,15 @@ export default function AthletesGrid(props) {
         setHeaderArray(header);
 
     }
+    function clear() {
+        setActionArray([]);
+        setHeaderArray([]);
+    }
 
 
     const submitAll = () => {
         setError(false);
+        clear();
         getAthlete();
         return;
     }
@@ -177,36 +270,6 @@ export default function AthletesGrid(props) {
         setSuccessMsg(msg);
 
     }
-
-
-
-    const getAthlete = (event) => {
-        LoggedHandler.getAthletesID({"discipline": discipline, "key": key,"onlyCoach":isOnlyCoach}).then(response => {
-            console.log(response.data);
-            if (response.data.res === "no") {
-                showError("Not authorize to access the data");
-                return;
-            }
-            if (response.data.res === "error") {
-                showError("some error has happened, error code: grid135");
-                return;
-            }
-
-            if (response.data.res === "ok") {
-                const arr = response.data.arr;
-                processStudyArr(arr);
-                return;
-            }
-
-
-        })
-            .catch(e => {
-                console.log(e);
-            });
-    }
-
-
-
 
     const handleDispSele = (event) => {
         event.preventDefault();
@@ -228,10 +291,30 @@ export default function AthletesGrid(props) {
     }
 
 
-    const changeCoach = (event) => {
-        event.preventDefault();
-        const value = event.target.checked;
-        setOnlyCoach(value);
+    const changeRole = (event) => {
+        const { value, checked } = event.target;
+
+        if (value === 'coaches') {
+            setOnlyCoach(checked);
+            if (checked) {
+                setOnlyExternal(false);
+                setOnlyCompetence(false);
+            }
+        }
+        if (value === 'external') {
+            setOnlyExternal(checked);
+            if (checked) {
+                setOnlyCoach(false);
+                setOnlyCompetence(false);
+            }
+        }
+        if (value === 'competence') {
+            setOnlyCompetence(checked);
+            if (checked) {
+                setOnlyCoach(false);
+                setOnlyExternal(false);
+            }
+        }
     }
 
     return (
@@ -267,8 +350,14 @@ export default function AthletesGrid(props) {
                     Show
                 </button>
                 &nbsp; &nbsp; &nbsp;
-                <input type="checkbox" id="coaches" name="coaches" value="no_coaches"  onChange={changeCoach}/>
+                <input type="checkbox" id="coaches" name="coaches" value="coaches"  onChange={changeRole} checked={isOnlyCoach}/>
                 <label htmlFor="coaches"> only coaches </label>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="external" name="external" value="external"  onChange={changeRole} checked={isOnlyExternal}/>
+                <label htmlFor="external"> external </label>
+                &nbsp; &nbsp; &nbsp;
+                <input type="checkbox" id="competence" name="competence" value="competence"  onChange={changeRole} checked={isOnlyCompetence}/>
+                <label htmlFor="competence"> competence team </label>
 
 
                 <Alert severity="success" hidden={!success}>{successMsg}</Alert>
@@ -276,17 +365,19 @@ export default function AthletesGrid(props) {
 
                 <table className={"styled-table"}>
                     <thead>
-                  <tr>
-                      {headerArray.map((colItem) => (
-                          <td>{colItem}</td>
-                      ))}
-                  </tr>
+                    <tr>
+                        {headerArray.map((colItem) =>
+                            //   {console.log(colItem);
+                            (
+                                <td>{colItem}</td>
+                            ))}
+                    </tr>
                     </thead>
                     <tbody>
                     {actionArray.map((row) => (
                         <tr>
                             {row.map((item) => (
-                            <td><a href="#" name={item+"-"+row[0]+"-"+row[1]} onClick={onAction}>{item}</a></td>
+                                <td><a href="#" name={item+"-"+row[0]+"-"+row[1]} onClick={onAction}>{item}</a></td>
                             ))}
                         </tr>
                     ))}
