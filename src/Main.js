@@ -37,6 +37,7 @@ import DisplayStudyAccept from "./csvHandler/displayStudyAccept";
 import TestProfileC from "./user/profile";
 import TestProfileC2 from "./nico/profile_redesign/profile_org"
 import FileUploadFormConvert from "./register/admin/convertNameToID";
+import TermDateComponent from "./prerna/fileUpload/downloadDateTerm";
 
 import AdminFileUpload from "../src/register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
@@ -138,6 +139,7 @@ function Main() {
                             <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
                             <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
                             <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
+                            <Route path='/reg/dateTerm' element={<div className="csv-inner"><TermDateComponent/></div>} />
 
 
                             <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
