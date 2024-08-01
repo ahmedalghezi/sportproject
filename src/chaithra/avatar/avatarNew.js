@@ -4,26 +4,26 @@ By Chaithra, prerna
 
 import React, { Component, useEffect } from "react";
 import { useSpring, animated, config } from 'react-spring';
-import { color } from "@mui/system";
+// import { color } from "@mui/system";
 import '../avatar/avatar.css';
 // import '../../prerna/avatar.css';
 import runner from './runner.png';
 // import myImage from './myImage.png'
-import { getElement } from "bootstrap/js/src/util";
-import { th } from "date-fns/locale";
+// import { getElement } from "bootstrap/js/src/util";
+// import { th } from "date-fns/locale";
 import AthleteProfileTable from '../../prerna/fileUpload/athleteProfileTable';
 import ColorBar from "../../prerna/fileUpload/colorBar";
 import ProfilePictureUpload from '../../prerna/fileUpload/profilePicture';
-import { X } from "@mui/icons-material";
-import AvatarEditor from 'react-avatar-editor';
-import HandelTrainer from "../../DB/handelTrainer";
+// import { X } from "@mui/icons-material";
+// import AvatarEditor from 'react-avatar-editor';
+// import HandelTrainer from "../../DB/handelTrainer";
 import PostSignup from "../../DB/postSignup";
-import CoachInputDataService from "../../DB/rw";
-import withTransition from "./withTransition"
+// import CoachInputDataService from "../../DB/rw";
+// import withTransition from "./withTransition"
 import CircleWithAnimation from "./CircleWithAnimation";
 import SpanWithAnimation from './SpanWithAnimation';
 import withCombinedAnimation from './withCombinedAnimation';
-import axios from 'axios';
+// import axios from 'axios';
 import GetInterventions from '../../register/admin/getIntervention'
 
 class Avatar extends React.Component {

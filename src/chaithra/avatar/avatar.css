@@ -1,3 +1,36 @@
+.tableContainer {
+    max-height: 300px; /* Set the desired height */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse; /* Ensures that cell borders are collapsed into a single border */
+    border: 1px solid #ddd;
+  }
+  
+  .cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .uploadBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .message {
+    margin-top: 20px;
+    color: green;
+  }
+  
+  
 .avatar-container {
     /* flex-grow: 1;  
     display: flex;

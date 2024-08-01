@@ -6,7 +6,7 @@ by Vanessa Meyer
 //TODO: getFeaturesData(param) to show subset data in table
 //Note: click 'Show Data' after feature selection to see param-structure in console.
 
-import React from "react";
+import React, { useState } from 'react';
 import CustomTable from "../utli/components/CustomTable";
 import postCSV from "../DB/postCSV";
 import PostSignup from "../DB/postSignup";
@@ -179,6 +179,9 @@ export function DownloadSubset() {
     const [isShowDataClicked, setIsShowDataClicked] = React.useState(false);
     const [selectedValue, setFillingOption] = React.useState('keepMissing');
 
+    //downloadDateTermsConst
+    const [terms, setTerms] = useState([{ term: '', fromDate: '', toDate: '' }]);
+
     //transferlist
     //const [checked, setChecked] = React.useState([]);
     const [left, setLeft] = React.useState([]);
@@ -195,6 +198,18 @@ export function DownloadSubset() {
     const [selectedFraction, setSelectedFraction] = React.useState("comma");
 
     const [ageRequired, setAgeRequired] = React.useState("ageNotRequired");
+
+    //downloadDateTermsdef
+    const handleAddTerm = () => {
+        setTerms([...terms, { term: '', fromDate: '', toDate: '' }]);
+      };
+    
+    const handleTermChange = (index, key, value) => {
+        const newTerms = [...terms];
+        newTerms[index][key] = value;
+        setTerms(newTerms);
+      };
+
 
 
 
@@ -273,6 +288,51 @@ export function DownloadSubset() {
                 restOfRows = sliceRes(restOfRows, selectedMeasurment);
             }
             result = [result[0]].concat(restOfRows);
+
+
+
+            // Add term columns if at least one term is added
+        if (terms.length > 0) {
+            const headers = result[0];
+            console.log("headers in terms : ", headers)
+            const updatedData = [];
+
+            // Add term columns in the headers
+            const updatedHeaders = [];
+            headers.forEach((header, index) => {
+                updatedHeaders.push(header);
+                if (header.includes('time')) {
+                    updatedHeaders.push('Term');
+                }
+            });
+            updatedData.push(updatedHeaders);
+
+            // Process rows to add term values
+            result.slice(1).forEach((row) => {
+                const newRow = [];
+                row.forEach((cell, index) => {
+                    newRow.push(cell);
+                    if (headers[index].includes('time')) {
+                        const dateValue = new Date(cell);
+                        let termValue = '';
+                        terms.forEach((term) => {
+                            const fromDate = new Date(term.fromDate);
+                            const toDate = new Date(term.toDate);
+                            if (dateValue >= fromDate && dateValue <= toDate) {
+                                termValue = term.term;
+                                console.log(`termValue in ${fromDate} to ${toDate} :  ${termValue}`)
+                            }
+                        });
+                        newRow.push(termValue);
+                    }
+                });
+                updatedData.push(newRow);
+            });
+
+            result = updatedData;
+        }
+
+
 
             if(selectedFormat === "xls")
                 exportToExcel(result)
@@ -855,6 +915,35 @@ export function DownloadSubset() {
                         </Grid>
                     </div>
 
+                    <br/><br/>
+                    <div>
+                    <div style={{padding: "8px 0"}}>Term and Date Input :</div>
+                        {terms.map((term, index) => (
+                        <div key={index} style={{ marginBottom: '10px' }}>
+                        <input
+                            type="text"
+                            placeholder={`Term ${index + 1}`}
+                            value={term.term}
+                            onChange={(e) => handleTermChange(index, 'term', e.target.value)}
+                            style={{ marginRight: '10px' }}
+                        />
+                        <input
+                            type="date"
+                            placeholder="From Date"
+                            value={term.fromDate}
+                            onChange={(e) => handleTermChange(index, 'fromDate', e.target.value)}
+                            style={{ marginRight: '10px' }}
+                        />
+                        <input
+                            type="date"
+                            placeholder="To Date"
+                            value={term.toDate}
+                            onChange={(e) => handleTermChange(index, 'toDate', e.target.value)}
+                        />
+                        </div>
+                    ))}
+                    <button onClick={handleAddTerm}>Add Term</button>
+                    </div>
                     <br/><br/>
                     <div>
                         Choose a filling option in case the frequencies of the tests are different:<br/>
