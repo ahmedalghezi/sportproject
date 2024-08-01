@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
-import checkMark from '../../prerna/assets/img/check-mark.png';
-import crossMark from '../../prerna/assets/img/cross-mark.png';
 import '../style.css'
 import PostCSVData from '../DB/postCSV'
 

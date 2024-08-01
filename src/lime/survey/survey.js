@@ -13,7 +13,7 @@ import HandelCognition from "../../DB/handelCognition";
 import VideoPlayer from "./videoPlayer";
 import MicTestComponent from "./MicTestComponent";
 import { withRouter } from 'react-router-dom';
-import JSZip from 'jszip';
+// import JSZip from 'jszip';
 
 
 import { saveAs } from 'file-saver';
@@ -89,23 +89,23 @@ const Audiostop = async (videoID) => {
 
 
 // Function to download audio blobs as a zip file
-const downloadAudioZip = async () => {
-    const zip = new JSZip();
-    console.log("recordedAudios : ", recordedAudios)
-    recordedAudios.forEach(({ id, blob }) => {
-        zip.file(`Video ${id}.mp3`, blob);
+// const downloadAudioZip = async () => {
+//     const zip = new JSZip();
+//     console.log("recordedAudios : ", recordedAudios)
+//     recordedAudios.forEach(({ id, blob }) => {
+//         zip.file(`Video ${id}.mp3`, blob);
 
-    });
+//     });
 
-    // Generate the zip file asynchronously
-    const content = await zip.generateAsync({ type: 'blob' });
+//     // Generate the zip file asynchronously
+//     const content = await zip.generateAsync({ type: 'blob' });
 
-    // Trigger download of the zip file
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(content);
-    link.download = 'audio_recordings.zip';
-    link.click();
-};
+//     // Trigger download of the zip file
+//     const link = document.createElement('a');
+//     link.href = URL.createObjectURL(content);
+//     link.download = 'audio_recordings.zip';
+//     link.click();
+// };
 
 class Survey extends Component {
 
