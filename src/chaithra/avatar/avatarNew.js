@@ -24,7 +24,7 @@ import CircleWithAnimation from "./CircleWithAnimation";
 import SpanWithAnimation from './SpanWithAnimation';
 import withCombinedAnimation from './withCombinedAnimation';
 // import axios from 'axios';
-import GetInterventions from '../../register/admin/getIntervention'
+// import GetInterventions from '../../register/admin/getIntervention'
 
 class Avatar extends React.Component {
 
@@ -615,9 +615,9 @@ class Avatar extends React.Component {
 
                 </div>
 
-                  <div>
+                  {/* <div>
                         <GetInterventions athleteId={this.props.athleteId} />
-                </div>
+                </div> */}
 
              </div>
 

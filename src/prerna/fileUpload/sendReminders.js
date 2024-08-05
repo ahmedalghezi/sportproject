@@ -7,32 +7,32 @@ const AccessReminder = () => {
   const [selectedIds, setSelectedIds] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [progress, setProgress] = useState('');
+  const [progressPercentage, setProgressPercentage] = useState(0);
 
   useEffect(() => {
-    const fetchAthletes = async () => {
-      try {
-        const response = await axios.get('https://inprove-sport.info/reg/reminder/hyAlkB/getAthletesData');
-        console.log("RESPONSE : ", response);
-        console.log("RESPONSE DATA : ", response.data);
-        if (response.data) {
-          const uniqueAthletes = {};
-          response.data.forEach(athlete => {
-            if (!uniqueAthletes[athlete.athlete_id] || 
-                (athlete.lastLoginDateTime && new Date(uniqueAthletes[athlete.athlete_id].lastLoginDateTime) < new Date(athlete.lastLoginDateTime))) {
-              uniqueAthletes[athlete.athlete_id] = athlete;
-            }
-          });
-          setAthletes(Object.values(uniqueAthletes));
-        } else {
-          console.error('Failed to retrieve athlete data:', response.data.message);
-        }
-      } catch (error) {
-        console.error('Error fetching athletes:', error);
-      }
-    };
-
     fetchAthletes();
   }, []);
+
+  const fetchAthletes = async () => {
+    try {
+      const response = await axios.get('https://inprove-sport.info/reg/reminder/hyAlkB/getAthletesData');
+      if (response.data) {
+        const uniqueAthletes = {};
+        response.data.forEach(athlete => {
+          if (!uniqueAthletes[athlete.athlete_id] || 
+              (athlete.lastLoginDateTime && new Date(uniqueAthletes[athlete.athlete_id].lastLoginDateTime) < new Date(athlete.lastLoginDateTime))) {
+            uniqueAthletes[athlete.athlete_id] = athlete;
+          }
+        });
+        setAthletes(Object.values(uniqueAthletes));
+      } else {
+        console.error('Failed to retrieve athlete data:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching athletes:', error);
+    }
+  };
 
   const handleCheckboxChange = (id) => {
     setSelectedIds((prevSelectedIds) =>
@@ -50,55 +50,55 @@ const AccessReminder = () => {
     setSelectedIds([]);
   };
 
+  const sendEmail = async (id) => {
+    try {
+      const response = await axios.post('https://inprove-sport.info/reg/reminder/hyAlkB/updateReminderEmail', {
+        athlete_id: id,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(`Failed to send email to athlete with id ${id}`);
+    }
+  };
+
   const handleSendEmails = async () => {
     setLoading(true);
-    setMessage('');
-    try {
-      await Promise.all(
-        selectedIds.map(async (id) => {
-          const response = await axios.post('https://inprove-sport.info/reg/reminder/hyAlkB/updateReminderEmail', {
-            athlete_id: id,
-          });
-          console.log("RESPONSE ! : ", response);
-          if (!response.data) {
-            throw new Error(`Failed to send email to athlete with id ${id}`);
-          }
-        })
-      );
-      setMessage('Reminder emails successfully sent to athletes');
-      setLoading(false);
-      const fetchAthletes = async () => {
-        try {
-          const response = await axios.get('https://inprove-sport.info/reg/reminder/hyAlkB/getAthletesData');
-          console.log("RESPONSE !! : ", response);
-          if (response.data) {
-            const uniqueAthletes = {};
-            response.data.forEach(athlete => {
-              if (!uniqueAthletes[athlete.athlete_id] || 
-                  (athlete.lastLoginDateTime && new Date(uniqueAthletes[athlete.athlete_id].lastLoginDateTime) < new Date(athlete.lastLoginDateTime))) {
-                uniqueAthletes[athlete.athlete_id] = athlete;
-              }
-            });
-            setAthletes(Object.values(uniqueAthletes));
-          } else {
-            console.error('Failed to retrieve athlete data:', response.data.message);
-          }
-        } catch (error) {
-          console.error('Error fetching athletes:', error);
-        }
-      };
-      fetchAthletes();
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
-    } catch (error) {
-      console.error('Error sending emails:', error);
-      setMessage('Error sending reminder emails');
-      setLoading(false);
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
+    let remainingCount = selectedIds.length;
+    setMessage(`Sending emails to ${remainingCount} athletes. This will take approximately ${remainingCount * 0.5} minutes.`);
+    setProgress('');
+    setProgressPercentage(0);
+    let progressMessage = '';
+
+    for (let i = 0; i < selectedIds.length; i++) {
+      const id = selectedIds[i];
+      try {
+        await sendEmail(id);
+        remainingCount--;
+        setMessage(`Sending emails to ${remainingCount} athletes. This will take approximately ${remainingCount * 0.5} minutes.`);
+        progressMessage += `Email sent to athlete with ID ${id}\n`;
+        setProgress(progressMessage);
+        setProgressPercentage(((i + 1) / selectedIds.length) * 100);
+
+        // Wait for a random time between 5 to 12 seconds
+        const randomDelay = Math.floor(Math.random() * (12000 - 5000 + 1)) + 5000;
+        await new Promise(resolve => setTimeout(resolve, randomDelay));
+      } catch (error) {
+        progressMessage += `Error sending email to athlete with ID ${id}\n`;
+        setProgress(progressMessage);
+      }
     }
+
+    setMessage('Reminder emails process completed');
+    setLoading(false);
+
+    // Fetch the updated athletes data after sending emails
+    await fetchAthletes();
+
+    setTimeout(() => {
+      setMessage('');
+      setProgress('');
+      setProgressPercentage(0);
+    }, 5000);
   };
 
   const formatDate = (datetime) => {
@@ -151,15 +151,24 @@ const AccessReminder = () => {
           </tbody>
         </table>
       </div>
-      <br></br>
-        <button
+      <br/>
+      {message && message.trim() && <p className="message">{message}</p>}
+      {progress && progress.trim() && <pre className="progress-msg">{progress}</pre>}
+      {progressPercentage > 0 && (
+        <div className="progress-bar-container">
+          <div className="progress-bar" style={{ width: `${progressPercentage}%` }} />
+        </div>
+      )}
+
+      <br/>
+      <button
         className="upload-btn"
         onClick={handleSendEmails}
         disabled={loading}
       >
         {loading ? 'Sending...' : 'Send Login Reminder Emails'}
       </button>
-      {message && <p className="message">{message}</p>}
+      
     </div>
   );
 };

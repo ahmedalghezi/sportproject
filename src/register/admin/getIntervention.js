@@ -9,7 +9,7 @@ export default function GetInterventions({ athleteId: propAthleteId, athleteName
     const [interventions, setInterventions] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
+     useEffect(() => {
         const fetchInterventions = async () => {
             setLoading(true);
             try {
@@ -23,9 +23,10 @@ export default function GetInterventions({ athleteId: propAthleteId, athleteName
                 console.log('Response from server:', response.data);
 
                 if (response.data.success) {
+                    console.log('Interventions data:', response.data.interventions);
                     setInterventions(response.data.interventions);
                 } else {
-                    console.error(`Fehler beim Abrufen der Interventionen: ${response.data.message}`);
+                    console.error(`Error fetching interventions: ${response.data.message}`);
                 }
             } catch (error) {
                 console.error('Error fetching interventions:', error);
@@ -35,16 +36,21 @@ export default function GetInterventions({ athleteId: propAthleteId, athleteName
         };
 
         fetchInterventions();
-    }, [propAthleteId]); // Only re-run effect if propAthleteId changes
+    }, [propAthleteId]);
 
-    const formatDateString = (dateString) => {
-        return dateString.replace('T', ' ').slice(0, 19);
+     const formatDateString = (dateString) => {
+        try {
+            return format(new Date(dateString), 'yyyy-MM-dd HH:mm:ss');
+        } catch (error) {
+            console.error('Error formatting date:', dateString, error);
+            return dateString;
+        }
     };
 
     const columns = [
         { name: 'Titel', selector: 'title', sortable: true },
         { name: 'PDF-URL', selector: 'pdfUrl', cell: row => <a href={row.pdfUrl} target="_blank" rel="noopener noreferrer">PDF anzeigen</a> },
-        { name: 'Erste Zugriffszeit', selector: 'firstAccessTime', sortable: true, cell: row => format(new Date(row.firstAccessTime), 'yyyy-MM-dd HH:mm:ss') },
+        { name: 'Erste Zugriffszeit', selector: 'firstAccessTime', sortable: true, cell: row => formatDateString(row.firstAccessTime)},
         { name: 'Abschnitt', selector: 'section', sortable: true },
     ];
 
