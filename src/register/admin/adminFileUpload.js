@@ -1,15 +1,12 @@
-/*
- Chaithra KB
- */
-
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import checkMark from '../../assets/img/check-mark.png';
 import crossMark from '../../assets/img/cross-mark.png';
 import logo from '../../loading-gif.gif';
-import { toast } from 'react-toastify';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './UploadFileC.css';
 
 class UploadFileC extends Component {
   constructor(props) {
@@ -18,101 +15,40 @@ class UploadFileC extends Component {
       files: [],
       folders: [],
       searchQuery: "",
-      newFolderName: "",
-      folder: "",
-      ID: "",
-      selectedFolder: "",
-      folderInput: '',
+      selectedFolder: null,
+      ID: props.ID || "",
       uploadStatus: [],
-      key: "",
-      athleteID: this.props.ID,
+      key: props.ID || "",
+      athleteID: props.ID || "",
       notifyBtnEnabled: false,
       profileBtnEnabled: false,
       sendEmailWithoutFile: false,
       showAllFolders: false,
+      newFolderName: '',
+      uploadProgress: 0,
+      folderFiles: {},  // State to hold files for each folder
+      fileTitles: {},   // New state to hold titles for each folder
     };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
-    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-    this.handleKeyChange = this.handleKeyChange.bind(this);
-    this.handleShowAllFoldersChange = this.handleShowAllFoldersChange.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.ID) this.setState({
-      ID: this.props.ID,
-      key: this.props.ID,
-      athleteID: this.props.ID,
-    });
     this.loadFolders();
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.key !== prevState.key && this.state.key && prevState.key) {
-  //     this.setState((prevState) => {
-  //       const updatedState = {};
-
-  //       if (!this.state.athleteID) {
-  //         this.setState({ athleteID: this.state.key });
-  //       }
-
-  //       if (prevState.folder !== '') {
-  //         updatedState.selectedFolder = prevState.selectedFolder;
-  //       }
-
-  //       if (prevState.files.length > 0) {
-  //         updatedState.files = prevState.files;
-  //       }
-
-  //       if (Object.keys(updatedState).length > 0) {
-  //         this.setState({ uploadStatus: [] });
-  //         this.setState({ notifyBtnEnabled: false });
-  //         this.setState({ profileBtnEnabled: false });
-
-  //         return updatedState;
-  //       }
-
-  //       return null;
-  //     });
-  //   }
-  // }
-
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.key !== prevState.key && this.state.key && prevState.key) {
-        this.setState((prevState) => {
-            const updatedState = {};
-
-            if (!this.state.athleteID) {
-                this.setState({ athleteID: this.state.key });
-            }
-
-            if (prevState.folder !== '') {
-                updatedState.selectedFolder = prevState.selectedFolder;
-            }
-
-            if (prevState.files.length > 0) {
-                updatedState.files = prevState.files;
-            }
-
-            if (Object.keys(updatedState).length > 0) {
-                this.setState({ uploadStatus: [] });
-                this.setState({ notifyBtnEnabled: false });
-                this.setState({ profileBtnEnabled: false });
-
-                return updatedState;
-            }
-
-            return null;
-        });
+    const { key } = this.state;
+    const { ID } = this.props;
+    if (key !== prevState.key && key && prevState.key) {
+      this.setState({
+        uploadStatus: [],
+        notifyBtnEnabled: false,
+        profileBtnEnabled: false,
+      });
     }
-
-    // Check if athleteID or athleteName has changed and reset key if it has
-    if (this.props.ID !== prevProps.ID || this.props.athleteName !== prevProps.athleteName) {
-        this.setState({ key: '' });
+    if (ID !== prevProps.ID) {
+      this.setState({ key: ID, athleteID: ID });
     }
-}
-
+  }
 
   loadFolders = () => {
     const url = 'https://inprove-sport.info/files/athlete_folders_admin';
@@ -121,126 +57,105 @@ class UploadFileC extends Component {
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-
-        console.log("response : ", response.json)
         return response.json();
       })
       .then((data) => {
-        console.log("data : ", data)
-        this.setState({
-          folders: data,
-        });
+        this.setState({ folders: data });
       })
       .catch((error) => {
         console.error('There has been a problem with your fetch operation:', error);
       });
   }
 
-  handleSearchInputChange(event) {
-    const { value } = event.target;
-    this.setState({ folder: value, folder: value, searchQuery: value });
+  handleSearchInputChange = (event) => {
+    this.setState({ searchQuery: event.target.value });
   }
 
-  filteredFolders() {
+  filteredFolders = () => {
     const { folders, searchQuery, key, showAllFolders } = this.state;
     return folders
-    .filter(folder => showAllFolders || folder.athlete_id === key)
-    .filter(folder =>
-      folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+      .filter(folder => showAllFolders || folder.athlete_id === key)
+      .filter(folder =>
+        folder.folder_name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
   }
 
-  handleCheckboxChange(event) {
-    const { checked } = event.target;
-    this.setState({ sendEmailWithoutFile: checked });
-
-    if (checked) {
-      this.setState({ notifyBtnEnabled: true });
-    } else {
-      this.setState({ notifyBtnEnabled: false });
-    }
+  handleCheckboxChange = (event) => {
+    this.setState({ sendEmailWithoutFile: event.target.checked, notifyBtnEnabled: event.target.checked });
   }
 
-
-  handleKeyChange(event) {
+  handleKeyChange = (event) => {
     const selectedKey = event.target.value;
-    this.setState({
-      key: selectedKey,
-      athleteID: selectedKey,
+    this.setState({ key: selectedKey, athleteID: selectedKey });
+  }
+
+  handleShowAllFoldersChange = (event) => {
+    this.setState({ showAllFolders: event.target.checked });
+  }
+
+  handleFolderSelect = (folder) => {
+    this.setState({ selectedFolder: folder }, () => {
+      this.loadFolderFiles(folder.folder_name);
+      //toast.info(`Selected folder: ${folder.folder_name}`);
     });
   }
 
-  handleShowAllFoldersChange(event) {
-    const { checked } = event.target;
-    this.setState({ showAllFolders: checked });
+  handleDragOver = (event) => {
+    event.preventDefault();
   }
 
-  async handleSubmit(event) {
+  handleDrop = async (event) => {
     event.preventDefault();
+    const files = Array.from(event.dataTransfer.files);
+    const { selectedFolder } = this.state;
 
-    const data = new FormData();
-    data.append("file", this.state.file);
+    if (!selectedFolder) {
+      toast.error('Please select a folder first.');
+      return;
+    }
 
-    const { files, folder } = this.state;
+    this.setState({ files });
+    await this.handleSubmit();
+  }
 
-    let ID = this.state.key;
-    if (!ID) ID = this.props.ID;
+  handleSubmit = async () => {
+    const { files, selectedFolder, newFolderName } = this.state;
 
-    if (!files.length || !ID || !folder) {
+    if (!files.length || (!selectedFolder && !newFolderName.trim())) {
       toast.error("All fields are required.");
       return;
     }
 
-    let uploadStatus = [];
-    for (let i = 0; i < files.length; i++) {
-      let file = files[i];
-      uploadStatus.push({ fileName: file.name, status: 'loading', img: logo });
-    }
-    this.setState({ uploadStatus });
+    let uploadStatus = files.map(file => ({ fileName: file.name, status: 'loading', img: logo }));
+    this.setState({ uploadStatus, uploadProgress: 0 });
+
+    let totalProgress = 0;
+    let progressStep = 100 / files.length;
 
     for (const [index, file] of Array.from(files).entries()) {
       let formData = new FormData();
       formData.append('file', file);
-      formData.append('athlete_id', ID);
-      formData.append('folderName', folder);
+      formData.append('athlete_id', this.state.key);
+      formData.append('folderName', selectedFolder ? selectedFolder.folder_name : newFolderName);
 
       try {
-        const res = await axios.post('https://inprove-sport.info/files/sendMFileToAthlete', formData);
-        const result = res.data.res;
-
-        if (result === 'ok') {
-          uploadStatus[index] = { fileName: file.name, status: 'ok', img: checkMark };
-          this.setState({ notifyBtnEnabled: true });
-          this.setState({ profileBtnEnabled: true });
-          this.loadFolders();
-        } else if (result === 'error') {
-          uploadStatus[index] = { fileName: file.name, status: 'error', img: crossMark };
-        } else if (result === 'no') {
-          toast.error("Not authorized.");
-          this.setState({ uploadStatus: [] });
-          return;
-        }
-        this.setState({ uploadStatus });
+        await axios.post('https://inprove-sport.info/files/sendMFileToAthlete', formData, {
+          onUploadProgress: progressEvent => {
+            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            this.setState({ uploadProgress: (index + 1) * progressStep });
+          }
+        });
+        uploadStatus[index] = { fileName: file.name, status: 'ok', img: checkMark };
+        this.setState({ notifyBtnEnabled: true, profileBtnEnabled: true });
+        this.loadFolders();
       } catch (error) {
         console.error('Error uploading file:', error);
         uploadStatus[index] = { fileName: file.name, status: 'error', img: crossMark };
-        this.setState({ uploadStatus });
       }
+      this.setState({ uploadStatus });
     }
+    this.setState({ uploadProgress: 100 });
   }
-
-  handleFileUpload = event => {
-    this.setState({ files: event.target.files });
-  };
-
-  handleFolderInputChange = (event) => {
-    const value = event.target.value;
-    this.setState({ folderInput: value });
-    const suggestions = this.state.folders.filter(folder =>
-      folder.toLowerCase().includes(value.toLowerCase())
-    );
-    this.setState({ folderSuggestions: suggestions });
-  };
 
   handleNotifyClick = async () => {
     const athleteID = this.state.key || this.props.ID;
@@ -251,25 +166,212 @@ class UploadFileC extends Component {
         { athlete_id: athleteID }
       );
       if (response.data.res === 'ok') {
-        this.setState({ notifyBtnEnabled: false });
-        this.setState({ sendEmailWithoutFile: false });
+        this.setState({ notifyBtnEnabled: false, sendEmailWithoutFile: false });
         toast.success(`Email sent successfully to athlete ID: ${athleteID}`);
-      } else { toast.error("Error: email not sent") }
+      } else {
+        toast.error("Error: email not sent");
+      }
     } catch (error) {
       console.error('Error sending notification:', error);
     }
   };
 
-  handleProfileClick() {
+  handleProfileClick = () => {
     const athleteID = this.state.key || this.props.ID;
     this.props.showProfile(athleteID);
   }
 
+loadFolderFiles = (folderName) => {
+  const { athleteID } = this.state;
+
+  // Create the request body
+  const requestBody = {
+    athlete_id: athleteID,
+    folderName: folderName
+  };
+
+  // Log the request body
+  console.log('Request Body:', requestBody);
+
+  axios.post('https://inprove-sport.info/files/getFoldersFiles', requestBody)
+    .then(response => {
+      // Log the response data
+      console.log('Response Data:', response.data);
+
+      const folderFiles = { ...this.state.folderFiles };
+      const fileTitles = { ...this.state.fileTitles };
+
+      // Save folder files and file titles
+       folderFiles[folderName] = response.data.map(file => file.file_name);
+        fileTitles[folderName] = response.data.map(file => file.title);
+
+      this.setState({ folderFiles, fileTitles });
+    })
+    .catch(error => {
+      // Log the error if there's an issue with the request
+      console.error('Error fetching folder files:', error);
+      toast.error('Failed to load files for the folder.');
+    });
+}
+
+
+
+  handleNewFolderNameChange = (event) => {
+    this.setState({ newFolderName: event.target.value });
+  }
+
+  handleCreateFolder = () => {
+    const { newFolderName } = this.state;
+    if (newFolderName.trim()) {
+      const newFolder = { folder_name: newFolderName };
+      this.setState({
+        folders: [...this.state.folders, newFolder],
+        selectedFolder: newFolder,
+        newFolderName: '',
+      });
+      toast.success(`Created and selected new folder: ${newFolderName}`);
+    } else {
+      toast.error("Folder name cannot be empty.");
+    }
+  }
+
+handleRename = async (filename, newTitle) => {
+  const { athleteID } = this.state;
+
+  try {
+    const response = await axios.post('https://inprove-sport.info/files/renameFile', {
+      athlete_id: athleteID,
+      filename: filename,
+      newTitle: newTitle
+    });
+
+    if (response.data.res === 'ok') {
+      // Update the fileTitles state
+      const folderName = this.state.selectedFolder.folder_name;
+      const updatedTitles = { ...this.state.fileTitles };
+      const index = this.state.folderFiles[folderName].indexOf(filename);
+      if (index > -1) {
+        updatedTitles[folderName][index] = newTitle;
+      }
+      this.setState({ fileTitles: updatedTitles });
+      toast.success('File renamed successfully');
+    } else {
+      toast.error('Error renaming file');
+    }
+  } catch (error) {
+    console.error('Error renaming file:', error);
+    toast.error('Failed to rename file');
+  }
+};
+
+
+handleDelete = async (filename) => {
+  const { athleteID } = this.state;
+
+  try {
+    const response = await axios.post('https://inprove-sport.info/files/deleteFile', {
+      athlete_id: athleteID,
+      filename: filename
+    });
+
+    if (response.data.res === 'ok') {
+      // Remove file from the state
+      const folderName = this.state.selectedFolder.folder_name;
+      const updatedFiles = { ...this.state.folderFiles };
+      const updatedTitles = { ...this.state.fileTitles };
+
+      updatedFiles[folderName] = updatedFiles[folderName].filter(file => file !== filename);
+      delete updatedTitles[folderName][updatedFiles[folderName].indexOf(filename)];
+
+      this.setState({ folderFiles: updatedFiles, fileTitles: updatedTitles });
+      toast.success('File deleted successfully');
+    } else {
+      toast.error('Error deleting file');
+    }
+  } catch (error) {
+    console.error('Error deleting file:', error);
+    toast.error('Failed to delete file');
+  }
+};
+
+
+
+  renderFilteredFolders = () => {
+    const filteredFolders = this.filteredFolders();
+    const { selectedFolder } = this.state;
+
+    return (
+      <div className="filtered-folders">
+        <h5>Filtered Folders</h5>
+        {filteredFolders.length > 0 ? (
+          <div className="folder-grid">
+            {filteredFolders.map(folder => {
+              const isSelected = selectedFolder && selectedFolder.folder_name === folder.folder_name;
+              return (
+                <div
+                  key={folder.folder_name}
+                  onClick={() => this.handleFolderSelect(folder)}
+                  className={`folder-item ${isSelected ? 'selected' : ''}`}
+                >
+                  {folder.folder_name}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p>No folders found.</p>
+        )}
+      </div>
+    );
+  }
+
+renderFiles = (folderName) => {
+  const { folderFiles, fileTitles } = this.state;
+  const fileNames = folderFiles[folderName] || [];
+  const titles = fileTitles[folderName] || [];
+
+  return (
+    <div className="file-list">
+      {fileNames.length > 0 ? (
+        fileNames.map((fileName, index) => (
+          <div key={fileName} className="file-item">
+            <span>{titles[index]}</span>
+            <div>
+              <button
+                className="rename"
+                onClick={() => {
+                  const newTitle = prompt('Enter new title:', titles[index]);
+                  if (newTitle) this.handleRename(fileName, newTitle);
+                }}
+              >
+                Rename
+              </button>
+              <button
+                className="delete"
+                onClick={() => this.handleDelete(fileName)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <p>No files available in this folder.</p>
+      )}
+    </div>
+  );
+}
+
+
+
+
+
   render() {
-    const { uploadStatus, key, showAllFolders } = this.state;
+    const { uploadStatus, key, showAllFolders, selectedFolder, uploadProgress, newFolderName } = this.state;
     const { allIDs, allNames } = this.props;
     const athleteID = this.props.ID;
     const athleteName = this.props.athleteName;
+
     let sortedIDs = [];
     let sortedNames = [];
 
@@ -279,8 +381,8 @@ class UploadFileC extends Component {
         name: allNames[index],
       })).sort((a, b) => a.name.localeCompare(b.name));
 
-      sortedIDs = sortedData.map((item) => item.id);
-      sortedNames = sortedData.map((item) => item.name);
+      sortedIDs = sortedData.map(item => item.id);
+      sortedNames = sortedData.map(item => item.name);
     }
 
     return (
@@ -291,16 +393,13 @@ class UploadFileC extends Component {
           <label htmlFor="keyInput" className="input-label">
             Send Report to ID:
           </label>
-          <div className="input-field ">
+          <div className="input-field">
             <select
               id="keyInput"
               value={this.state.key}
               onChange={this.handleKeyChange}
               size="10"
-              style={{
-                width: '500px',
-                height: '150px',
-              }}
+              style={{ width: '500px', height: '150px' }}
               required
             >
               {sortedIDs.length > 0 ? (
@@ -316,53 +415,53 @@ class UploadFileC extends Component {
             </select>
           </div>
         </div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
             <br />
             You can assign your file to a folder:
             <br />
-            <label htmlFor="folderInput">Choose or Create a Folder:</label>
+            {this.renderFilteredFolders()}
+            <br />
+            <label htmlFor="newFolderInput">Create New Folder:</label>
             <input
               type="text"
-              id="folderInput"
-              value={this.state.searchQuery}
-              onChange={this.handleSearchInputChange}
-              placeholder="Type folder name..."
+              id="newFolderInput"
+              value={newFolderName}
+              onChange={this.handleNewFolderNameChange}
+              placeholder="Enter new folder name..."
             />
-            {this.state.searchQuery.trim() !== '' && (
-              <ul>
-                {this.filteredFolders().map(folder => (
-                  <li key={folder.id}>{folder.folder_name}</li>
-                ))}
-              </ul>
-            )}
+            <button type="button" className="btn btn-secondary" onClick={this.handleCreateFolder}>
+              Create Folder
+            </button>
           </div>
           <div>
             <input
               type="checkbox"
-              checked={this.state.showAllFolders}
+              checked={showAllFolders}
               onChange={this.handleShowAllFoldersChange}
             />
             <label htmlFor="showAllFolders">Show all folders</label>
           </div>
-          <input
-            type="file"
-            multiple
-            accept=".pdf,.png,.jpg,.jpeg,.gif"
-            onChange={this.handleFileUpload}
-            id="fileInput"
-          />
+          <div
+            onDrop={this.handleDrop}
+            onDragOver={this.handleDragOver}
+            style={{ border: '2px dashed #ccc', padding: '20px', minHeight: '200px' }}
+          >
+            {selectedFolder ? (
+              <div>
+                <h5>Drop files here to upload to "{selectedFolder.folder_name}"</h5>
+                {this.renderFiles(selectedFolder.folder_name)}
+              </div>
+            ) : (
+              <h5>Select a folder to start dragging files here</h5>
+            )}
+          </div>
           <br />
-          <br />
-          <button type="submit" className="btn btn-primary btn-block" >
-            Submit
-          </button>
-          &nbsp; &nbsp;
-          <button type="button" className="btn btn-primary btn-block" disabled={!this.state.notifyBtnEnabled} onClick={() => this.handleNotifyClick()}>
+          <button type="button" className="btn btn-primary btn-block" disabled={!this.state.notifyBtnEnabled} onClick={this.handleNotifyClick}>
             Notify athlete by email
           </button>
           &nbsp; &nbsp;
-          <button type="button" className="btn btn-primary btn-block" disabled={!this.state.profileBtnEnabled} onClick={() => this.handleProfileClick()}>
+          <button type="button" className="btn btn-primary btn-block" disabled={!this.state.profileBtnEnabled} onClick={this.handleProfileClick}>
             Show Profile
           </button>
           <div style={{ marginLeft: '90px' }}>

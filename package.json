@@ -39,6 +39,8 @@
     "react-json-view": "^1.21.3",
     "react-player": "^2.12.0",
     "react-plotly.js": "^2.5.1",
+    "react-progress-bar": "^0.1.0",
+    "react-progressbar": "^15.4.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
     "react-spring": "^9.7.3",

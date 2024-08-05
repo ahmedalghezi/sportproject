@@ -1,0 +1,85 @@
+/* Container for the folder grid */
+.folder-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between grid items */
+}
+
+/* Base style for folder items */
+.folder-item {
+  flex: 1 1 calc(25% - 10px); /* Responsive width with space between items */
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  border: 2px solid #ddd; /* Light grey border */
+  border-radius: 4px;
+  background-color: #fff; /* White background */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for hover and selected states */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Style for selected folder items */
+.folder-item.selected {
+  border-color: #007bff; /* Blue border for selected items */
+  background-color: #e0e0e0; /* Light grey background for selected items */
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional: Adds shadow to highlight the selected folder */
+}
+
+/* Optional: Hover effect for folder items */
+.folder-item:hover {
+  background-color: #f0f0f0; /* Slightly darker background on hover */
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px; /* Adds space below each file item */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.file-item span {
+  flex: 1;
+  text-align: left;
+  font-size: 16px;
+}
+
+.file-item button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 5px; /* Space between buttons */
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.file-item button.rename {
+  background-color: #28a745;
+}
+
+.file-item button.delete {
+  background-color: #dc3545;
+}
+
+.file-item button:hover {
+  background-color: #0056b3; /* Darker shade for rename button */
+}
+
+.file-item button.rename:hover {
+  background-color: #218838; /* Darker shade for rename button */
+}
+
+.file-item button.delete:hover {
+  background-color: #c82333; /* Darker shade for delete button */
+}
+
+.file-item button:active {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
