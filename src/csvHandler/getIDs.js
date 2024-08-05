@@ -405,6 +405,18 @@ export default function  GetIDS(){
                 </button>
 
 
+                <button
+                    className="btn btn-primary btn-block paddingBtn"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        setSuccess(false);
+                        setError(false);
+                        navigate("/reg/sendReminders");
+                    }}
+                >
+                    Reminder emails
+                </button>
+
                 <br/>
                 <br/>
 

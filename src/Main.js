@@ -262,6 +262,7 @@ function Main() {
 
                             <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
                             <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
+                            <Route path='/avatar/admin' element={<div className="wide-inner"><AvatarActions/></div>} />
 
 
 
