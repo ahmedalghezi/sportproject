@@ -14,7 +14,7 @@ import axios from "axios";
 import AthletesGrid from "./athleteGrid";
 import UploadConsent from "../register/UploadConsent";
 
-import UploadFileC from "../register/admin/adminFileUpload";
+import UploadFileC from "../register/admin/adminFileUpload2";
 import HandelTrainer from "../DB/handelTrainer";
 
 // import AthleteReportsUpload from "../prerna/fileUpload/fileUpload";
@@ -34,10 +34,10 @@ function AthleteControl(props) {
         setMsg("");
         setShowUploadConsent(false);
         setShowProfile(false);
-        setAllIDs(allIds);  
-        setAllNames(allNames); 
+        setAllIDs(allIds);
+        setAllNames(allNames);
         setAthleteID(ID);
-        setAthleteName(name); 
+        setAthleteName(name);
         setShowUploadReport(true);
     }
     const uploadConsent = (ID) =>{
@@ -95,7 +95,7 @@ function AthleteControl(props) {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
-               
+
             });
         }.bind(this),2000);
 
@@ -207,7 +207,7 @@ function AthleteControl(props) {
 
     </div>);
 }
- 
+
 export default AthleteControl;
 
 
