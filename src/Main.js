@@ -39,7 +39,9 @@ import TestProfileC2 from "./nico/profile_redesign/profile_org"
 import FileUploadFormConvert from "./register/admin/convertNameToID";
 import TermDateComponent from "./prerna/fileUpload/downloadDateTerm";
 
-import AdminFileUpload from "../src/register/admin/adminFileUpload";
+//import AdminFileUpload from "../src/register/admin/adminFileUpload";
+import AdminFileUploadSwitcher from '../src/register/admin/AdminFileUploadSwitcher';
+//import AdminFileUploadOld from "../src/register/admin/adminFileUploadOld";
 import AthleteControl from "./csvHandler/athleteControl";
 // import AthleteControl from "./csvHandler/athleteControlTest";
 // import AthleteControl from "./prerna/fileUpload/athleteControl";
@@ -107,6 +109,7 @@ import InterventionList from "./register/admin/getIntervention";
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
     const [hideNav, setHideNav] = useState(false);
+    const [showNewFileUpload, setShowNewFileUpload] = useState(true);
 
     const onLoginF = () => {
         setnvLogin(true);
@@ -198,7 +201,8 @@ function Main() {
                             <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
                             <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
-                            <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
+                            <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUploadSwitcher/></div>} />
+
                             <Route path='/csv/athleteFileUpload' element={<div className="auth-inner"><GeneralFileUpload/></div>} />
                             <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><DownloadSubset/></div>} />
 
