@@ -434,7 +434,7 @@ export default function  CsvReader(){
                         </button>
 
                         </td>
-                        <td width={0}></td>
+{/*                         <td width={0}></td> */}
 
                         <td>
                         <button
@@ -450,14 +450,14 @@ export default function  CsvReader(){
                                 setError(false);
                                 //const navigate = useNavigate();
                                 //this.props.navigate('/csv/stats');
-                                window.location.href = "https://inprove-sport.info/reg/mmDatesManager";
+                                window.location.href = "https://inprove-sport.info/reg/measurementsManager";
                             }}
                         >
                             Upload Measurement Dates
                         </button>
                         </td>
 
-                        <td width={2}></td>
+{/*                         <td width={2}></td> */}
 
 
 
