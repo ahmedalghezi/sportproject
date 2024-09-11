@@ -184,7 +184,7 @@ function Main() {
                             <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                             <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
                             <Route path='/reg/sendReminders' element={<div className="wide-inner"><AccessReminder/></div>} />
-                            <Route path='/reg/squadManager' element={<div className="wide-inner"><SquadMeasurementManager/></div>} />
+                            <Route path='/reg/measurementsManager' element={<div className="wide-inner"><SquadMeasurementManager/></div>} />
 
 
                             {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
