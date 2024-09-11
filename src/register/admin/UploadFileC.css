@@ -83,3 +83,8 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
+.file-item .view {
+  display: inline-block; /* Ensure it's not set to none */
+  /* Add other styles if necessary */
+}
+

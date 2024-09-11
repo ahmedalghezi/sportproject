@@ -203,7 +203,7 @@ export function DownloadSubset() {
     const handleAddTerm = () => {
         setTerms([...terms, { term: '', fromDate: '', toDate: '' }]);
       };
-    
+
     const handleTermChange = (index, key, value) => {
         const newTerms = [...terms];
         newTerms[index][key] = value;
@@ -942,7 +942,7 @@ export function DownloadSubset() {
                         />
                         </div>
                     ))}
-                    <button onClick={handleAddTerm}>Add Term</button>
+                    <button onClick={handleAddTerm}>Add (T1, T2, ..) Terms</button>
                     </div>
                     <br/><br/>
                     <div>

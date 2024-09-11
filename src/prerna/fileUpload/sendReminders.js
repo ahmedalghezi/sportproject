@@ -20,7 +20,7 @@ const AccessReminder = () => {
       if (response.data) {
         const uniqueAthletes = {};
         response.data.forEach(athlete => {
-          if (!uniqueAthletes[athlete.athlete_id] || 
+          if (!uniqueAthletes[athlete.athlete_id] ||
               (athlete.lastLoginDateTime && new Date(uniqueAthletes[athlete.athlete_id].lastLoginDateTime) < new Date(athlete.lastLoginDateTime))) {
             uniqueAthletes[athlete.athlete_id] = athlete;
           }
@@ -125,7 +125,7 @@ const AccessReminder = () => {
 
   return (
     <div>
-      <h1 className="title">Send Login Reminder Emails to Athletes</h1>
+      <h1 className="title">List of athletes who have files added after their last access</h1>
       <br />
       <div>
         <button className='upload-btn' onClick={handleSelectAll}>Select All</button>
@@ -168,7 +168,7 @@ const AccessReminder = () => {
       >
         {loading ? 'Sending...' : 'Send Login Reminder Emails'}
       </button>
-      
+
     </div>
   );
 };

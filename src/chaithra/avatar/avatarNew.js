@@ -23,6 +23,7 @@ import PostSignup from "../../DB/postSignup";
 import CircleWithAnimation from "./CircleWithAnimation";
 import SpanWithAnimation from './SpanWithAnimation';
 import withCombinedAnimation from './withCombinedAnimation';
+import GetInterventions from "../../register/admin/getIntervention";
 // import axios from 'axios';
 // import GetInterventions from '../../register/admin/getIntervention'
 
@@ -484,7 +485,7 @@ class Avatar extends React.Component {
 
         require("../../prerna/avatar.css");
 
-        
+
 
         return (
             <div className="avatar-container">
@@ -615,9 +616,9 @@ class Avatar extends React.Component {
 
                 </div>
 
-                  {/* <div>
+                  {<div>
                         <GetInterventions athleteId={this.props.athleteId} />
-                </div> */}
+                </div> }
 
              </div>
 
