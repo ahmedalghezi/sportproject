@@ -2,7 +2,7 @@
   "name": "inprove",
   "version": "3.1.0",
   "private": true,
-  "homepage": "https://inprove-sport.info/reg",
+  "homepage": "https://inprove-sport.info/dev2",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
