@@ -397,9 +397,15 @@ export default function  CsvReader(){
                 <table>
 
                     <tr>
+                    {/* <td width={0}></td> */}
                         <td>
                         <button
                             className="btn btn-outline-primary btn-block "
+                            style={{
+                                width: 'auto',             // Let the width adjust to the content
+                                // padding: '0.375rem 0.75rem', // Adjust the padding to better fit the text
+                                whiteSpace: 'nowrap',      // Ensure text doesn't wrap to the next line
+                            }}
                             onClick={(e) => {
                                 e.preventDefault();
                                 setSuccess(false);
@@ -413,7 +419,7 @@ export default function  CsvReader(){
                         </button>
                         </td>
 
-
+                        {/* <td width={0}></td> */}
                         <td>
 
                         <button
@@ -434,7 +440,7 @@ export default function  CsvReader(){
                         </button>
 
                         </td>
-                        <td width={0}></td>
+                        {/* <td width={0}></td> */}
 
                         <td>
                         <button
@@ -450,14 +456,14 @@ export default function  CsvReader(){
                                 setError(false);
                                 //const navigate = useNavigate();
                                 //this.props.navigate('/csv/stats');
-                                window.location.href = "https://inprove-sport.info/reg/mmDatesManager";
+                                window.location.href = "https://inprove-sport.info/reg/measurementsManager";
                             }}
                         >
                             Upload Measurement Dates
                         </button>
                         </td>
 
-                        <td width={2}></td>
+                        {/* <td width={0}></td> */}
 
 
 
