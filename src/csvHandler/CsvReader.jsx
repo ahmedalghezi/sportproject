@@ -440,7 +440,7 @@ export default function  CsvReader(){
                         </button>
 
                         </td>
-                        {/* <td width={0}></td> */}
+                       {/* <td width={0}></td> */} */
 
                         <td>
                         <button
@@ -463,7 +463,7 @@ export default function  CsvReader(){
                         </button>
                         </td>
 
-                        {/* <td width={0}></td> */}
+{/*                         <td width={2}></td> */}
 
 
 
