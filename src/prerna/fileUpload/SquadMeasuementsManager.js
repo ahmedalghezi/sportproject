@@ -17,10 +17,20 @@ class SquadMeasurementManager extends Component {
 
     componentDidMount() {
         fetch('https://inprove-sport.info/avatar/HtdMkuQusmTerss/getUniqueDateInfo/')
-            .then(response => response.json())
+            .then(response => {
+            console.log("Response GET:", response);
+            return response.json();
+     } )
             .then(data => {
                 console.log("Response Body:", data);
-                this.setState({ measurements: data, loading: false });
+                // this.setState({ measurements: data, loading: false });
+                const cleanedData = data.map(measurement => ({
+                    ...measurement,
+                    dates: measurement.dates.filter(date => !isNaN(Date.parse(date))) // Filter out invalid dates
+                }));
+    
+                console.log("Cleaned Data:", cleanedData);
+                this.setState({ measurements: cleanedData, loading: false });
             })
             .catch(error => {
                 this.setState({ error, loading: false });
@@ -38,7 +48,7 @@ class SquadMeasurementManager extends Component {
             const lastAddedDate = uniqueDates.pop();
             uniqueDates.unshift(lastAddedDate);
         }
-        console.log("uniqueDates : ", uniqueDates)
+        // console.log("uniqueDates : ", uniqueDates)
         return uniqueDates;
     }
 
@@ -57,15 +67,27 @@ class SquadMeasurementManager extends Component {
         }));
     };
 
+
     handleAddDate = (squad, discipline) => {
         const { measurements, selectedDates } = this.state;
         const measurement = measurements.find(m => m.squad === squad && m.discipline === discipline);
         const dateToAdd = selectedDates[`${squad}-${discipline}`];
+        console.log("dateToAdd : ", dateToAdd)
+        
+        const isValidDate = (dateString) => {
+            const regex = /^\d{4}-\d{2}-\d{2}$/;
+            return regex.test(dateString) && !isNaN(new Date(dateString).getTime());
+        };
 
-        if (!dateToAdd) {
+        if (!dateToAdd  || isNaN(Date.parse(dateToAdd)) || !isValidDate(dateToAdd)) {
             alert('Please select a valid date.');
             return;
         }
+
+        if (measurement.dates.includes(dateToAdd)) {
+            alert('This date already exists.');
+            return;
+        }    
 
         const updatedDates = [...measurement.dates, dateToAdd];
 
@@ -171,7 +193,7 @@ class SquadMeasurementManager extends Component {
 
     getFilteredMeasurements = () => {
         const { selectedSquad, selectedDiscipline, measurements } = this.state;
-
+    
         return measurements
             .filter(measurement => {
                 return (
@@ -182,8 +204,18 @@ class SquadMeasurementManager extends Component {
             .map(measurement => ({
                 ...measurement,
                 dates: this.getUniqueSortedDates(measurement.dates).map(date => date.toISOString().split('T')[0])
-            }));
+            }))
+            
+            
+            .sort((a, b) => {
+                if (a.squad < b.squad) return -1;
+                if (a.squad > b.squad) return 1;
+                if (a.discipline < b.discipline) return -1;
+                if (a.discipline > b.discipline) return 1;
+                return 0;
+            });
     };
+    
 
     render() {
         const { selectedSquad, selectedDiscipline, selectedDates, loading, error } = this.state;
@@ -243,7 +275,10 @@ class SquadMeasurementManager extends Component {
                                                 Add Date
                                             </button>
                                         </div>
-                                        {measurement.dates.map((date, dateIndex) => (
+                                        {measurement.dates
+                                        .filter(date => date && !isNaN(Date.parse(date)))
+                                        .map((date, dateIndex) => (
+                                            
                                             <div key={date} className="date-entry">
                                                 <input
                                                     className={`date-input ${this.state.highlightedInput === `${measurementIndex}-${dateIndex}` ? 'highlighted' : ''}`}

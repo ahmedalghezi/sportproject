@@ -396,8 +396,8 @@ export default function  CsvReader(){
 
                 <table>
 
-                    <tr>
-                    {/* <td width={0}></td> */}
+                    {/* <tr>
+                   
                         <td>
                         <button
                             className="btn btn-outline-primary btn-block "
@@ -419,7 +419,7 @@ export default function  CsvReader(){
                         </button>
                         </td>
 
-                        {/* <td width={0}></td> */}
+                    
                         <td>
 
                         <button
@@ -440,7 +440,7 @@ export default function  CsvReader(){
                         </button>
 
                         </td>
-                       {/* <td width={0}></td> */} */
+                      
 
                         <td>
                         <button
@@ -463,7 +463,6 @@ export default function  CsvReader(){
                         </button>
                         </td>
 
-{/*                         <td width={2}></td> */}
 
 
 
@@ -471,6 +470,66 @@ export default function  CsvReader(){
 
                         
 
+                    </tr> */}
+                    <tr>
+                        <td colSpan="3">
+                            <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                padding: '1rem', 
+                            }}>
+                                <button
+                                    className="btn btn-outline-primary"
+                                    style={{
+                                        flex: '1', // Each button will take equal space
+                                        margin: '0 1.5rem', // Space between buttons
+                                        whiteSpace: 'nowrap', // Ensure text doesn't wrap to the next line
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setSuccess(false);
+                                        setError(false);
+                                        window.location.href = "https://inprove-sport.info/csv/stats";
+                                    }}
+                                >
+                                    Upload stats
+                                </button>
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    style={{
+                                        flex: '1', // Each button will take equal space
+                                        margin: '0 1.5rem', // Space between buttons
+                                        whiteSpace: 'nowrap', // Ensure text doesn't wrap to the next line
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setSuccess(false);
+                                        setError(false);
+                                        window.location.href = "https://inprove-sport.info/csv/uploadMeta";
+                                    }}
+                                >
+                                    Upload Descriptions
+                                </button>
+
+                                <button
+                                    className="btn btn-outline-primary"
+                                    style={{
+                                        flex: '1', // Each button will take equal space
+                                        margin: '0 0.5rem', // Space between buttons
+                                        whiteSpace: 'nowrap', // Ensure text doesn't wrap to the next line
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setSuccess(false);
+                                        setError(false);
+                                        window.location.href = "https://inprove-sport.info/reg/measurementsManager";
+                                    }}
+                                >
+                                    Upload Measurement Dates
+                                </button>
+                            </div>
+                        </td>
                     </tr>
 
                     <tr><td><br/></td></tr>
