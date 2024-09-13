@@ -39,9 +39,7 @@ import TestProfileC2 from "./nico/profile_redesign/profile_org"
 import FileUploadFormConvert from "./register/admin/convertNameToID";
 import TermDateComponent from "./prerna/fileUpload/downloadDateTerm";
 
-//import AdminFileUpload from "../src/register/admin/adminFileUpload";
-import AdminFileUploadSwitcher from '../src/register/admin/AdminFileUploadSwitcher';
-//import AdminFileUploadOld from "../src/register/admin/adminFileUploadOld";
+import AdminFileUpload from "../src/register/admin/adminFileUpload";
 import AthleteControl from "./csvHandler/athleteControl";
 // import AthleteControl from "./csvHandler/athleteControlTest";
 // import AthleteControl from "./prerna/fileUpload/athleteControl";
@@ -109,7 +107,6 @@ import InterventionList from "./register/admin/getIntervention";
 function Main() {
     const [nvLogin, setnvLogin] = useState(false);
     const [hideNav, setHideNav] = useState(false);
-    const [showNewFileUpload, setShowNewFileUpload] = useState(true);
 
     const onLoginF = () => {
         setnvLogin(true);
@@ -121,174 +118,173 @@ function Main() {
         setnvLogin(false);
     }
     return (
-            <div className="App">
+        <div className="App">
 
-                <div hidden={hideNav}>
-                    <NavBarMobile loggedin={nvLogin} navBarUpdated={onNavBar} />
-                </div>
-                <div className="auth-wrapper">
-                        <Routes>
-                            {/*<Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />*/}
-                            <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
-                            <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
-                            <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
-                            <Route path='/reg/sign-up' element={<div className="auth-inner"><SignUp/></div>} />
-                            <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
-                            <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
+            <div hidden={hideNav}>
+                <NavBarMobile loggedin={nvLogin} navBarUpdated={onNavBar} />
+            </div>
+            <div className="auth-wrapper">
+                <Routes>
+                    {/*<Route path='/reg/jizdan/reg/' element={<div className="auth-inner"><SignUpJiz onHideNav={hideNavBarFooter}/></div>} />*/}
+                    <Route exact path='/' element={<div className="auth-inner"><Login/></div>} />
+                    <Route exact path='/reg' element={<div className="auth-inner"> <Login/></div>} />
+                    <Route path='/reg/sign-in' element={<div className="auth-inner"> <Login onLogin={onLoginF}/></div>} />
+                    <Route path='/reg/sign-up' element={<div className="auth-inner"><SignUp/></div>} />
+                    <Route path='/reg/sign-out' element={<div className="auth-inner"><SignOut/></div>} />
+                    <Route path='/reg/regSuc' element={<div className="auth-inner"><AfterReg/></div>} />
 
-                            <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
-                            <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
-                            <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
-                            <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
-                            <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
-                            <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
-                            <Route path='/reg/dateTerm' element={<div className="csv-inner"><TermDateComponent/></div>} />
-
-
-                            <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
-                            <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
-                            <Route path='/csv/vanessa/profile' element={<div className="csv-inner"><ProfileC/></div>} />
-
-                            <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
-
-                            <Route path='/lime/control' element={<div className="auth-inner"><LimeControl/></div>} />
+                    <Route path='/reg/forgetPassword' element={<div className="csv-inner"><ForgetPassword/></div>} />
+                    <Route path='/reg/changeMyPassword' element={<div className="csv-inner"><ChangePassword/></div>} />
+                    <Route path='/reg/uploadConsent' element={<div className="auth-inner"><UploadConsent/></div>} />
+                    <Route path='/reg/accept' element={<div className="auth-inner"><AcceptTerms/></div>} />
+                    <Route path='/reg/emailConfirmed' element={<div className="small-inner"><EmailConfirmed/></div>} />
+                    <Route path='/reg/welcomeReg' element={<div className="csv-inner"><WelcomeReg/></div>} />
+                    <Route path='/reg/dateTerm' element={<div className="csv-inner"><TermDateComponent/></div>} />
 
 
-                            <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />
-                            <Route path='/trainer/sheet' element={<div className="auth-inner"><TrainerSheet/></div>} />
-                            <Route path='/trainer/createTest' element={<div className="auth-inner"><CreateTest/></div>} />
-                            <Route path='/trainer/addMyTests' element={<div className="auth-inner"><AddToMyTests/></div>} />
-                            <Route path='/trainer/adminMain' element={<div className="auth-inner"><CreateTest/></div>} />
-                            <Route path='/trainer/addAthletes' element={<div className="auth-inner"><AddAthlete/></div>} />
+                    <Route path='/user/profile' element={<div className="csv-inner"><TestProfileC/></div>} />
+                    <Route path='/reg/profile' element={<div className="auth-inner"><TestProfileC/></div>} />
+                    <Route path='/csv/vanessa/profile' element={<div className="csv-inner"><ProfileC/></div>} />
 
-                            <Route path='/trainer/editCoach' element={<div className="auth-inner"><EditCoach/></div>} />
+                    <Route path='/reg/approveTests' element={<div className="auth-inner"><ApproveTests/></div>} />
+
+                    <Route path='/lime/control' element={<div className="auth-inner"><LimeControl/></div>} />
 
 
-                            <Route path='/trainer/VideoUpload/uploadFile' element={<div className="auth-inner"><UploadFileC/></div>} />
-                            <Route path='/trainer/VideoUpload/videonav' element={<div className="auth-inner"><VideoNavC/></div>} />
-                            <Route path='/trainer/VideoUpload/myvideos' element={<div className="csv-inner"><MyVideosC/></div>} />
+                    <Route path='/reg/updateProfile' element={<div className="auth-inner"><UpdateProfile/></div>} />
+                    <Route path='/trainer/sheet' element={<div className="auth-inner"><TrainerSheet/></div>} />
+                    <Route path='/trainer/createTest' element={<div className="auth-inner"><CreateTest/></div>} />
+                    <Route path='/trainer/addMyTests' element={<div className="auth-inner"><AddToMyTests/></div>} />
+                    <Route path='/trainer/adminMain' element={<div className="auth-inner"><CreateTest/></div>} />
+                    <Route path='/trainer/addAthletes' element={<div className="auth-inner"><AddAthlete/></div>} />
 
-                            {/*
+                    <Route path='/trainer/editCoach' element={<div className="auth-inner"><EditCoach/></div>} />
+
+
+                    <Route path='/trainer/VideoUpload/uploadFile' element={<div className="auth-inner"><UploadFileC/></div>} />
+                    <Route path='/trainer/VideoUpload/videonav' element={<div className="auth-inner"><VideoNavC/></div>} />
+                    <Route path='/trainer/VideoUpload/myvideos' element={<div className="csv-inner"><MyVideosC/></div>} />
+
+                    {/*
                             <Route path='nico/displayVideo' element={<div className="csv-inner"><DisplayVideo/></div>} />
                             <Route path='nico/sharevideo' element={<div className="auth-inner"><ShareVideo/></div>} />
                             <Route path='nico/creategroup' element={<div className="auth-inner"><CreateGroup/></div>} />*/}
 
-                            <Route path='/reg/nico/createChart' element={<div className="wide-inner"><CreateCharts/></div>} />
-                            <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
+                    <Route path='/reg/nico/createChart' element={<div className="wide-inner"><CreateCharts/></div>} />
+                    <Route path='/reg/nico/ProfileChart' element={<div className="wide-inner"><ProfileChart/></div>} />
 
-                            <Route path='/reg/myProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
-                            <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
-                            <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
-                            <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
-                            <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
-                            <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
-                            <Route path='/reg/sendReminders' element={<div className="wide-inner"><AccessReminder/></div>} />
-                            {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
-
-
-                            {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
+                    <Route path='/reg/myProfile' element={<div className="wide-inner"><TestProfileC2/></div>} />
+                    <Route path='/user/athleteProfileTable' element={<div className="wide-inner"><AthleteProfileTable/></div>} />
+                    <Route path='/reg/nico/Avatar' element={<div className="wide-inner"><OGAvatar/></div>} />
+                    <Route path='/reg/Avatar' element={<div className="wide-inner"><Avatar/></div>} />
+                    <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
+                    <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
+                    <Route path='/reg/sendReminders' element={<div className="wide-inner"><AccessReminder/></div>} />
+                    {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
 
 
-                            <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
-                            <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
+                    {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}
 
 
-
-                            <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
-
-                            <Route path='/csv/history2' element={<div className="csv-inner data-view"><TestsViewT/></div>} />
-
-                            <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
-                            <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
-
-                            <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUploadSwitcher/></div>} />
-
-                            <Route path='/csv/athleteFileUpload' element={<div className="auth-inner"><GeneralFileUpload/></div>} />
-                            <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><DownloadSubset/></div>} />
-
-                            <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
-                            <Route path='/trainer/nico/myhistory' element={<div className="csv-inner data-view"><EvaluationsView2/></div>} />
-
-                            <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
-                            <Route path='/super/uploadReport' element={<div className="csv-inner data-view"><AthleteReportsUpload/></div>} />
-
-                            <Route path='/reg/links' element={<div className="auth-inner"><TestFolderList/></div>} />
+                    <Route path='/csv/reader' element={<div className="csv-inner"><CsvReader/></div>} />
+                    <Route path='/csv/athleteInfo' element={<div className="csv-inner"><GetIDS/></div>} />
 
 
 
-                            <Route path='/trainer/videos' element={<div className="csv-inner data-view"><TrainerVideo/></div>} />
+                    <Route path='/csv/history' element={<div className="csv-inner data-view"><TestsView/></div>} />
 
-                            <Route path='/trainer/videoshare' element={<div className="auth-inner data-view"><ShareVideo/></div>} />
-                            <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />
-                            <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
+                    <Route path='/csv/history2' element={<div className="csv-inner data-view"><TestsViewT/></div>} />
 
-                            <Route path="/trainer/cognition/options/:discipline" element={<div className="wide-inner data-view"><Survey_Component/></div>} />
-                            <Route path="/trainer/cognition/optionsAdmin" element={<div className="wide-inner data-view"><CognitionRecFiles/></div>} />
+                    <Route path='/csv/stats' element={<div className="csv-inner data-view"><StatsView/></div>} />
+                    <Route path='/csv/displayAccept' element={<div className="wide-inner data-view"><DisplayStudyAccept/></div>} />
 
+                    <Route path='/csv/uploadToAthlete' element={<div className="auth-inner"><AdminFileUpload/></div>} />
+                    <Route path='/csv/athleteFileUpload' element={<div className="auth-inner"><GeneralFileUpload/></div>} />
+                    <Route path='/csv/downloadCsv' element={<div className="csv-inner data-view"><DownloadSubset/></div>} />
+
+                    <Route path='/trainer/myhistory' element={<div className="csv-inner data-view"><EvaluationsView/></div>} />
+                    <Route path='/trainer/nico/myhistory' element={<div className="csv-inner data-view"><EvaluationsView2/></div>} />
+
+                    <Route path='/super/athleteControl' element={<div className="csv-inner data-view"><AthleteControl/></div>} />
+                    <Route path='/super/uploadReport' element={<div className="csv-inner data-view"><AthleteReportsUpload/></div>} />
+
+                    <Route path='/reg/links' element={<div className="auth-inner"><TestFolderList/></div>} />
+
+
+
+                    <Route path='/trainer/videos' element={<div className="csv-inner data-view"><TrainerVideo/></div>} />
+
+                    <Route path='/trainer/videoshare' element={<div className="auth-inner data-view"><ShareVideo/></div>} />
+                    <Route path='/trainer/createGroup' element={<div className="auth-inner data-view"><CreateGroup/></div>} />
+                    <Route path='/trainer/displayVideo' element={<div className="csv-inner data-view"><DisplayVideo/></div>} />
+
+                    <Route path="/trainer/cognition/options/:discipline" element={<div className="wide-inner data-view"><Survey_Component/></div>} />
+                    <Route path="/trainer/cognition/optionsAdmin" element={<div className="wide-inner data-view"><CognitionRecFiles/></div>} />
 
 
 
 
-                            <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
+
+                    <Route path='/reg/testVide' element={<div className="auth-inner"><VideoPlayer/></div>} />
 
 
-                            <Route path='/csv/uploadMeta' element={<div className="wide-inner"><EditTest/></div>} />
-                            <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
+                    <Route path='/csv/uploadMeta' element={<div className="wide-inner"><EditTest/></div>} />
+                    <Route path='/csv/metabase' element={<div className="auth-inner"><ControlMetabase/></div>} />
 
 
-                            <Route path='/reg/loadCharts' element={<div className="wide-inner"><ProfileFeat/></div>} />
-                            <Route path='/reg/changeEmail' element={<div className="auth-inner"><ChangeEmail/></div>} />
+                    <Route path='/reg/loadCharts' element={<div className="wide-inner"><ProfileFeat/></div>} />
+                    <Route path='/reg/changeEmail' element={<div className="auth-inner"><ChangeEmail/></div>} />
 
 
-                            <Route path='/csv/meta/edit' element={<div className="wide-inner"><EditTest/></div>} />
+                    <Route path='/csv/meta/edit' element={<div className="wide-inner"><EditTest/></div>} />
 
-                            <Route path='/trainer/upload2' element={<div className="auth-inner data-view"><ShareVideo2/></div>} />
+                    <Route path='/trainer/upload2' element={<div className="auth-inner data-view"><ShareVideo2/></div>} />
 
-                            <Route path='/reg/newUpload' element={<div className="auth-inner data-view"><AthleteFileUpload_new/></div>} />
+                    <Route path='/reg/newUpload' element={<div className="auth-inner data-view"><AthleteFileUpload_new/></div>} />
 
-                            <Route path='/reg/newUpload3' element={<div className="auth-inner data-view"><ShareVideo3/></div>} />
-                            <Route path='/reg/diplayVideos2' element={<div className="wide-inner"><DisplayVideos2/></div>} />
-                            <Route path='/reg/newUpload4' element={<div className="wide-inner"><GeneralFileUpload/></div>} />
+                    <Route path='/reg/newUpload3' element={<div className="auth-inner data-view"><ShareVideo3/></div>} />
+                    <Route path='/reg/diplayVideos2' element={<div className="wide-inner"><DisplayVideos2/></div>} />
+                    <Route path='/reg/newUpload4' element={<div className="wide-inner"><GeneralFileUpload/></div>} />
 
-                            <Route path='/reg/newTable' element={<div className="wide-inner"><AthleteFilesTable/></div>} />
-
-
-
-
-                            <Route path='/csv/squadEditor' element={<div className="wide-inner"><EditSquad/></div>} />
-                            <Route path='/csv/correctDate' element={<div className="wide-inner"><CorrectDate/></div>} />
-
-
-                            <Route path='/avatar/createSection' element={<div className="wide-inner"><SectionAndEntryManager/></div>} />
-
-                            {/* <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} /> */}
-
-
-                            <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
-                            <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
-                            <Route path='/avatar/admin' element={<div className="wide-inner"><AvatarActions/></div>} />
+                    <Route path='/reg/newTable' element={<div className="wide-inner"><AthleteFilesTable/></div>} />
 
 
 
-                            <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
 
-                             <Route path='/avatar/interventions'  element={<div className="wide-inner"><Intervention/></div>}/>
-                             <Route path='/avatar/interventionsList'  element={<div className="wide-inner"><InterventionList/></div>}/>
+                    <Route path='/csv/squadEditor' element={<div className="wide-inner"><EditSquad/></div>} />
+                    <Route path='/csv/correctDate' element={<div className="wide-inner"><CorrectDate/></div>} />
 
+
+                    <Route path='/avatar/createSection' element={<div className="wide-inner"><SectionAndEntryManager/></div>} />
+
+                    {/* <Route path='/avatar/createEntry' element={<div className="wide-inner"><CreateAvatarEntry/></div>} /> */}
+
+
+                    <Route path='/avatar/createInt' element={<div className="auth-inner"><CreateIntervention/></div>} />
+                    <Route path='/avatar/loadInt' element={<div className="wide-inner"><TableComponentInt/></div>} />
+                    <Route path='/avatar/admin' element={<div className="wide-inner"><AvatarActions/></div>} />
+
+
+
+                    <Route path='/csv/MdufTrwzxBs/convertNameToID' element={<div className="wide-inner"><FileUploadFormConvert/></div>} />
+
+                    <Route path='/avatar/interventions'  element={<div className="wide-inner"><Intervention/></div>}/>
+                    <Route path='/avatar/interventionsList'  element={<div className="wide-inner"><InterventionList/></div>}/>
 
 
 
 
 
 
-                        </Routes>
-                </div>
-                <div><p></p></div>
-                <div hidden={hideNav}>
-                    <Footer/>
-                </div>
 
+                </Routes>
             </div>
+            <div><p></p></div>
+            <div hidden={hideNav}>
+                <Footer/>
+            </div>
+
+        </div>
     );
 }
 export default Main;
