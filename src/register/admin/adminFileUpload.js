@@ -28,6 +28,7 @@ class UploadFileC extends Component {
       uploadProgress: 0,
       folderFiles: {},  // State to hold files for each folder
       fileTitles: {},   // New state to hold titles for each folder
+      showToImproveMembers: false, // Initially unchecked
     };
   }
 
@@ -137,6 +138,7 @@ class UploadFileC extends Component {
       formData.append('file', file);
       formData.append('athlete_id', this.state.key);
       formData.append('folderName', selectedFolder ? selectedFolder.folder_name : newFolderName);
+      formData.append('showToImproveMembers', this.state.showToImproveMembers);
 
       try {
         await axios.post('https://inprove-sport.info/files/sendMFileToAthlete', formData, {
@@ -484,6 +486,22 @@ renderFiles = (folderName) => {
             ))}
           </ul>
         </div>
+
+
+
+        <div>
+          <input
+              type="checkbox"
+              id="showToImproveMembers"
+              checked={this.state.showToImproveMembers}
+              onChange={(e) => this.setState({ showToImproveMembers: e.target.checked })}
+          />
+          <label htmlFor="showToImproveMembers" style={{ fontSize: '12px' }}>
+            Show this file only to In:prove members
+          </label>
+        </div>
+
+
       </div>
     );
   }
