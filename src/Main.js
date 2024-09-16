@@ -102,6 +102,7 @@ import AvatarActions from "./register/admin/AvatarActions";
 //import SignUpJiz from "./firebase/signup";
 import Intervention from "./register/admin/avatarIntervention";
 import InterventionList from "./register/admin/getIntervention";
+import SquadMeasurementManager from "./prerna/fileUpload/SquadMeasuementsManager";
 
 
 function Main() {
@@ -180,7 +181,7 @@ function Main() {
                     <Route path='/reg/AvatarPdf' element={<div className="wide-inner"><AvatarPdf/></div>} />
                     <Route path='/prerna/photoupload' element={<div className="wide-inner"><ProfilePictureUpload/></div>} />
                     <Route path='/reg/sendReminders' element={<div className="wide-inner"><AccessReminder/></div>} />
-                    {/* <Route path='/prerna/data' element={<div className="wide-inner"><ProfileStyleComp/></div>} /> */}
+                    <Route path='/reg/measurementsManager' element={<div className="wide-inner"><SquadMeasurementManager/></div>} />
 
 
                     {/* <Route path='/prerna/testResponse' element={<div className="wide-inner"><DataFetchingComponent/></div>} /> */}

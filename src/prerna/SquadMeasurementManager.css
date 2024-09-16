@@ -1,0 +1,123 @@
+.s-container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.selectors {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.selector {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 32%;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.selector:disabled {
+    background-color: #e0e0e0;
+}
+
+.table-container {
+    width:100%;
+    max-height: 700px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.highlighted {
+    border: 2px solid #00f; /* Blue border to highlight the field */
+    background-color: #e0f7fa; /* Light blue background */
+}
+
+.measurement-table {
+    width: 100%;
+    border-collapse: collapse;
+    /* margin-bottom: 20px; */
+    font-size: 16px;
+}
+
+.measurement-table th, .measurement-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.measurement-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+.date-cell {
+    max-height: 250px; /* Set a maximum height for cells */
+    overflow-y: auto;  /* Enable vertical scrolling if content exceeds max height */
+    padding-right: 5px;
+    display: block;
+}
+
+.date-entry {
+    margin-bottom: 10px;
+}
+
+.date-input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 35%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* .add-date-section {
+    display: flex;
+    justify-content: space-evenly; 
+    margin-left: 5px;
+    align-items: left;
+} */
+
+.add-date-button {
+    padding: 8px 12px;
+    margin-left:25px;
+    font-size: 16px;
+    background-color: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.del-date {
+    padding: 8px 20.5px;
+    margin-left:25px;
+    font-size: 16px;
+    background-color: #fd0d59;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+

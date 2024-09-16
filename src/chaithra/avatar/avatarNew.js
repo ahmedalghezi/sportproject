@@ -111,7 +111,7 @@ class Avatar extends React.Component {
     calculateTablePosition(sectionId, index)
     {
         const title_size = this.state.avatarlist.length;
-        console.log("sectionId : ", sectionId)
+        // console.log("sectionId : ", sectionId)
         const sectionTitleElement = document.getElementById(sectionId);
         const container = document.getElementById("avatargallery");
         const titleRect = sectionTitleElement.getBoundingClientRect();
@@ -208,18 +208,18 @@ class Avatar extends React.Component {
                 }
             });
             const result = await response.json();
-            console.log("result.success : ", result.success);
-            console.log("result.data[0] : ", result.data[0]);
-            console.log("result.data[0].sections : ", result.data[0].sections);
+            // console.log("result.success : ", result.success);
+            // console.log("result.data[0] : ", result.data[0]);
+            // console.log("result.data[0].sections : ", result.data[0].sections);
             if (result.success) {
                 this.setState({
                     avatarlist: result.data[0].sections,
                     name: result.data[0].name,
                     json_data: result.data[0]
                 }, () => {
-                    console.log("Updated avatarlist: ", this.state.avatarlist);
-                    console.log("Updated json_data: ", this.state.json_data);
-                    console.log("Updated name: ", this.state.name);
+                    // console.log("Updated avatarlist: ", this.state.avatarlist);
+                    // console.log("Updated json_data: ", this.state.json_data);
+                    // console.log("Updated name: ", this.state.name);
 
                     const lastTableIndex = this.state.avatarlist.length - 1;
                     if (lastTableIndex >= 0) {
@@ -232,8 +232,8 @@ class Avatar extends React.Component {
         catch (error) {
             console.error('Error fetching data:', error);
         }
-        console.log("avatarlist : ", this.state.avatarlist);
-        console.log("json_data : ", this.state.json_data);
+        // console.log("avatarlist : ", this.state.avatarlist);
+        // console.log("json_data : ", this.state.json_data);
 
     };
 
@@ -526,8 +526,8 @@ class Avatar extends React.Component {
                             <svg className="avatar-svg" style={{ ...{ width: this.setBoundingSVG().width }, ...{ height: this.setBoundingSVG().height } }}>
                                 {
                                     this.state.avatarlist.map((item, index) => {
-                                        console.log("drawhorizontalLines")
-                                        console.log("text" + String(index))
+                                        // console.log("drawhorizontalLines")
+                                        // console.log("text" + String(index))
                                         return (
                                             this.drawhorizontalLines(document.getElementById("text" + String(index)), index)
                                         );

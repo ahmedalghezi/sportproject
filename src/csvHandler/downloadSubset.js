@@ -292,7 +292,7 @@ export function DownloadSubset() {
 
 
             // Add term columns if at least one term is added
-        if (terms.length > 0) {
+        if (terms.length > 0 && terms.some(term => term.term && term.fromDate && term.toDate)) {
             const headers = result[0];
             console.log("headers in terms : ", headers)
             const updatedData = [];
