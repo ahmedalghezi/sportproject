@@ -12,21 +12,40 @@ class ColorBar extends Component {
     const section = data.sections.find(sec => sec.section_name === sectionName);
     if (!section) return [];
 
+    // const validColors = ['red', 'yellow', 'green', 'grey'];
+
     const colors = section.testsArr.map(testArr => {
       if (testArr.length === 0) return 'grey-light';
 
       const lastTest = testArr[0];
       const lastSer = lastTest.ser[lastTest.ser.length - 1];
+      // console.log('lastSer:', lastSer);
+      // console.log('lastSer.color:', lastSer.color);
+
+      // const color = lastSer && lastSer.color ? lastSer.color.trim().toLowerCase() : null;
+      // console.log('color:', color);
 
 
-      if (!lastSer || !lastSer.color || lastSer.color.toLowerCase() === 'white' || lastSer.value === 'null') {
+      // Return 'grey-light' for null, undefined, or any color that is not red, yellow, green, or grey
+    //   if (!color || !validColors.includes(color)) {
+    //     console.log('GREY:');
+    //     return 'white-light';
+    //   }
+    //   console.log('color:', color);
+    //   return `${color}-light`;
+    // });
+
+      if (!lastSer || !lastSer.color || lastSer.color.toLowerCase() === 'white') {
+        // console.log('Condition lastSer.color:', lastSer.color);
         return 'grey-light';
       }
 
       return `${lastSer.color.toLowerCase()}-light`;
     });
 
-     return colors;
+    // console.log('colors : ' , colors)
+    
+    return colors;
   }
 
   render() {

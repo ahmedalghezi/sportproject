@@ -28,6 +28,7 @@ class UploadFileC extends Component {
             uploadProgress: 0,
             folderFiles: {},
             fileTitles: {},
+            showToImproveMembers: false, // Initially unchecked
         };
     }
 
@@ -189,6 +190,8 @@ class UploadFileC extends Component {
             formData.append('file', file);
             formData.append('athlete_id', this.state.key);
             formData.append('folderName', folderName);
+            formData.append('showToImproveMembers', this.state.showToImproveMembers);
+
 
             try {
                 await axios.post('https://inprove-sport.info/files/sendMFileToAthlete', formData, {
@@ -584,11 +587,11 @@ class UploadFileC extends Component {
                             style={{ width: '500px', height: '150px' }}
                             required
                         >
-                            {sortedIDs.length > 0 ? (
+                            {/*sortedIDs.length > 0 ? (
                                 <option value="">
                                     {athleteID}, ({athleteName})
                                 </option>
-                            ) : null}
+                            ) : null*/}
                             {sortedIDs.map((id, index) => (
                                 <option key={id} value={id}>
                                     {id}, ({sortedNames[index]})
@@ -616,14 +619,14 @@ class UploadFileC extends Component {
                             Create Folder
                         </button>
                     </div>
-                    <div>
+                    {/*<div>
                         <input
                             type="checkbox"
                             checked={showAllFolders}
                             onChange={this.handleShowAllFoldersChange}
-                        />
+
                         <label htmlFor="showAllFolders">Show all folders</label>
-                    </div>
+                    </div>*/}
                     <div
                         onDrop={this.handleDrop}
                         onDragOver={this.handleDragOver}
@@ -656,6 +659,23 @@ class UploadFileC extends Component {
                     </div>
                 </form>
                 <br />
+
+
+
+                <div>
+                    <input
+                        type="checkbox"
+                        id="showToImproveMembers"
+                        checked={this.state.showToImproveMembers}
+                        onChange={(e) => this.setState({ showToImproveMembers: e.target.checked })}
+                    />
+                    <label htmlFor="showToImproveMembers" style={{ fontSize: '12px' }}>
+                        Show this file only to In:prove members
+                    </label>
+                </div>
+
+
+
                 <div>
                     <h5>Upload Status</h5>
                     <ul>
@@ -666,6 +686,7 @@ class UploadFileC extends Component {
                         ))}
                     </ul>
                 </div>
+
 
             </div>
         );
