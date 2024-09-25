@@ -1,77 +1,56 @@
-.profile-name{
-    background-color:#1c8ef9;
+
+/* Profile Name Styling */
+.profile-name {
+    background-color: #1c8ef9;
     color: white;
     justify-content: center;
     align-items: center;
     height: 400px;
     width: 200px;
-    margin-left: 0;
     margin-right: 10px;
     border-radius: 5px;
 }
 
-.list-one{
-
-    margin-right: 30px;
-    padding-left: 0;
-
-
-}
-.list-one ul {
-    padding-left: 0;
-}
-.list-two{
+/* List Styling */
+.list-one, .list-two, .list-three, .list-four {
     margin-right: 30px;
     padding-left: 0;
 }
 
-.list-three{
-
+.list-one ul, .list-two ul, .list-three ul, .list-four ul {
+    padding-left: 0;
 }
 
-.information-content{
+/* Information Content Styling */
+.information-content {
     justify-content: center;
     align-items: center;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 30px 0;
 }
 
-/* ### collapsible ### */
+/* Collapsible Sections Styling */
 .collapsible {
     background-color: white;
     color: black;
     font-size: x-large;
     cursor: pointer;
     width: 200px;
-    overflow-y: auto; /*TODO*/
-    overflow-x: auto; /*TODO*/
+    overflow: auto;
 }
 
 .collapcontent {
     padding: 0.3rem;
     background-color: white;
     font-size: medium;
-    /*transition: max-height 0.2s ease-out;  TODO */
 }
+
 .collapsible li label {
     color: black;
     font-weight: lighter;
     font-size: small;
 }
 
-.collapsible ul {
-    padding-left: 0;
-
-}
-
-
 .collapsible button {
-    /* background-color: white;
-    color: black;
-    border: none; */
-}
-
-.collapsbutton{
     background-color: white;
     color: black;
     border: none;
@@ -83,26 +62,152 @@
 }
 
 .collapsible .content-parent {
-    height: 0px;
+    height: 0;
     overflow: hidden;
-    /* transition: height ease 0.4s; */
-    overflow-y: auto; /*TODO*/
-    overflow-x: auto; /*TODO*/
 }
 
-/* ### collapsible end ### */
-
-#collaps-beside {
-    display: -webkit-flex;
+/* Container for Sections to be Displayed Side-by-Side */
+.profile-content {
     display: flex;
-    margin-right: 0px;
-    margin-left: 0px;
-    margin-top: 0%;
-    padding-left: 0;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
 }
-@media only screen and (max-width: 600px) {
-    #collaps-beside{
-        display: block;
-    }
 
+/* Each Section Styling */
+.profile-section {
+    flex: 1;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    height: 100%; /* Ensure the height fills the parent container */
 }
+
+.unopened-files-section {
+    background-color: white; /* Background for the entire section */
+    border-radius: 4px;      /* Rounded corners for the whole section */
+    padding: 10px;           /* Add padding inside the section */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for the container */
+}
+
+/* Unopened Files Section Styling with Gradient */
+.unopened-files-section ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.unopened-files-section li {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  background-color: transparent; /* No background color on the list item */
+  transition: transform 0.2s ease-in-out;
+}
+
+.unopened-files-section a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.unopened-files-section li:nth-child(1) a {
+  color: #002244; /* Darker Blue */
+}
+
+.unopened-files-section li:nth-child(2) a {
+  color: #335577; /* Dark Blue */
+}
+
+.unopened-files-section li:nth-child(3) a {
+  color: #6688aa; /* Medium Blue */
+}
+
+.unopened-files-section li:nth-child(4) a {
+  color: #99bbdd; /* Lighter Blue */
+}
+
+.unopened-files-section li:nth-child(5) a {
+  color: #cceeff; /* Bright Light Blue */
+}
+
+
+.unopened-files-section a:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Hover color */
+}
+
+
+/* Hover effect for list items */
+.unopened-files-section li:hover {
+  transform: scale(1.1); /* Enlarge the list item on hover */
+  background-color: #d0e7ff; /* Light blue on hover */
+}
+
+/* Remove border from the last file entry */
+.unopened-files-section li:last-child {
+    border-bottom: none;
+}
+
+/* Icon Styling */
+.unopened-files-section li::before {
+    content: '📄';
+    font-size: 1.2em;
+    color: #0056b3;
+    margin-right: 10px;
+}
+
+/* Trash/Delete Icon on the Right */
+.unopened-files-section .delete-icon {
+    font-size: 1.2em;
+    color: #0056b3;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.unopened-files-section .delete-icon:hover {
+    color: #5e3ea3; /* Darker purple on hover */
+}
+
+/* Ensure no background on the section */
+.unopened-files-section {
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading Styling for Unopened Files Section */
+.unopened-files-section h4 {
+    color: black; /* White text color */
+    background-color: #f9f9f9; /* Blue background */
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 10px; /* Add padding inside the heading for better spacing */
+    border-radius: 4px; /* Rounded corners for the heading background */
+    margin-bottom: 15px; /* Add spacing below the heading */
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+   .unopened-files-section li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+   }
+
+   .unopened-files-section a {
+    flex-grow: 1;
+    color: transparent;
+    background: linear-gradient(to bottom, #80c1ff, #e6f2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0 10px;
+   }
+
