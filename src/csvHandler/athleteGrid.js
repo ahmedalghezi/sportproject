@@ -9,7 +9,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import { Alert } from "@mui/material";
 import DataTable from "react-data-table-component";
 import { useNavigate } from 'react-router-dom';
-
+import EditIcon from '@mui/icons-material/Edit';
 
 import './tableStyle.css';
 import LoggedHandler from "../DB/loggedHandler";
@@ -148,6 +148,51 @@ export default function AthletesGrid(props) {
             navigate('/avatar/interventions?' + queryParams.toString());
         }
     };
+
+    const handleEditName = async (athleteID) => {
+        // Prompt the user for the new first and last names
+        const firstName = prompt("Enter the new first name for this athlete:");
+        const lastName = prompt("Enter the new last name for this athlete:");
+    
+        // Ensure that both firstName and lastName are provided
+        if (!firstName || !lastName) {
+            alert("Both first and last names are required.");
+            return;
+        }
+    
+        try {
+            // Send a POST request to update the athlete's name
+            const response = await fetch('/reg/changeName', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: firstName,
+                    lastName: lastName,
+                    athlete_id: athleteID,
+                }),
+            });
+    
+            // Parse the response
+            const data = await response.json();
+    
+            if (response.ok) {
+                // Display success message
+                alert("Name updated successfully.");
+                // Optionally, you can refresh the athlete list or update the UI here
+                submitAll(); // Re-fetch the athlete data to reflect the updated name
+            } else {
+                // Handle error responses
+                console.error('Error:', data.error);
+                alert(`Failed to update name: ${data.error}`);
+            }
+        } catch (error) {
+            console.error('Error updating name:', error);
+            alert('An error occurred while updating the name.');
+        }
+    };
+    
 
     const lockAccount = async (selectedID) => {
         try {
@@ -305,7 +350,7 @@ export default function AthletesGrid(props) {
                 <Alert severity="success" hidden={!success}>{successMsg}</Alert>
                 <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
 
-                <table className={"styled-table"}>
+                {/* <table className={"styled-table"}>
                     <thead>
                         <tr>
                             {headerArray.map((colItem, index) =>
@@ -325,7 +370,76 @@ export default function AthletesGrid(props) {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table> */}
+
+{/* <table className={"styled-table"}>
+        <thead>
+            <tr>
+                {headerArray.map((colItem, index) => (
+                    <td key={index}>{colItem}</td>
+                ))}
+            </tr>
+        </thead>
+        <tbody>
+            {actionArray.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                    {row.map((item, colIndex) => {
+                        if (colIndex === 1) { // Column with the name
+                            return (
+                                <td key={colIndex}>
+                                    <span>{item}</span>
+                                    &nbsp;
+                                    <EditIcon
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleEditName(row[0])} // Pass athlete ID to edit name
+                                    />
+                                </td>
+                            );
+                        }
+                        return (
+                            <td key={colIndex}>
+                                <a href="#" name={item + "-" + row[0] + "-" + row[1]} onClick={onAction}>{item}</a>
+                            </td>
+                        );
+                    })}
+                </tr>
+            ))}
+        </tbody>
+    </table> */}
+                <table className={"styled-table"}>
+        <thead>
+            <tr>
+                {headerArray.map((colItem, index) => (
+                    <td key={index}>{colItem}</td>
+                ))}
+            </tr>
+        </thead>
+        <tbody>
+            {actionArray.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                    {row.map((item, colIndex) => {
+                        if (colIndex === 1) { 
+                            return (
+                                <td key={colIndex}>
+                                    <span>{item}</span>
+                                    &nbsp;
+                                    <EditIcon
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => handleEditName(row[0])}
+                                    />
+                                </td>
+                            );
+                        }
+                        return (
+                            <td key={colIndex}>
+                                <a href="#" name={item + "-" + row[0] + "-" + row[1]} onClick={onAction}>{item}</a>
+                            </td>
+                        );
+                    })}
+                </tr>
+            ))}
+        </tbody>
+    </table>
 
                 <br />
                 <br />
