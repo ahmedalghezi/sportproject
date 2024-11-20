@@ -397,7 +397,7 @@ export default function  CsvReader(){
                 <table>
 
                     {/* <tr>
-                   
+
                         <td>
                         <button
                             className="btn btn-outline-primary btn-block "
@@ -419,7 +419,7 @@ export default function  CsvReader(){
                         </button>
                         </td>
 
-                    
+
                         <td>
 
                         <button
@@ -440,7 +440,7 @@ export default function  CsvReader(){
                         </button>
 
                         </td>
-                      
+
 
                         <td>
                         <button
@@ -468,15 +468,15 @@ export default function  CsvReader(){
 
 
 
-                        
+
 
                     </tr> */}
                     <tr>
                         <td colSpan="3">
-                            <div style={{ 
-                                display: 'flex', 
-                                justifyContent: 'space-between', 
-                                padding: '1rem', 
+                            <div style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                padding: '1rem',
                             }}>
                                 <button
                                     className="btn btn-outline-primary"
@@ -492,7 +492,7 @@ export default function  CsvReader(){
                                         window.location.href = "https://inprove-sport.info/csv/stats";
                                     }}
                                 >
-                                    Upload stats
+                                    Upload Stats
                                 </button>
 
                                 <button
@@ -526,7 +526,7 @@ export default function  CsvReader(){
                                         window.location.href = "https://inprove-sport.info/reg/measurementsManager";
                                     }}
                                 >
-                                    Upload Measurement Dates
+                                    Mange Measurement Dates
                                 </button>
                             </div>
                         </td>

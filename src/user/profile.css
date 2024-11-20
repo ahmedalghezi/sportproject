@@ -92,58 +92,58 @@
 
 /* Unopened Files Section Styling with Gradient */
 .unopened-files-section ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .unopened-files-section li {
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #ddd;
-  background-color: transparent; /* No background color on the list item */
-  transition: transform 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent; /* No background color on the list item */
+    transition: transform 0.2s ease-in-out;
 }
 
 .unopened-files-section a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s, text-decoration 0.2s;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s, text-decoration 0.2s;
 }
 
 .unopened-files-section li:nth-child(1) a {
-  color: #002244; /* Darker Blue */
+    color: #002244; /* Darker Blue */
 }
 
 .unopened-files-section li:nth-child(2) a {
-  color: #335577; /* Dark Blue */
+    color: #335577; /* Dark Blue */
 }
 
 .unopened-files-section li:nth-child(3) a {
-  color: #6688aa; /* Medium Blue */
+    color: #6688aa; /* Medium Blue */
 }
 
 .unopened-files-section li:nth-child(4) a {
-  color: #99bbdd; /* Lighter Blue */
+    color: #99bbdd; /* Lighter Blue */
 }
 
 .unopened-files-section li:nth-child(5) a {
-  color: #cceeff; /* Bright Light Blue */
+    color: #cceeff; /* Bright Light Blue */
 }
 
 
 .unopened-files-section a:hover {
-  text-decoration: underline;
-  color: #0056b3; /* Hover color */
+    text-decoration: underline;
+    color: #0056b3; /* Hover color */
 }
 
 
 /* Hover effect for list items */
 .unopened-files-section li:hover {
-  transform: scale(1.1); /* Enlarge the list item on hover */
-  background-color: #d0e7ff; /* Light blue on hover */
+    transform: scale(1.1); /* Enlarge the list item on hover */
+    background-color: #d0e7ff; /* Light blue on hover */
 }
 
 /* Remove border from the last file entry */
@@ -173,10 +173,10 @@
 
 /* Ensure no background on the section */
 .unopened-files-section {
-  background-color: #f9f9f9;
-  border-radius: 4px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Heading Styling for Unopened Files Section */
@@ -192,22 +192,22 @@
 
 /* Responsive Design */
 @media only screen and (max-width: 600px) {
-   .unopened-files-section li {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-    background-color: white;
-   }
+    .unopened-files-section li {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        background-color: white;
+    }
 
-   .unopened-files-section a {
-    flex-grow: 1;
-    color: transparent;
-    background: linear-gradient(to bottom, #80c1ff, #e6f2ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 0 10px;
-   }
-
+    .unopened-files-section a {
+        flex-grow: 1;
+        color: transparent;
+        background: linear-gradient(to bottom, #80c1ff, #e6f2ff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        font-weight: 500;
+        text-decoration: none;
+        padding: 0 10px;
+    }
+}

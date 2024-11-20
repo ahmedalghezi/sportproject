@@ -10,6 +10,7 @@ class SquadMeasurementManager extends Component {
             selectedDates: {}, // Use a composite key for storing selected dates
             highlightedInput: null,
             measurements: [],
+            disciplines: [], // Store the fetched disciplines here
             loading: true,
             error: null
         };
@@ -18,24 +19,40 @@ class SquadMeasurementManager extends Component {
     componentDidMount() {
         fetch('https://inprove-sport.info/avatar/HtdMkuQusmTerss/getUniqueDateInfo/')
             .then(response => {
-            console.log("Response GET:", response);
-            return response.json();
-     } )
+                console.log("Response GET:", response);
+                return response.json();
+            })
             .then(data => {
                 console.log("Response Body:", data);
-                // this.setState({ measurements: data, loading: false });
+                // Process the data
                 const cleanedData = data.map(measurement => ({
                     ...measurement,
-                    dates: measurement.dates.filter(date => !isNaN(Date.parse(date))) // Filter out invalid dates
+                    dates: measurement.dates.map(date => {
+                        // Replace invalid dates with an empty string
+                        return isNaN(Date.parse(date)) ? "" : date;
+                    }),
                 }));
-    
+
                 console.log("Cleaned Data:", cleanedData);
                 this.setState({ measurements: cleanedData, loading: false });
             })
             .catch(error => {
                 this.setState({ error, loading: false });
             });
+
+        // Fetch all disciplines
+        fetch('https://inprove-sport.info/reg/getAllDisciplines')
+            .then(response => response.json())
+            .then(data => {
+                const disciplines = data.res; // Extract the array of disciplines
+                this.setState({ disciplines });
+            })
+            .catch(error => {
+                console.error("Error fetching disciplines:", error);
+                this.setState({ disciplines: [] });
+            });
     }
+
 
     getUniqueSortedDates(dates) {
         const validDates = dates
@@ -73,7 +90,7 @@ class SquadMeasurementManager extends Component {
         const measurement = measurements.find(m => m.squad === squad && m.discipline === discipline);
         const dateToAdd = selectedDates[`${squad}-${discipline}`];
         console.log("dateToAdd : ", dateToAdd)
-        
+
         const isValidDate = (dateString) => {
             const regex = /^\d{4}-\d{2}-\d{2}$/;
             return regex.test(dateString) && !isNaN(new Date(dateString).getTime());
@@ -87,7 +104,7 @@ class SquadMeasurementManager extends Component {
         if (measurement.dates.includes(dateToAdd)) {
             alert('This date already exists.');
             return;
-        }    
+        }
 
         const updatedDates = [...measurement.dates, dateToAdd];
 
@@ -108,7 +125,7 @@ class SquadMeasurementManager extends Component {
             console.log("Response Body:", data);
             measurement.dates = updatedDates;
             this.setState(prevState => ({
-                measurements: prevState.measurements.map(m => 
+                measurements: prevState.measurements.map(m =>
                     m.squad === squad && m.discipline === discipline ? measurement : m),
                 selectedDates: { ...prevState.selectedDates, [`${squad}-${discipline}`]: '' }
             }));
@@ -120,7 +137,7 @@ class SquadMeasurementManager extends Component {
     };
 
     handleEditDate = (squad, discipline, oldDate, newDate) => {
-        this.setState({ highlightedInput: null }); 
+        this.setState({ highlightedInput: null });
         const { measurements } = this.state;
         const measurement = measurements.find(m => m.squad === squad && m.discipline === discipline);
 
@@ -148,7 +165,7 @@ class SquadMeasurementManager extends Component {
         .then(data => {
             console.log("Response Body:", data);
             this.setState(prevState => ({
-                measurements: prevState.measurements.map(m => 
+                measurements: prevState.measurements.map(m =>
                     m.squad === squad && m.discipline === discipline ? { ...measurement, dates: updatedDates } : m)
             }));
         })
@@ -178,7 +195,7 @@ class SquadMeasurementManager extends Component {
         .then(data => {
             console.log("Response Body:", data);
             this.setState(prevState => ({
-                measurements: prevState.measurements.map(m => 
+                measurements: prevState.measurements.map(m =>
                     m.squad === squad && m.discipline === discipline ? { ...measurement, dates: updatedDates } : m)
             }));
         })
@@ -193,7 +210,7 @@ class SquadMeasurementManager extends Component {
 
     getFilteredMeasurements = () => {
         const { selectedSquad, selectedDiscipline, measurements } = this.state;
-    
+
         return measurements
             .filter(measurement => {
                 return (
@@ -205,8 +222,8 @@ class SquadMeasurementManager extends Component {
                 ...measurement,
                 dates: this.getUniqueSortedDates(measurement.dates).map(date => date.toISOString().split('T')[0])
             }))
-            
-            
+
+
             .sort((a, b) => {
                 if (a.squad < b.squad) return -1;
                 if (a.squad > b.squad) return 1;
@@ -215,10 +232,40 @@ class SquadMeasurementManager extends Component {
                 return 0;
             });
     };
-    
+
+
+
+    handleAddSquadDiscipline = (squad, discipline) => {
+        const requestBody = { squad, discipline, dates: [] }; // Include dates as an empty array
+
+        fetch('https://inprove-sport.info/avatar/HtdMkuQusmTerss/addSquadDiscipline/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody),
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Failed to add squad/discipline');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log('New entry added successfully:', data);
+                this.setState((prevState) => ({
+                    measurements: [...prevState.measurements, { squad, discipline, dates: [] }],
+                }));
+            })
+            .catch((error) => {
+                console.error('Error adding squad/discipline:', error);
+                alert('Error adding squad/discipline. Please try again.');
+            });
+    };
+
+
+
 
     render() {
-        const { selectedSquad, selectedDiscipline, selectedDates, loading, error } = this.state;
+        const { selectedSquad, selectedDiscipline, measurements, loading, error } = this.state;
 
         if (loading) {
             return <div>Loading...</div>;
@@ -230,71 +277,89 @@ class SquadMeasurementManager extends Component {
 
         const filteredMeasurements = this.getFilteredMeasurements();
 
+        const doesPairExist = !!measurements.find(
+            (measurement) =>
+                measurement.squad === selectedSquad && measurement.discipline === selectedDiscipline
+        );
+
         return (
             <div className="s-container">
                 <h2 className="title">Squad Measurement Manager</h2>
                 <div className="selectors">
                     <select className="selector" onChange={this.handleSquadChange} value={selectedSquad}>
                         <option value="">Select Squad</option>
-                        {[...new Set(this.state.measurements.map(data => data.squad))].map(squad => (
+                        {[...new Set(measurements.map(data => data.squad))].map(squad => (
                             <option key={squad} value={squad}>{squad}</option>
                         ))}
-
                     </select>
 
                     <select className="selector" onChange={this.handleDisciplineChange} value={selectedDiscipline}>
                         <option value="">Select Discipline</option>
-                        {[...new Set(this.state.measurements.map(data => data.discipline))].map(discipline => (
+                        {this.state.disciplines.map(discipline => (
                             <option key={discipline} value={discipline}>{discipline}</option>
                         ))}
                     </select>
+
+                    <button
+                        className="add-button"
+                        disabled={!selectedSquad || !selectedDiscipline || doesPairExist}
+                        onClick={() => this.handleAddSquadDiscipline(selectedSquad, selectedDiscipline)}
+                    >
+                        Add
+                    </button>
                 </div>
                 <div className="table-container">
                     <table className="measurement-table">
                         <thead>
-                            <tr>
-                                <th>Squad</th>
-                                <th>Discipline</th>
-                                <th>Dates</th>
-                            </tr>
+                        <tr>
+                            <th>Squad</th>
+                            <th>Discipline</th>
+                            <th>Dates</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {filteredMeasurements.map((measurement, measurementIndex) => (
-                                <tr key={`${measurement.squad}-${measurement.discipline}`}>
-                                    <td>{measurement.squad}</td>
-                                    <td>{measurement.discipline}</td>
-                                    <td className="date-cell">
-                                        <div className="date-entry">
+                        {filteredMeasurements.map((measurement, measurementIndex) => (
+                            <tr key={`${measurement.squad}-${measurement.discipline}`}>
+                                <td>{measurement.squad}</td>
+                                <td>{measurement.discipline}</td>
+                                <td className="date-cell">
+                                    <div className="date-entry">
+                                        <input
+                                            className="date-input"
+                                            type="date"
+                                            value={this.state.selectedDates[`${measurement.squad}-${measurement.discipline}`] || ''}
+                                            onChange={(e) => this.handleDateChange(e, measurement.squad, measurement.discipline)}
+                                        />
+                                        <button
+                                            className="add-date-button"
+                                            onClick={() => this.handleAddDate(measurement.squad, measurement.discipline)}
+                                        >
+                                            Add Date
+                                        </button>
+                                    </div>
+                                    {measurement.dates.map((date, dateIndex) => (
+                                        <div key={date} className="date-entry">
                                             <input
                                                 className="date-input"
                                                 type="date"
-                                                value={selectedDates[`${measurement.squad}-${measurement.discipline}`] || ''}
-                                                onChange={(e) => this.handleDateChange(e, measurement.squad, measurement.discipline)}
+                                                defaultValue={date}
+                                                onBlur={(e) =>
+                                                    this.handleEditDate(measurement.squad, measurement.discipline, date, e.target.value)
+                                                }
                                             />
-                                            <button className="add-date-button" onClick={() => this.handleAddDate(measurement.squad, measurement.discipline)}>
-                                                Add Date
+                                            <button
+                                                className="del-date"
+                                                onClick={() =>
+                                                    this.handleDeleteDate(measurement.squad, measurement.discipline, date)
+                                                }
+                                            >
+                                                Delete
                                             </button>
                                         </div>
-                                        {measurement.dates
-                                        .filter(date => date && !isNaN(Date.parse(date)))
-                                        .map((date, dateIndex) => (
-                                            
-                                            <div key={date} className="date-entry">
-                                                <input
-                                                    className={`date-input ${this.state.highlightedInput === `${measurementIndex}-${dateIndex}` ? 'highlighted' : ''}`}
-                                                    type="date"
-                                                    defaultValue={date}
-                                                    onFocus={() => this.handleFocus(measurementIndex, dateIndex)}
-                                                    onBlur={(e) => this.handleEditDate(measurement.squad, measurement.discipline, date, e.target.value)}
-                                                />
-                                                <button className="del-date" onClick={() => this.handleDeleteDate(measurement.squad, measurement.discipline, date)}>
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </td>
-                                </tr>
-                            ))}
+                                    ))}
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

@@ -477,7 +477,7 @@ render() {
 
         <div className="profile-content">
           <div className="profile-section list-one">
-            <h4>Meine Dateien/Ordner test</h4>
+            <h4>Meine Dateien</h4>
             <LinkList
               links={links}
               admin={this.state.admin}
