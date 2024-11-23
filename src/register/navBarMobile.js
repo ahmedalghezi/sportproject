@@ -6,9 +6,8 @@ import React, { Component } from "react";
 import PostSignup from "../DB/postSignup";
 import { Link } from "react-router-dom";
 import image from "../images/inprove_logo-400x103.png";
-
-
-
+import { Modal, Button, Form } from "react-bootstrap";
+import axios from "axios";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -23,8 +22,13 @@ export default class NavBarMobile extends Component {
       showAdminTrainer: false,
       showAdmin: false,
       flag: false,
+      showReportModal: false, // State to control modal visibility
+      reportEmail: "",
+      reportDescription: ""
     };
     this.checkLogin = this.checkLogin.bind(this);
+    this.handleReportIssue = this.handleReportIssue.bind(this);
+    this.submitReport = this.submitReport.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +68,35 @@ export default class NavBarMobile extends Component {
       });
   }
 
+  handleReportIssue() {
+    this.setState({ showReportModal: true });
+  }
+
+  handleCloseReportModal = () => {
+    this.setState({ showReportModal: false });
+  }
+
+  submitReport() {
+    const { reportEmail, reportDescription } = this.state;
+    const currentPath = window.location.pathname;
+
+    // Example: Sending data to backend
+    axios.post('/api/report_issue', {
+      email: reportEmail,
+      description: reportDescription,
+      path: currentPath
+    })
+    .then(response => {
+      alert("Report submitted successfully.");
+      this.handleCloseReportModal();
+    })
+    .catch(error => {
+      console.error("Error submitting report:", error);
+      alert("Failed to submit report.");
+    });
+  }
+
+  
   render() {
     return (
       <div>
@@ -194,6 +227,15 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
+                  <li
+                    className="nav-item"
+                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
+                >
+                  <button className="nav-link" onClick={this.handleReportIssue}>
+                      Report Issue
+                    </button>
+                </li>
+
 
 
 
@@ -271,6 +313,43 @@ export default class NavBarMobile extends Component {
           </Container>
         </Navbar>
 
+         {/* Report Issue Modal */}
+         <Modal show={this.state.showReportModal} onHide={this.handleCloseReportModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Report a Problem</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter your email"
+                  value={this.state.reportEmail}
+                  onChange={(e) => this.setState({ reportEmail: e.target.value })}
+                />
+              </Form.Group>
+              <Form.Group controlId="formDescription">
+                <Form.Label>What has gone wrong?</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  placeholder="Describe the issue"
+                  value={this.state.reportDescription}
+                  onChange={(e) => this.setState({ reportDescription: e.target.value })}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleCloseReportModal}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={this.submitReport}>
+              Submit
+            </Button>
+          </Modal.Footer>
+        </Modal>
 
       </div>
     );

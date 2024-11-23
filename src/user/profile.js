@@ -1,8 +1,3 @@
-/*
-Vanessa Meyer
-Ahmed Al-Ghezi
-*/
-
 import React, { Component } from "react";
 import "./profile.css";
 import PostCSVData from "../DB/postCSV";
@@ -36,93 +31,6 @@ class ProfileC extends Component {
     this.getMyOwnFiles();
     this.getSurveys();
   }
-
-  // handleSearchInputChange = (event) => {
-  //   const searchQuery = event.target.value.toLowerCase(); // Convert search query to lowercase for case-insensitive matching
-  //   this.setState({ searchQuery });
-  // };
-
-  // handleSearchInputChangeMeineDateien = (event) => {
-  //   const searchQueryMeineDateien = event.target.value.toLowerCase();
-  //   this.setState({ searchQueryMeineDateien });
-  // };
-
-  // handleSearchInputChangeUploads = (event) => {
-  //   const searchQueryUploads = event.target.value.toLowerCase();
-  //   this.setState({ searchQueryUploads });
-  // };
-
-  // filteredFiles = () => {
-  //   const { searchQuery } = this.state;
-
-  //   // Filter files based on search query
-  //   const filteredFiles = [];
-
-  //   // Filter files from "Meine Dateien"
-  //   this.state.links.forEach(folder => {
-  //     Object.values(folder).forEach(files => {
-  //       files.forEach(file => {
-  //         if (file.name.toLowerCase().includes(searchQuery)) {
-  //           filteredFiles.push(file);
-  //         }
-  //       });
-  //     });
-  //   });
-
-  //   // Filter files from "Uploads"
-  //   this.state.filesList.forEach(folder => {
-  //     Object.values(folder).forEach(files => {
-  //       files.forEach(file => {
-  //         if (file.name.toLowerCase().includes(searchQuery)) {
-  //           filteredFiles.push(file);
-  //         }
-  //       });
-  //     });
-  //   });
-
-  //   return filteredFiles;
-  // };
-
-//   filteredFiles = (searchQueryMeineDateien, searchQueryUploads) => {
-//     const filteredFiles = [];
-
-//     // Filter files from "Meine Dateien" if searchQueryMeineDateien is present
-//   if (searchQueryMeineDateien) {
-//     this.state.links.forEach(folder => {
-//       Object.values(folder).forEach(files => {
-//         files.forEach(file => {
-//           if (file.name.toLowerCase().includes(searchQueryMeineDateien)) {
-//             filteredFiles.push(file);
-//           }
-//         });
-//       });
-//     });
-//     return filteredFiles; // Return filtered files for "Meine Dateien"
-//   }
-
-//   // Filter files from "Uploads" if searchQueryUploads is present
-//   if (searchQueryUploads) {
-//     this.state.filesList.forEach(folder => {
-//       Object.values(folder).forEach(files => {
-//         files.forEach(file => {
-//           if (file.name.toLowerCase().includes(searchQueryUploads)) {
-//             filteredFiles.push(file);
-//           }
-//         });
-//       });
-//     });
-//     return filteredFiles; // Return filtered files for "Uploads"
-//   }
-
-//   return filteredFiles; // Return empty array if neither search query is present
-// };
-
-
-
-//   clearSearch = () => {
-//     this.setState({ searchQueryMeineDateien: "" });
-//     this.setState({ searchQueryUploads: "" });
-//   };
 
 handleSearchInputChange = (event) => {
   const searchQuery = event.target.value.toLowerCase();

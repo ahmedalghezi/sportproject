@@ -162,7 +162,7 @@ export default function AthletesGrid(props) {
     
         try {
             // Send a POST request to update the athlete's name
-            const response = await fetch('/reg/changeName', {
+            const response = await fetch('https://inprove-sport.info/reg/changeName', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -176,6 +176,7 @@ export default function AthletesGrid(props) {
     
             // Parse the response
             const data = await response.json();
+            console.log("data : ", data)
     
             if (response.ok) {
                 // Display success message
