@@ -66,6 +66,24 @@ class AthleteControl extends Component {
         window.open(window.location.origin + "/user/profile", '_blank').focus();
     }
 
+    // showProfileFunc = (ID) => {
+    //     this.handleDisguisedLogin(ID);
+    
+    //     // Save state to localStorage for the new window to access
+    //     const profileState = {
+    //         msg: "",
+    //         showUploadReport: false,
+    //         showUploadConsent: false,
+    //         showProfile: true,
+    //         athleteID: ID,
+    //     };
+    //     localStorage.setItem('profileState', JSON.stringify(profileState));
+    
+    //     // Open the new window
+    //     window.open(window.location.origin + "/user/profile", '_blank').focus();
+    // };
+    
+
     handleDisguisedLogin = (ID) => {
         HandelTrainer.disguisedTrainerLogin({ ID: ID })
             .then(response => {
@@ -139,7 +157,7 @@ class AthleteControl extends Component {
                 </div>
 
                 <div hidden={!showProfile || !disguised}>
-                    <button onClick={this.goToProfile}>Go to his profile</button>
+                    <button onClick={this.goToProfile}>Go to profile</button>
                 </div>
 
                 <div hidden={!showProfile || !disguised}>
