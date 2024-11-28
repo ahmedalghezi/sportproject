@@ -3,12 +3,14 @@
 .profile-name {
     background-color: #1c8ef9;
     color: white;
+    display: flex;
     justify-content: center;
     align-items: center;
     height: 400px;
     width: 200px;
     margin-right: 10px;
     border-radius: 5px;
+    padding: 20px;
 }
 
 /* List Styling */
@@ -32,14 +34,14 @@
 .collapsible {
     background-color: white;
     color: black;
-    font-size: x-large;
+    font-size: 1.2rem;
     cursor: pointer;
     width: 200px;
     overflow: auto;
 }
 
 .collapcontent {
-    padding: 0.3rem;
+    padding: 10px;
     background-color: white;
     font-size: medium;
 }
@@ -47,7 +49,7 @@
 .collapsible li label {
     color: black;
     font-weight: lighter;
-    font-size: small;
+    font-size: 0.9rem;
 }
 
 .collapsible button {
