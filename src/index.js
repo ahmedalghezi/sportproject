@@ -5,6 +5,7 @@ import './index.css';
 
 
 import { BrowserRouter } from "react-router-dom";
+//import Main from "./firebase/mainJizdan";
 import Main from "./Main";
 //import MainReg from "./register/MainReg";
 //import Main from "./register/MainReg";

@@ -14,7 +14,7 @@ import VideoPlayer from "./videoPlayer";
 import MicTestComponent from "./MicTestComponent";
 import { withRouter } from 'react-router-dom';
 // import JSZip from 'jszip';
-
+import axios from 'axios';
 
 import { saveAs } from 'file-saver';
 
@@ -121,6 +121,7 @@ class Survey extends Component {
         micTestPassed: false};
         this.getTests = this.getTests.bind(this);
         this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.sendQualityRating = this.sendQualityRating.bind(this);
         this.handleFirstButtonClick = this.handleFirstButtonClick.bind(this);
         this.introButton = this.introButton.bind(this);
         this.betweenQuestion = this.betweenQuestion.bind(this);
@@ -133,12 +134,16 @@ class Survey extends Component {
         this.onVideoEnd = this.onVideoEnd.bind(this);
         // this.handleMicTestPassed = this.handleMicTestPassed.bind(this);
         this.handleMicPermission = this.handleMicPermission.bind(this);
-
+        this.handlePause = this.handlePause.bind(this);
+        this.videoRef = React.createRef();
 
     }
 
 
     componentDidMount() {
+        if (this.videoRef.current) {
+            this.videoRef.current.addEventListener("pause", this.handlePause);
+        }
         // PostSignup.isLogin().
         // PostSignup.isLogin().then(response => {
 
@@ -160,6 +165,13 @@ class Survey extends Component {
 
     }
 
+    componentWillUnmount() {
+        if (this.videoRef.current) {
+            this.videoRef.current.removeEventListener("pause", this.handlePause);
+        }
+    }
+
+
     sendToServer(){
         //xxxx
     }
@@ -174,7 +186,7 @@ class Survey extends Component {
 
     }
 
-
+/*
     handleButtonClick(event){
         if(!document.querySelector('input[name="firstquestion"]:checked') || !document.querySelector('input[name="secondquestion"]:checked')){
             alert("Eine oder mehrere Pflichtfragen sind nicht beantwortet worden. Bitte beantworten Sie diese zuerst, um fortzufahren!");
@@ -189,7 +201,83 @@ class Survey extends Component {
                 });
             }
         }
+    }*/
+
+
+
+
+
+    // Update handleButtonClick to call sendQualityRating with necessary data
+    handleButtonClick(event) {
+        if (!document.querySelector('input[name="firstquestion"]:checked') || !document.querySelector('input[name="secondquestion"]:checked')) {
+            alert("Eine oder mehrere Pflichtfragen sind nicht beantwortet worden. Bitte beantworten Sie diese zuerst, um fortzufahren!");
+            return;
+        }
+
+        // Capture selected self_rate and execute_rate values directly as integers
+        const self_rate = parseInt(document.querySelector('input[name="firstquestion"]:checked').value, 10);
+        const execute_rate = parseInt(document.querySelector('input[name="secondquestion"]:checked').value, 10);
+
+        console.log("self_rate", self_rate);
+        console.log("execute_rate", execute_rate);
+
+
+        const question_id = this.state.testList[this.state.questionnumber].videoID;
+        const { discipline } = this.state;
+
+        this.sendQualityRating({ question_id, discipline, self_rate, execute_rate });
+
+        const nextQuestion = this.state.questionnumber + 1;
+        const updatedAnswersList = [...this.state.answersList, { question_id, answers: [self_rate, execute_rate] }];
+
+        this.setState({
+            questioncheckbox: false,
+            questionbutton: true,
+            questionnumber: nextQuestion,
+            answersList: updatedAnswersList,
+        });
     }
+
+
+
+
+
+
+
+
+
+
+    sendQualityRating({ question_id, discipline, self_rate, execute_rate }) {
+        const endpoint = "https://inprove-sport.info/lime/cognition/options/setQualityRate";
+
+        // Capture the screen width
+        const screen_width = window.innerWidth || window.screen.width;
+
+        const data = {
+            question_id,
+            discipline,
+            self_rate,
+            execute_rate,
+            screen_width // Add the screen width to the payload
+        };
+
+        return axios.post(endpoint, data)
+            .then(response => {
+                if (response.data && response.data.status === "ok") {
+                    console.log("Quality rating sent successfully:", response.data);
+                } else {
+                    console.warn("Unexpected response:", response.data);
+                }
+            })
+            .catch(error => {
+                console.error("Error sending quality rating:", error);
+            });
+    }
+
+
+
+
+
     introButton(event){
         this.setState({questionbutton: true, intro: false, betwquestion: false, hquest: false});
     }
@@ -288,18 +376,28 @@ class Survey extends Component {
 
 
 
-    showVideo(id){
-        const videoSrc = this.state.testList[this.state.questionnumber].url;
-        // console.log("Video source :", videoSrc); // Print the src attribute
-        // console.log("this.state.questionnumber :", this.state.questionnumber);
-        // console.log("this.state.testList[this.state.questionnumber] :", this.state.testList[this.state.questionnumber]);
+    handlePause() {
+        if (this.videoRef.current) {
+            this.videoRef.current.play(); // Resume playback if the video is paused
+        }
+    }
 
-    return (
-        <div className="survey-video-container">
-            <VideoPlayer src={videoSrc} onEnded={this.onVideoEnd} onPlay={Audiostart}></VideoPlayer>
-        </div>
+
+
+    showVideo(id) {
+        const videoSrc = this.state.testList[this.state.questionnumber].url;
+
+        return (
+            <div className="survey-video-container">
+                <VideoPlayer
+                    src={videoSrc}
+                    videoRef={this.videoRef}
+                    onEnded={this.onVideoEnd}
+                    onPlay={Audiostart}
+                />
+            </div>
         );
-    };
+    }
 
     getQuestionText(discipline) {
         switch(discipline) {
@@ -487,61 +585,61 @@ class Survey extends Component {
                                             <input id="java188727X119X2613SQ001" disabled="disabled" type="hidden" value="" name="java188727X119X2613SQ001"></input>
                                         </th>
                                         <td className="answer_cell_AO01 answer-item radio-item">
-                                            <input type="radio" name="firstquestion" value="AO01" id="answer188727X119X2613SQ001-AO01"></input>
+                                            <input type="radio" name="firstquestion" value="1" id="answer188727X119X2613SQ001-AO01"></input>
                                             <label for="answer188727X119X2613SQ001-AO01" className="ls-label-xs-visibility">
                                                 0 - überhaupt nicht gut
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO02 answer-item radio-item" title="1">
-                                            <input type="radio" name="firstquestion" value="AO02" id="answer188727X119X2613SQ001-AO02"></input>
+                                            <input type="radio" name="firstquestion" value="2" id="answer188727X119X2613SQ001-AO02"></input>
                                             <label for="answer188727X119X2613SQ001-AO02" className="ls-label-xs-visibility">
                                                 1
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO03 answer-item radio-item" title="2">
-                                            <input type="radio" name="firstquestion" value="AO03" id="answer188727X119X2613SQ001-AO03"></input>
+                                            <input type="radio" name="firstquestion" value="3" id="answer188727X119X2613SQ001-AO03"></input>
                                             <label for="answer188727X119X2613SQ001-AO03" className="ls-label-xs-visibility">
                                                 2
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO04 answer-item radio-item" title="3">
-                                            <input type="radio" name="firstquestion" value="AO04" id="answer188727X119X2613SQ001-AO04"></input>
+                                            <input type="radio" name="firstquestion" value="4" id="answer188727X119X2613SQ001-AO04"></input>
                                             <label for="answer188727X119X2613SQ001-AO04" className="ls-label-xs-visibility">
                                                 3
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO05 answer-item radio-item" title="4">
-                                            <input type="radio" name="firstquestion" value="AO05" id="answer188727X119X2613SQ001-AO05"></input>
+                                            <input type="radio" name="firstquestion" value="5" id="answer188727X119X2613SQ001-AO05"></input>
                                             <label for="answer188727X119X2613SQ001-AO05" className="ls-label-xs-visibility">
                                                 4
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO06 answer-item radio-item" title="5">
-                                            <input type="radio" name="firstquestion" value="AO06" id="answer188727X119X2613SQ001-AO06"></input>
+                                            <input type="radio" name="firstquestion" value="6" id="answer188727X119X2613SQ001-AO06"></input>
                                             <label for="answer188727X119X2613SQ001-AO06" className="ls-label-xs-visibility">
                                                 5
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO07 answer-item radio-item">
-                                            <input type="radio" name="firstquestion" value="AO07" id="answer188727X119X2613SQ001-AO07"></input>
+                                            <input type="radio" name="firstquestion" value="7" id="answer188727X119X2613SQ001-AO07"></input>
                                             <label for="answer188727X119X2613SQ001-AO07" className="ls-label-xs-visibility">
                                                 6
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO08 answer-item radio-item">
-                                            <input type="radio" name="firstquestion" value="AO08" id="answer188727X119X2613SQ001-AO08"></input>
+                                            <input type="radio" name="firstquestion" value="8" id="answer188727X119X2613SQ001-AO08"></input>
                                             <label for="answer188727X119X2613SQ001-AO08" className="ls-label-xs-visibility">
                                                 7
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO09 answer-item radio-item" title="8">
-                                            <input type="radio" name="firstquestion" value="AO09" id="answer188727X119X2613SQ001-AO09"></input>
+                                            <input type="radio" name="firstquestion" value="9" id="answer188727X119X2613SQ001-AO09"></input>
                                             <label for="answer188727X119X2613SQ001-AO09" className="ls-label-xs-visibility">
                                                 8
                                             </label>
                                         </td>
                                         <td className="answer_cell_AO10 answer-item radio-item">
-                                            <input type="radio" name="firstquestion" value="AO10" id="answer188727X119X2613SQ001-AO10"></input>
+                                            <input type="radio" name="firstquestion" value="10" id="answer188727X119X2613SQ001-AO10"></input>
                                             <label for="answer188727X119X2613SQ001-AO10" className="ls-label-xs-visibility">
                                                 9 - sehr gut
                                             </label>
@@ -635,28 +733,28 @@ class Survey extends Component {
                                         </th>
 
                                         <td className="answer_cell_AO01 answer-item radio-item">
-                                            <input type="radio" name="secondquestion" value="AO01" id="answer188727X119X2615SQ001-AO01"></input>
+                                            <input type="radio" name="secondquestion" value="1" id="answer188727X119X2615SQ001-AO01"></input>
                                             <label for="answer188727X119X2615SQ001-AO01" className="ls-label-xs-visibility">
                                                 0 - überhaupt nicht
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO02 answer-item radio-item">
-                                            <input type="radio" name="secondquestion" value="AO02" id="answer188727X119X2615SQ001-AO02"></input>
+                                            <input type="radio" name="secondquestion" value="2" id="answer188727X119X2615SQ001-AO02"></input>
                                             <label for="answer188727X119X2615SQ001-AO02" className="ls-label-xs-visibility">
                                                 1
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO03 answer-item radio-item" title="2">
-                                            <input type="radio" name="secondquestion" value="AO03" id="answer188727X119X2615SQ001-AO03"></input>
+                                            <input type="radio" name="secondquestion" value="3" id="answer188727X119X2615SQ001-AO03"></input>
                                             <label for="answer188727X119X2615SQ001-AO03" className="ls-label-xs-visibility">
                                                 2
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO04 answer-item radio-item">
-                                            <input type="radio" name="secondquestion" value="AO04" id="answer188727X119X2615SQ001-AO04"></input>
+                                            <input type="radio" name="secondquestion" value="4" id="answer188727X119X2615SQ001-AO04"></input>
                                             <label for="answer188727X119X2615SQ001-AO04" className="ls-label-xs-visibility">
                                                 3
                                             </label>
@@ -664,7 +762,7 @@ class Survey extends Component {
 
 
                                         <td className="answer_cell_AO04 answer-item radio-item">
-                                            <input type="radio" name="secondquestion" value="AO04"
+                                            <input type="radio" name="secondquestion" value="4"
                                                    id="answer188727X119X2615SQ001-AO04"></input>
                                             <label htmlFor="answer188727X119X2615SQ001-AO04"
                                                    className="ls-label-xs-visibility">
@@ -673,35 +771,35 @@ class Survey extends Component {
                                         </td>
 
                                         <td className="answer_cell_AO06 answer-item radio-item">
-                                            <input type="radio" name="secondquestion" value="AO06" id="answer188727X119X2615SQ001-AO06"></input>
+                                            <input type="radio" name="secondquestion" value="6" id="answer188727X119X2615SQ001-AO06"></input>
                                             <label for="answer188727X119X2615SQ001-AO06" className="ls-label-xs-visibility">
                                                 5
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO07 answer-item radio-item" title="6">
-                                            <input type="radio" name="secondquestion" value="AO07" id="answer188727X119X2615SQ001-AO07"></input>
+                                            <input type="radio" name="secondquestion" value="7" id="answer188727X119X2615SQ001-AO07"></input>
                                             <label for="answer188727X119X2615SQ001-AO07" className="ls-label-xs-visibility">
                                                 6
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO08 answer-item radio-item" title="7">
-                                            <input type="radio" name="secondquestion" value="AO08" id="answer188727X119X2615SQ001-AO08"></input>
+                                            <input type="radio" name="secondquestion" value="8" id="answer188727X119X2615SQ001-AO08"></input>
                                             <label for="answer188727X119X2615SQ001-AO08" className="ls-label-xs-visibility">
                                                 7
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO09 answer-item radio-item" title="8">
-                                            <input type="radio" name="secondquestion" value="AO09" id="answer188727X119X2615SQ001-AO09"></input>
+                                            <input type="radio" name="secondquestion" value="9" id="answer188727X119X2615SQ001-AO09"></input>
                                             <label for="answer188727X119X2615SQ001-AO09" className="ls-label-xs-visibility">
                                                 8
                                             </label>
                                         </td>
 
                                         <td className="answer_cell_AO10 answer-item radio-item" title="9 - sehr gut">
-                                            <input type="radio" name="secondquestion" value="AO10" id="answer188727X119X2615SQ001-AO10"></input>
+                                            <input type="radio" name="secondquestion" value="10" id="answer188727X119X2615SQ001-AO10"></input>
                                             <label for="answer188727X119X2615SQ001-AO10" className="ls-label-xs-visibility">
                                                 9 - sehr gut
                                             </label>

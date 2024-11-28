@@ -1,0 +1,3 @@
+[submodule "android-app"]
+	path = android-app
+	url = https://github.com/ahmedalghezi/inprove-cycle.git
