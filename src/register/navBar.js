@@ -75,25 +75,69 @@ export default class NavBar extends Component {
     this.setState({ showReportModal: false });
   }
 
+  // submitReport() {
+  //   const { reportEmail, reportDescription } = this.state;
+  //   const currentPath = window.location.pathname;
+
+  //   axios.post('/api/report_issue', {
+  //     email: reportEmail,
+  //     description: reportDescription,
+  //     path: currentPath
+  //   })
+  //   .then(response => {
+  //     alert("Report submitted successfully.");
+  //     this.handleCloseReportModal();
+  //   })
+  //   .catch(error => {
+  //     console.error("Error submitting report:", error);
+  //     alert("Failed to submit report.");
+  //   });
+  // }
+
   submitReport() {
     const { reportEmail, reportDescription } = this.state;
     const currentPath = window.location.pathname;
+  
+    // Assuming athlete_id is stored in a session or cookie
+    // const athleteId = sessionStorage.getItem("athlete_id"); // Or `localStorage.getItem`
+    
+    // console.log("athlete_id : ", athleteId)
+    // console.log("reportEmail : ", reportEmail)
+    // console.log("reportDescription : ", reportDescription)
+    // console.log("currentPath : ", currentPath)
 
-    // Example: Sending data to backend
-    axios.post('/api/report_issue', {
+    if (!reportEmail || !reportDescription) {
+      alert("Alle Felder sind erforderlich.");
+      return;
+    }
+  
+    axios.post('https://inprove-sport.info/reg/report-problem', {
+      // athlete_id: athleteId,
       email: reportEmail,
-      description: reportDescription,
-      path: currentPath
+      issue: reportDescription,
+      path: currentPath,
     })
-    .then(response => {
-      alert("Report submitted successfully.");
-      this.handleCloseReportModal();
-    })
-    .catch(error => {
-      console.error("Error submitting report:", error);
-      alert("Failed to submit report.");
-    });
+      .then(response => {
+        if (response.status === 201) {
+          console.log("Success")
+          alert("Problem erfolgreich gemeldet."); // "Problem reported successfully."
+          this.handleCloseReportModal();
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 400) {
+            alert("Ungültige Anfrage. Bitte überprüfen Sie Ihre Eingabe.");
+          } else if (error.response.status === 500) {
+            alert("Server-Fehler. Bitte versuchen Sie es später noch einmal.");
+          }
+        } else {
+          console.error("Error submitting report:", error);
+          alert("Der Bericht wurde nicht eingereicht. Bitte überprüfen Sie Ihre Verbindung.");
+        }
+      });
   }
+  
 
   render() {
     return (
@@ -207,8 +251,7 @@ export default class NavBar extends Component {
 
                 <li
                     className="nav-item"
-                    hidden={!this.state.showAdminTrainer && !this.state.showAdmin}
-                >
+                    hidden={this.state.showSignIn}>
                   <button className="nav-link" onClick={this.handleReportIssue}>
                       Report Issue
                     </button>
@@ -289,25 +332,25 @@ export default class NavBar extends Component {
         {/* Report Issue Modal */}
         <Modal show={this.state.showReportModal} onHide={this.handleCloseReportModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Report a Problem</Modal.Title>
+            <Modal.Title> Ein Problem melden </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
               <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label> Email </Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Ihre E-Mail eingeben"
                   value={this.state.reportEmail}
                   onChange={(e) => this.setState({ reportEmail: e.target.value })}
                 />
               </Form.Group>
               <Form.Group controlId="formDescription">
-                <Form.Label>What has gone wrong?</Form.Label>
+                <Form.Label> Was ist schief gelaufen?  </Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder="Describe the issue"
+                  placeholder="Beschreiben Sie das Problem"
                   value={this.state.reportDescription}
                   onChange={(e) => this.setState({ reportDescription: e.target.value })}
                 />
@@ -316,10 +359,10 @@ export default class NavBar extends Component {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleCloseReportModal}>
-              Cancel
+            Abbrechen
             </Button>
             <Button variant="primary" onClick={this.submitReport}>
-              Submit
+            Einreichen
             </Button>
           </Modal.Footer>
         </Modal>
