@@ -26,6 +26,9 @@ class ForgetPasswordC extends Component {
         this.iniReCapcha();
     }
 
+
+
+
     iniReCapcha = () =>{
         const key = "6LcDa3khAAAAAIN_Wm1BS0Kanirc-ldQBJeXvrOz";
         const handleLoaded = _ => {

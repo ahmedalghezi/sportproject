@@ -6,9 +6,16 @@ const Link = ({ name, url }) => (
     <a href={url} target="_blank" rel="noopener noreferrer">{name}</a>
 );
 
-const Folder = ({ folder ,admin,onDeleteFile}) => {
+const Folder = ({ folder ,admin,onDeleteFile,onExpand}) => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const toggleExpanded = () => setIsExpanded(!isExpanded);
+    //const toggleExpanded = () => setIsExpanded(!isExpanded);
+
+
+    const toggleExpanded = () => {
+        const newExpandedState = !isExpanded; // Compute the new state
+        setIsExpanded(newExpandedState);     // Update local state
+        onExpand?.(newExpandedState);        // Notify the parent
+    };
 
 
     const handleFileClick = (event) =>{
@@ -22,7 +29,7 @@ const Folder = ({ folder ,admin,onDeleteFile}) => {
 
     return (
         <div>
-            <button className={"form-control"} onClick={toggleExpanded}>{isExpanded ? '- ' : '+ '}{Object.keys(folder)[0]}</button>
+            <button className={"custom-header-button"} onClick={toggleExpanded}>{isExpanded ? '- ' : '+ '}{Object.keys(folder)[0]}</button>
             {isExpanded && (
                 <ul>
                     {folder[Object.keys(folder)[0]].map((link, index) => {
@@ -34,7 +41,7 @@ const Folder = ({ folder ,admin,onDeleteFile}) => {
                                 {/* <Link name={"deletevftr5"+link.name} url={"#" +link.url} /> */}
                                 {/* title={link.name} */}
                                 <a hidden={!admin} name={"deletevftr5" + link.url} href={"#" + link.url} title={link.name}>
-                                    (delete) 
+                                    (delete)
                                 </a>
                                 <a
                                     name={link.url}
@@ -47,7 +54,7 @@ const Folder = ({ folder ,admin,onDeleteFile}) => {
                                 </a>
                             </li>
                         );
-            
+
                         // <li key={link.url} onClick={handleFileClick}>
                         //     {/*<Link name={"deletevftr5"+link.name} url={"#" +link.url} />*/}
                         //     {/* title={link.name} */}
@@ -61,16 +68,37 @@ const Folder = ({ folder ,admin,onDeleteFile}) => {
     );
 };
 
-const LinkList = ({ links ,admin, onDeleteFile}) => (
-    <div>
-        {links.map((link, index) => (
-            <div>
-            <Folder key={index} folder={link} admin={admin} onDeleteFile={onDeleteFile}/>
-            <br/>
-            </div>
-        ))}
-    </div>
-);
+
+
+const LinkList = ({ links, admin, onDeleteFile }) => {
+    const [expandedFoldersCount, setExpandedFoldersCount] = useState(0);
+
+    // Function to handle folder expansion and collapse
+    const onExpandList = (isExpanded) => {
+        setExpandedFoldersCount((prevCount) => isExpanded ? prevCount + 1 : prevCount - 1);
+    };
+
+    const listStyle = {
+    //width: expandedFoldersCount > 0 ? "500px" : "300px", // Adjust width dynamically
+        transition: "width 0.3s ease", // Smooth transition for width change
+    };
+
+    return (
+        <div style={listStyle}>
+            {links.map((link, index) => (
+                <div key={index}>
+                    <Folder
+                        folder={link}
+                        admin={admin}
+                        onDeleteFile={onDeleteFile}
+                        onExpand={onExpandList}
+                    />
+                    <br />
+                </div>
+            ))}
+        </div>
+    );
+};
 
 
 

@@ -387,15 +387,14 @@ table td * {
 
 
 
-
-
-
-.navbar .nav-link-alert {
-  color: #fa9292; /* White text for the nav links */
-  padding: 8px 15px; /* Spacing for the links */
+.navbar .nav-link {
+  color: #ffffff; /* Replace #ffffff with your desired font color */
+  text-decoration: none; /* Optional: Removes underline from links */
 }
 
-
+.navbar .nav-link:hover {
+  color: #ED1C24;
+}
 
 
 .navbar-light {
@@ -405,73 +404,13 @@ table td * {
 
 
 
-
-
-
-/* Navbar Styles */
-.custom-navbar {
-  background-color: #3B3E41; /* Black background for the rest of the Navbar */
-  padding: 0; /* Remove extra padding */
+.btn-primary {
+  background-color: #000000 !important; /* Custom background color */
+  border-color: #FDB913 !important; /* Custom border color */
+  color: white !important; /* Custom text color */
 }
 
-/* Logo Section */
-.navbar-logo {
-  background-color: white; /* White background for the logo */
-  padding: 10px; /* Add padding around the logo */
-  display: inline-block; /* Prevent it from spanning full width */
-  border-radius: 5px; /* Optional: Rounded corners */
-  margin-right: 15px; /* Add spacing between logo and rest of Navbar */
-}
-
-/* Logo Image */
-.navbar-logo .image {
-  max-height: 50px; /* Adjust logo height */
-  width: auto; /* Maintain aspect ratio */
-}
-
-/* Links and Text in Navbar */
-.custom-navbar .nav-link {
-  color: white; /* White text for the nav links */
-  padding: 8px 15px; /* Spacing for the links */
-}
-
-
-
-.navbar .nav-link:hover {
-  color: #ED1C24;
-}
-
-
-.nav-link-alert {
-  color: #fa9292; /* Custom color for the 'Problem melden' button */
-  font-weight: 600; /* Optional: Adjust font weight if needed */
-}
-
-.nav-link-alert:hover {
-  color: #ed1c24; /* Optional: Change color on hover for better feedback */
-  text-decoration: none; /* Remove underline */
-}
-
-
-
-
-
-
-.custom-navbar .nav-link:hover {
-  color: #ED1C24; /* Lighter shade on hover */
-  text-decoration: none; /* Remove underline */
-}
-
-/* Responsive Adjustments */
-.custom-navbar .container {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.navbar-toggler {
-  border-color: #d3d3d3; /* Light border for the toggler */
-}
-
-.navbar-toggler-icon {
-  background-color: white; /* White toggler icon */
+.btn-primary:hover {
+  background-color: #3B3E41 !important; /* Custom hover background color */
+  border-color: #ED1C24 !important; /* Custom hover border color */
 }

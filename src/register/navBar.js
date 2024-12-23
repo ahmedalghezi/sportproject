@@ -10,6 +10,9 @@ import image from "../images/inprove_logo-400x103.png";
 import Footer from "./footer";
 import SectionAndEntryManager from "./admin/avatarManger";
 import axios from "axios";
+import { Snackbar } from '@mui/material';
+import {toast, ToastContainer} from "react-toastify";
+
 
 export default class NavBar extends Component {
   constructor(props) {
@@ -97,20 +100,20 @@ export default class NavBar extends Component {
   submitReport() {
     const { reportEmail, reportDescription } = this.state;
     const currentPath = window.location.pathname;
-  
+
     // Assuming athlete_id is stored in a session or cookie
     // const athleteId = sessionStorage.getItem("athlete_id"); // Or `localStorage.getItem`
-    
+
     // console.log("athlete_id : ", athleteId)
     // console.log("reportEmail : ", reportEmail)
     // console.log("reportDescription : ", reportDescription)
     // console.log("currentPath : ", currentPath)
 
-    if (!reportEmail || !reportDescription) {
-      alert("Alle Felder sind erforderlich.");
+    if ( !reportDescription) {
+     // alert("Alle Felder sind erforderlich.");
       return;
     }
-  
+
     axios.post('https://inprove-sport.info/reg/report-problem', {
       // athlete_id: athleteId,
       email: reportEmail,
@@ -119,8 +122,11 @@ export default class NavBar extends Component {
     })
       .then(response => {
         if (response.status === 201) {
-          console.log("Success")
-          alert("Problem erfolgreich gemeldet."); // "Problem reported successfully."
+          console.log("Erfolg");
+          // Display a toast or a modal with a more engaging message
+          toast.success("Vielen Dank für Deine Meldung. Unser Team wird sich per E-Mail bei Dir melden.");
+          ;
+
           this.handleCloseReportModal();
         }
       })
@@ -137,7 +143,7 @@ export default class NavBar extends Component {
         }
       });
   }
-  
+
 
   render() {
     return (
@@ -253,7 +259,7 @@ export default class NavBar extends Component {
                     className="nav-item"
                     hidden={this.state.showSignIn}>
                   <button className="nav-link" onClick={this.handleReportIssue}>
-                      Report Issue
+                    Problem melden
                     </button>
                 </li>
 
@@ -340,17 +346,17 @@ export default class NavBar extends Component {
                 <Form.Label> Email </Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="Ihre E-Mail eingeben"
+                  placeholder="Dein E-Mail eingeben"
                   value={this.state.reportEmail}
                   onChange={(e) => this.setState({ reportEmail: e.target.value })}
                 />
               </Form.Group>
               <Form.Group controlId="formDescription">
-                <Form.Label> Was ist schief gelaufen?  </Form.Label>
+                <Form.Label> Was ist schiefgelaufen?  </Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder="Beschreiben Sie das Problem"
+                  placeholder=""
                   value={this.state.reportDescription}
                   onChange={(e) => this.setState({ reportDescription: e.target.value })}
                 />
@@ -367,7 +373,7 @@ export default class NavBar extends Component {
           </Modal.Footer>
         </Modal>
 
-
+        <ToastContainer />
       </div>
     );
   }

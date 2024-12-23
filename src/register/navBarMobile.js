@@ -11,6 +11,8 @@ import axios from "axios";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { Snackbar } from '@mui/material';
+import {toast, ToastContainer} from "react-toastify";
 
 export default class NavBarMobile extends Component {
   constructor(props) {
@@ -76,43 +78,24 @@ export default class NavBarMobile extends Component {
     this.setState({ showReportModal: false });
   }
 
-  // submitReport() {
-  //   const { reportEmail, reportDescription } = this.state;
-  //   const currentPath = window.location.pathname;
-
-  //   // Example: Sending data to backend
-  //   axios.post('/api/report_issue', {
-  //     email: reportEmail,
-  //     description: reportDescription,
-  //     path: currentPath
-  //   })
-  //   .then(response => {
-  //     alert("Report submitted successfully.");
-  //     this.handleCloseReportModal();
-  //   })
-  //   .catch(error => {
-  //     console.error("Error submitting report:", error);
-  //     alert("Failed to submit report.");
-  //   });
-  // }
 
   submitReport() {
     const { reportEmail, reportDescription } = this.state;
     const currentPath = window.location.pathname;
-  
+
     // Assuming athlete_id is stored in a session or cookie
     // const athleteId = sessionStorage.getItem("athlete_id"); // Or `localStorage.getItem`
-    
+
     // console.log("athlete_id : ", athleteId)
     // console.log("reportEmail : ", reportEmail)
     // console.log("reportDescription : ", reportDescription)
     // console.log("currentPath : ", currentPath)
 
-    if (!reportEmail || !reportDescription) {
-      alert("Alle Felder sind erforderlich.");
+    if (!reportDescription) {
+      //alert("Alle Felder sind erforderlich.");
       return;
     }
-  
+
     axios.post('https://inprove-sport.info/reg/report-problem', {
       // athlete_id: athleteId,
       email: reportEmail,
@@ -121,8 +104,13 @@ export default class NavBarMobile extends Component {
     })
       .then(response => {
         if (response.status === 201) {
-          console.log("Success")
-          alert("Problem erfolgreich gemeldet."); // "Problem reported successfully."
+          console.log("Erfolg");
+          // Display a toast or a modal with a more engaging message
+          toast.success("Vielen Dank für Deine Meldung. Unser Team wird sich per E-Mail bei Dir melden.");
+
+          this.state.reportEmail = "";
+          this.state.reportDescription = "";
+
           this.handleCloseReportModal();
         }
       })
@@ -140,16 +128,16 @@ export default class NavBarMobile extends Component {
       });
   }
 
-  
+
   render() {
     return (
-      <div>
-
-        <Navbar bg="light" expand="lg">
-          <a href="https://www.inprove.info/" target="_blank">
-            {" "}
-            <img className="image" src={image} />
-          </a>
+        <div>
+          <Navbar expand="lg" className="custom-navbar">
+            <div className="navbar-logo">
+              <a href="https://www.inprove.info/" target="_blank" rel="noopener noreferrer">
+                <img className="image" src={image} alt="Logo" />
+              </a>
+            </div>
           <Container>
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -271,14 +259,7 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
-                  <li
-                    className="nav-item"
-                    hidden={this.state.showSignIn}
-                >
-                  <button className="nav-link" onClick={this.handleReportIssue}>
-                      Report Issue
-                    </button>
-                </li>
+
 
 
 
@@ -344,6 +325,19 @@ export default class NavBarMobile extends Component {
                     </Link>
                   </li>
 
+
+
+                  <li
+                      className="nav-item"
+                      hidden={this.state.showSignIn}
+                  >
+                    <button className="nav-link nav-link-alert" onClick={this.handleReportIssue}>
+                      Problem melden
+                    </button>
+                  </li>
+
+
+
                   <li className="nav-item" hidden={this.state.showSignIn}>
                     <Link className="nav-link" to={"/reg/sign-out"}>
                       Ausloggen
@@ -368,7 +362,7 @@ export default class NavBarMobile extends Component {
                 <Form.Label> Email </Form.Label>
                 <Form.Control
                   type="email"
-                  placeholder="Ihre E-Mail eingeben"
+                  placeholder="Dein E-Mail eingeben"
                   value={this.state.reportEmail}
                   onChange={(e) => this.setState({ reportEmail: e.target.value })}
                 />
@@ -378,7 +372,7 @@ export default class NavBarMobile extends Component {
                 <Form.Control
                   as="textarea"
                   rows={3}
-                  placeholder="Beschreiben Sie das Problem"
+                  placeholder=""
                   value={this.state.reportDescription}
                   onChange={(e) => this.setState({ reportDescription: e.target.value })}
                 />
@@ -394,7 +388,7 @@ export default class NavBarMobile extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
+        <ToastContainer />
       </div>
     );
   }

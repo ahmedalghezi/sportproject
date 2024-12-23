@@ -1,109 +1,117 @@
 import React, { useEffect, useState } from 'react';
-import { processArr } from "./processCSV";
-import { CSVToArray } from "./processCSV";
-import PostCSVData from "../DB/postCSV";
-import Sheet from "./xlsSheet/XlsSheet";
-import PostSignup from "../DB/postSignup";
-import alert from "bootstrap/js/src/alert";
-import MuiAlert from "@material-ui/lab/Alert";
-import { Alert } from "@mui/material";
-import DataTable from "react-data-table-component";
 import { useNavigate } from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
-
-import './tableStyle.css';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import MuiAlert from "@material-ui/lab/Alert";
+import { Alert } from "@mui/material";
 import LoggedHandler from "../DB/loggedHandler";
+import PostSignup from "../DB/postSignup";
+import './tableStyle.css';
 
 export default function AthletesGrid(props) {
     const [headerArray, setHeaderArray] = useState([]);
     const [actionArray, setActionArray] = useState([]);
-
     const [disciplinesList, setDisciplinesList] = useState([]);
     const [discipline, setDiscipline] = useState("");
     const [error, setError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
-
     const [success, setSuccess] = useState(false);
     const [successMsg, setSuccessMsg] = useState("");
     const [key, setKey] = useState("");
-
     const [isOnlyCoach, setOnlyCoach] = useState(false);
     const [isOnlyExternal, setOnlyExternal] = useState(false);
     const [isOnlyCompetence, setOnlyCompetence] = useState(false);
-
-   /*  const [athletesState, setAthletesState] = useState({
-        headerArray: [],
-        actionArray: [],
-        disciplinesList: [],
-        discipline: "",
-        key: "",
-        isOnlyCoach: false,
-        isOnlyExternal: false,
-        isOnlyCompetence: false
-    });*/
+    const [editingRow, setEditingRow] = useState(null); // Tracks the row being edited
+    const [editingName, setEditingName] = useState({ firstName: "", lastName: "" }); // Stores temporary edits
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("starting");
         if (disciplinesList.length === 0) {
-            getDisplines();
+            getDisciplines();
         }
     }, [disciplinesList]);
 
-    const getDisplines = () => {
-        PostSignup.getAllDisciplines().then(response => {
+    const getDisciplines = async () => {
+        try {
+            const response = await PostSignup.getAllDisciplines();
             if (response.data.res === "error") {
                 showError("Error getting disciplines from server");
-                return;
             } else if (response.data.res && response.data.res.length > 0) {
                 setDisciplinesList(response.data.res);
                 setDiscipline(response.data.res[0]);
             }
-        }).catch(e => {
-            console.log(e);
-            alert("some error has happened");
-        });
+        } catch (e) {
+            console.error("Error fetching disciplines:", e);
+            showError("Error fetching disciplines from server");
+        }
     };
 
-    const getAthlete = (event) => {
-        LoggedHandler.getAthletesID({ "discipline": discipline, "key": key, "onlyCoach": isOnlyCoach, "onlyExternal": isOnlyExternal, "onlyCompetence": isOnlyCompetence }).then(response => {
-            console.log(response.data);
+    const getAthletes = async () => {
+        try {
+            const response = await LoggedHandler.getAthletesID({
+                discipline,
+                key,
+                onlyCoach: isOnlyCoach,
+                onlyExternal: isOnlyExternal,
+                onlyCompetence: isOnlyCompetence,
+            });
             if (response.data.res === "no") {
                 showError("Not authorized to access the data");
                 return;
             }
             if (response.data.res === "error") {
-                showError("some error has happened, error code: grid135");
+                showError("An error occurred while fetching data (error code: grid135)");
                 return;
             }
-
             if (response.data.res === "ok") {
-                const arr = response.data.arr;
-                processStudyArr(arr);
-                return;
+                processStudyArr(response.data.arr);
             }
-        }).catch(e => {
-            console.log(e);
-        });
+        } catch (e) {
+            console.error("Error fetching athletes:", e);
+            showError("Error fetching athletes from server");
+        }
     };
 
-    function createRow(ID, name, lastAccessTime, hasConsent) {
-        const obj = [];
-        obj[0] = ID;
-        obj[1] = name;
-        obj[2] = "Upload report";
-        obj[3] = "Upload consent";
-        obj[4] = "Show profile";
-        obj[5] = "";
-        if (hasConsent)
-            obj[5] = "Show consent";
-        obj[6] = "lock";
-        obj[7] = lastAccessTime;
-        obj[8] = "Intervention"; // Add Intervention link as the last column
+    const handleEditNameClick = (row) => {
+        setEditingRow(row[0]); // Row ID
+        const [firstName, lastName] = row[1].split(" ");
+        setEditingName({ firstName, lastName });
+    };
 
-        return obj;
-    }
+    const handleSaveName = async (athleteID) => {
+        try {
+            const response = await fetch('https://inprove-sport.info/reg/changeName', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName: editingName.firstName,
+                    lastName: editingName.lastName,
+                    athlete_id: athleteID,
+                }),
+            });
+
+            if (response.ok) {
+                alert("Name updated successfully.");
+                setEditingRow(null); // Exit editing mode
+                getAthletes(); // Refresh the data
+            } else {
+                const errorData = await response.json();
+                showError(`Failed to update name: ${errorData.error}`);
+            }
+        } catch (error) {
+            console.error("Error updating name:", error);
+            showError("An error occurred while updating the name.");
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setEditingRow(null); // Exit editing mode without saving
+    };
 
     const onAction = (event) => {
         const action = event.target.name.split("-")[0];
@@ -127,90 +135,30 @@ export default function AthletesGrid(props) {
         if (action === "lock")
             warnThenLock(selectedID);
         if (action === "Intervention") {
-            console.log("Selected id:", selectedID);
             const queryParams = new URLSearchParams();
             queryParams.append('id', selectedID);
             queryParams.append('name', name);
 
-          /*   // Save the current state before navigating
-            setAthletesState(prevState => ({
-                ...prevState,
-                headerArray,
-                actionArray,
-                disciplinesList,
-                discipline,
-                key,
-                isOnlyCoach,
-                isOnlyExternal,
-                isOnlyCompetence
-            }));
-*/
             navigate('/avatar/interventions?' + queryParams.toString());
         }
     };
-
-    const handleEditName = async (athleteID) => {
-        // Prompt the user for the new first and last names
-        const firstName = prompt("Enter the new first name for this athlete:");
-        const lastName = prompt("Enter the new last name for this athlete:");
-    
-        // Ensure that both firstName and lastName are provided
-        if (!firstName || !lastName) {
-            alert("Both first and last names are required.");
-            return;
-        }
-    
-        try {
-            // Send a POST request to update the athlete's name
-            const response = await fetch('https://inprove-sport.info/reg/changeName', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    firstName: firstName,
-                    lastName: lastName,
-                    athlete_id: athleteID,
-                }),
-            });
-    
-            // Parse the response
-            const data = await response.json();
-            console.log("data : ", data)
-    
-            if (response.ok) {
-                // Display success message
-                alert("Name updated successfully.");
-                // Optionally, you can refresh the athlete list or update the UI here
-                submitAll(); // Re-fetch the athlete data to reflect the updated name
-            } else {
-                // Handle error responses
-                console.error('Error:', data.error);
-                alert(`Failed to update name: ${data.error}`);
-            }
-        } catch (error) {
-            console.error('Error updating name:', error);
-            alert('An error occurred while updating the name.');
-        }
-    };
-    
 
     const lockAccount = async (selectedID) => {
         try {
             const response = await fetch('https://inprove-sport.info/reg/lockAccount', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ id: selectedID })
+                body: JSON.stringify({ id: selectedID }),
             });
 
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            submitAll();
+            getAthletes();
             alert('The account has been successfully locked.');
         } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to lock the account. Please try again.');
+            console.error("Error locking account:", error);
+            showError("Failed to lock the account. Please try again.");
         }
     };
 
@@ -221,84 +169,41 @@ export default function AthletesGrid(props) {
     };
 
     function processStudyArr(arr) {
-        const actionArr = [];
-        for (let i = 0; i < arr.length; i++) {
-            let name = "-";
-            arr[i].name ? name = arr[i].name : name = "-";
-            let lastAccessTime = "-";
-            if (arr[i].last_access) {
-                lastAccessTime = arr[i].last_access;
-                lastAccessTime = lastAccessTime.split("T")[0];
-            }
-            const hasConsent = arr[i].hasConsent;
-            const row = createRow(arr[i].ID, name, lastAccessTime, hasConsent);
-            actionArr.push(row);
-        }
-        let header = [];
-        for (let i = 0; i < actionArr[0].length; i++) {
-            if (i === 0)
-                header.push("ID");
-            else if (i === actionArr[0].length - 1)
-                header.push("Intervention");
-            else if (i === actionArr[0].length - 2)
-                header.push("Last access");
-            else
-                header.push(" ");
-        }
+        const actionArr = arr.map((item) => {
+            const name = item.name || "-";
+            const lastAccessTime = item.last_access?.split("T")[0] || "-";
+            const hasConsent = item.hasConsent;
+            return createRow(item.ID, name, lastAccessTime, hasConsent);
+        });
+        const header = ["ID", "Name", "Upload Report", "Upload Consent", "Show Profile", "Consent", "Lock", "Last Access", "Intervention"];
         setActionArray(actionArr);
         setHeaderArray(header);
     }
 
-    const submitAll = () => {
-        setError(false);
-        getAthlete();
-        return;
-    };
+    function createRow(ID, name, lastAccessTime, hasConsent) {
+        return [ID, name, "Upload report", "Upload consent", "Show profile", hasConsent ? "Show consent" : "", "lock", lastAccessTime, "Intervention"];
+    }
 
     const showError = (msg) => {
         setError(true);
         setErrorMsg(msg);
     };
 
-    const showSuccess = (msg) => {
-        setSuccess(true);
-        setSuccessMsg(msg);
-    };
-
-    const handleDispSele = (event) => {
-        event.preventDefault();
-        setDiscipline(event.target.value);
-        setSuccess(false);
-        setError(false);
-    };
-
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
-
-    const handleKey = (event) => {
-        setKey(event.target.value);
-        event.preventDefault();
-    };
-
-    const changeRole = (event) => {
+    const handleRoleChange = (event) => {
         const { name, checked } = event.target;
-
-        if (name === 'coaches') {
+        if (name === "coaches") {
             setOnlyCoach(checked);
             if (checked) {
                 setOnlyExternal(false);
                 setOnlyCompetence(false);
             }
-        }
-        if (name === 'external') {
+        } else if (name === "external") {
             setOnlyExternal(checked);
             if (checked) {
                 setOnlyCoach(false);
                 setOnlyCompetence(false);
             }
-        }
-        if (name === 'competence') {
+        } else if (name === "competence") {
             setOnlyCompetence(checked);
             if (checked) {
                 setOnlyCoach(false);
@@ -310,13 +215,11 @@ export default function AthletesGrid(props) {
     return (
         <div>
             <h3>Manage Athletes</h3>
-            <form id='csv-form'>
-                <br />
-
+            <form id="csv-form">
                 <div className="form-group">
                     <label>Discipline</label>
                     <br />
-                    <select onChange={handleDispSele} name="discipline">
+                    <select onChange={(e) => setDiscipline(e.target.value)} name="discipline">
                         {disciplinesList.map((item) => (
                             <option key={item}>{item}</option>
                         ))}
@@ -324,127 +227,123 @@ export default function AthletesGrid(props) {
                 </div>
 
                 <div className="form-group">
-                    <input type="text" className="form-control" name="key" placeholder="key" onChange={handleKey} />
+                    <input
+                        type="text"
+                        className="form-control"
+                        name="key"
+                        placeholder="key"
+                        onChange={(e) => setKey(e.target.value)}
+                    />
                 </div>
 
                 <button
                     className="btn btn-primary btn-block paddingBtn"
                     onClick={(e) => {
                         e.preventDefault();
-                        setSuccess(false);
                         setError(false);
-                        submitAll();
+                        setSuccess(false);
+                        getAthletes();
                     }}
                 >
                     Show
                 </button>
-                &nbsp; &nbsp; &nbsp;
-                <input type="checkbox" id="coaches" name="coaches" value="no_coaches" onChange={changeRole} checked={isOnlyCoach} />
-                <label htmlFor="coaches"> only coaches </label>
-                &nbsp; &nbsp; &nbsp;
-                <input type="checkbox" id="external" name="external" value="external" onChange={changeRole} checked={isOnlyExternal} />
-                <label htmlFor="external"> external </label>
-                &nbsp; &nbsp; &nbsp;
-                <input type="checkbox" id="competence" name="competence" value="competence" onChange={changeRole} checked={isOnlyCompetence} />
-                <label htmlFor="competence"> competence team </label>
 
-                <Alert severity="success" hidden={!success}>{successMsg}</Alert>
+                <div>
+                    <input
+                        type="checkbox"
+                        id="coaches"
+                        name="coaches"
+                        onChange={handleRoleChange}
+                        checked={isOnlyCoach}
+                    />
+                    <label htmlFor="coaches">Only coaches</label>
+                    <input
+                        type="checkbox"
+                        id="external"
+                        name="external"
+                        onChange={handleRoleChange}
+                        checked={isOnlyExternal}
+                    />
+                    <label htmlFor="external">External</label>
+                    <input
+                        type="checkbox"
+                        id="competence"
+                        name="competence"
+                        onChange={handleRoleChange}
+                        checked={isOnlyCompetence}
+                    />
+                    <label htmlFor="competence">Competence team</label>
+                </div>
+
                 <Alert severity="error" hidden={!error}>{errorMsg}</Alert>
+                <Alert severity="success" hidden={!success}>{successMsg}</Alert>
 
-                {/* <table className={"styled-table"}>
+                <table className={"styled-table"}>
                     <thead>
-                        <tr>
-                            {headerArray.map((colItem, index) =>
-                                (
-                                    <td key={index}>{colItem}</td>
-                                ))}
-                        </tr>
+                    <tr>
+                        {headerArray.map((colItem, index) => (
+                            <td key={index}>{colItem}</td>
+                        ))}
+                    </tr>
                     </thead>
                     <tbody>
-                        {actionArray.map((row, rowIndex) => (
-                            <tr key={rowIndex}>
-                                {row.map((item, colIndex) => (
+                    {actionArray.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                            {row.map((item, colIndex) => {
+                                if (colIndex === 1) {
+                                    return (
+                                        <td key={colIndex}>
+                                            {editingRow === row[0] ? (
+                                                <>
+                                                    <input
+                                                        type="text"
+                                                        value={editingName.firstName}
+                                                        onChange={(e) =>
+                                                            setEditingName({ ...editingName, firstName: e.target.value })
+                                                        }
+                                                        placeholder="First Name"
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        value={editingName.lastName}
+                                                        onChange={(e) =>
+                                                            setEditingName({ ...editingName, lastName: e.target.value })
+                                                        }
+                                                        placeholder="Last Name"
+                                                    />
+                                                    <SaveIcon
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={() => handleSaveName(row[0])}
+                                                    />
+                                                    <CancelIcon
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={handleCancelEdit}
+                                                    />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <span>{item}</span>
+                                                    <EditNoteIcon
+                                                        style={{ cursor: "pointer" }}
+                                                        onClick={() => handleEditNameClick(row)}
+                                                    />
+                                                </>
+                                            )}
+                                        </td>
+                                    );
+                                }
+                                return (
                                     <td key={colIndex}>
-                                        <a href="#" name={item + "-" + row[0] + "-" + row[1]} onClick={onAction}>{item}</a>
+                                        <a href="#" name={item + "-" + row[0] + "-" + row[1]} onClick={onAction}>
+                                            {item}
+                                        </a>
                                     </td>
-                                ))}
-                            </tr>
-                        ))}
+                                );
+                            })}
+                        </tr>
+                    ))}
                     </tbody>
-                </table> */}
-
-{/* <table className={"styled-table"}>
-        <thead>
-            <tr>
-                {headerArray.map((colItem, index) => (
-                    <td key={index}>{colItem}</td>
-                ))}
-            </tr>
-        </thead>
-        <tbody>
-            {actionArray.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                    {row.map((item, colIndex) => {
-                        if (colIndex === 1) { // Column with the name
-                            return (
-                                <td key={colIndex}>
-                                    <span>{item}</span>
-                                    &nbsp;
-                                    <EditIcon
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleEditName(row[0])} // Pass athlete ID to edit name
-                                    />
-                                </td>
-                            );
-                        }
-                        return (
-                            <td key={colIndex}>
-                                <a href="#" name={item + "-" + row[0] + "-" + row[1]} onClick={onAction}>{item}</a>
-                            </td>
-                        );
-                    })}
-                </tr>
-            ))}
-        </tbody>
-    </table> */}
-                <table className={"styled-table"}>
-        <thead>
-            <tr>
-                {headerArray.map((colItem, index) => (
-                    <td key={index}>{colItem}</td>
-                ))}
-            </tr>
-        </thead>
-        <tbody>
-            {actionArray.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                    {row.map((item, colIndex) => {
-                        if (colIndex === 1) { 
-                            return (
-                                <td key={colIndex}>
-                                    <span>{item}</span>
-                                    &nbsp;
-                                    <EditIcon
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => handleEditName(row[0])}
-                                    />
-                                </td>
-                            );
-                        }
-                        return (
-                            <td key={colIndex}>
-                                <a href="#" name={item + "-" + row[0] + "-" + row[1]} onClick={onAction}>{item}</a>
-                            </td>
-                        );
-                    })}
-                </tr>
-            ))}
-        </tbody>
-    </table>
-
-                <br />
-                <br />
-
+                </table>
             </form>
         </div>
     );

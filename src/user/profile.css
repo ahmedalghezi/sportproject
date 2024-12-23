@@ -1,8 +1,51 @@
+/* General Styling */
+
+
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Subtle lift on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #ED1C24; /* Theme Red for Card Titles */
+}
+
+.shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn {
+    border-radius: 25px; /* Pill-shaped buttons */
+    background-color: #3B3E41; /* Gold Button Background */
+    color: #ffffff; /* Black Text */
+    border: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.btn:hover {
+    background-color: #050505; /* Theme Red on Hover */
+    color: #9b6767;
+}
+
+.btn-link {
+    font-size: 0.9rem;
+    color: #ED1C24; /* Theme Red for Links */
+    transition: color 0.2s ease;
+}
+
+.btn-link:hover {
+    color: #FDB913; /* Gold on Hover */
+}
 
 /* Profile Name Styling */
 .profile-name {
-    background-color: #1c8ef9;
-    color: white;
+    background-color: #3B3E41; /* Black Background */
+    color: #FDB913; /* Gold Text */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,7 +57,7 @@
 }
 
 /* List Styling */
-.list-one, .list-two, .list-three, .list-four {
+.list-one, .list-two, .list-three, .list-four ul {
     margin-right: 30px;
     padding-left: 0;
 }
@@ -25,6 +68,7 @@
 
 /* Information Content Styling */
 .information-content {
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 30px 0;
@@ -33,42 +77,45 @@
 /* Collapsible Sections Styling */
 .collapsible {
     background-color: white;
-    color: black;
+    color: #3B3E41; /* Black Text */
     font-size: 1.2rem;
     cursor: pointer;
     width: 200px;
     overflow: auto;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.collapsible:hover {
+    background-color: #FDB913; /* Gold Background */
+    color: white;
 }
 
 .collapcontent {
     padding: 10px;
     background-color: white;
     font-size: medium;
+    color: #3B3E41; /* Black Text */
 }
 
 .collapsible li label {
-    color: black;
+    color: #3B3E41; /* Black Text */
     font-weight: lighter;
     font-size: 0.9rem;
 }
 
 .collapsible button {
     background-color: white;
-    color: black;
+    color: #3B3E41; /* Black Text */
     border: none;
 }
 
 .collapsible button:hover {
-    background-color: #ccc;
+    background-color: #ED1C24; /* Theme Red */
+    color: white;
     cursor: pointer;
 }
 
-.collapsible .content-parent {
-    height: 0;
-    overflow: hidden;
-}
-
-/* Container for Sections to be Displayed Side-by-Side */
+/* Profile Content Layout */
 .profile-content {
     display: flex;
     flex-direction: row;
@@ -76,23 +123,24 @@
     padding: 20px;
 }
 
-/* Each Section Styling */
 .profile-section {
     flex: 1;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
     height: 100%; /* Ensure the height fills the parent container */
+    border: 1px solid #3B3E41; /* Black Border */
 }
 
+/* Unopened Files Section */
 .unopened-files-section {
-    background-color: white; /* Background for the entire section */
-    border-radius: 4px;      /* Rounded corners for the whole section */
-    padding: 10px;           /* Add padding inside the section */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Light shadow for the container */
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #3B3E41; /* Black Border */
 }
 
-/* Unopened Files Section Styling with Gradient */
 .unopened-files-section ul {
     list-style-type: none;
     padding: 0;
@@ -104,112 +152,249 @@
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
-    background-color: transparent; /* No background color on the list item */
-    transition: transform 0.2s ease-in-out;
+    background-color: transparent;
+    transition: transform 0.2s ease-in-out, background-color 0.2s;
+}
+
+.unopened-files-section li:hover {
+    transform: scale(1.1); /* Enlarge the list item on hover */
+    background-color: #FDB913; /* Gold Background on Hover */
+    color: #3B3E41; /* Black Text */
+}
+
+.unopened-files-section li:last-child {
+    border-bottom: none; /* Remove border from the last item */
 }
 
 .unopened-files-section a {
-    color: #007bff;
+    color: #ED1C24; /* Theme Red for Links */
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s, text-decoration 0.2s;
 }
 
-.unopened-files-section li:nth-child(1) a {
-    color: #002244; /* Darker Blue */
-}
-
-.unopened-files-section li:nth-child(2) a {
-    color: #335577; /* Dark Blue */
-}
-
-.unopened-files-section li:nth-child(3) a {
-    color: #6688aa; /* Medium Blue */
-}
-
-.unopened-files-section li:nth-child(4) a {
-    color: #99bbdd; /* Lighter Blue */
-}
-
-.unopened-files-section li:nth-child(5) a {
-    color: #cceeff; /* Bright Light Blue */
-}
-
-
 .unopened-files-section a:hover {
     text-decoration: underline;
-    color: #0056b3; /* Hover color */
+    color: #FDB913; /* Gold on Hover */
 }
 
-
-/* Hover effect for list items */
-.unopened-files-section li:hover {
-    transform: scale(1.1); /* Enlarge the list item on hover */
-    background-color: #d0e7ff; /* Light blue on hover */
-}
-
-/* Remove border from the last file entry */
-.unopened-files-section li:last-child {
-    border-bottom: none;
-}
-
-/* Icon Styling */
 .unopened-files-section li::before {
     content: '📄';
     font-size: 1.2em;
-    color: #0056b3;
+    color: #3B3E41; /* Black for Icon */
     margin-right: 10px;
 }
 
-/* Trash/Delete Icon on the Right */
 .unopened-files-section .delete-icon {
     font-size: 1.2em;
-    color: #0056b3;
+    color: #ED1C24; /* Theme Red for Delete Icon */
     cursor: pointer;
     transition: color 0.2s;
 }
 
 .unopened-files-section .delete-icon:hover {
-    color: #5e3ea3; /* Darker purple on hover */
-}
-
-/* Ensure no background on the section */
-.unopened-files-section {
-    background-color: #f9f9f9;
-    border-radius: 4px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #FDB913; /* Gold on Hover */
 }
 
 /* Heading Styling for Unopened Files Section */
 .unopened-files-section h4 {
-    color: black; /* White text color */
-    background-color: #f9f9f9; /* Blue background */
+    color: white; /* White Text */
+    background-color: #3B3E41; /* Black Background */
     font-weight: bold;
     font-size: 1.5em;
-    padding: 10px; /* Add padding inside the heading for better spacing */
-    border-radius: 4px; /* Rounded corners for the heading background */
-    margin-bottom: 15px; /* Add spacing below the heading */
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
 }
 
 /* Responsive Design */
 @media only screen and (max-width: 600px) {
     .unopened-files-section li {
-        display: flex;
-        align-items: center;
         padding: 10px 0;
         border-bottom: 1px solid #ddd;
-        background-color: white;
     }
 
     .unopened-files-section a {
         flex-grow: 1;
-        color: transparent;
-        background: linear-gradient(to bottom, #80c1ff, #e6f2ff);
+        background: linear-gradient(to bottom, #FDB913, #ED1C24);
         -webkit-background-clip: text;
         background-clip: text;
         font-weight: 500;
         text-decoration: none;
         padding: 0 10px;
+        color: transparent;
+    }
+}
+
+
+
+
+
+.custom-header-button {
+    background-color: #3B3E41; /* Black background */
+    color: white; /* White text */
+    border: none; /* Remove default button border */
+    border-radius: 4px; /* Rounded corners for better aesthetics */
+    padding: 10px 15px; /* Add padding for better spacing */
+    text-align: left; /* Align text to the left */
+    font-size: 1rem; /* Adjust font size */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    width: 100%; /* Full width */
+    transition: background-color 0.2s; /* Smooth hover transition */
+}
+
+.custom-header-button:hover {
+    background-color: #ED1C24; /* Red background on hover */
+    color: #FDB913; /* Gold text on hover */
+}
+
+
+
+
+/* Search Box Container */
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #3B3E41; /* Black border */
+    border-radius: 25px; /* Rounded container */
+    padding: 5px 15px; /* Padding inside the container */
+    width: 100%; /* Full width */
+    max-width: 400px; /* Optional max width for large layouts */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: relative; /* For positioning the clear button */
+}
+
+/* Icon Styling */
+.search-icon {
+    color: #FDB913; /* Gold color */
+    margin-right: 10px; /* Spacing between icon and input */
+    font-size: 1.2rem; /* Adjust icon size */
+}
+
+/* Input Field */
+.search-input {
+    flex: 1; /* Take up available space */
+    border: none; /* Remove default input border */
+    outline: none; /* Remove focus outline */
+    background-color: transparent; /* Transparent to match container */
+    font-size: 1rem; /* Adjust font size */
+    color: #3B3E41; /* Black text color */
+}
+
+/* Placeholder Styling */
+.search-input::placeholder {
+    color: #999; /* Light gray for placeholder */
+    font-style: italic; /* Optional styling */
+}
+
+/* Clear Button Styling */
+.clear-btn {
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    color: #ED1C24; /* Red color for the clear icon */
+    font-size: 1.2rem; /* Adjust size */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    margin-left: 10px; /* Space between input and clear button */
+    position: absolute;
+    right: 15px; /* Align to the right inside the container */
+}
+
+/* Hover Effects */
+.clear-btn:hover {
+    color: #FDB913; /* Change to gold on hover */
+}
+
+.search-box:hover {
+    border-color: #FDB913; /* Gold border on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+/* Focus Effects */
+.search-input:focus {
+    border: none; /* Prevent default border */
+    outline: none; /* Prevent default outline */
+}
+
+
+
+
+
+/* Custom Button Link Styling */
+.btn-custom-link {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    color: #FDB913; /* Gold text */
+    font-size: 1rem; /* Adjust font size for readability */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    text-decoration: none; /* Remove underline */
+    padding: 0; /* Remove padding for a clean inline look */
+    transition: color 0.2s ease-in-out; /* Smooth color transition on hover */
+}
+
+.btn-custom-link:hover {
+    color: #ED1C24; /* Red hover color */
+    text-decoration: underline; /* Optional underline on hover */
+}
+
+
+
+
+
+
+
+/* Base Styling for Custom Alerts */
+.custom-alert {
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Info Alert (Neutral) */
+.custom-alert-info {
+    background-color: #e8f4fc; /* Light Blue */
+    border-left: 5px solid #1c8ef9; /* Blue Border */
+    color: #0056b3; /* Dark Blue Text */
+}
+
+/* Secondary Alert (Light) */
+.custom-alert-secondary {
+    background-color: #f8f9fa; /* Light Gray */
+    border-left: 5px solid #6c757d; /* Gray Border */
+    color: #3b3e41; /* Dark Gray Text */
+}
+
+/* Warning Alert (Trainer-Specific) */
+.custom-alert-warning {
+    background-color: #fff4e5; /* Light Orange */
+    border-left: 5px solid #ed1c24; /* Red Border */
+    color: #856404; /* Brown Text */
+}
+
+/* Alert Heading */
+.custom-alert-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Alert Footer */
+.custom-alert-footer {
+    font-style: italic;
+    margin-top: 20px;
+    color: #6c757d; /* Subtle Gray */
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 600px) {
+    .custom-alert {
+        font-size: 0.9rem;
+        padding: 15px;
+    }
+
+    .custom-alert-heading {
+        font-size: 1.1rem;
     }
 }

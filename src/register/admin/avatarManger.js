@@ -5,6 +5,7 @@ import ManageDates from "./manageDates";
 import PostSignup from "../../DB/postSignup";
 import { FaQuestionCircle } from 'react-icons/fa';
 import { set } from 'date-fns';
+import ReactJson from "react-json-view";
 
 const SectionManager = () => {
     const [sections, setSections] = useState([]);
@@ -144,19 +145,52 @@ const SectionManager = () => {
                     <h1>{`Entries for Section : ${sectionName} and discipline: ${discipline}`}</h1>
                     <ul>
                         {sectionEntries.map((entry) => (
-                            <li key={entry.id}>
-                                {/* {entry.title} */}
+                            <li key={entry.id} style={{ marginBottom: '15px' }}>
+                                {/* Entry title and description */}
                                 <span data-toggle="tooltip" title={entry.descr}>
-                                {entry.title}
-                                {entry.descr && <span style={{ verticalAlign: "super" }}><FaQuestionCircle style={{ color: 'blue' }} /></span>}
+                        {entry.title}
+                                    {entry.descr && (
+                                        <span style={{ verticalAlign: "super" }}>
+                                <FaQuestionCircle style={{ color: 'blue' }} />
                             </span>
-                                {`: Tests = [${entry.test_names}]   Red = [${entry.red}]   Green = [${entry.green}]`}
+                                    )}
+                    </span>
+
+                                {/* Conditional rendering */}
+                                {entry.thresholds_obj ? (
+                                    <div style={{ marginTop: '10px' }}>
+                                        <strong>Thresholds Object:</strong>
+                                        <ReactJson
+                                            src={entry.thresholds_obj}
+                                            name={false}
+                                            enableClipboard={false}
+                                            collapsed={true}
+                                            displayDataTypes={false}
+                                            displayObjectSize={false}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div style={{ marginTop: '10px' }}>
+                                        <span>{`: Tests = [${entry.test_names}]   Red = [${entry.red}]   Green = [${entry.green}]`}</span>
+                                    </div>
+                                )}
+
+                                {/* Show additional values */}
+                                <div style={{ marginTop: '10px' }}>
+                                    <span><strong>Yellow:</strong> {entry.show_yellow ? 'Yes' : 'No'}</span>
+                                    <span style={{ marginLeft: '15px' }}><strong>Blue:</strong> {entry.show_blue ? 'Yes' : 'No'}</span>
+                                    <span style={{ marginLeft: '15px' }}><strong>Thresholds:</strong> {entry.show_thresholds ? 'Yes' : 'No'}</span>
+                                    <span style={{ marginLeft: '15px' }}><strong>Values:</strong> {entry.show_values ? 'Yes' : 'No'}</span>
+                                </div>
+
+                                {/* Remove entry button */}
                                 <button
                                     type="button"
                                     className="btn btn-danger"
                                     onClick={() => handleRemoveEntry(entry.id, sectionID)}
-                                    style={{ marginLeft: '10px' }}
-                                >X
+                                    style={{ marginTop: '10px' }}
+                                >
+                                    X
                                 </button>
                             </li>
                         ))}

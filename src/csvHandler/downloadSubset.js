@@ -41,6 +41,9 @@ import PostCSVData from "../DB/postCSV";
 
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
+import customListLeft from "./coustomDynamicListLeft";
+import {ResizableBox} from "react-resizable";
+//import customListLeftDynamic from  "./coustomDynamicListLeft"
 
 const defaultDates = {
     from: new Date(2020, 0, 1),
@@ -616,7 +619,7 @@ export function DownloadSubset() {
     };
 
     const customListLeft = (items) => (
-        <Paper sx={{width: 200, height: 230, overflow: "auto"}}>
+        <Paper sx={{width: 200, height: 530, overflow: "auto"}}>
             <List dense component="div" role="list">
                 {items.map((value) => {
                     const labelId = `transfer-list-item-${value.testid}-label`;
@@ -646,6 +649,10 @@ export function DownloadSubset() {
             </List>
         </Paper>
     );
+
+
+
+
 
 
     const customListRight = (items) => (
@@ -858,6 +865,8 @@ export function DownloadSubset() {
                         }
                     </div>
                     <div style={{padding: "8px 0"}}>Select features:</div>
+
+
                     <div>
                         <Grid
                             container
