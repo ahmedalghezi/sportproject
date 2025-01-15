@@ -1,0 +1,133 @@
+/* Container Styling */
+.special-section-variables-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Title Styling */
+.special-section-variables-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Form Styling */
+.special-section-variables-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.special-section-variables-input,
+.special-section-variables-textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.special-section-variables-textarea {
+    min-height: 60px;
+}
+
+.special-section-variables-button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+.special-section-variables-button:hover {
+    background-color: #0056b3;
+}
+
+/* Table Styling */
+.special-section-variables-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.special-section-variables-table th,
+.special-section-variables-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.special-section-variables-table th {
+    background-color: #f4f4f4;
+}
+
+.special-section-variables-row {
+    margin-bottom: 10px;
+}
+
+.special-section-variables-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.special-section-variables-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Actions Cell Styling */
+.special-section-variables-actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* Button Styling */
+.special-section-variables-edit-btn,
+.special-section-variables-delete-btn,
+.special-section-variables-save-btn,
+.special-section-variables-cancel-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.special-section-variables-edit-btn {
+    background-color: #ffc107;
+    color: white;
+}
+
+.special-section-variables-edit-btn:hover {
+    background-color: #e0a800;
+}
+
+.special-section-variables-delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.special-section-variables-delete-btn:hover {
+    background-color: #c82333;
+}
+
+.special-section-variables-save-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.special-section-variables-save-btn:hover {
+    background-color: #218838;
+}
+
+.special-section-variables-cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+.special-section-variables-cancel-btn:hover {
+    background-color: #5a6268;
+}

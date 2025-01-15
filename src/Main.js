@@ -103,6 +103,7 @@ import AvatarActions from "./register/admin/AvatarActions";
 import Intervention from "./register/admin/avatarIntervention";
 import InterventionList from "./register/admin/getIntervention";
 import SquadMeasurementManager from "./prerna/fileUpload/SquadMeasuementsManager";
+import SpecialSectionVariables from "./register/admin/SpceialAvatarSectionManager";
 
 
 function Main() {
@@ -273,6 +274,7 @@ function Main() {
                     <Route path='/avatar/interventionsList'  element={<div className="wide-inner"><InterventionList/></div>}/>
 
 
+                    <Route path='/avatar/specialSectionManager'  element={<div className="wide-inner"><SpecialSectionVariables/></div>}/>
 
 
 
